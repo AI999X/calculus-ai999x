@@ -1,0 +1,950 @@
+<!doctype html><html><head><meta charset="utf-8"><title>calculus-ai999x — capability guide</title>
+<script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'}};</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+<style>
+@page{size:A4;margin:16mm 15mm}
+body{font-family:"Segoe UI",Arial,sans-serif;font-size:10.5pt;line-height:1.45;color:#1b1f24;max-width:880px;margin:auto}
+h1{font-size:22pt;border-bottom:2px solid #2b5c8a;padding-bottom:4px;margin-top:28px;page-break-before:always}
+h1:first-of-type{page-break-before:avoid}
+h2{font-size:15pt;color:#2b5c8a;margin-top:22px;page-break-after:avoid}
+h3{font-size:12pt;margin-top:16px;page-break-after:avoid}
+pre{background:#f4f6f8;border:1px solid #dde3e8;border-radius:4px;padding:8px 10px;font-size:8.8pt;white-space:pre-wrap;page-break-inside:avoid}
+code{font-family:Consolas,monospace;font-size:9pt;background:#f4f6f8;padding:0 2px}
+pre code{background:none;padding:0}
+table{border-collapse:collapse;margin:8px 0;font-size:9pt;width:100%;page-break-inside:auto}
+th,td{border:1px solid #cfd6dd;padding:3px 6px;vertical-align:top;text-align:left}
+th{background:#eaf0f5}
+.math{margin:6px 0;overflow-x:auto}
+.badge{display:inline-block;color:#fff;border-radius:3px;padding:0 5px;font-size:8.5pt;white-space:nowrap}
+figure{margin:10px 0;text-align:center;page-break-inside:avoid}figure img{max-width:88%}
+figcaption{font-size:9pt;color:#555}
+.pb{page-break-after:always}
+</style></head><body>
+<h1>calculus-ai999x: capability guide</h1>
+<p><strong>Creator / engineer:</strong> Ibnul Jaif Farabi · <strong>Company:</strong> AI999X. Ask the package <code>Who created you?</code> or call <code>calculus_ai999x.about()</code> for the same answer.</p>
+<p>Every capability calculus-ai999x supports, generated from its certified capability contracts. Every example below was executed when this guide was built. The structured call <code>solve(&quot;&lt;capability id&gt;&quot;, ...)</code> is the guaranteed interface: a documented call with valid inputs must be SOLVED. Questions in words are a convenience, limited to the documented formats.</p>
+<h2>Quick start</h2>
+<pre><code class="python">import calculus_ai999x
+
+result = calculus_ai999x.solve(&#x27;derivative_at_point&#x27;, f=&#x27;x^3 - 2x&#x27;, a=2)
+result.show()
+# derivative = 10, derivative_expression = 3*x^2 - 2</code></pre>
+<h2>By topic</h2>
+<table><thead><tr><th>topic</th><th>capabilities</th></tr></thead><tbody><tr><td>Derivatives</td><td><a href="#derivative_at_point">Derivative at a point</a>, <a href="#second_derivative_at_point">Second derivative at a point</a>, <a href="#nth_derivative_at_point">Higher derivative at a point</a>, <a href="#implicit_derivative">Implicit differentiation</a>, <a href="#mean_value_theorem">Mean value theorem</a></td></tr><tr><td>Derivatives / concavity</td><td><a href="#inflection_points">Inflection points</a></td></tr><tr><td>Derivatives / curvature</td><td><a href="#curvature">Curvature of a graph</a></td></tr><tr><td>Derivatives / linearization</td><td><a href="#linear_approximation">Linear approximation</a></td></tr><tr><td>Derivatives / motion</td><td><a href="#velocity_acceleration">Velocity and acceleration from position</a></td></tr><tr><td>Derivatives / optimization</td><td><a href="#extrema_on_interval">Absolute extrema on a closed interval</a>, <a href="#critical_points_classify">Critical points and their classification</a></td></tr><tr><td>Derivatives / rates of change</td><td><a href="#average_rate_of_change">Average rate of change</a></td></tr><tr><td>Derivatives / tangent and normal lines</td><td><a href="#tangent_line">Tangent line</a>, <a href="#normal_line">Normal line</a></td></tr><tr><td>Fourier series</td><td><a href="#fourier_coefficients">Fourier coefficients</a></td></tr><tr><td>Integrals</td><td><a href="#definite_integral">Definite integral</a>, <a href="#ftc_derivative">Derivative of an integral (fundamental theorem)</a></td></tr><tr><td>Integrals / applications</td><td><a href="#average_value">Average value of a function</a></td></tr><tr><td>Integrals / arc length</td><td><a href="#arc_length">Arc length of a graph</a></td></tr><tr><td>Integrals / area</td><td><a href="#area_between_curves">Area between two curves</a>, <a href="#area_enclosed_curves">Area enclosed by two curves</a></td></tr><tr><td>Integrals / centroids</td><td><a href="#centroid_region">Centroid of a region under a curve</a></td></tr><tr><td>Integrals / improper integrals</td><td><a href="#improper_integral">Improper integral to infinity</a></td></tr><tr><td>Integrals / Riemann sums</td><td><a href="#left_riemann_sum">Left Riemann sum</a>, <a href="#right_riemann_sum">Right Riemann sum</a></td></tr><tr><td>Integrals / surface area</td><td><a href="#surface_area_revolution">Surface area of revolution</a></td></tr><tr><td>Integrals / volumes of revolution</td><td><a href="#disk_volume">Volume of revolution (disk method)</a>, <a href="#washer_volume">Volume of revolution (washer method)</a>, <a href="#shell_volume">Volume of revolution (shell method)</a></td></tr><tr><td>Limits</td><td><a href="#limit_at_point">Limit at a point</a>, <a href="#limit_at_infinity">Limit at infinity</a></td></tr><tr><td>Multiple integrals</td><td><a href="#double_integral_rectangle">Double integral over a rectangle</a>, <a href="#double_integral_region">Double integral over a region</a>, <a href="#triple_integral_box">Triple integral over a box</a>, <a href="#surface_area_graph">Surface area of a graph</a></td></tr><tr><td>Multivariable calculus</td><td><a href="#partial_derivative">Partial derivative</a>, <a href="#gradient">Gradient</a>, <a href="#directional_derivative">Directional derivative</a>, <a href="#tangent_plane">Tangent plane</a></td></tr><tr><td>Multivariable calculus / change of variables</td><td><a href="#jacobian_determinant">Jacobian determinant</a></td></tr><tr><td>Multivariable calculus / optimization</td><td><a href="#hessian_classification">Second derivative test (two variables)</a></td></tr><tr><td>Numerical differentiation</td><td><a href="#numerical_derivative">Finite-difference derivative</a></td></tr><tr><td>Numerical integration</td><td><a href="#trapezoid_rule">Trapezoidal rule</a>, <a href="#simpson_rule">Simpson&#x27;s rule</a>, <a href="#midpoint_rule">Midpoint rule</a>, <a href="#gauss_legendre">Gauss-Legendre quadrature</a></td></tr><tr><td>Numerical methods / root finding</td><td><a href="#newton_method">Newton&#x27;s method</a></td></tr><tr><td>Parametric curves</td><td><a href="#parametric_arc_length">Arc length of a parametric curve</a>, <a href="#parametric_slope">Slope and concavity of a parametric curve</a></td></tr><tr><td>Polar curves</td><td><a href="#polar_area">Area in polar coordinates</a></td></tr><tr><td>Series</td><td><a href="#geometric_series_sum">Sum of an infinite geometric series</a>, <a href="#geometric_partial_sum">Partial sum of a geometric series</a>, <a href="#arithmetic_series_sum">Sum of an arithmetic series</a>, <a href="#series_sum">Sum of an infinite series</a>, <a href="#ratio_test">Ratio test</a></td></tr><tr><td>Series / Taylor</td><td><a href="#taylor_polynomial">Taylor polynomial</a></td></tr><tr><td>Special functions</td><td><a href="#gamma_function">Gamma function</a>, <a href="#beta_function">Beta function</a>, <a href="#error_function">Error function</a>, <a href="#regularized_gamma">Regularized incomplete gamma functions</a>, <a href="#bessel_j">Bessel function of the first kind</a></td></tr><tr><td>Special functions / orthogonal polynomials</td><td><a href="#legendre_polynomial">Legendre polynomial</a>, <a href="#chebyshev_polynomial">Chebyshev polynomial</a></td></tr><tr><td>Special functions / series</td><td><a href="#riemann_zeta">Riemann zeta function</a></td></tr><tr><td>Vector calculus</td><td><a href="#laplacian">Laplacian</a>, <a href="#divergence">Divergence</a>, <a href="#curl">Curl</a>, <a href="#line_integral_vector">Line integral of a vector field</a>, <a href="#line_integral_scalar">Line integral with respect to arc length</a>, <a href="#greens_theorem">Green&#x27;s theorem on a rectangle</a>, <a href="#divergence_theorem_box">Outward flux through a box (divergence theorem)</a></td></tr></tbody></table>
+<h2>Outcomes</h2>
+<table><thead><tr><th>outcome</th><th>meaning</th><th>what to do</th></tr></thead><tbody><tr><td>SOLVED</td><td>a value with its unit, steps, assumptions and verification</td><td>use it; read the assumptions</td></tr><tr><td>NEEDS_INPUT</td><td>a required input is missing; <code>uncertainty[&#x27;needs&#x27;]</code> names it</td><td>add it (with its unit) and ask again</td></tr><tr><td>AMBIGUOUS</td><td>two readings or two physical branches give different answers</td><td>say which situation is meant</td></tr><tr><td>INVALID_INPUT</td><td>a unit of the wrong kind, an unknown input name, values with no valid solution</td><td>correct the input</td></tr><tr><td>OUT_OF_SCOPE</td><td>no certified capability computes this (or the structure is not modelled yet)</td><td>see the catalogue below</td></tr><tr><td>UNRECOGNIZED_FORMAT</td><td>the wording was not recognised; a supported template is offered in <code>uncertainty[&#x27;try&#x27;]</code></td><td>use the template or solve()</td></tr><tr><td>INTERNAL_ERROR</td><td>a defect of the engine, never a property of the question</td><td>report it with the question</td></tr></tbody></table>
+<h2>Result fields</h2>
+<table><thead><tr><th>field</th><th>meaning</th></tr></thead><tbody><tr><td>value, unit</td><td>the result in SI units</td></tr><tr><td>values</td><td>every output of a procedure (x1, x2, discriminant ...)</td></tr><tr><td>outcome</td><td>one of the seven outcomes above</td></tr><tr><td>steps</td><td>each equation used, its inputs (with where each came from) and its result</td></tr><tr><td>assumptions</td><td>conditions and declared defaults the answer relies on</td></tr><tr><td>verification</td><td>residual of every equation, dimensional consistency, independent checks</td></tr><tr><td>latex()</td><td>the derivation as LaTeX</td></tr><tr><td>show()</td><td>renders in a notebook, prints in a terminal</td></tr></tbody></table>
+<h2>Common mistakes</h2>
+<ul><li>Free wording: if it is not recognised, use the offered template or the structured call; the reader never guesses.</li><li>A coefficient that violates a stated condition (a = 0 in a quadratic): INVALID_INPUT says why.</li><li>A text value where a number is expected: INVALID_INPUT; fractions as strings (&quot;1/2&quot;) are accepted.</li><li>A problem outside the procedure (a cubic for the quadratic solver): OUT_OF_SCOPE, never an approximation.</li></ul>
+<h2>Procedures: algorithms with several outputs</h2>
+<p>Call <code>solve(&quot;&lt;id&gt;&quot;, **inputs)</code> with plain numbers; the result&#x27;s <code>values</code> holds every output (complex numbers as Python complex values; <code>to_dict()</code> writes them as {re, im}). Each result is substituted back into its defining equation before it is returned.</p>
+<table><thead><tr><th>id</th><th>operation</th><th>inputs</th><th>outputs</th></tr></thead><tbody><tr><td>derivative_at_point</td><td>Derivative at a point</td><td>f, a</td><td>derivative, derivative_expression</td></tr><tr><td>second_derivative_at_point</td><td>Second derivative at a point</td><td>f, a</td><td>second_derivative, second_derivative_expression</td></tr><tr><td>nth_derivative_at_point</td><td>Higher derivative at a point</td><td>f, n, a</td><td>nth_derivative, nth_derivative_expression</td></tr><tr><td>tangent_line</td><td>Tangent line</td><td>f, a</td><td>slope, intercept, y0, equation</td></tr><tr><td>normal_line</td><td>Normal line</td><td>f, a</td><td>slope, intercept, y0</td></tr><tr><td>average_rate_of_change</td><td>Average rate of change</td><td>f, a, b</td><td>average_rate, fa, fb</td></tr><tr><td>velocity_acceleration</td><td>Velocity and acceleration from position</td><td>s, t0</td><td>velocity, acceleration, speed, position</td></tr><tr><td>linear_approximation</td><td>Linear approximation</td><td>f, a, x1</td><td>approximation, actual, error, slope</td></tr><tr><td>curvature</td><td>Curvature of a graph</td><td>f, a</td><td>curvature, radius_of_curvature</td></tr><tr><td>definite_integral</td><td>Definite integral</td><td>f, a, b</td><td>integral</td></tr><tr><td>average_value</td><td>Average value of a function</td><td>f, a, b</td><td>average_value, integral</td></tr><tr><td>area_between_curves</td><td>Area between two curves</td><td>f, g, a, b</td><td>area, net_integral, crossings</td></tr><tr><td>area_enclosed_curves</td><td>Area enclosed by two curves</td><td>f, g</td><td>area, x_left, x_right, intersections</td></tr><tr><td>disk_volume</td><td>Volume of revolution (disk method)</td><td>f, a, b</td><td>volume</td></tr><tr><td>washer_volume</td><td>Volume of revolution (washer method)</td><td>f, g, a, b</td><td>volume</td></tr><tr><td>shell_volume</td><td>Volume of revolution (shell method)</td><td>f, a, b</td><td>volume</td></tr><tr><td>arc_length</td><td>Arc length of a graph</td><td>f, a, b</td><td>arc_length</td></tr><tr><td>surface_area_revolution</td><td>Surface area of revolution</td><td>f, a, b</td><td>surface_area</td></tr><tr><td>centroid_region</td><td>Centroid of a region under a curve</td><td>f, a, b</td><td>area, x_bar, y_bar</td></tr><tr><td>improper_integral</td><td>Improper integral to infinity</td><td>f, a</td><td>integral</td></tr><tr><td>left_riemann_sum</td><td>Left Riemann sum</td><td>f, a, b, n</td><td>approximation</td></tr><tr><td>right_riemann_sum</td><td>Right Riemann sum</td><td>f, a, b, n</td><td>approximation</td></tr><tr><td>trapezoid_rule</td><td>Trapezoidal rule</td><td>f, a, b, n</td><td>approximation, exact, error</td></tr><tr><td>simpson_rule</td><td>Simpson&#x27;s rule</td><td>f, a, b, n</td><td>approximation, exact, error</td></tr><tr><td>midpoint_rule</td><td>Midpoint rule</td><td>f, a, b, n</td><td>approximation, exact, error</td></tr><tr><td>gauss_legendre</td><td>Gauss-Legendre quadrature</td><td>f, a, b, n</td><td>approximation, exact, error</td></tr><tr><td>numerical_derivative</td><td>Finite-difference derivative</td><td>f, a, h, method</td><td>approximation, exact, error</td></tr><tr><td>newton_method</td><td>Newton&#x27;s method</td><td>f, x0, n</td><td>x_n, f_x_n, iterates</td></tr><tr><td>limit_at_point</td><td>Limit at a point</td><td>f, a</td><td>limit</td></tr><tr><td>limit_at_infinity</td><td>Limit at infinity</td><td>f</td><td>limit</td></tr><tr><td>implicit_derivative</td><td>Implicit differentiation</td><td>F, p</td><td>dy_dx</td></tr><tr><td>extrema_on_interval</td><td>Absolute extrema on a closed interval</td><td>f, a, b</td><td>absolute_max, absolute_min, critical_points</td></tr><tr><td>critical_points_classify</td><td>Critical points and their classification</td><td>f</td><td>critical_points, local_maxima, local_minima</td></tr><tr><td>inflection_points</td><td>Inflection points</td><td>f</td><td>inflection_points</td></tr><tr><td>mean_value_theorem</td><td>Mean value theorem</td><td>f, a, b</td><td>secant_slope, c_values</td></tr><tr><td>ftc_derivative</td><td>Derivative of an integral (fundamental theorem)</td><td>f, a, g, x0</td><td>derivative</td></tr><tr><td>geometric_series_sum</td><td>Sum of an infinite geometric series</td><td>a, r</td><td>sum</td></tr><tr><td>geometric_partial_sum</td><td>Partial sum of a geometric series</td><td>a, r, n</td><td>sum</td></tr><tr><td>arithmetic_series_sum</td><td>Sum of an arithmetic series</td><td>a1, d, n</td><td>sum, last_term</td></tr><tr><td>series_sum</td><td>Sum of an infinite series</td><td>a, k</td><td>sum</td></tr><tr><td>ratio_test</td><td>Ratio test</td><td>a</td><td>ratio_limit, verdict</td></tr><tr><td>taylor_polynomial</td><td>Taylor polynomial</td><td>f, a, n, x1</td><td>coefficients, value, function_value, error</td></tr><tr><td>partial_derivative</td><td>Partial derivative</td><td>f, var, p</td><td>partial</td></tr><tr><td>gradient</td><td>Gradient</td><td>f, p</td><td>gradient, magnitude</td></tr><tr><td>directional_derivative</td><td>Directional derivative</td><td>f, p, u</td><td>directional_derivative</td></tr><tr><td>tangent_plane</td><td>Tangent plane</td><td>f, p</td><td>z0, fx, fy, c</td></tr><tr><td>hessian_classification</td><td>Second derivative test (two variables)</td><td>f, p</td><td>fxx, fxy, fyy, D, classification</td></tr><tr><td>laplacian</td><td>Laplacian</td><td>f, p</td><td>laplacian</td></tr><tr><td>divergence</td><td>Divergence</td><td>P, Q, R, p</td><td>divergence</td></tr><tr><td>curl</td><td>Curl</td><td>P, Q, R, p</td><td>curl</td></tr><tr><td>jacobian_determinant</td><td>Jacobian determinant</td><td>xu, yv, p</td><td>jacobian</td></tr><tr><td>double_integral_rectangle</td><td>Double integral over a rectangle</td><td>f, a, b, c, d</td><td>integral</td></tr><tr><td>double_integral_region</td><td>Double integral over a region</td><td>f, a, b, g1, g2</td><td>integral</td></tr><tr><td>triple_integral_box</td><td>Triple integral over a box</td><td>f, x0, x1, y0, y1, z0, z1</td><td>integral</td></tr><tr><td>surface_area_graph</td><td>Surface area of a graph</td><td>f, a, b, c, d</td><td>surface_area</td></tr><tr><td>line_integral_vector</td><td>Line integral of a vector field</td><td>P, Q, xt, yt, t0, t1</td><td>line_integral</td></tr><tr><td>line_integral_scalar</td><td>Line integral with respect to arc length</td><td>f, xt, yt, t0, t1</td><td>line_integral</td></tr><tr><td>greens_theorem</td><td>Green&#x27;s theorem on a rectangle</td><td>P, Q, a, b, c, d</td><td>circulation, double_integral</td></tr><tr><td>divergence_theorem_box</td><td>Outward flux through a box (divergence theorem)</td><td>P, Q, R, x0, x1, y0, y1, z0, z1</td><td>flux</td></tr><tr><td>parametric_arc_length</td><td>Arc length of a parametric curve</td><td>xt, yt, t0, t1</td><td>arc_length</td></tr><tr><td>parametric_slope</td><td>Slope and concavity of a parametric curve</td><td>xt, yt, t0</td><td>dy_dx, d2y_dx2</td></tr><tr><td>polar_area</td><td>Area in polar coordinates</td><td>r, al, be</td><td>area</td></tr><tr><td>gamma_function</td><td>Gamma function</td><td>x</td><td>gamma</td></tr><tr><td>beta_function</td><td>Beta function</td><td>a, b</td><td>beta</td></tr><tr><td>error_function</td><td>Error function</td><td>x</td><td>erf, erfc</td></tr><tr><td>regularized_gamma</td><td>Regularized incomplete gamma functions</td><td>a, x</td><td>P, Q</td></tr><tr><td>bessel_j</td><td>Bessel function of the first kind</td><td>n, x</td><td>J</td></tr><tr><td>riemann_zeta</td><td>Riemann zeta function</td><td>s</td><td>zeta</td></tr><tr><td>legendre_polynomial</td><td>Legendre polynomial</td><td>n, x</td><td>P</td></tr><tr><td>chebyshev_polynomial</td><td>Chebyshev polynomial</td><td>n, x</td><td>T</td></tr><tr><td>fourier_coefficients</td><td>Fourier coefficients</td><td>f, L, k</td><td>a0, a_k, b_k</td></tr></tbody></table>
+<h3 id="derivative_at_point">Derivative at a point — <code>derivative_at_point</code></h3>
+<p>The derivative f&#x27;(a) of a function f(x) at $x = a$ (the slope of its graph there).</p>
+<div class="math">\[f&#x27;(a) = \lim_{h\to 0}\frac{f(a+h)-f(a)}{h}\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x)</td><td></td></tr><tr><td><code>a</code></td><td>the point $x = a$</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>derivative</code></td><td>f&#x27;(a)</td></tr><tr><td><code>derivative_expression</code></td><td>f&#x27;(x) as an expression</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact symbolic differentiation (sum, product, quotient and chain rules), then evaluation at $x = a$</li><li><strong>Assumes:</strong> f is defined and differentiable at $x = a$</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;derivative_at_point&#x27;, f=&#x27;x^3 - 2x&#x27;, a=2)
+# -&gt; derivative = 10, derivative_expression = 3*x^2 - 2   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;derivative_at_point&#x27;, f=&#x27;sin(3x) + x^2&#x27;, a=0)
+# -&gt; derivative = 3, derivative_expression = 2*x + 3*cos(3*x)   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;derivative_at_point&#x27;, f=&#x27;x^2*exp(x)&#x27;, a=1)
+# -&gt; derivative = 8.15485, derivative_expression = x^2*exp(x) + 2*x*exp(x)   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;derivative_at_point&#x27;, f=&#x27;log(x)&#x27;, a=4)
+# -&gt; derivative = 0.25, derivative_expression = 1/x   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the derivative of f(x) = x^3 - 2x at x = 2.</td><td>SOLVED</td><td>derivative = 10, derivative_expression = 3*x^2 - 2</td></tr><tr><td>What is f&#x27;(0) if f(x) = sin(3x) + x^2?</td><td>SOLVED</td><td>derivative = 3, derivative_expression = 2*x + 3*cos(3*x)</td></tr><tr><td>Differentiate x^2*exp(x) and evaluate at x = 1.</td><td>SOLVED</td><td>derivative = 8.15485, derivative_expression = x^2*exp(x) + 2*x*exp(x)</td></tr><tr><td>What is the slope of the curve y = sqrt(x) at x = 9?</td><td>SOLVED</td><td>derivative = 0.166667, derivative_expression = 1/(2*sqrt(x))</td></tr><tr><td>Find the instantaneous rate of change of x^2 + 3x at x = 1.</td><td>SOLVED</td><td>derivative = 5, derivative_expression = 2*x + 3</td></tr><tr><td>Find the derivative of log(x) at x = -1.</td><td>INVALID_INPUT</td><td>Derivative at a point: the expression is not real there.</td></tr></tbody></table>
+<h3 id="second_derivative_at_point">Second derivative at a point — <code>second_derivative_at_point</code></h3>
+<p>The second derivative f&#x27;&#x27;(a) of f(x) at $x = a$ (concavity: positive means concave up).</p>
+<div class="math">\[f&#x27;&#x27;(a) = \frac{d^2 f}{dx^2}\Big|_{x=a}\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x)</td><td></td></tr><tr><td><code>a</code></td><td>the point $x = a$</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>second_derivative</code></td><td>f&#x27;&#x27;(a)</td></tr><tr><td><code>second_derivative_expression</code></td><td>f&#x27;&#x27;(x)</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact symbolic differentiation twice, then evaluation at $x = a$</li><li><strong>Assumes:</strong> f is twice differentiable at $x = a$</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;second_derivative_at_point&#x27;, f=&#x27;x^4 - 3x^2&#x27;, a=1)
+# -&gt; second_derivative = 6, second_derivative_expression = 6*(2*x^2 - 1)   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;second_derivative_at_point&#x27;, f=&#x27;cos(2x)&#x27;, a=0)
+# -&gt; second_derivative = -4, second_derivative_expression = -4*cos(2*x)   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;second_derivative_at_point&#x27;, f=&#x27;exp(2x)&#x27;, a=0)
+# -&gt; second_derivative = 4, second_derivative_expression = 4*exp(2*x)   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the second derivative of x^4 - 3x^2 at x = 1.</td><td>SOLVED</td><td>second_derivative = 6, second_derivative_expression = 6*(2*x^2 - 1)</td></tr><tr><td>What is f&#x27;&#x27;(0) if f(x) = cos(2x)?</td><td>SOLVED</td><td>second_derivative = -4, second_derivative_expression = -4*cos(2*x)</td></tr><tr><td>Find the second derivative of sqrt(x) at x = -4.</td><td>INVALID_INPUT</td><td>Second derivative at a point: the expression is not real there.</td></tr></tbody></table>
+<h3 id="nth_derivative_at_point">Higher derivative at a point — <code>nth_derivative_at_point</code></h3>
+<p>The n-th derivative $f^{n}$(a) of f(x) at $x = a.$</p>
+<div class="math">\[f^{(n)}(a) = \frac{d^n f}{dx^n}\Big|_{x=a}\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x)</td><td></td></tr><tr><td><code>n</code></td><td>the order of the derivative</td><td></td></tr><tr><td><code>a</code></td><td>the point $x = a$</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>nth_derivative</code></td><td>$f^{n}$(a)</td></tr><tr><td><code>nth_derivative_expression</code></td><td>$f^{n}$(x)</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact symbolic differentiation n times, then evaluation at $x = a$</li><li><strong>Assumes:</strong> $1  \leq  n  \leq  12$; f is n times differentiable at $x = a$</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;nth_derivative_at_point&#x27;, f=&#x27;sin(2x)&#x27;, n=4, a=1)
+# -&gt; nth_derivative = 14.5488, nth_derivative_expression = 16*sin(2*x)   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;nth_derivative_at_point&#x27;, f=&#x27;x^5&#x27;, n=3, a=2)
+# -&gt; nth_derivative = 240, nth_derivative_expression = 60*x^2   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;nth_derivative_at_point&#x27;, f=&#x27;exp(3x)&#x27;, n=5, a=0)
+# -&gt; nth_derivative = 243, nth_derivative_expression = 243*exp(3*x)   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the 4th derivative of sin(2x) at x = 1.</td><td>SOLVED</td><td>nth_derivative = 14.5488, nth_derivative_expression = 16*sin(2*x)</td></tr><tr><td>Find the third derivative of x^5 at x = 2.</td><td>SOLVED</td><td>nth_derivative = 240, nth_derivative_expression = 60*x^2</td></tr><tr><td>What is the 5th derivative of exp(3x) at x = 0?</td><td>SOLVED</td><td>nth_derivative = 243, nth_derivative_expression = 243*exp(3*x)</td></tr></tbody></table>
+<h3 id="tangent_line">Tangent line — <code>tangent_line</code></h3>
+<p>The tangent line $y = m x + b$ to $y = f$(x) at $x = a$: slope $m = f$&#x27;(a), intercept $b = f$(a) - a*f&#x27;(a).</p>
+<div class="math">\[y = f(a) + f&#x27;(a)\,(x - a)\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x)</td><td></td></tr><tr><td><code>a</code></td><td>the point of tangency $x = a$</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>slope</code></td><td>slope $m = f$&#x27;(a)</td></tr><tr><td><code>intercept</code></td><td>y-intercept b</td></tr><tr><td><code>y0</code></td><td>f(a)</td></tr><tr><td><code>equation</code></td><td>the line as $y = m x + b$</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> point-slope form through (a, f(a)) with the exact derivative</li><li><strong>Assumes:</strong> f is differentiable at $x = a$</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;tangent_line&#x27;, f=&#x27;x^2 + 1&#x27;, a=2)
+# -&gt; slope = 4, intercept = -3, y0 = 5, equation = y = 4*x - 3   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;tangent_line&#x27;, f=&#x27;sin(x)&#x27;, a=0)
+# -&gt; slope = 1, intercept = 0, y0 = 0, equation = y = 1*x + 0   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;tangent_line&#x27;, f=&#x27;exp(x)&#x27;, a=1)
+# -&gt; slope = 2.71828, intercept = 0, y0 = 2.71828, equation = y = 2.71828182846*x + 0   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the equation of the tangent line to y = x^2 + 1 at x = 2.</td><td>SOLVED</td><td>slope = 4, intercept = -3, y0 = 5, equation = y = 4*x - 3</td></tr><tr><td>Find the tangent line to f(x) = sin(x) at x = 0.</td><td>SOLVED</td><td>slope = 1, intercept = 0, y0 = 0, equation = y = 1*x + 0</td></tr><tr><td>What is the slope of the tangent line to y = x^3 at x = -1?</td><td>SOLVED</td><td>slope = 3, intercept = 2, y0 = -1, equation = y = 3*x + 2</td></tr></tbody></table>
+<h3 id="normal_line">Normal line — <code>normal_line</code></h3>
+<p>The normal line (perpendicular to the tangent) to $y = f$(x) at $x = a$: slope -1/f&#x27;(a).</p>
+<div class="math">\[y = f(a) - \frac{1}{f&#x27;(a)}\,(x - a)\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x)</td><td></td></tr><tr><td><code>a</code></td><td>the point $x = a$</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>slope</code></td><td>slope -1/f&#x27;(a)</td></tr><tr><td><code>intercept</code></td><td>y-intercept</td></tr><tr><td><code>y0</code></td><td>f(a)</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> perpendicular slope -1/m through (a, f(a))</li><li><strong>Assumes:</strong> f&#x27;$(a)  \neq  0$ (otherwise the normal is vertical)</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;normal_line&#x27;, f=&#x27;x^2&#x27;, a=1)
+# -&gt; slope = -0.5, intercept = 1.5, y0 = 1   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;normal_line&#x27;, f=&#x27;exp(x)&#x27;, a=0)
+# -&gt; slope = -1, intercept = 1, y0 = 1   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the normal line to y = x^2 at x = 1.</td><td>SOLVED</td><td>slope = -0.5, intercept = 1.5, y0 = 1</td></tr><tr><td>Find the equation of the normal line to f(x) = exp(x) at x = 0.</td><td>SOLVED</td><td>slope = -1, intercept = 1, y0 = 1</td></tr><tr><td>Find the normal line to y = x^2 at x = 0.</td><td>INVALID_INPUT</td><td>Normal line: the tangent is horizontal there, so the normal line is vertical (x = a) and has no slope.</td></tr></tbody></table>
+<h3 id="average_rate_of_change">Average rate of change — <code>average_rate_of_change</code></h3>
+<p>The average rate of change (f(b) - f(a))/(b - a) of f over [a, b]: the slope of the secant line.</p>
+<div class="math">\[\frac{\Delta f}{\Delta x} = \frac{f(b)-f(a)}{b-a}\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x)</td><td></td></tr><tr><td><code>a</code></td><td>start of the interval</td><td></td></tr><tr><td><code>b</code></td><td>end of the interval</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>average_rate</code></td><td>(f(b) - f(a))/(b - a)</td></tr><tr><td><code>fa</code></td><td>f(a)</td></tr><tr><td><code>fb</code></td><td>f(b)</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> difference quotient of the two function values</li><li><strong>Assumes:</strong> $a  \neq  b$; f defined at a and b</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;average_rate_of_change&#x27;, f=&#x27;x^2&#x27;, a=1, b=3)
+# -&gt; average_rate = 4, fa = 1, fb = 9   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;average_rate_of_change&#x27;, f=&#x27;sin(x)&#x27;, a=0, b=1.5707963267948966)
+# -&gt; average_rate = 0.63662, fa = 0, fb = 1   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the average rate of change of f(x) = x^2 from x = 1 to x = 3.</td><td>SOLVED</td><td>average_rate = 4, fa = 1, fb = 9</td></tr><tr><td>What is the average rate of change of sin(x) on [0, pi/2]?</td><td>SOLVED</td><td>average_rate = 0.63662, fa = 0, fb = 1</td></tr><tr><td>Find the slope of the secant line of x^3 between x = 0 and x = 2.</td><td>SOLVED</td><td>average_rate = 4, fa = 0, fb = 8</td></tr><tr><td>Find the average rate of change of x^2 from x = 2 to x = 2.</td><td>INVALID_INPUT</td><td>Average rate of change: the two points must differ.</td></tr></tbody></table>
+<h3 id="velocity_acceleration">Velocity and acceleration from position — <code>velocity_acceleration</code></h3>
+<p>Velocity $v = s$&#x27;(t) and acceleration $a = s$&#x27;&#x27;(t) at time t0 from a position function s(t).</p>
+<div class="math">\[v = \frac{ds}{dt},\quad a = \frac{d^2 s}{dt^2}\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>s</code></td><td>the position s(t)</td><td></td></tr><tr><td><code>t0</code></td><td>the time t0</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>velocity</code></td><td>v(t0) = s&#x27;(t0)</td></tr><tr><td><code>acceleration</code></td><td>a(t0) = s&#x27;&#x27;(t0)</td></tr><tr><td><code>speed</code></td><td>|v(t0)|</td></tr><tr><td><code>position</code></td><td>s(t0)</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact differentiation of the position once and twice</li><li><strong>Assumes:</strong> s twice differentiable at t0</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;velocity_acceleration&#x27;, s=&#x27;t^3 - 6t^2 + 9t&#x27;, t0=2)
+# -&gt; velocity = -3, acceleration = 0, speed = 3, position = 2   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;velocity_acceleration&#x27;, s=&#x27;5t^2 + 2t&#x27;, t0=3)
+# -&gt; velocity = 32, acceleration = 10, speed = 32, position = 51   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>A particle has position s(t) = t^3 - 6t^2 + 9t. Find its velocity and acceleration at t = 2.</td><td>SOLVED</td><td>velocity = -3, acceleration = 0, speed = 3, position = 2</td></tr><tr><td>Find the velocity of s(t) = 5t^2 + 2t at t = 3.</td><td>SOLVED</td><td>velocity = 32, acceleration = 10, speed = 32, position = 51</td></tr><tr><td>The position of an object is s(t) = 4sin(t). Find its velocity at t = 0.</td><td>SOLVED</td><td>velocity = 4, acceleration = 0, speed = 4, position = 0</td></tr></tbody></table>
+<h3 id="linear_approximation">Linear approximation — <code>linear_approximation</code></h3>
+<p>Estimate f(x1) by the tangent line at $x = a$: L(x1) = f(a) + f&#x27;(a)$(x_{1} - a)$; with the actual value and error.</p>
+<div class="math">\[L(x) = f(a) + f&#x27;(a)\,(x-a)\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x)</td><td></td></tr><tr><td><code>a</code></td><td>the base point a</td><td></td></tr><tr><td><code>x1</code></td><td>the point to estimate</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>approximation</code></td><td>L(x1)</td></tr><tr><td><code>actual</code></td><td>f(x1)</td></tr><tr><td><code>error</code></td><td>f(x1) - L(x1)</td></tr><tr><td><code>slope</code></td><td>f&#x27;(a)</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> linearization (tangent line) at the base point</li><li><strong>Assumes:</strong> f differentiable at a</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;linear_approximation&#x27;, f=&#x27;sqrt(x)&#x27;, a=4, x1=4.1)
+# -&gt; approximation = 2.025, actual = 2.02485, error = -0.000154327, slope = 0.25   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;linear_approximation&#x27;, f=&#x27;exp(x)&#x27;, a=0, x1=0.1)
+# -&gt; approximation = 1.1, actual = 1.10517, error = 0.00517092, slope = 1   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Use the linear approximation of f(x) = sqrt(x) at x = 4 to estimate f(4.1).</td><td>SOLVED</td><td>approximation = 2.025, actual = 2.02485, error = -0.000154327, slope = 0.25</td></tr><tr><td>Find the linearization of exp(x) at x = 0 and evaluate it at x = 0.1.</td><td>SOLVED</td><td>approximation = 1.1, actual = 1.10517, error = 0.00517092, slope = 1</td></tr><tr><td>Use the tangent line approximation of x^3 at x = 2 to estimate f(2.1).</td><td>SOLVED</td><td>approximation = 9.2, actual = 9.261, error = 0.061, slope = 12</td></tr></tbody></table>
+<h3 id="curvature">Curvature of a graph — <code>curvature</code></h3>
+<p>The curvature kappa = |f&#x27;&#x27;| / (1 + f&#x27;^2)^(3/2) of $y = f$(x) at $x = a$, and the radius of curvature $1/\kappa.$</p>
+<div class="math">\[\kappa = \frac{|f&#x27;&#x27;(a)|}{\left(1 + f&#x27;(a)^2\right)^{3/2}}\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x)</td><td></td></tr><tr><td><code>a</code></td><td>the point $x = a$</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>curvature</code></td><td>kappa at $x = a$</td></tr><tr><td><code>radius_of_curvature</code></td><td>$1/\kappa$ (absent where kappa = 0)</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> curvature formula of a graph from the exact first and second derivatives</li><li><strong>Assumes:</strong> f twice differentiable at a</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;curvature&#x27;, f=&#x27;x^2&#x27;, a=0)
+# -&gt; curvature = 2, radius_of_curvature = 0.5   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;curvature&#x27;, f=&#x27;sin(x)&#x27;, a=1.5707963267948966)
+# -&gt; curvature = 1, radius_of_curvature = 1   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;curvature&#x27;, f=&#x27;x^2&#x27;, a=1)
+# -&gt; curvature = 0.178885, radius_of_curvature = 5.59017   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the curvature of y = x^2 at x = 0.</td><td>SOLVED</td><td>curvature = 2, radius_of_curvature = 0.5</td></tr><tr><td>What is the curvature of f(x) = sin(x) at x = pi/2?</td><td>SOLVED</td><td>curvature = 1, radius_of_curvature = 1</td></tr><tr><td>Find the radius of curvature of y = x^2 at x = 0.</td><td>SOLVED</td><td>curvature = 2, radius_of_curvature = 0.5</td></tr></tbody></table>
+<h3 id="definite_integral">Definite integral — <code>definite_integral</code></h3>
+<p>The definite integral of f(x) from $x = a$ to $x = b$ (net signed area).</p>
+<div class="math">\[\int_a^b f(x)\,dx\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the integrand f(x)</td><td></td></tr><tr><td><code>a</code></td><td>lower limit</td><td></td></tr><tr><td><code>b</code></td><td>upper limit</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>integral</code></td><td>the value of the integral</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> high-precision tanh-sinh quadrature (30 digits) after an exact continuity check on [a, b]</li><li><strong>Assumes:</strong> f real and continuous on the closed interval between a and b</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;definite_integral&#x27;, f=&#x27;x^2&#x27;, a=0, b=3)
+# -&gt; integral = 9   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;definite_integral&#x27;, f=&#x27;sin(x)&#x27;, a=0, b=3.141592653589793)
+# -&gt; integral = 2   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;definite_integral&#x27;, f=&#x27;exp(2x)&#x27;, a=0, b=1)
+# -&gt; integral = 3.19453   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;definite_integral&#x27;, f=&#x27;1/x&#x27;, a=1, b=2.718281828459045)
+# -&gt; integral = 1   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Evaluate the integral of x^2 from 0 to 3.</td><td>SOLVED</td><td>integral = 9</td></tr><tr><td>Find the definite integral of sin(x) from 0 to pi.</td><td>SOLVED</td><td>integral = 2</td></tr><tr><td>Integrate exp(2x) from x = 0 to x = 1.</td><td>SOLVED</td><td>integral = 3.19453</td></tr><tr><td>Compute the integral of 3x^2 + 2x dx from 1 to 2.</td><td>SOLVED</td><td>integral = 10</td></tr><tr><td>Evaluate the integral of 1/x from -1 to 1.</td><td>INVALID_INPUT</td><td>Definite integral: the function is not continuous (or not real) on the whole interval [-1, 1].</td></tr></tbody></table>
+<h3 id="average_value">Average value of a function — <code>average_value</code></h3>
+<p>The average value (1/(b - a)) * integral of f from a to b of a function on [a, b].</p>
+<div class="math">\[f_{\text{avg}} = \frac{1}{b-a}\int_a^b f(x)\,dx\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x)</td><td></td></tr><tr><td><code>a</code></td><td>start of the interval</td><td></td></tr><tr><td><code>b</code></td><td>end of the interval</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>average_value</code></td><td>the average value of f on [a, b]</td></tr><tr><td><code>integral</code></td><td>the integral of f over [a, b]</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> definite integral by high-precision quadrature, divided by the interval length</li><li><strong>Assumes:</strong> $a &lt; b$; f continuous on [a, b]</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;average_value&#x27;, f=&#x27;x^2&#x27;, a=0, b=3)
+# -&gt; average_value = 3, integral = 9   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;average_value&#x27;, f=&#x27;sin(x)&#x27;, a=0, b=3.141592653589793)
+# -&gt; average_value = 0.63662, integral = 2   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the average value of f(x) = x^2 on [0, 3].</td><td>SOLVED</td><td>average_value = 3, integral = 9</td></tr><tr><td>What is the average value of sin(x) from 0 to pi?</td><td>SOLVED</td><td>average_value = 0.63662, integral = 2</td></tr><tr><td>Find the average value of x^2 on [3, 0].</td><td>INVALID_INPUT</td><td>Average value of a function: the interval needs a &lt; b.</td></tr></tbody></table>
+<h3 id="area_between_curves">Area between two curves — <code>area_between_curves</code></h3>
+<p>The area between the graphs of two polynomials $y = f$(x) and $y = g$(x) over [a, b], counting every piece as positive (the curves may cross).</p>
+<div class="math">\[A = \int_a^b \left|f(x) - g(x)\right|\,dx\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the first curve f(x) (a polynomial)</td><td></td></tr><tr><td><code>g</code></td><td>the second curve g(x) (a polynomial)</td><td></td></tr><tr><td><code>a</code></td><td>left end</td><td></td></tr><tr><td><code>b</code></td><td>right end</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>area</code></td><td>the area between the curves</td></tr><tr><td><code>net_integral</code></td><td>integral of f - g (signed)</td></tr><tr><td><code>crossings</code></td><td>x where the curves cross inside (a, b)</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact integration of |f - g|, split at the exact real roots of f - g</li><li><strong>Assumes:</strong> $a &lt; b$; f and g polynomials with rational coefficients</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;area_between_curves&#x27;, f=&#x27;x^2&#x27;, g=&#x27;x&#x27;, a=0, b=2)
+# -&gt; area = 1, net_integral = 0.666667, crossings = [1.0]   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;area_between_curves&#x27;, f=&#x27;4 - x^2&#x27;, g=&#x27;x + 2&#x27;, a=-2, b=1)
+# -&gt; area = 4.5, net_integral = 4.5, crossings = []   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;area_between_curves&#x27;, f=&#x27;x^3&#x27;, g=&#x27;0&#x27;, a=-1, b=1)
+# -&gt; area = 0.5, net_integral = 0, crossings = [0.0]   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the area between y = x^2 and y = x from x = 0 to x = 2.</td><td>SOLVED</td><td>area = 1, net_integral = 0.666667, crossings = [1.0]</td></tr><tr><td>Find the area between f(x) = 4 - x^2 and g(x) = x + 2 on [-2, 1].</td><td>SOLVED</td><td>area = 4.5, net_integral = 4.5, crossings = []</td></tr><tr><td>Find the area between y = sin(x) and y = 0 from x = 0 to x = pi.</td><td>INVALID_INPUT</td><td>Area between two curves: this capability needs a polynomial.</td></tr></tbody></table>
+<h3 id="area_enclosed_curves">Area enclosed by two curves — <code>area_enclosed_curves</code></h3>
+<p>The area of the region enclosed by two polynomial curves $y = f$(x) and $y = g$(x), between their first and last intersection.</p>
+<div class="math">\[A = \int_{x_1}^{x_n} \left|f(x) - g(x)\right|\,dx\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the first curve f(x) (a polynomial)</td><td></td></tr><tr><td><code>g</code></td><td>the second curve g(x) (a polynomial)</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>area</code></td><td>the enclosed area</td></tr><tr><td><code>x_left</code></td><td>first intersection</td></tr><tr><td><code>x_right</code></td><td>last intersection</td></tr><tr><td><code>intersections</code></td><td>all intersection x-values</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact real roots of f - g, then exact integration of |f - g| between consecutive roots</li><li><strong>Assumes:</strong> f and g polynomials with rational coefficients meeting in at least two points</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;area_enclosed_curves&#x27;, f=&#x27;x^2&#x27;, g=&#x27;x&#x27;)
+# -&gt; area = 0.166667, x_left = 0, x_right = 1, intersections = [0.0, 1.0]   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;area_enclosed_curves&#x27;, f=&#x27;4 - x^2&#x27;, g=&#x27;0&#x27;)
+# -&gt; area = 10.6667, x_left = -2, x_right = 2, intersections = [-2.0, 2.0]   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;area_enclosed_curves&#x27;, f=&#x27;x^3&#x27;, g=&#x27;x&#x27;)
+# -&gt; area = 0.5, x_left = -1, x_right = 1, intersections = [-1.0, 0.0, 1.0]   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the area enclosed by y = x^2 and y = x.</td><td>SOLVED</td><td>area = 0.166667, x_left = 0, x_right = 1, intersections = [0.0, 1.0]</td></tr><tr><td>Find the area of the region bounded by y = 4 - x^2 and y = 0.</td><td>SOLVED</td><td>area = 10.6667, x_left = -2, x_right = 2, intersections = [-2.0, 2.0]</td></tr><tr><td>Find the area enclosed by the curves y = x^3 and y = x.</td><td>SOLVED</td><td>area = 0.5, x_left = -1, x_right = 1, intersections = [-1.0, 0.0, 1.0]</td></tr><tr><td>Find the area enclosed by y = x^2 + 1 and y = 0.</td><td>INVALID_INPUT</td><td>Area enclosed by two curves: the curves meet in fewer than two points, so they enclose no bounded region.</td></tr></tbody></table>
+<h3 id="disk_volume">Volume of revolution (disk method) — <code>disk_volume</code></h3>
+<p>The volume of the solid formed by rotating $y = f$(x), $a  \leq  x  \leq  b$, about the x-axis.</p>
+<div class="math">\[V = \pi\int_a^b f(x)^2\,dx\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the curve f(x)</td><td></td></tr><tr><td><code>a</code></td><td>left end</td><td></td></tr><tr><td><code>b</code></td><td>right end</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>volume</code></td><td>the volume of the solid</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> disk method: pi times the integral of $f^{2}$, by high-precision quadrature</li><li><strong>Assumes:</strong> $a &lt; b$; f continuous on [a, b]</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;disk_volume&#x27;, f=&#x27;x^2&#x27;, a=0, b=1)
+# -&gt; volume = 0.628319   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;disk_volume&#x27;, f=&#x27;sqrt(x)&#x27;, a=0, b=4)
+# -&gt; volume = 25.1327   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;disk_volume&#x27;, f=&#x27;sqrt(4 - x^2)&#x27;, a=-2, b=2)
+# -&gt; volume = 33.5103   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the volume when y = x^2 from x = 0 to x = 1 is rotated about the x-axis.</td><td>SOLVED</td><td>volume = 0.628319</td></tr><tr><td>Find the volume of revolution of y = sqrt(x) about the x-axis on [0, 4].</td><td>SOLVED</td><td>volume = 25.1327</td></tr><tr><td>Find the volume of the solid obtained by rotating y = sqrt(4 - x^2) about the x-axis from x = -2 to x = 2.</td><td>SOLVED</td><td>volume = 33.5103</td></tr></tbody></table>
+<h3 id="washer_volume">Volume of revolution (washer method) — <code>washer_volume</code></h3>
+<p>The volume swept when the region between an outer curve $y = f$(x) and an inner curve $y = g$(x) (polynomials, f &gt;= g &gt;= 0) on [a, b] is rotated about the x-axis.</p>
+<div class="math">\[V = \pi\int_a^b \left(f(x)^2 - g(x)^2\right)dx\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>outer radius f(x) (a polynomial)</td><td></td></tr><tr><td><code>g</code></td><td>inner radius g(x) (a polynomial)</td><td></td></tr><tr><td><code>a</code></td><td>left end</td><td></td></tr><tr><td><code>b</code></td><td>right end</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>volume</code></td><td>the volume of the solid</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> washer method, integrated exactly</li><li><strong>Assumes:</strong> $a &lt; b$; $f  \geq  g  \geq  0$ on [a, b] (checked exactly); polynomials</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;washer_volume&#x27;, f=&#x27;x + 2&#x27;, g=&#x27;1&#x27;, a=0, b=1)
+# -&gt; volume = 16.7552   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;washer_volume&#x27;, f=&#x27;4 - x^2&#x27;, g=&#x27;1&#x27;, a=0, b=1)
+# -&gt; volume = 39.3746   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the volume when the region between y = x + 2 and y = 1 on [0, 1] is rotated about the x-axis using washers.</td><td>SOLVED</td><td>volume = 16.7552</td></tr><tr><td>Use the washer method for outer radius 4 - x^2 and inner radius 1 on [0, 1].</td><td>SOLVED</td><td>volume = 39.3746</td></tr><tr><td>Use the washer method for outer radius 1 and inner radius x^2 + 2 on [0, 1].</td><td>INVALID_INPUT</td><td>Volume of revolution (washer method): the washer method needs outer radius f &gt;= inner radius g &gt;= 0 on [a, b].</td></tr></tbody></table>
+<h3 id="shell_volume">Volume of revolution (shell method) — <code>shell_volume</code></h3>
+<p>The volume swept when the region under $y = f$(x) &gt;= 0 (a polynomial), $a  \leq  x  \leq  b$ with $a  \geq  0$, is rotated about the y-axis.</p>
+<div class="math">\[V = 2\pi\int_a^b x\,f(x)\,dx\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the curve f(x) (a polynomial)</td><td></td></tr><tr><td><code>a</code></td><td>left end (&gt;= 0)</td><td></td></tr><tr><td><code>b</code></td><td>right end</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>volume</code></td><td>the volume of the solid</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> cylindrical shells, integrated exactly</li><li><strong>Assumes:</strong> $0  \leq  a &lt; b$; f(x) &gt;= 0 on [a, b] (checked exactly)</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;shell_volume&#x27;, f=&#x27;x^2&#x27;, a=0, b=2)
+# -&gt; volume = 25.1327   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;shell_volume&#x27;, f=&#x27;4 - x^2&#x27;, a=0, b=2)
+# -&gt; volume = 25.1327   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Use the shell method to find the volume when y = x^2 on [0, 2] is rotated about the y-axis.</td><td>SOLVED</td><td>volume = 25.1327</td></tr><tr><td>Find the volume of the solid formed by rotating the region under y = 4 - x^2 from x = 0 to x = 2 about the y-axis.</td><td>SOLVED</td><td>volume = 25.1327</td></tr><tr><td>Use the shell method to find the volume when y = x - 3 on [0, 2] is rotated about the y-axis.</td><td>INVALID_INPUT</td><td>Volume of revolution (shell method): the shell method needs f(x) &gt;= 0 on [a, b].</td></tr></tbody></table>
+<h3 id="arc_length">Arc length of a graph — <code>arc_length</code></h3>
+<p>The length of the curve $y = f$(x) from $x = a$ to $x = b.$</p>
+<div class="math">\[L = \int_a^b \sqrt{1 + f&#x27;(x)^2}\,dx\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the curve f(x)</td><td></td></tr><tr><td><code>a</code></td><td>left end</td><td></td></tr><tr><td><code>b</code></td><td>right end</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>arc_length</code></td><td>the length of the curve</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> arc-length integral of sqrt($1 + f$&#x27;(x)^2) with the exact derivative, by high-precision quadrature</li><li><strong>Assumes:</strong> $a &lt; b$; f&#x27; continuous on [a, b]</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;arc_length&#x27;, f=&#x27;cosh(x)&#x27;, a=0, b=1)
+# -&gt; arc_length = 1.1752   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;arc_length&#x27;, f=&#x27;2x + 1&#x27;, a=0, b=3)
+# -&gt; arc_length = 6.7082   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;arc_length&#x27;, f=&#x27;x^2&#x27;, a=0, b=1)
+# -&gt; arc_length = 1.47894   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the arc length of y = x^2 from x = 0 to x = 1.</td><td>SOLVED</td><td>arc_length = 1.47894</td></tr><tr><td>What is the length of the curve y = cosh(x) on [0, 1]?</td><td>SOLVED</td><td>arc_length = 1.1752</td></tr><tr><td>Find the arc length of y = sqrt(x) from x = -1 to x = 1.</td><td>INVALID_INPUT</td><td>Arc length of a graph: the function is not continuous (or not real) on the whole interval [-1, 1].</td></tr></tbody></table>
+<h3 id="surface_area_revolution">Surface area of revolution — <code>surface_area_revolution</code></h3>
+<p>The area of the surface formed by rotating $y = f$(x), $a  \leq  x  \leq  b$, about the x-axis.</p>
+<div class="math">\[S = 2\pi\int_a^b |f(x)|\sqrt{1 + f&#x27;(x)^2}\,dx\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the curve f(x)</td><td></td></tr><tr><td><code>a</code></td><td>left end</td><td></td></tr><tr><td><code>b</code></td><td>right end</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>surface_area</code></td><td>the area of the surface of revolution</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> $2 pi$ times the integral of |f| * sqrt($1 + f$&#x27;^2) (split where f changes sign), high-precision quadrature</li><li><strong>Assumes:</strong> $a &lt; b$; f&#x27; continuous on [a, b]</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;surface_area_revolution&#x27;, f=&#x27;x&#x27;, a=0, b=1)
+# -&gt; surface_area = 4.44288   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;surface_area_revolution&#x27;, f=&#x27;sqrt(4 - x^2)&#x27;, a=-1, b=1)
+# -&gt; surface_area = 25.1327   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the surface area when y = x from x = 0 to x = 1 is rotated about the x-axis.</td><td>SOLVED</td><td>surface_area = 4.44288</td></tr><tr><td>Find the area of the surface of revolution of y = sqrt(4 - x^2) about the x-axis on [-1, 1].</td><td>SOLVED</td><td>surface_area = 25.1327</td></tr></tbody></table>
+<h3 id="centroid_region">Centroid of a region under a curve — <code>centroid_region</code></h3>
+<p>The area and centroid (x_bar, y_bar) of the region between $y = f$(x) &gt;= 0 (a polynomial) and the x-axis for $a  \leq  x  \leq  b.$</p>
+<div class="math">\[\bar x = \frac{1}{A}\int_a^b x f(x)\,dx,\quad \bar y = \frac{1}{2A}\int_a^b f(x)^2\,dx\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the curve f(x) (a polynomial)</td><td></td></tr><tr><td><code>a</code></td><td>left end</td><td></td></tr><tr><td><code>b</code></td><td>right end</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>area</code></td><td>area of the region</td></tr><tr><td><code>x_bar</code></td><td>x-coordinate of the centroid</td></tr><tr><td><code>y_bar</code></td><td>y-coordinate of the centroid</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact moments of the region: x_bar = (1/A) * integral of x f, y_bar = (1/2A) * integral of $f^{2}$</li><li><strong>Assumes:</strong> $a &lt; b$; f(x) &gt;= 0 on [a, b] (checked exactly)</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;centroid_region&#x27;, f=&#x27;x^2&#x27;, a=0, b=1)
+# -&gt; area = 0.333333, x_bar = 0.75, y_bar = 0.3   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;centroid_region&#x27;, f=&#x27;4 - x^2&#x27;, a=-2, b=2)
+# -&gt; area = 10.6667, x_bar = 0, y_bar = 1.6   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the centroid of the region under y = x^2 from x = 0 to x = 1.</td><td>SOLVED</td><td>area = 0.333333, x_bar = 0.75, y_bar = 0.3</td></tr><tr><td>Find the centroid of the region bounded by y = 4 - x^2 and the x-axis on [-2, 2].</td><td>SOLVED</td><td>area = 10.6667, x_bar = 0, y_bar = 1.6</td></tr></tbody></table>
+<h3 id="improper_integral">Improper integral to infinity — <code>improper_integral</code></h3>
+<p>The improper integral of f(x) from $x = a$ to infinity, when it converges.</p>
+<div class="math">\[\int_a^\infty f(x)\,dx = \lim_{R\to\infty}\int_a^R f(x)\,dx\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the integrand f(x)</td><td></td></tr><tr><td><code>a</code></td><td>lower limit</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>integral</code></td><td>the value of the improper integral</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> convergence by a limit comparison with $1/x^{1.01}$ (exact limit), value by tanh-sinh quadrature on [a, infinity)</li><li><strong>Assumes:</strong> f continuous on [a, infinity); $x^{1.01} f$(x) has a finite limit (comparison test), so the integral converges absolutely</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;improper_integral&#x27;, f=&#x27;exp(-x)&#x27;, a=0)
+# -&gt; integral = 1   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;improper_integral&#x27;, f=&#x27;1/x^2&#x27;, a=1)
+# -&gt; integral = 1   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;improper_integral&#x27;, f=&#x27;1/(x^2 + 1)&#x27;, a=0)
+# -&gt; integral = 1.5708   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;improper_integral&#x27;, f=&#x27;exp(-x^2)&#x27;, a=0)
+# -&gt; integral = 0.886227   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Evaluate the improper integral of exp(-x) from 0 to infinity.</td><td>SOLVED</td><td>integral = 1</td></tr><tr><td>Find the integral of 1/x^2 from 1 to infinity.</td><td>SOLVED</td><td>integral = 1</td></tr><tr><td>Find the integral of 1/x from 1 to infinity.</td><td>INVALID_INPUT</td><td>Improper integral to infinity: convergence cannot be established (the integrand does not decay faster than 1/x^1.01).</td></tr><tr><td>Evaluate the integral of sin(x) from 0 to infinity.</td><td>INVALID_INPUT</td><td>Improper integral to infinity: convergence cannot be established (the integrand does not decay faster than 1/x^1.01).</td></tr></tbody></table>
+<h3 id="left_riemann_sum">Left Riemann sum — <code>left_riemann_sum</code></h3>
+<p>The left-endpoint Riemann sum of f on [a, b] with n equal subintervals.</p>
+<div class="math">\[L_n = h\sum_{k=0}^{n-1} f(a + k h),\quad h = \frac{b-a}{n}\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x)</td><td></td></tr><tr><td><code>a</code></td><td>left end</td><td></td></tr><tr><td><code>b</code></td><td>right end</td><td></td></tr><tr><td><code>n</code></td><td>number of equal subintervals</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>approximation</code></td><td>the left Riemann sum</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> h times the sum of f at the left endpoints $x_k = a + k$ h, $k = 0..n-1$ $(h = (b - a)/n)$</li><li><strong>Assumes:</strong> $a &lt; b$; $1  \leq  n  \leq  100000$; f defined at the sample points</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;left_riemann_sum&#x27;, f=&#x27;x^2&#x27;, a=0, b=2, n=4)
+# -&gt; approximation = 1.75   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;left_riemann_sum&#x27;, f=&#x27;x^3&#x27;, a=0, b=1, n=4)
+# -&gt; approximation = 0.140625   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the left Riemann sum of x^2 on [0, 2] with n = 4.</td><td>SOLVED</td><td>approximation = 1.75</td></tr><tr><td>Approximate the integral of x^3 from 0 to 1 using a left Riemann sum with 4 subintervals.</td><td>SOLVED</td><td>approximation = 0.140625</td></tr><tr><td>Find the left Riemann sum of x^2 on [0, 2] with n = 0.</td><td>INVALID_INPUT</td><td>n: must be at least 1, got 0.</td></tr></tbody></table>
+<h3 id="right_riemann_sum">Right Riemann sum — <code>right_riemann_sum</code></h3>
+<p>The right-endpoint Riemann sum of f on [a, b] with n equal subintervals.</p>
+<div class="math">\[R_n = h\sum_{k=1}^{n} f(a + k h),\quad h = \frac{b-a}{n}\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x)</td><td></td></tr><tr><td><code>a</code></td><td>left end</td><td></td></tr><tr><td><code>b</code></td><td>right end</td><td></td></tr><tr><td><code>n</code></td><td>number of equal subintervals</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>approximation</code></td><td>the right Riemann sum</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> h times the sum of f at the right endpoints $x_k = a + k$ h, $k = 1..n$</li><li><strong>Assumes:</strong> $a &lt; b$; $1  \leq  n  \leq  100000$; f defined at the sample points</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;right_riemann_sum&#x27;, f=&#x27;x^2&#x27;, a=0, b=2, n=4)
+# -&gt; approximation = 3.75   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;right_riemann_sum&#x27;, f=&#x27;x^3&#x27;, a=0, b=1, n=4)
+# -&gt; approximation = 0.390625   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the right Riemann sum of x^2 on [0, 2] with n = 4.</td><td>SOLVED</td><td>approximation = 3.75</td></tr><tr><td>Approximate the integral of x^3 from 0 to 1 using a right Riemann sum with 4 subintervals.</td><td>SOLVED</td><td>approximation = 0.390625</td></tr></tbody></table>
+<h3 id="trapezoid_rule">Trapezoidal rule — <code>trapezoid_rule</code></h3>
+<p>The composite trapezoidal approximation of the integral of f on [a, b] with n subintervals, with the exact value and the error (approximation - exact).</p>
+<div class="math">\[T_n = \frac{h}{2}\left[f(x_0) + 2\sum_{k=1}^{n-1} f(x_k) + f(x_n)\right]\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x)</td><td></td></tr><tr><td><code>a</code></td><td>left end</td><td></td></tr><tr><td><code>b</code></td><td>right end</td><td></td></tr><tr><td><code>n</code></td><td>number of equal subintervals</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>approximation</code></td><td>trapezoidal approximation T_n</td></tr><tr><td><code>exact</code></td><td>the integral</td></tr><tr><td><code>error</code></td><td>T_n - exact</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> composite trapezoidal rule; exact value by high-precision quadrature</li><li><strong>Assumes:</strong> $a &lt; b$; $1  \leq  n  \leq  100000$; f continuous on [a, b]</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;trapezoid_rule&#x27;, f=&#x27;x^2&#x27;, a=0, b=2, n=4)
+# -&gt; approximation = 2.75, exact = 2.66667, error = 0.0833333   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;trapezoid_rule&#x27;, f=&#x27;1/x&#x27;, a=1, b=2, n=4)
+# -&gt; approximation = 0.697024, exact = 0.693147, error = 0.00387663   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Approximate the integral of x^2 from 0 to 2 using the trapezoidal rule with n = 4.</td><td>SOLVED</td><td>approximation = 2.75, exact = 2.66667, error = 0.0833333</td></tr><tr><td>Use the trapezoid rule with 4 subintervals to estimate the integral of 1/x from 1 to 2.</td><td>SOLVED</td><td>approximation = 0.697024, exact = 0.693147, error = 0.00387663</td></tr><tr><td>Use the trapezoidal rule with 4 subintervals to estimate the integral of 1/x from -1 to 1.</td><td>INVALID_INPUT</td><td>Trapezoidal rule: the expression is not defined there (ZeroDivisionError).</td></tr></tbody></table>
+<h3 id="simpson_rule">Simpson&#x27;s rule — <code>simpson_rule</code></h3>
+<p>The composite Simpson approximation of the integral of f on [a, b] with an even number n of subintervals, with the exact value and the error.</p>
+<div class="math">\[S_n = \frac{h}{3}\left[f(x_0) + 4\sum_{\text{odd } k} f(x_k) + 2\sum_{\text{even } k} f(x_k) + f(x_n)\right]\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x)</td><td></td></tr><tr><td><code>a</code></td><td>left end</td><td></td></tr><tr><td><code>b</code></td><td>right end</td><td></td></tr><tr><td><code>n</code></td><td>number of equal subintervals</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>approximation</code></td><td>Simpson approximation S_n</td></tr><tr><td><code>exact</code></td><td>the integral</td></tr><tr><td><code>error</code></td><td>S_n - exact</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> composite Simpson&#x27;s $1/3$ rule (weights 1, 4, 2, ..., 4, 1); exact value by high-precision quadrature</li><li><strong>Assumes:</strong> $a &lt; b$; n even, $2  \leq  n  \leq  100000$; f continuous on [a, b]</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;simpson_rule&#x27;, f=&#x27;x^4&#x27;, a=0, b=2, n=4)
+# -&gt; approximation = 6.41667, exact = 6.4, error = 0.0166667   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;simpson_rule&#x27;, f=&#x27;x^3&#x27;, a=0, b=2, n=2)
+# -&gt; approximation = 4, exact = 4, error = 0   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Approximate the integral of x^4 from 0 to 2 using Simpson&#x27;s rule with 4 subintervals.</td><td>SOLVED</td><td>approximation = 6.41667, exact = 6.4, error = 0.0166667</td></tr><tr><td>Use Simpson&#x27;s rule with n = 2 to approximate the integral of x^3 from 0 to 2.</td><td>SOLVED</td><td>approximation = 4, exact = 4, error = 0</td></tr><tr><td>Use Simpson&#x27;s rule with n = 3 to approximate the integral of x^3 from 0 to 2.</td><td>INVALID_INPUT</td><td>Simpson&#x27;s rule: Simpson&#x27;s rule needs an even number of subintervals.</td></tr></tbody></table>
+<h3 id="midpoint_rule">Midpoint rule — <code>midpoint_rule</code></h3>
+<p>The composite midpoint approximation of the integral of f on [a, b] with n subintervals, with the exact value and the error.</p>
+<div class="math">\[M_n = h\sum_{k=0}^{n-1} f\left(a + (k + \tfrac12) h\right)\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x)</td><td></td></tr><tr><td><code>a</code></td><td>left end</td><td></td></tr><tr><td><code>b</code></td><td>right end</td><td></td></tr><tr><td><code>n</code></td><td>number of equal subintervals</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>approximation</code></td><td>midpoint approximation M_n</td></tr><tr><td><code>exact</code></td><td>the integral</td></tr><tr><td><code>error</code></td><td>M_n - exact</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> composite midpoint rule; exact value by high-precision quadrature</li><li><strong>Assumes:</strong> $a &lt; b$; $1  \leq  n  \leq  100000$; f continuous on [a, b]</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;midpoint_rule&#x27;, f=&#x27;x^2&#x27;, a=0, b=2, n=4)
+# -&gt; approximation = 2.625, exact = 2.66667, error = -0.0416667   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;midpoint_rule&#x27;, f=&#x27;x^3&#x27;, a=0, b=2, n=2)
+# -&gt; approximation = 3.5, exact = 4, error = -0.5   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Approximate the integral of x^2 from 0 to 2 using the midpoint rule with n = 4.</td><td>SOLVED</td><td>approximation = 2.625, exact = 2.66667, error = -0.0416667</td></tr><tr><td>Use the midpoint rule with 2 subintervals to estimate the integral of x^3 from 0 to 2.</td><td>SOLVED</td><td>approximation = 3.5, exact = 4, error = -0.5</td></tr></tbody></table>
+<h3 id="gauss_legendre">Gauss-Legendre quadrature — <code>gauss_legendre</code></h3>
+<p>The n-point Gauss-Legendre approximation of the integral of f on [a, b] (exact for polynomials of degree &lt;= 2n - 1), with the exact value and the error.</p>
+<div class="math">\[\int_a^b f\,dx \approx \frac{b-a}{2}\sum_{i=1}^n w_i\, f\!\left(\frac{a+b}{2} + \frac{b-a}{2}x_i\right)\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x)</td><td></td></tr><tr><td><code>a</code></td><td>left end</td><td></td></tr><tr><td><code>b</code></td><td>right end</td><td></td></tr><tr><td><code>n</code></td><td>number of nodes</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>approximation</code></td><td>n-point Gauss-Legendre value</td></tr><tr><td><code>exact</code></td><td>the integral</td></tr><tr><td><code>error</code></td><td>approximation - exact</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> nodes = roots of the Legendre polynomial P_n (Newton&#x27;s method on the three-term recurrence), weights 2/($(1 - x^{2})$ P_n&#x27;(x)^2), mapped to [a, b]</li><li><strong>Assumes:</strong> $a &lt; b$; $1  \leq  n  \leq  64$; f continuous on [a, b]</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;gauss_legendre&#x27;, f=&#x27;x^3 + x^2&#x27;, a=0, b=2, n=2)
+# -&gt; approximation = 6.66667, exact = 6.66667, error = 0   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;gauss_legendre&#x27;, f=&#x27;x^4&#x27;, a=-1, b=1, n=2)
+# -&gt; approximation = 0.222222, exact = 0.4, error = -0.177778   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Use 2-point Gauss-Legendre quadrature to approximate the integral of x^3 + x^2 from 0 to 2.</td><td>SOLVED</td><td>approximation = 6.66667, exact = 6.66667, error = 0</td></tr><tr><td>Use 2-point Gaussian quadrature to approximate the integral of x^4 from -1 to 1.</td><td>SOLVED</td><td>approximation = 0.222222, exact = 0.4, error = -0.177778</td></tr></tbody></table>
+<h3 id="numerical_derivative">Finite-difference derivative — <code>numerical_derivative</code></h3>
+<p>A forward, backward or central difference approximation of f&#x27;(a) with step h, with the exact derivative and the error.</p>
+<div class="math">\[f&#x27;(a) \approx \frac{f(a+h) - f(a-h)}{2h}\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x)</td><td></td></tr><tr><td><code>a</code></td><td>the point $x = a$</td><td></td></tr><tr><td><code>h</code></td><td>the step size $h &gt; 0$</td><td></td></tr><tr><td><code>method</code></td><td>forward, backward or central difference</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>approximation</code></td><td>the difference quotient</td></tr><tr><td><code>exact</code></td><td>the exact f&#x27;(a)</td></tr><tr><td><code>error</code></td><td>approximation - exact</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> difference quotients (f(a+h)-f(a))/h, (f(a)-f(a-h))/h, (f(a+h)-f(a-h))/(2h) at 30 digits; exact derivative symbolically</li><li><strong>Assumes:</strong> $h &gt; 0$; f defined at the points used</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;numerical_derivative&#x27;, f=&#x27;x^2&#x27;, a=1, h=0.1, method=&#x27;central&#x27;)
+# -&gt; approximation = 2, exact = 2, error = 0   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;numerical_derivative&#x27;, f=&#x27;x^3&#x27;, a=1, h=0.5, method=&#x27;forward&#x27;)
+# -&gt; approximation = 4.75, exact = 3, error = 1.75   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;numerical_derivative&#x27;, f=&#x27;x^3&#x27;, a=1, h=0.5, method=&#x27;backward&#x27;)
+# -&gt; approximation = 1.75, exact = 3, error = -1.25   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Estimate the derivative of x^2 at x = 1 using a central difference with h = 0.1.</td><td>SOLVED</td><td>approximation = 2, exact = 2, error = 0</td></tr><tr><td>Use a forward difference with h = 0.5 to approximate the derivative of x^3 at x = 1.</td><td>SOLVED</td><td>approximation = 4.75, exact = 3, error = 1.75</td></tr><tr><td>Use a backward difference with h = 0.5 to approximate the derivative of x^3 at x = 1.</td><td>SOLVED</td><td>approximation = 1.75, exact = 3, error = -1.25</td></tr><tr><td>Use a central difference with h = -0.1 to approximate the derivative of x^3 at x = 1.</td><td>INVALID_INPUT</td><td>Finite-difference derivative: the step h must be positive.</td></tr></tbody></table>
+<h3 id="newton_method">Newton&#x27;s method — <code>newton_method</code></h3>
+<p>n iterations of Newton&#x27;s method x_{$k+1$} = x_k - f(x_k)/f&#x27;(x_k) for a root of f, from x_0.</p>
+<div class="math">\[x_{k+1} = x_k - \frac{f(x_k)}{f&#x27;(x_k)}\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x)</td><td></td></tr><tr><td><code>x0</code></td><td>the starting value x_0</td><td></td></tr><tr><td><code>n</code></td><td>number of iterations</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>x_n</code></td><td>the n-th iterate</td></tr><tr><td><code>f_x_n</code></td><td>f(x_n)</td></tr><tr><td><code>iterates</code></td><td>x_1 .. x_n</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> Newton-Raphson with the exact derivative, at 30 digits</li><li><strong>Assumes:</strong> f&#x27;$(x_k)  \neq  0$ at every iterate; $1  \leq  n  \leq  50$</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;newton_method&#x27;, f=&#x27;x^2 - 2&#x27;, x0=1, n=3)
+# -&gt; x_n = 1.41422, f_x_n = 6.0073e-06, iterates = [1.5, 1.4166666666666667, 1.4142156862745099]   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;newton_method&#x27;, f=&#x27;x^3 - 2x - 5&#x27;, x0=2, n=1)
+# -&gt; x_n = 2.1, f_x_n = 0.061, iterates = [2.1]   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Apply Newton&#x27;s method to f(x) = x^2 - 2 starting at x0 = 1 for 3 iterations.</td><td>SOLVED</td><td>x_n = 1.41422, f_x_n = 6.0073e-06, iterates = [1.5, 1.4166666666666667, 1.4142156862745099]</td></tr><tr><td>Use 1 iteration of Newton&#x27;s method on x^3 - 2x - 5 from x0 = 2.</td><td>SOLVED</td><td>x_n = 2.1, f_x_n = 0.061, iterates = [2.1]</td></tr><tr><td>Apply Newton&#x27;s method to f(x) = x^2 - 2 starting at x0 = 0 for 3 iterations.</td><td>INVALID_INPUT</td><td>Newton&#x27;s method: f&#x27;(x) = 0 at an iterate, so Newton&#x27;s method cannot continue.</td></tr></tbody></table>
+<h3 id="limit_at_point">Limit at a point — <code>limit_at_point</code></h3>
+<p>The two-sided limit of f(x) as x approaches a (including removable $0/0$ forms such as sin(x)/x).</p>
+<div class="math">\[\lim_{x\to a} f(x)\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x)</td><td></td></tr><tr><td><code>a</code></td><td>the point $x = a$</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>limit</code></td><td>the limit of f(x) as x -&gt; a</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact symbolic limit (series expansion / Gruntz algorithm) from both sides; refused if the one-sided limits differ or are infinite</li><li><strong>Assumes:</strong> the left and right limits exist, are finite and agree</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;limit_at_point&#x27;, f=&#x27;(x^2 - 4)/(x - 2)&#x27;, a=2)
+# -&gt; limit = 4   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;limit_at_point&#x27;, f=&#x27;sin(3x)/x&#x27;, a=0)
+# -&gt; limit = 3   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;limit_at_point&#x27;, f=&#x27;(1 - cos(x))/x^2&#x27;, a=0)
+# -&gt; limit = 0.5   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;limit_at_point&#x27;, f=&#x27;(exp(2x) - 1)/x&#x27;, a=0)
+# -&gt; limit = 2   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the limit of (x^2 - 4)/(x - 2) as x approaches 2.</td><td>SOLVED</td><td>limit = 4</td></tr><tr><td>What is the limit of sin(3x)/x as x -&gt; 0?</td><td>SOLVED</td><td>limit = 3</td></tr><tr><td>Evaluate the limit as x approaches 0 of (1 - cos(x))/x^2.</td><td>SOLVED</td><td>limit = 0.5</td></tr><tr><td>Find the limit of 1/x as x approaches 0.</td><td>INVALID_INPUT</td><td>Limit at a point: the limit is infinite (it does not exist as a finite number).</td></tr><tr><td>Find the limit of 1/x^2 as x approaches 0.</td><td>INVALID_INPUT</td><td>Limit at a point: the limit is infinite (it does not exist as a finite number).</td></tr></tbody></table>
+<h3 id="limit_at_infinity">Limit at infinity — <code>limit_at_infinity</code></h3>
+<p>The limit of f(x) as x grows without bound (horizontal asymptote, end behaviour).</p>
+<div class="math">\[\lim_{x\to\infty} f(x)\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x)</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>limit</code></td><td>the limit of f(x) as x -&gt; infinity</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact symbolic limit at +infinity (Gruntz algorithm); refused if infinite or oscillating</li><li><strong>Assumes:</strong> the limit exists and is finite</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;limit_at_infinity&#x27;, f=&#x27;(3x^2 + 1)/(x^2 - 5)&#x27;)
+# -&gt; limit = 3   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;limit_at_infinity&#x27;, f=&#x27;(1 + 2/x)^x&#x27;)
+# -&gt; limit = 7.38906   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;limit_at_infinity&#x27;, f=&#x27;sqrt(x^2 + 4x) - x&#x27;)
+# -&gt; limit = 2   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the limit of (3x^2 + 1)/(x^2 - 5) as x approaches infinity.</td><td>SOLVED</td><td>limit = 3</td></tr><tr><td>What is the limit of (1 + 2/x)^x as x -&gt; infinity?</td><td>SOLVED</td><td>limit = 7.38906</td></tr><tr><td>Find the limit as x approaches infinity of sqrt(x^2 + 4x) - x.</td><td>SOLVED</td><td>limit = 2</td></tr><tr><td>Find the limit of x^2 as x approaches infinity.</td><td>INVALID_INPUT</td><td>Limit at infinity: the limit is infinite (it does not exist as a finite number).</td></tr><tr><td>Find the limit of sin(x) as x approaches infinity.</td><td>INVALID_INPUT</td><td>Limit at infinity: the limit does not exist or could not be determined.</td></tr></tbody></table>
+<h3 id="implicit_derivative">Implicit differentiation — <code>implicit_derivative</code></h3>
+<p>The slope dy/dx of a curve given implicitly by F(x, y) = c, at a point on the curve.</p>
+<div class="math">\[\frac{dy}{dx} = -\frac{F_x}{F_y}\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>F</code></td><td>the curve as an equation in x and y</td><td></td></tr><tr><td><code>p</code></td><td>the point (x, y) on the curve</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>dy_dx</code></td><td>dy/dx at the point</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> $dy/dx = -F_x/F_y$ with exact symbolic partial derivatives of F(x, y) - c</li><li><strong>Assumes:</strong> the point lies on the curve; $F_y  \neq  0$ there (no vertical tangent)</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;implicit_derivative&#x27;, F=&#x27;x^2 + y^2 = 25&#x27;, p=&#x27;3, 4&#x27;)
+# -&gt; dy_dx = -0.75   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;implicit_derivative&#x27;, F=&#x27;x^3 + y^3 = 9&#x27;, p=[1, 2])
+# -&gt; dy_dx = -0.25   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find dy/dx for x^2 + y^2 = 25 at the point (3, 4).</td><td>SOLVED</td><td>dy_dx = -0.75</td></tr><tr><td>Use implicit differentiation to find dy/dx for x^3 + y^3 = 9 at (1, 2).</td><td>SOLVED</td><td>dy_dx = -0.25</td></tr><tr><td>Find dy/dx for x^2 + y^2 = 25 at the point (1, 1).</td><td>INVALID_INPUT</td><td>Implicit differentiation: the point (1, 1) is not on the curve.</td></tr><tr><td>Find dy/dx for x^2 + y^2 = 25 at the point (5, 0).</td><td>INVALID_INPUT</td><td>Implicit differentiation: F_y = 0 at this point: the tangent is vertical (dy/dx is undefined).</td></tr></tbody></table>
+<h3 id="extrema_on_interval">Absolute extrema on a closed interval — <code>extrema_on_interval</code></h3>
+<p>The absolute maximum and minimum values of a polynomial on [a, b] by the closed-interval method, with the critical points inside (a, b).</p>
+<div class="math">\[\max_{[a,b]} f = \max\{f(a), f(b), f(c) : f&#x27;(c) = 0\}\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the polynomial f(x)</td><td></td></tr><tr><td><code>a</code></td><td>left end</td><td></td></tr><tr><td><code>b</code></td><td>right end</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>absolute_max</code></td><td>the largest value of f on [a, b]</td></tr><tr><td><code>absolute_min</code></td><td>the smallest value</td></tr><tr><td><code>critical_points</code></td><td>critical points in (a, b), ascending</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact real roots of f&#x27; in (a, b) (Sturm isolation), then f compared at the critical points and both ends</li><li><strong>Assumes:</strong> $a &lt; b$; f is a polynomial with rational coefficients</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;extrema_on_interval&#x27;, f=&#x27;x^3 - 3x&#x27;, a=0, b=2)
+# -&gt; absolute_max = 2, absolute_min = -2, critical_points = [1.0]   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;extrema_on_interval&#x27;, f=&#x27;x^2 - 4x + 1&#x27;, a=-1, b=3)
+# -&gt; absolute_max = 6, absolute_min = -3, critical_points = [2.0]   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the absolute maximum and minimum of x^3 - 3x on [0, 2].</td><td>SOLVED</td><td>absolute_max = 2, absolute_min = -2, critical_points = [1.0]</td></tr><tr><td>Find the absolute extrema of x^2 - 4x + 1 on the interval [-1, 3].</td><td>SOLVED</td><td>absolute_max = 6, absolute_min = -3, critical_points = [2.0]</td></tr><tr><td>Find the absolute extrema of x^2 on the interval [3, 1].</td><td>INVALID_INPUT</td><td>Absolute extrema on a closed interval: the interval needs a &lt; b.</td></tr><tr><td>Find the absolute extrema of sin(x) on the interval [0, 3].</td><td>INVALID_INPUT</td><td>Absolute extrema on a closed interval: this capability needs a polynomial.</td></tr></tbody></table>
+<h3 id="critical_points_classify">Critical points and their classification — <code>critical_points_classify</code></h3>
+<p>All critical points of a polynomial f(x) and which are local maxima or minima (first-derivative test).</p>
+<div class="math">\[f&#x27;(c) = 0,\ f&#x27; \text{ changes } + \to - \Rightarrow \text{local max}\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the polynomial f(x)</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>critical_points</code></td><td>real solutions of f&#x27;$(x) = 0$, ascending</td></tr><tr><td><code>local_maxima</code></td><td>critical points that are local maxima</td></tr><tr><td><code>local_minima</code></td><td>critical points that are local minima</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact real roots of f&#x27; (Sturm isolation); the sign of f&#x27; on each side decides max / min / neither</li><li><strong>Assumes:</strong> f is a polynomial of degree &gt;= 2 with rational coefficients</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;critical_points_classify&#x27;, f=&#x27;x^3 - 3x&#x27;)
+# -&gt; critical_points = [-1.0, 1.0], local_maxima = [-1.0], local_minima = [1.0]   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;critical_points_classify&#x27;, f=&#x27;x^4 - 2x^2&#x27;)
+# -&gt; critical_points = [-1.0, 0.0, 1.0], local_maxima = [0.0], local_minima = [-1.0, 1.0]   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;critical_points_classify&#x27;, f=&#x27;x^3&#x27;)
+# -&gt; critical_points = [0.0], local_maxima = [], local_minima = []   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find and classify the critical points of x^3 - 3x.</td><td>SOLVED</td><td>critical_points = [-1.0, 1.0], local_maxima = [-1.0], local_minima = [1.0]</td></tr><tr><td>Find the local extrema of x^4 - 2x^2.</td><td>SOLVED</td><td>critical_points = [-1.0, 0.0, 1.0], local_maxima = [0.0], local_minima = [-1.0, 1.0]</td></tr><tr><td>Classify the critical points of 2x + 1.</td><td>INVALID_INPUT</td><td>Critical points and their classification: needs a polynomial of degree 2 or more (a line has no isolated critical points</td></tr></tbody></table>
+<h3 id="inflection_points">Inflection points — <code>inflection_points</code></h3>
+<p>The points where a polynomial changes concavity (f&#x27;&#x27; changes sign).</p>
+<div class="math">\[f&#x27;&#x27;(c) = 0 \text{ and } f&#x27;&#x27; \text{ changes sign at } c\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the polynomial f(x)</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>inflection_points</code></td><td>x-values of the inflection points, ascending</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact real roots of f&#x27;&#x27;; kept only where f&#x27;&#x27; changes sign (odd multiplicity)</li><li><strong>Assumes:</strong> f is a polynomial of degree &gt;= 2 with rational coefficients</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;inflection_points&#x27;, f=&#x27;x^3 - 3x^2&#x27;)
+# -&gt; inflection_points = [1.0]   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;inflection_points&#x27;, f=&#x27;x^4 - 6x^2&#x27;)
+# -&gt; inflection_points = [-1.0, 1.0]   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;inflection_points&#x27;, f=&#x27;x^4&#x27;)
+# -&gt; inflection_points = []   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the inflection points of x^3 - 3x^2.</td><td>SOLVED</td><td>inflection_points = [1.0]</td></tr><tr><td>Find the points of inflection of x^4 - 6x^2.</td><td>SOLVED</td><td>inflection_points = [-1.0, 1.0]</td></tr><tr><td>Find the inflection points of x^4.</td><td>SOLVED</td><td>inflection_points = []</td></tr></tbody></table>
+<h3 id="mean_value_theorem">Mean value theorem — <code>mean_value_theorem</code></h3>
+<p>The secant slope of a polynomial on [a, b] and every c in (a, b) where f&#x27;(c) equals it.</p>
+<div class="math">\[f&#x27;(c) = \frac{f(b) - f(a)}{b - a}\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the polynomial f(x)</td><td></td></tr><tr><td><code>a</code></td><td>left end</td><td></td></tr><tr><td><code>b</code></td><td>right end</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>secant_slope</code></td><td>(f(b) - f(a))/(b - a)</td></tr><tr><td><code>c_values</code></td><td>all c in (a, b) with f&#x27;(c) = the slope</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact secant slope, then the exact real roots of f&#x27;(x) - slope in (a, b)</li><li><strong>Assumes:</strong> $a &lt; b$; f a non-linear polynomial with rational coefficients</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;mean_value_theorem&#x27;, f=&#x27;x^2&#x27;, a=0, b=2)
+# -&gt; secant_slope = 2, c_values = [1.0]   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;mean_value_theorem&#x27;, f=&#x27;x^3&#x27;, a=0, b=3)
+# -&gt; secant_slope = 9, c_values = [1.7320508075688772]   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the value of c guaranteed by the mean value theorem for x^3 on [0, 3].</td><td>SOLVED</td><td>secant_slope = 9, c_values = [1.7320508075688772]</td></tr><tr><td>Apply the mean value theorem to x^2 on [0, 2].</td><td>SOLVED</td><td>secant_slope = 2, c_values = [1.0]</td></tr><tr><td>Apply the mean value theorem to 3x + 1 on [0, 2].</td><td>INVALID_INPUT</td><td>Mean value theorem: f is linear: every c in (a, b) satisfies the mean value theorem.</td></tr></tbody></table>
+<h3 id="ftc_derivative">Derivative of an integral (fundamental theorem) — <code>ftc_derivative</code></h3>
+<p>d/dx of the integral of f(t) from a to g(x), evaluated at $x = x_{0}$ (first fundamental theorem with the chain rule).</p>
+<div class="math">\[\frac{d}{dx}\int_a^{g(x)} f(t)\,dt = f(g(x))\,g&#x27;(x)\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the integrand f(t)</td><td></td></tr><tr><td><code>a</code></td><td>the constant lower limit</td><td></td></tr><tr><td><code>g</code></td><td>the upper limit g(x)</td><td></td></tr><tr><td><code>x0</code></td><td>the point $x = x_{0}$</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>derivative</code></td><td>d/dx of the integral at x0</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> f(g(x0)) * g&#x27;(x0) with the exact derivative of g</li><li><strong>Assumes:</strong> f continuous between a and g(x0); g differentiable at x0</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;ftc_derivative&#x27;, f=&#x27;sin(t)&#x27;, a=0, g=&#x27;x^2&#x27;, x0=1)
+# -&gt; derivative = 1.68294   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;ftc_derivative&#x27;, f=&#x27;t^2 + 1&#x27;, a=1, g=&#x27;3x&#x27;, x0=2)
+# -&gt; derivative = 111   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the derivative of the integral from 0 to x^2 of sin(t) dt at x = 1.</td><td>SOLVED</td><td>derivative = 1.68294</td></tr><tr><td>What is d/dx of the integral from 1 to 3x of t^2 + 1 dt at x = 2?</td><td>SOLVED</td><td>derivative = 111</td></tr><tr><td>Find the derivative of the integral from 1 to x of 1/t dt at x = -1.</td><td>INVALID_INPUT</td><td>Derivative of an integral (fundamental theorem): the function is not continuous (or not real) on the whole interval [-1,</td></tr></tbody></table>
+<h3 id="geometric_series_sum">Sum of an infinite geometric series — <code>geometric_series_sum</code></h3>
+<p>The sum a + a r + a $r^{2} + ...$ of a convergent geometric series.</p>
+<div class="math">\[\sum_{n=0}^{\infty} a r^n = \frac{a}{1-r}\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>a</code></td><td>the first term</td><td></td></tr><tr><td><code>r</code></td><td>the common ratio</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>sum</code></td><td>the sum of the series</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> $a/(1 - r)$, exact in the stated decimals</li><li><strong>Assumes:</strong> |r| &lt; 1</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;geometric_series_sum&#x27;, a=3, r=0.5)
+# -&gt; sum = 6   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;geometric_series_sum&#x27;, a=1, r=-0.25)
+# -&gt; sum = 0.8   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the sum of the geometric series with first term 3 and ratio 0.5.</td><td>SOLVED</td><td>sum = 6</td></tr><tr><td>What is the sum of the infinite geometric series with first term 1 and common ratio -1/3?</td><td>SOLVED</td><td>sum = 0.75</td></tr><tr><td>Find the sum of the geometric series with first term 3 and ratio 2.</td><td>INVALID_INPUT</td><td>Sum of an infinite geometric series: an infinite geometric series converges only when |r| &lt; 1.</td></tr></tbody></table>
+<h3 id="geometric_partial_sum">Partial sum of a geometric series — <code>geometric_partial_sum</code></h3>
+<p>The sum of the first n terms a + a r + ... + a $r^{n-1}$.</p>
+<div class="math">\[S_n = a\,\frac{1 - r^n}{1 - r}\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>a</code></td><td>the first term</td><td></td></tr><tr><td><code>r</code></td><td>the common ratio</td><td></td></tr><tr><td><code>n</code></td><td>the number of terms</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>sum</code></td><td>the sum of the first n terms</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> a $(1 - r^{n})/(1 - r)$ (n a when r = 1), exact in the stated decimals</li><li><strong>Assumes:</strong> $1  \leq  n  \leq  500$</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;geometric_partial_sum&#x27;, a=2, r=3, n=4)
+# -&gt; sum = 80   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;geometric_partial_sum&#x27;, a=1, r=0.5, n=3)
+# -&gt; sum = 1.75   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;geometric_partial_sum&#x27;, a=5, r=1, n=6)
+# -&gt; sum = 30   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the sum of the first 4 terms of the geometric series with first term 2 and ratio 3.</td><td>SOLVED</td><td>sum = 80</td></tr><tr><td>What is the sum of the first 3 terms of a geometric sequence with first term 1 and common ratio 0.5?</td><td>SOLVED</td><td>sum = 1.75</td></tr></tbody></table>
+<h3 id="arithmetic_series_sum">Sum of an arithmetic series — <code>arithmetic_series_sum</code></h3>
+<p>The sum of the first n terms of an arithmetic sequence, and its last term.</p>
+<div class="math">\[S_n = \frac{n}{2}\left(2a_1 + (n-1)d\right)\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>a1</code></td><td>the first term</td><td></td></tr><tr><td><code>d</code></td><td>the common difference</td><td></td></tr><tr><td><code>n</code></td><td>the number of terms</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>sum</code></td><td>the sum of the first n terms</td></tr><tr><td><code>last_term</code></td><td>the n-th term</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> $S_n = n$ (2 $a_1 + (n - 1)$ d)/2, exact in the stated decimals</li><li><strong>Assumes:</strong> $n  \geq  1$</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;arithmetic_series_sum&#x27;, a1=2, d=3, n=10)
+# -&gt; sum = 155, last_term = 29   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;arithmetic_series_sum&#x27;, a1=1, d=1, n=100)
+# -&gt; sum = 5050, last_term = 100   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the sum of the first 10 terms of the arithmetic series with first term 2 and common difference 3.</td><td>SOLVED</td><td>sum = 155, last_term = 29</td></tr><tr><td>What is the sum of the first 100 terms of an arithmetic sequence with first term 1 and difference 1?</td><td>SOLVED</td><td>sum = 5050, last_term = 100</td></tr></tbody></table>
+<h3 id="series_sum">Sum of an infinite series — <code>series_sum</code></h3>
+<p>The exact sum of a convergent series sum_{$n=k$}^infinity a_n (telescoping, geometric-type, zeta values, alternating harmonic, ...).</p>
+<div class="math">\[\sum_{n=k}^{\infty} a_n\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>a</code></td><td>the general term a_n, in n</td><td></td></tr><tr><td><code>k</code></td><td>the starting index</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>sum</code></td><td>the sum of the series</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact symbolic summation; refused if the series diverges or no closed form is found</li><li><strong>Assumes:</strong> the series converges; a closed form exists</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;series_sum&#x27;, a=&#x27;1/n^2&#x27;, k=1)
+# -&gt; sum = 1.64493   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;series_sum&#x27;, a=&#x27;1/(n*(n + 1))&#x27;, k=1)
+# -&gt; sum = 1   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;series_sum&#x27;, a=&#x27;(1/2)^n&#x27;, k=0)
+# -&gt; sum = 2   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;series_sum&#x27;, a=&#x27;(-1)^(n + 1)/n&#x27;, k=1)
+# -&gt; sum = 0.693147   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the sum of the series 1/n^2 from n = 1 to infinity.</td><td>SOLVED</td><td>sum = 1.64493</td></tr><tr><td>Find the sum of 1/(n*(n + 1)) from n = 1 to infinity.</td><td>SOLVED</td><td>sum = 1</td></tr><tr><td>Find the sum of the series 1/n from n = 1 to infinity.</td><td>INVALID_INPUT</td><td>Sum of an infinite series: the series diverges.</td></tr></tbody></table>
+<h3 id="ratio_test">Ratio test — <code>ratio_test</code></h3>
+<p>The limit L of |a_(n+1)/a_n| and the ratio test&#x27;s verdict for the series sum a_n (converges if $L &lt; 1$, diverges if L &gt; 1).</p>
+<div class="math">\[L = \lim_{n\to\infty}\left|\frac{a_{n+1}}{a_n}\right|\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>a</code></td><td>the general term a_n, in n</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>ratio_limit</code></td><td>L = lim |a_(n+1)/a_n|</td></tr><tr><td><code>verdict</code></td><td>converges or diverges</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact simplification of a_(n+1)/a_n and its symbolic limit as n -&gt; infinity</li><li><strong>Assumes:</strong> L exists, is finite and is not 1 (L = 1 is inconclusive and refused)</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;ratio_test&#x27;, a=&#x27;2^n/n^3&#x27;)
+# -&gt; ratio_limit = 2, verdict = diverges   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;ratio_test&#x27;, a=&#x27;n^2/3^n&#x27;)
+# -&gt; ratio_limit = 0.333333, verdict = converges   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Apply the ratio test to the series 2^n/n^3.</td><td>SOLVED</td><td>ratio_limit = 2, verdict = diverges</td></tr><tr><td>Use the ratio test on n^2/3^n.</td><td>SOLVED</td><td>ratio_limit = 0.333333, verdict = converges</td></tr><tr><td>Apply the ratio test to the series 1/n^2.</td><td>INVALID_INPUT</td><td>Ratio test: the ratio limit is 1: the ratio test is inconclusive.</td></tr></tbody></table>
+<h3 id="taylor_polynomial">Taylor polynomial — <code>taylor_polynomial</code></h3>
+<p>The degree-n Taylor polynomial of f about $x = a$ (Maclaurin when a = 0): its coefficients, its value at x1, f(x1) and the truncation error.</p>
+<div class="math">\[P_n(x) = \sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^k\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x)</td><td></td></tr><tr><td><code>a</code></td><td>the centre $x = a$</td><td></td></tr><tr><td><code>n</code></td><td>the degree</td><td></td></tr><tr><td><code>x1</code></td><td>the evaluation point</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>coefficients</code></td><td>c_0 .. c_n with $c_k = f^{k}$(a)/k!</td></tr><tr><td><code>value</code></td><td>P_n(x1)</td></tr><tr><td><code>function_value</code></td><td>f(x1)</td></tr><tr><td><code>error</code></td><td>f(x1) - P_n(x1)</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact symbolic derivatives at a divided by k!, then Horner evaluation in $(x_{1} - a)$</li><li><strong>Assumes:</strong> f is n times differentiable at a and defined at x1; $0  \leq  n  \leq  12$</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;taylor_polynomial&#x27;, f=&#x27;exp(x)&#x27;, a=0, n=3, x1=0.5)
+# -&gt; coefficients = [1.0, 1.0, 0.5, 0.16666666666666666], value = 1.64583, function_value = 1.64872, error = 0.00288794   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;taylor_polynomial&#x27;, f=&#x27;cos(x)&#x27;, a=0, n=4, x1=0.3)
+# -&gt; coefficients = [1.0, 0.0, -0.5, 0.0, 0.041666666666666664], value = 0.955337, function_value = 0.955336, error = -1.01087e-06   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;taylor_polynomial&#x27;, f=&#x27;log(x)&#x27;, a=1, n=2, x1=1.5)
+# -&gt; coefficients = [0.0, 1.0, -0.5], value = 0.375, function_value = 0.405465, error = 0.0304651   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the Taylor polynomial of degree 3 of exp(x) about x = 0 and evaluate it at x = 0.5.</td><td>SOLVED</td><td>coefficients = [1.0, 1.0, 0.5, 0.16666666666666666], value = 1.64583, function_value = 1.64872, error = 0.00288794</td></tr><tr><td>Evaluate the degree 4 Maclaurin polynomial of cos(x) at x = 0.3.</td><td>SOLVED</td><td>coefficients = [1.0, 0.0, -0.5, 0.0, 0.041666666666666664], value = 0.955337, function_value = 0.955336, error = -1.01087e-06</td></tr><tr><td>Find the Taylor polynomial of degree 2 of log(x) about x = 0 and evaluate it at x = 0.5.</td><td>INVALID_INPUT</td><td>Taylor polynomial: the result is not finite.</td></tr></tbody></table>
+<h3 id="partial_derivative">Partial derivative — <code>partial_derivative</code></h3>
+<p>The partial derivative of f(x, y) or f(x, y, z) with respect to one variable, at a point.</p>
+<div class="math">\[\frac{\partial f}{\partial x}(p)\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x, y) or f(x, y, z)</td><td></td></tr><tr><td><code>var</code></td><td>the variable</td><td></td></tr><tr><td><code>p</code></td><td>the point (x, y) or (x, y, z)</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>partial</code></td><td>the partial derivative at the point</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact symbolic partial differentiation, then evaluation at the point</li><li><strong>Assumes:</strong> f differentiable at the point</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;partial_derivative&#x27;, f=&#x27;x^2*y + y^3&#x27;, var=&#x27;x&#x27;, p=&#x27;1, 2&#x27;)
+# -&gt; partial = 4   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;partial_derivative&#x27;, f=&#x27;x^2*y + y^3&#x27;, var=&#x27;y&#x27;, p=[1, 2])
+# -&gt; partial = 13   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;partial_derivative&#x27;, f=&#x27;x*y*z&#x27;, var=&#x27;z&#x27;, p=&#x27;1, 2, 3&#x27;)
+# -&gt; partial = 2   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the partial derivative of x^2*y + y^3 with respect to x at (1, 2).</td><td>SOLVED</td><td>partial = 4</td></tr><tr><td>What is the partial derivative of x*y*z with respect to z at the point (1, 2, 3)?</td><td>SOLVED</td><td>partial = 2</td></tr><tr><td>Find the partial derivative of x^2*y with respect to z at (1, 2).</td><td>INVALID_INPUT</td><td>Partial derivative: the variable must be one of x, y.</td></tr></tbody></table>
+<h3 id="gradient">Gradient — <code>gradient</code></h3>
+<p>The gradient vector of f(x, y) or f(x, y, z) at a point and its length (the greatest rate of increase).</p>
+<div class="math">\[\nabla f = \left(f_x, f_y, f_z\right)\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x, y) or f(x, y, z)</td><td></td></tr><tr><td><code>p</code></td><td>the point (x, y) or (x, y, z)</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>gradient</code></td><td>the gradient vector</td></tr><tr><td><code>magnitude</code></td><td>its length</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact symbolic partial derivatives at the point</li><li><strong>Assumes:</strong> f differentiable at the point</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;gradient&#x27;, f=&#x27;x^2 + y^2&#x27;, p=&#x27;1, 2&#x27;)
+# -&gt; gradient = [2.0, 4.0], magnitude = 4.47214   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;gradient&#x27;, f=&#x27;x*y*z&#x27;, p=[1, 2, 3])
+# -&gt; gradient = [6.0, 3.0, 2.0], magnitude = 7   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the gradient of x^2 + y^2 at (1, 2).</td><td>SOLVED</td><td>gradient = [2.0, 4.0], magnitude = 4.47214</td></tr><tr><td>What is the gradient of x*y*z at the point (1, 2, 3)?</td><td>SOLVED</td><td>gradient = [6.0, 3.0, 2.0], magnitude = 7</td></tr><tr><td>Find the gradient of log(x) + y at (-1, 2).</td><td>INVALID_INPUT</td><td>Gradient: the expression is not real there.</td></tr></tbody></table>
+<h3 id="directional_derivative">Directional derivative — <code>directional_derivative</code></h3>
+<p>The rate of change of f at a point in the direction of a vector u (u is normalised to unit length).</p>
+<div class="math">\[D_{\mathbf u} f = \nabla f\cdot\frac{\mathbf u}{|\mathbf u|}\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x, y) or f(x, y, z)</td><td></td></tr><tr><td><code>p</code></td><td>the point</td><td></td></tr><tr><td><code>u</code></td><td>the direction vector</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>directional_derivative</code></td><td>D_u f at the point</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> gradient (exact partial derivatives) dotted with u/|u|</li><li><strong>Assumes:</strong> $u  \neq  0$ with as many components as p; f differentiable at p</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;directional_derivative&#x27;, f=&#x27;x^2*y&#x27;, p=&#x27;1, 2&#x27;, u=&#x27;3, 4&#x27;)
+# -&gt; directional_derivative = 3.2   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;directional_derivative&#x27;, f=&#x27;x*y*z&#x27;, p=[1, 2, 3], u=[1, 2, 2])
+# -&gt; directional_derivative = 5.33333   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the directional derivative of x^2*y at (1, 2) in the direction (3, 4).</td><td>SOLVED</td><td>directional_derivative = 3.2</td></tr><tr><td>Find the directional derivative of x*y*z at the point (1, 2, 3) in the direction of the vector (1, 2, 2).</td><td>SOLVED</td><td>directional_derivative = 5.33333</td></tr><tr><td>Find the directional derivative of x^2*y at (1, 2) in the direction (0, 0).</td><td>INVALID_INPUT</td><td>Directional derivative: the direction vector must not be zero.</td></tr></tbody></table>
+<h3 id="tangent_plane">Tangent plane — <code>tangent_plane</code></h3>
+<p>The tangent plane $z = f_x$ x + f_y y + c to the surface $z = f$(x, y) at (x0, y0).</p>
+<div class="math">\[z = f(x_0,y_0) + f_x(x - x_0) + f_y(y - y_0)\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the surface $z = f$(x, y)</td><td></td></tr><tr><td><code>p</code></td><td>the point (x0, y0)</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>z0</code></td><td>f(x0, y0)</td></tr><tr><td><code>fx</code></td><td>f_x(x0, y0)</td></tr><tr><td><code>fy</code></td><td>f_y(x0, y0)</td></tr><tr><td><code>c</code></td><td>the constant term c</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact partial derivatives; $z = z_{0} + f_x$ $(x - x_{0}) + f_y$ $(y - y_{0})$ expanded</li><li><strong>Assumes:</strong> f differentiable at (x0, y0)</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;tangent_plane&#x27;, f=&#x27;x^2 + y^2&#x27;, p=&#x27;1, 2&#x27;)
+# -&gt; z0 = 5, fx = 2, fy = 4, c = -5   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;tangent_plane&#x27;, f=&#x27;x*y&#x27;, p=[2, 3])
+# -&gt; z0 = 6, fx = 3, fy = 2, c = -6   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the tangent plane to z = x^2 + y^2 at (1, 2).</td><td>SOLVED</td><td>z0 = 5, fx = 2, fy = 4, c = -5</td></tr><tr><td>Find the equation of the tangent plane to the surface z = x*y at the point (2, 3).</td><td>SOLVED</td><td>z0 = 6, fx = 3, fy = 2, c = -6</td></tr></tbody></table>
+<h3 id="hessian_classification">Second derivative test (two variables) — <code>hessian_classification</code></h3>
+<p>Classifies a critical point of f(x, y) as a local minimum, local maximum or saddle point from the Hessian.</p>
+<div class="math">\[D = f_{xx}f_{yy} - f_{xy}^2\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x, y)</td><td></td></tr><tr><td><code>p</code></td><td>the critical point (x, y)</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>fxx</code></td><td>f_xx</td></tr><tr><td><code>fxy</code></td><td>f_xy</td></tr><tr><td><code>fyy</code></td><td>f_yy</td></tr><tr><td><code>D</code></td><td>$D = f_xx$ $f_yy - f_xy^{2}$</td></tr><tr><td><code>classification</code></td><td>local minimum, local maximum or saddle point</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact second partial derivatives at the point; $D &gt; 0$ and $f_xx &gt; 0$ minimum, $D &gt; 0$ and $f_xx &lt; 0$ maximum, $D &lt; 0$ saddle</li><li><strong>Assumes:</strong> the gradient is zero at the point; $D  \neq  0$ (D = 0 is inconclusive and refused)</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;hessian_classification&#x27;, f=&#x27;x^2 + 3y^2 - 2x&#x27;, p=&#x27;1, 0&#x27;)
+# -&gt; fxx = 2, fxy = 0, fyy = 6, D = 12, classification = local minimum   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;hessian_classification&#x27;, f=&#x27;x^2 - y^2&#x27;, p=[0, 0])
+# -&gt; fxx = 2, fxy = 0, fyy = -2, D = -4, classification = saddle point   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;hessian_classification&#x27;, f=&#x27;4 - x^2 - y^2 + x*y&#x27;, p=[0, 0])
+# -&gt; fxx = -2, fxy = 1, fyy = -2, D = 3, classification = local maximum   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Classify the critical point of x^2 + 3y^2 - 2x at (1, 0).</td><td>SOLVED</td><td>fxx = 2, fxy = 0, fyy = 6, D = 12, classification = local minimum</td></tr><tr><td>Use the second derivative test for x^2 - y^2 at the point (0, 0).</td><td>SOLVED</td><td>fxx = 2, fxy = 0, fyy = -2, D = -4, classification = saddle point</td></tr><tr><td>Classify the critical point of x^2 + y^2 at (1, 0).</td><td>INVALID_INPUT</td><td>Second derivative test (two variables): (1, 0) is not a critical point (the gradient is (2, 0)).</td></tr><tr><td>Classify the critical point of x^4 + y^4 at (0, 0).</td><td>INVALID_INPUT</td><td>Second derivative test (two variables): D = 0: the second derivative test is inconclusive.</td></tr></tbody></table>
+<h3 id="laplacian">Laplacian — <code>laplacian</code></h3>
+<p>The Laplacian f_xx + f_yy (+ f_zz) of a function at a point.</p>
+<div class="math">\[\nabla^2 f = f_{xx} + f_{yy} + f_{zz}\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x, y) or f(x, y, z)</td><td></td></tr><tr><td><code>p</code></td><td>the point</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>laplacian</code></td><td>the Laplacian at the point</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact second partial derivatives summed</li><li><strong>Assumes:</strong> f twice differentiable at the point</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;laplacian&#x27;, f=&#x27;x^2 + y^2&#x27;, p=&#x27;1, 1&#x27;)
+# -&gt; laplacian = 4   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;laplacian&#x27;, f=&#x27;x^2*y + z^3&#x27;, p=[1, 2, 3])
+# -&gt; laplacian = 22   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the Laplacian of x^2*y + z^3 at (1, 2, 3).</td><td>SOLVED</td><td>laplacian = 22</td></tr><tr><td>Find the Laplacian of x^2 + y^2 at the point (1, 1).</td><td>SOLVED</td><td>laplacian = 4</td></tr></tbody></table>
+<h3 id="divergence">Divergence — <code>divergence</code></h3>
+<p>The divergence P_x + Q_y + R_z of a vector field F = (P, Q, R) at a point.</p>
+<div class="math">\[\nabla\cdot\mathbf F = P_x + Q_y + R_z\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>P</code></td><td>the x-component P(x, y, z)</td><td></td></tr><tr><td><code>Q</code></td><td>the y-component Q(x, y, z)</td><td></td></tr><tr><td><code>R</code></td><td>the z-component R(x, y, z)</td><td></td></tr><tr><td><code>p</code></td><td>the point (x, y, z)</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>divergence</code></td><td>div F at the point</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact symbolic partial derivatives</li><li><strong>Assumes:</strong> the components are differentiable at the point</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;divergence&#x27;, P=&#x27;x*y&#x27;, Q=&#x27;y*z&#x27;, R=&#x27;x*z&#x27;, p=&#x27;1, 2, 3&#x27;)
+# -&gt; divergence = 6   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;divergence&#x27;, P=&#x27;x^2&#x27;, Q=&#x27;y^2&#x27;, R=&#x27;z^2&#x27;, p=[1, 1, 1])
+# -&gt; divergence = 6   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the divergence of F = (x*y, y*z, x*z) at (1, 2, 3).</td><td>SOLVED</td><td>divergence = 6</td></tr><tr><td>Find the divergence of the vector field F = (x^2, y^2, z^2) at the point (1, 1, 1).</td><td>SOLVED</td><td>divergence = 6</td></tr></tbody></table>
+<h3 id="curl">Curl — <code>curl</code></h3>
+<p>The curl of a vector field F = (P, Q, R) at a point.</p>
+<div class="math">\[\nabla\times\mathbf F = (R_y - Q_z,\ P_z - R_x,\ Q_x - P_y)\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>P</code></td><td>the x-component P(x, y, z)</td><td></td></tr><tr><td><code>Q</code></td><td>the y-component Q(x, y, z)</td><td></td></tr><tr><td><code>R</code></td><td>the z-component R(x, y, z)</td><td></td></tr><tr><td><code>p</code></td><td>the point (x, y, z)</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>curl</code></td><td>curl F at the point</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact symbolic partial derivatives: (R_y - Q_z, P_z - R_x, Q_x - P_y)</li><li><strong>Assumes:</strong> the components are differentiable at the point</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;curl&#x27;, P=&#x27;x*y&#x27;, Q=&#x27;y*z&#x27;, R=&#x27;z*x&#x27;, p=&#x27;1, 2, 3&#x27;)
+# -&gt; curl = [-2.0, -3.0, -1.0]   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;curl&#x27;, P=&#x27;-y&#x27;, Q=&#x27;x&#x27;, R=&#x27;z&#x27;, p=[1, 2, 3])
+# -&gt; curl = [0.0, 0.0, 2.0]   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the curl of F = (x*y, y*z, z*x) at (1, 2, 3).</td><td>SOLVED</td><td>curl = [-2.0, -3.0, -1.0]</td></tr><tr><td>Find the curl of the vector field F = (-y, x, z) at the point (1, 2, 3).</td><td>SOLVED</td><td>curl = [0.0, 0.0, 2.0]</td></tr></tbody></table>
+<h3 id="jacobian_determinant">Jacobian determinant — <code>jacobian_determinant</code></h3>
+<p>The Jacobian determinant d(x, y)/d(u, v) of a transformation $x = x$(u, v), $y = y$(u, v) at a point.</p>
+<div class="math">\[\frac{\partial(x,y)}{\partial(u,v)} = x_u y_v - x_v y_u\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>xu</code></td><td>x as a function of u and v</td><td></td></tr><tr><td><code>yv</code></td><td>y as a function of u and v</td><td></td></tr><tr><td><code>p</code></td><td>the point (u, v)</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>jacobian</code></td><td>the Jacobian determinant at the point</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact partial derivatives; x_u y_v - x_v y_u</li><li><strong>Assumes:</strong> x and y differentiable at the point</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;jacobian_determinant&#x27;, xu=&#x27;u*cos(v)&#x27;, yv=&#x27;u*sin(v)&#x27;, p=&#x27;2, 0.5&#x27;)
+# -&gt; jacobian = 2   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;jacobian_determinant&#x27;, xu=&#x27;u + v&#x27;, yv=&#x27;u - v&#x27;, p=[1, 1])
+# -&gt; jacobian = -2   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the Jacobian of x = u*cos(v), y = u*sin(v) at (2, 0.5).</td><td>SOLVED</td><td>jacobian = 2</td></tr><tr><td>Find the Jacobian determinant of the transformation x = u + v, y = u - v at the point (1, 1).</td><td>SOLVED</td><td>jacobian = -2</td></tr></tbody></table>
+<h3 id="double_integral_rectangle">Double integral over a rectangle — <code>double_integral_rectangle</code></h3>
+<p>The double integral of f(x, y) over the rectangle [a, b] x [c, d].</p>
+<div class="math">\[\int_a^b\!\int_c^d f(x,y)\,dy\,dx\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the integrand f(x, y)</td><td></td></tr><tr><td><code>a</code></td><td>x from</td><td></td></tr><tr><td><code>b</code></td><td>x to</td><td></td></tr><tr><td><code>c</code></td><td>y from</td><td></td></tr><tr><td><code>d</code></td><td>y to</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>integral</code></td><td>the value of the double integral</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> product Gauss-Legendre rules of increasing order (24, 40, 64 nodes per direction) until two agree to $1e-12$</li><li><strong>Assumes:</strong> $a &lt; b$, $c &lt; d$; f continuous on the rectangle</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;double_integral_rectangle&#x27;, f=&#x27;x*y&#x27;, a=0, b=2, c=0, d=3)
+# -&gt; integral = 9   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;double_integral_rectangle&#x27;, f=&#x27;x^2 + y&#x27;, a=0, b=1, c=0, d=2)
+# -&gt; integral = 2.66667   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the double integral of x*y over [0, 2] x [0, 3].</td><td>SOLVED</td><td>integral = 9</td></tr><tr><td>Evaluate the double integral of x^2 + y over the rectangle [0, 1] x [0, 2].</td><td>SOLVED</td><td>integral = 2.66667</td></tr><tr><td>Find the double integral of x*y over [2, 0] x [0, 3].</td><td>INVALID_INPUT</td><td>Double integral over a rectangle: the rectangle needs a &lt; b and c &lt; d.</td></tr></tbody></table>
+<h3 id="double_integral_region">Double integral over a region — <code>double_integral_region</code></h3>
+<p>The double integral of f(x, y) over the region $a  \leq  x  \leq  b$, g1(x) &lt;= y &lt;= g2(x).</p>
+<div class="math">\[\int_a^b\!\int_{g_1(x)}^{g_2(x)} f(x,y)\,dy\,dx\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the integrand f(x, y)</td><td></td></tr><tr><td><code>a</code></td><td>x from</td><td></td></tr><tr><td><code>b</code></td><td>x to</td><td></td></tr><tr><td><code>g1</code></td><td>the lower curve $y = g_{1}$(x)</td><td></td></tr><tr><td><code>g2</code></td><td>the upper curve $y = g_{2}$(x)</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>integral</code></td><td>the value of the double integral</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> iterated Gauss-Legendre rules of increasing order (inner rule mapped to [g1(x), g2(x)]) until two agree</li><li><strong>Assumes:</strong> $a &lt; b$; $g_{1}  \leq  g_{2}$ on [a, b]; f, g1, g2 continuous</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;double_integral_region&#x27;, f=&#x27;x*y&#x27;, a=0, b=1, g1=&#x27;x^2&#x27;, g2=&#x27;x&#x27;)
+# -&gt; integral = 0.0416667   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;double_integral_region&#x27;, f=&#x27;1&#x27;, a=0, b=2, g1=&#x27;0&#x27;, g2=&#x27;x^2&#x27;)
+# -&gt; integral = 2.66667   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the double integral of x*y over the region 0 &lt;= x &lt;= 1, x^2 &lt;= y &lt;= x.</td><td>SOLVED</td><td>integral = 0.0416667</td></tr><tr><td>Evaluate the double integral of 1 over 0 &lt;= x &lt;= 2, 0 &lt;= y &lt;= x^2.</td><td>SOLVED</td><td>integral = 2.66667</td></tr><tr><td>Find the double integral of x*y over the region 0 &lt;= x &lt;= 1, x &lt;= y &lt;= x^2 - 1.</td><td>INVALID_INPUT</td><td>Double integral over a region: the lower boundary must lie below the upper boundary on [a, b].</td></tr></tbody></table>
+<h3 id="triple_integral_box">Triple integral over a box — <code>triple_integral_box</code></h3>
+<p>The triple integral of f(x, y, z) over the box [x0, x1] x [y0, y1] x [z0, z1].</p>
+<div class="math">\[\iiint_B f(x,y,z)\,dV\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the integrand f(x, y, z)</td><td></td></tr><tr><td><code>x0</code></td><td>x from</td><td></td></tr><tr><td><code>x1</code></td><td>x to</td><td></td></tr><tr><td><code>y0</code></td><td>y from</td><td></td></tr><tr><td><code>y1</code></td><td>y to</td><td></td></tr><tr><td><code>z0</code></td><td>z from</td><td></td></tr><tr><td><code>z1</code></td><td>z to</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>integral</code></td><td>the value of the triple integral</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact iterated integration for a polynomial integrand; otherwise product Gauss-Legendre rules of increasing order until two agree</li><li><strong>Assumes:</strong> $x_{0} &lt; x_{1}$, $y_{0} &lt; y_{1}$, $z_{0} &lt; z_{1}$; f continuous on the box</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;triple_integral_box&#x27;, f=&#x27;x*y*z&#x27;, x0=0, x1=1, y0=0, y1=2, z0=0, z1=3)
+# -&gt; integral = 4.5   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;triple_integral_box&#x27;, f=&#x27;x^2 + y^2 + z^2&#x27;, x0=0, x1=1, y0=0, y1=1, z0=0, z1=1)
+# -&gt; integral = 1   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the triple integral of x*y*z over [0, 1] x [0, 2] x [0, 3].</td><td>SOLVED</td><td>integral = 4.5</td></tr><tr><td>Evaluate the triple integral of x^2 + y^2 + z^2 over the box [0, 1] x [0, 1] x [0, 1].</td><td>SOLVED</td><td>integral = 1</td></tr></tbody></table>
+<h3 id="surface_area_graph">Surface area of a graph — <code>surface_area_graph</code></h3>
+<p>The area of the surface $z = f$(x, y) over the rectangle [a, b] x [c, d].</p>
+<div class="math">\[A = \iint_R \sqrt{1 + f_x^2 + f_y^2}\,dA\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the surface $z = f$(x, y)</td><td></td></tr><tr><td><code>a</code></td><td>x from</td><td></td></tr><tr><td><code>b</code></td><td>x to</td><td></td></tr><tr><td><code>c</code></td><td>y from</td><td></td></tr><tr><td><code>d</code></td><td>y to</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>surface_area</code></td><td>the surface area</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exact partial derivatives; Gauss-Legendre product rules of sqrt(1 + f_x^2 + f_y^2) until two orders agree</li><li><strong>Assumes:</strong> $a &lt; b$, $c &lt; d$; f continuously differentiable on the rectangle</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;surface_area_graph&#x27;, f=&#x27;x + y&#x27;, a=0, b=1, c=0, d=1)
+# -&gt; surface_area = 1.73205   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;surface_area_graph&#x27;, f=&#x27;3&#x27;, a=0, b=2, c=0, d=2)
+# -&gt; surface_area = 4   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the surface area of z = x + y over [0, 1] x [0, 1].</td><td>SOLVED</td><td>surface_area = 1.73205</td></tr><tr><td>Find the area of the surface z = 2x + 2y over the rectangle [0, 1] x [0, 2].</td><td>SOLVED</td><td>surface_area = 6</td></tr></tbody></table>
+<h3 id="line_integral_vector">Line integral of a vector field — <code>line_integral_vector</code></h3>
+<p>The line integral (work) of F = (P, Q) along the path $x = x$(t), $y = y$(t) from t0 to t1.</p>
+<div class="math">\[\int_C \mathbf F\cdot d\mathbf r = \int_{t_0}^{t_1} \left(P\,x&#x27;(t) + Q\,y&#x27;(t)\right)dt\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>P</code></td><td>the x-component P(x, y)</td><td></td></tr><tr><td><code>Q</code></td><td>the y-component Q(x, y)</td><td></td></tr><tr><td><code>xt</code></td><td>the path x(t)</td><td></td></tr><tr><td><code>yt</code></td><td>the path y(t)</td><td></td></tr><tr><td><code>t0</code></td><td>start parameter</td><td></td></tr><tr><td><code>t1</code></td><td>end parameter</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>line_integral</code></td><td>the integral of F . dr along the path</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> F(r(t)) . r&#x27;(t) built exactly (symbolic r&#x27;), then tanh-sinh quadrature at 20 digits</li><li><strong>Assumes:</strong> the integrand is continuous for t between t0 and t1</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;line_integral_vector&#x27;, P=&#x27;-y&#x27;, Q=&#x27;x&#x27;, xt=&#x27;cos(t)&#x27;, yt=&#x27;sin(t)&#x27;, t0=0, t1=6.283185307179586)
+# -&gt; line_integral = 6.28319   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;line_integral_vector&#x27;, P=&#x27;y&#x27;, Q=&#x27;x&#x27;, xt=&#x27;t&#x27;, yt=&#x27;t^2&#x27;, t0=0, t1=1)
+# -&gt; line_integral = 1   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the line integral of F = (-y, x) along x = cos(t), y = sin(t) from t = 0 to t = 2pi.</td><td>SOLVED</td><td>line_integral = 6.28319</td></tr><tr><td>Compute the line integral of the vector field F = (y, x) along the curve x = t, y = t^2 from t = 0 to t = 1.</td><td>SOLVED</td><td>line_integral = 1</td></tr></tbody></table>
+<h3 id="line_integral_scalar">Line integral with respect to arc length — <code>line_integral_scalar</code></h3>
+<p>The integral of f(x, y) ds along the path $x = x$(t), $y = y$(t), $t_{0}  \leq  t  \leq  t_{1}$ (mass of a wire, average along a curve).</p>
+<div class="math">\[\int_C f\,ds = \int_{t_0}^{t_1} f(x(t),y(t))\sqrt{x&#x27;(t)^2 + y&#x27;(t)^2}\,dt\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x, y)</td><td></td></tr><tr><td><code>xt</code></td><td>the path x(t)</td><td></td></tr><tr><td><code>yt</code></td><td>the path y(t)</td><td></td></tr><tr><td><code>t0</code></td><td>start parameter</td><td></td></tr><tr><td><code>t1</code></td><td>end parameter</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>line_integral</code></td><td>the integral of f ds along the path</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> f(r(t)) |r&#x27;(t)| with exact r&#x27;(t), then tanh-sinh quadrature</li><li><strong>Assumes:</strong> $t_{0} &lt; t_{1}$; the integrand continuous on [t0, t1]</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;line_integral_scalar&#x27;, f=&#x27;x + y&#x27;, xt=&#x27;t&#x27;, yt=&#x27;t&#x27;, t0=0, t1=1)
+# -&gt; line_integral = 1.41421   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;line_integral_scalar&#x27;, f=&#x27;1&#x27;, xt=&#x27;cos(t)&#x27;, yt=&#x27;sin(t)&#x27;, t0=0, t1=3.141592653589793)
+# -&gt; line_integral = 3.14159   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the line integral of x + y ds along x = t, y = t from t = 0 to t = 1.</td><td>SOLVED</td><td>line_integral = 1.41421</td></tr><tr><td>Find the line integral of x + y ds along x = t, y = t from t = 1 to t = 0.</td><td>INVALID_INPUT</td><td>Line integral with respect to arc length: the parameter must run forward (t0 &lt; t1) for an integral with respect to arc l</td></tr></tbody></table>
+<h3 id="greens_theorem">Green&#x27;s theorem on a rectangle — <code>greens_theorem</code></h3>
+<p>Both sides of Green&#x27;s theorem for F = (P, Q) on the rectangle [a, b] x [c, d]: the counter-clockwise circulation around the boundary and the double integral of Q_x - P_y.</p>
+<div class="math">\[\oint_C P\,dx + Q\,dy = \iint_R \left(Q_x - P_y\right)dA\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>P</code></td><td>the x-component P(x, y)</td><td></td></tr><tr><td><code>Q</code></td><td>the y-component Q(x, y)</td><td></td></tr><tr><td><code>a</code></td><td>x from</td><td></td></tr><tr><td><code>b</code></td><td>x to</td><td></td></tr><tr><td><code>c</code></td><td>y from</td><td></td></tr><tr><td><code>d</code></td><td>y to</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>circulation</code></td><td>the boundary line integral (counter-clockwise)</td></tr><tr><td><code>double_integral</code></td><td>the integral of Q_x - P_y</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> the four sides by tanh-sinh quadrature; the double integral of the exact Q_x - P_y by Gauss-Legendre product rules; refused unless the two agree</li><li><strong>Assumes:</strong> $a &lt; b$, $c &lt; d$; P and Q continuously differentiable on the rectangle</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;greens_theorem&#x27;, P=&#x27;-y&#x27;, Q=&#x27;x&#x27;, a=0, b=1, c=0, d=2)
+# -&gt; circulation = 4, double_integral = 4   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;greens_theorem&#x27;, P=&#x27;x*y&#x27;, Q=&#x27;x^2&#x27;, a=0, b=1, c=0, d=1)
+# -&gt; circulation = 0.5, double_integral = 0.5   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Verify Green&#x27;s theorem for F = (-y, x) on the rectangle [0, 1] x [0, 2].</td><td>SOLVED</td><td>circulation = 4, double_integral = 4</td></tr><tr><td>Use Green&#x27;s theorem for F = (x*y, x^2) on [0, 1] x [0, 1].</td><td>SOLVED</td><td>circulation = 0.5, double_integral = 0.5</td></tr></tbody></table>
+<h3 id="divergence_theorem_box">Outward flux through a box (divergence theorem) — <code>divergence_theorem_box</code></h3>
+<p>The outward flux of F = (P, Q, R) through the surface of the box [x0, x1] x [y0, y1] x [z0, z1].</p>
+<div class="math">\[\oiint_S \mathbf F\cdot\mathbf n\,dS = \iiint_B \nabla\cdot\mathbf F\,dV\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>P</code></td><td>the x-component</td><td></td></tr><tr><td><code>Q</code></td><td>the y-component</td><td></td></tr><tr><td><code>R</code></td><td>the z-component</td><td></td></tr><tr><td><code>x0</code></td><td>x from</td><td></td></tr><tr><td><code>x1</code></td><td>x to</td><td></td></tr><tr><td><code>y0</code></td><td>y from</td><td></td></tr><tr><td><code>y1</code></td><td>y to</td><td></td></tr><tr><td><code>z0</code></td><td>z from</td><td></td></tr><tr><td><code>z1</code></td><td>z to</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>flux</code></td><td>the outward flux</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> the divergence theorem: the triple integral of the exact divergence (exact for polynomials, otherwise Gauss-Legendre product rules until two orders agree)</li><li><strong>Assumes:</strong> the box is non-degenerate; F continuously differentiable on the box</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;divergence_theorem_box&#x27;, P=&#x27;x^2&#x27;, Q=&#x27;y^2&#x27;, R=&#x27;z^2&#x27;, x0=0, x1=1, y0=0, y1=1, z0=0, z1=1)
+# -&gt; flux = 3   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;divergence_theorem_box&#x27;, P=&#x27;x&#x27;, Q=&#x27;y&#x27;, R=&#x27;z&#x27;, x0=0, x1=1, y0=0, y1=2, z0=0, z1=3)
+# -&gt; flux = 18   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the outward flux of F = (x^2, y^2, z^2) through the box [0, 1] x [0, 1] x [0, 1].</td><td>SOLVED</td><td>flux = 3</td></tr><tr><td>Find the flux of the field F = (x, y, z) through the box [0, 1] x [0, 2] x [0, 3].</td><td>SOLVED</td><td>flux = 18</td></tr></tbody></table>
+<h3 id="parametric_arc_length">Arc length of a parametric curve — <code>parametric_arc_length</code></h3>
+<p>The length of the curve $x = x$(t), $y = y$(t) for $t_{0}  \leq  t  \leq  t_{1}.$</p>
+<div class="math">\[L = \int_{t_0}^{t_1}\sqrt{x&#x27;(t)^2 + y&#x27;(t)^2}\,dt\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>xt</code></td><td>x(t)</td><td></td></tr><tr><td><code>yt</code></td><td>y(t)</td><td></td></tr><tr><td><code>t0</code></td><td>start parameter</td><td></td></tr><tr><td><code>t1</code></td><td>end parameter</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>arc_length</code></td><td>the length of the curve</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> sqrt(x&#x27;$(t)^{2} + y$&#x27;(t)^2) with exact derivatives, tanh-sinh quadrature</li><li><strong>Assumes:</strong> $t_{0} &lt; t_{1}$; x and y continuously differentiable</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;parametric_arc_length&#x27;, xt=&#x27;cos(t)&#x27;, yt=&#x27;sin(t)&#x27;, t0=0, t1=3.141592653589793)
+# -&gt; arc_length = 3.14159   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;parametric_arc_length&#x27;, xt=&#x27;3t&#x27;, yt=&#x27;4t&#x27;, t0=0, t1=2)
+# -&gt; arc_length = 10   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the arc length of the parametric curve x = cos(t), y = sin(t) from t = 0 to t = pi.</td><td>SOLVED</td><td>arc_length = 3.14159</td></tr><tr><td>Find the length of the curve x = 3t, y = 4t from t = 0 to t = 2.</td><td>SOLVED</td><td>arc_length = 10</td></tr></tbody></table>
+<h3 id="parametric_slope">Slope and concavity of a parametric curve — <code>parametric_slope</code></h3>
+<p>dy/dx and $d^{2y}/dx^{2}$ of the curve $x = x$(t), $y = y$(t) at a parameter value t0.</p>
+<div class="math">\[\frac{dy}{dx} = \frac{y&#x27;(t)}{x&#x27;(t)},\quad \frac{d^2y}{dx^2} = \frac{\frac{d}{dt}\frac{dy}{dx}}{x&#x27;(t)}\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>xt</code></td><td>x(t)</td><td></td></tr><tr><td><code>yt</code></td><td>y(t)</td><td></td></tr><tr><td><code>t0</code></td><td>the parameter value</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>dy_dx</code></td><td>dy/dx at t0</td></tr><tr><td><code>d2y_dx2</code></td><td>$d^{2y}/dx^{2}$ at t0</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> $dy/dx = y$&#x27;(t)/x&#x27;(t) and d^2y/dx^2 = (d/dt of dy/dx)/x&#x27;(t), exact derivatives</li><li><strong>Assumes:</strong> $dx/dt  \neq  0$ at t0</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;parametric_slope&#x27;, xt=&#x27;t^2&#x27;, yt=&#x27;t^3&#x27;, t0=1)
+# -&gt; dy_dx = 1.5, d2y_dx2 = 0.75   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;parametric_slope&#x27;, xt=&#x27;cos(t)&#x27;, yt=&#x27;sin(t)&#x27;, t0=0.7853981633974483)
+# -&gt; dy_dx = -1, d2y_dx2 = -2.82843   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find dy/dx for x = t^2, y = t^3 at t = 1.</td><td>SOLVED</td><td>dy_dx = 1.5, d2y_dx2 = 0.75</td></tr><tr><td>Find dy/dx for x = t^2, y = t^3 at t = 0.</td><td>INVALID_INPUT</td><td>Slope and concavity of a parametric curve: dx/dt = 0 at this parameter: the tangent is vertical (dy/dx undefined).</td></tr></tbody></table>
+<h3 id="polar_area">Area in polar coordinates — <code>polar_area</code></h3>
+<p>The area swept by the polar curve $r = r$(theta) between $\theta = \alpha$ and $\theta = \beta.$</p>
+<div class="math">\[A = \frac{1}{2}\int_{\alpha}^{\beta} r(\theta)^2\,d\theta\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>r</code></td><td>the polar curve r(theta)</td><td></td></tr><tr><td><code>al</code></td><td>alpha, the start angle (radians)</td><td></td></tr><tr><td><code>be</code></td><td>beta, the end angle (radians)</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>area</code></td><td>the area</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> $(1/2)$ integral of $r^{2}$ by tanh-sinh quadrature</li><li><strong>Assumes:</strong> $\alpha &lt; \beta  \leq  \alpha + 2$ pi; r continuous</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;polar_area&#x27;, r=&#x27;1 + cos(theta)&#x27;, al=0, be=6.283185307179586)
+# -&gt; area = 4.71239   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;polar_area&#x27;, r=&#x27;2&#x27;, al=0, be=1.5707963267948966)
+# -&gt; area = 3.14159   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the area enclosed by the polar curve r = 1 + cos(theta) from theta = 0 to theta = 2pi.</td><td>SOLVED</td><td>area = 4.71239</td></tr><tr><td>Find the area of the polar region r = 2 from theta = 0 to theta = pi/2.</td><td>SOLVED</td><td>area = 3.14159</td></tr><tr><td>Find the area enclosed by the polar curve r = 1 + cos(theta) from theta = 0 to theta = 4pi.</td><td>INVALID_INPUT</td><td>Area in polar coordinates: the angle interval may span at most one full turn (2 pi).</td></tr></tbody></table>
+<h3 id="gamma_function">Gamma function — <code>gamma_function</code></h3>
+<p>The value of the gamma function (Gamma(n) = (n-1)! for whole n).</p>
+<div class="math">\[\Gamma(x) = \int_0^\infty t^{x-1}e^{-t}\,dt\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>x</code></td><td>the argument x</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>gamma</code></td><td>Gamma(x)</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> the standard library&#x27;s Lanczos-type approximation (double precision)</li><li><strong>Assumes:</strong> x is not 0 or a negative whole number; $x &lt; 171.6$</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;gamma_function&#x27;, x=5)
+# -&gt; gamma = 24   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;gamma_function&#x27;, x=0.5)
+# -&gt; gamma = 1.77245   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;gamma_function&#x27;, x=4.5)
+# -&gt; gamma = 11.6317   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Evaluate the gamma function at x = 4.5.</td><td>SOLVED</td><td>gamma = 11.6317</td></tr><tr><td>Find Gamma(5).</td><td>SOLVED</td><td>gamma = 24</td></tr><tr><td>Find Gamma(-2).</td><td>INVALID_INPUT</td><td>Gamma function: the gamma function is undefined at 0 and negative whole numbers, and overflows beyond x = 171.</td></tr></tbody></table>
+<h3 id="beta_function">Beta function — <code>beta_function</code></h3>
+<p>The beta function B(a, b) for positive a and b.</p>
+<div class="math">\[B(a,b) = \int_0^1 t^{a-1}(1-t)^{b-1}dt = \frac{\Gamma(a)\Gamma(b)}{\Gamma(a+b)}\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>a</code></td><td>the first argument (&gt; 0)</td><td></td></tr><tr><td><code>b</code></td><td>the second argument (&gt; 0)</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>beta</code></td><td>B(a, b)</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> exp(ln Gamma(a) + ln Gamma(b) - ln Gamma(a + b))</li><li><strong>Assumes:</strong> $a &gt; 0$; $b &gt; 0$</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;beta_function&#x27;, a=2, b=3)
+# -&gt; beta = 0.0833333   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;beta_function&#x27;, a=0.5, b=0.5)
+# -&gt; beta = 3.14159   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Evaluate the beta function B(2, 3).</td><td>SOLVED</td><td>beta = 0.0833333</td></tr><tr><td>Find the beta function B(0.5, 0.5).</td><td>SOLVED</td><td>beta = 3.14159</td></tr><tr><td>Evaluate the beta function B(-1, 3).</td><td>INVALID_INPUT</td><td>Beta function: this capability needs a &gt; 0 and b &gt; 0.</td></tr></tbody></table>
+<h3 id="error_function">Error function — <code>error_function</code></h3>
+<p>The error function erf(x) and the complementary error function erfc(x) = 1 - erf(x).</p>
+<div class="math">\[\operatorname{erf}(x) = \frac{2}{\sqrt{\pi}}\int_0^x e^{-t^2}\,dt\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>x</code></td><td>the argument x</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>erf</code></td><td>erf(x)</td></tr><tr><td><code>erfc</code></td><td>erfc(x)</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> the standard library&#x27;s erf and erfc (double precision)</li><li><strong>Assumes:</strong> x real</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;error_function&#x27;, x=0)
+# -&gt; erf = 0, erfc = 1   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;error_function&#x27;, x=0.5)
+# -&gt; erf = 0.5205, erfc = 0.4795   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Evaluate erf(0.5).</td><td>SOLVED</td><td>erf = 0.5205, erfc = 0.4795</td></tr><tr><td>Find the error function at x = 0.</td><td>SOLVED</td><td>erf = 0, erfc = 1</td></tr></tbody></table>
+<h3 id="regularized_gamma">Regularized incomplete gamma functions — <code>regularized_gamma</code></h3>
+<p>The regularized lower and upper incomplete gamma functions P(a, x) and Q(a, x) = 1 - P(a, x).</p>
+<div class="math">\[P(a,x) = \frac{1}{\Gamma(a)}\int_0^x t^{a-1}e^{-t}\,dt\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>a</code></td><td>the shape a (&gt; 0)</td><td></td></tr><tr><td><code>x</code></td><td>the upper limit x (&gt;= 0)</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>P</code></td><td>P(a, x) = gamma(a, x)/Gamma(a)</td></tr><tr><td><code>Q</code></td><td>Q(a, x) = Gamma(a, x)/Gamma(a)</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> power series for $x &lt; a + 1$, Lentz continued fraction otherwise (the smaller of P and Q computed directly)</li><li><strong>Assumes:</strong> $a &gt; 0$; $x  \geq  0$</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;regularized_gamma&#x27;, a=1, x=2)
+# -&gt; P = 0.864665, Q = 0.135335   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;regularized_gamma&#x27;, a=2, x=3)
+# -&gt; P = 0.800852, Q = 0.199148   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the regularized incomplete gamma function P(2, 3).</td><td>SOLVED</td><td>P = 0.800852, Q = 0.199148</td></tr><tr><td>Find the regularized incomplete gamma function P(-1, 3).</td><td>INVALID_INPUT</td><td>Regularized incomplete gamma functions: this capability needs a &gt; 0 and x &gt;= 0.</td></tr></tbody></table>
+<h3 id="bessel_j">Bessel function of the first kind — <code>bessel_j</code></h3>
+<p>The Bessel function J_n(x) of whole-number order n.</p>
+<div class="math">\[J_n(x) = \sum_{m=0}^{\infty}\frac{(-1)^m}{m!\,(m+n)!}\left(\frac{x}{2}\right)^{2m+n}\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>n</code></td><td>the order n</td><td></td></tr><tr><td><code>x</code></td><td>the argument x</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>J</code></td><td>J_n(x)</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> hypergeometric series at 30 digits</li><li><strong>Assumes:</strong> $0  \leq  n  \leq  50$; |x| &lt;= 1000</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;bessel_j&#x27;, n=0, x=0)
+# -&gt; J = 1   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;bessel_j&#x27;, n=0, x=1)
+# -&gt; J = 0.765198   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;bessel_j&#x27;, n=1, x=1)
+# -&gt; J = 0.440051   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Evaluate the Bessel function J_0(1).</td><td>SOLVED</td><td>J = 0.765198</td></tr><tr><td>Evaluate the Bessel function of the first kind of order 1 at x = 1.</td><td>SOLVED</td><td>J = 0.440051</td></tr></tbody></table>
+<h3 id="riemann_zeta">Riemann zeta function — <code>riemann_zeta</code></h3>
+<p>The Riemann zeta function zeta(s) = sum $1/n^{s}$ for $s &gt; 1$ (the p-series sum).</p>
+<div class="math">\[\zeta(s) = \sum_{n=1}^{\infty} \frac{1}{n^s}\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>s</code></td><td>the argument s (&gt; 1)</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>zeta</code></td><td>zeta(s)</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> Euler-Maclaurin / Borwein evaluation at 30 digits</li><li><strong>Assumes:</strong> $s &gt; 1$</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;riemann_zeta&#x27;, s=2)
+# -&gt; zeta = 1.64493   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;riemann_zeta&#x27;, s=4)
+# -&gt; zeta = 1.08232   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find zeta(2).</td><td>SOLVED</td><td>zeta = 1.64493</td></tr><tr><td>Evaluate the Riemann zeta function at s = 4.</td><td>SOLVED</td><td>zeta = 1.08232</td></tr><tr><td>Find zeta(1).</td><td>INVALID_INPUT</td><td>Riemann zeta function: this capability covers s &gt; 1 (where the defining series converges).</td></tr></tbody></table>
+<h3 id="legendre_polynomial">Legendre polynomial — <code>legendre_polynomial</code></h3>
+<p>The value of the Legendre polynomial P_n(x).</p>
+<div class="math">\[(k+1)P_{k+1}(x) = (2k+1)\,x\,P_k(x) - k\,P_{k-1}(x)\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>n</code></td><td>the degree n</td><td></td></tr><tr><td><code>x</code></td><td>the argument x</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>P</code></td><td>P_n(x)</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> Bonnet&#x27;s three-term recurrence $(k+1)$ P_(k+1) = (2k+1) x P_k - k P_(k-1)</li><li><strong>Assumes:</strong> $0  \leq  n  \leq  200$</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;legendre_polynomial&#x27;, n=2, x=0.5)
+# -&gt; P = -0.125   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;legendre_polynomial&#x27;, n=3, x=0.5)
+# -&gt; P = -0.4375   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Evaluate the Legendre polynomial P_3(0.5).</td><td>SOLVED</td><td>P = -0.4375</td></tr><tr><td>Find the Legendre polynomial of degree 2 at x = 0.5.</td><td>SOLVED</td><td>P = -0.125</td></tr></tbody></table>
+<h3 id="chebyshev_polynomial">Chebyshev polynomial — <code>chebyshev_polynomial</code></h3>
+<p>The value of the Chebyshev polynomial of the first kind T_n(x) (T_n(cos t) = cos(n t)).</p>
+<div class="math">\[T_{k+1}(x) = 2x\,T_k(x) - T_{k-1}(x)\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>n</code></td><td>the degree n</td><td></td></tr><tr><td><code>x</code></td><td>the argument x</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>T</code></td><td>T_n(x)</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> the recurrence T_(k+1) = 2x T_k - T_(k-1)</li><li><strong>Assumes:</strong> $0  \leq  n  \leq  500$</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;chebyshev_polynomial&#x27;, n=3, x=0.5)
+# -&gt; T = -1   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;chebyshev_polynomial&#x27;, n=2, x=0.3)
+# -&gt; T = -0.82   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Evaluate the Chebyshev polynomial T_3(0.5).</td><td>SOLVED</td><td>T = -1</td></tr><tr><td>Find the Chebyshev polynomial of degree 2 at x = 0.3.</td><td>SOLVED</td><td>T = -0.82</td></tr></tbody></table>
+<h3 id="fourier_coefficients">Fourier coefficients — <code>fourier_coefficients</code></h3>
+<p>The Fourier coefficients a_0, a_k and b_k of f on [-L, L] (series a_0/2 + sum a_k cos(k pi x/L) + b_k sin(k pi x/L)).</p>
+<div class="math">\[a_k = \frac{1}{L}\int_{-L}^{L} f(x)\cos\frac{k\pi x}{L}dx,\quad b_k = \frac{1}{L}\int_{-L}^{L} f(x)\sin\frac{k\pi x}{L}dx\]</div>
+<table><thead><tr><th>input</th><th>meaning</th><th>condition</th></tr></thead><tbody><tr><td><code>f</code></td><td>the function f(x)</td><td></td></tr><tr><td><code>L</code></td><td>the half-period L (&gt; 0)</td><td></td></tr><tr><td><code>k</code></td><td>the order k</td><td></td></tr></tbody></table>
+<table><thead><tr><th>output</th><th>meaning</th></tr></thead><tbody><tr><td><code>a0</code></td><td>$a_0 = (1/L)$ integral of f</td></tr><tr><td><code>a_k</code></td><td>a_k</td></tr><tr><td><code>b_k</code></td><td>b_k</td></tr></tbody></table>
+<ul><li><strong>Method:</strong> tanh-sinh quadrature on the k half-wave subintervals at 20 digits</li><li><strong>Assumes:</strong> $L &gt; 0$; f continuous on [-L, L]; $1  \leq  k  \leq  50$</li><li><strong>Evidence:</strong> certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)</li></ul>
+<pre><code class="python">calculus_ai999x.solve(&#x27;fourier_coefficients&#x27;, f=&#x27;x&#x27;, L=3.141592653589793, k=2)
+# -&gt; a0 = 0, a_k = 0, b_k = -1   (SOLVED)</code></pre>
+<pre><code class="python">calculus_ai999x.solve(&#x27;fourier_coefficients&#x27;, f=&#x27;x^2&#x27;, L=3.141592653589793, k=1)
+# -&gt; a0 = 6.57974, a_k = -4, b_k = 0   (SOLVED)</code></pre>
+<p><strong>Questions in words (documented forms), as executed:</strong></p>
+<table><thead><tr><th>question</th><th>outcome</th><th>result</th></tr></thead><tbody><tr><td>Find the Fourier coefficients of order 2 of f(x) = x on [-pi, pi].</td><td>SOLVED</td><td>a0 = 0, a_k = 0, b_k = -1</td></tr><tr><td>Find the Fourier coefficients of order 1 of x^2 on the interval [-pi, pi].</td><td>SOLVED</td><td>a0 = 6.57974, a_k = -4, b_k = 0</td></tr><tr><td>Find the Fourier coefficients of order 1 of 1/x on [-1, 1].</td><td>INVALID_INPUT</td><td>Fourier coefficients: the function is not continuous (or not real) on the whole interval [-1, 1].</td></tr></tbody></table></body></html>

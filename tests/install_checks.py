@@ -1,0 +1,23 @@
+"""calculus checks run by tools/clean_install.py inside a fresh environment (written by tools/new_domain.py from the certified procedures' documented questions)."""
+
+SAMPLE = ('Find the arc length of y = x^2 from x = 0 to x = 1.', 1.4789428575445975)
+LATENCY = ["Find the arc length of y = x^2 from x = 0 to x = 1.", "Find the area between y = x^2 and y = x from x = 0 to x = 2.", "Find the area enclosed by y = x^2 and y = x."]
+QUESTIONS = [['Find the arc length of y = x^2 from x = 0 to x = 1.', {'arc_length': 1.4789428575445975}], ['Find the area between y = x^2 and y = x from x = 0 to x = 2.', {'area': 1.0}], ['Find the area enclosed by y = x^2 and y = x.', {'area': 0.16666666666666666}], ['Find the sum of the first 10 terms of the arithmetic series with first term 2 and common difference 3.', {'sum': 155.0}], ['Find the average rate of change of f(x) = x^2 from x = 1 to x = 3.', {'average_rate': 4.0}], ['Find the average value of f(x) = x^2 on [0, 3].', {'average_value': 3.0}], ['Evaluate the Bessel function J_0(1).', {'J': 0.7651976865579666}], ['Evaluate the beta function B(2, 3).', {'beta': 0.08333333333333333}], ['Find the centroid of the region under y = x^2 from x = 0 to x = 1.', {'x_bar': 0.75, 'y_bar': 0.3}], ['Evaluate the Chebyshev polynomial T_3(0.5).', {'T': -1.0}], ['Find and classify the critical points of x^3 - 3x.', {'local_maxima': [-1.0], 'local_minima': [1.0]}], ['Find the curl of F = (x*y, y*z, z*x) at (1, 2, 3).', {'curl': [-2.0, -3.0, -1.0]}], ['Find the curvature of y = x^2 at x = 0.', {'curvature': 2.0}], ['Evaluate the integral of x^2 from 0 to 3.', {'integral': 9.0}], ['Find the derivative of f(x) = x^3 - 2x at x = 2.', {'derivative': 10.0}], ['Find the directional derivative of x^2*y at (1, 2) in the direction (3, 4).', {'directional_derivative': 3.2}], ['Find the volume when y = x^2 from x = 0 to x = 1 is rotated about the x-axis.', {'volume': 0.6283185307179586}], ['Find the divergence of F = (x*y, y*z, x*z) at (1, 2, 3).', {'divergence': 6.0}], ['Find the outward flux of F = (x^2, y^2, z^2) through the box [0, 1] x [0, 1] x [0, 1].', {'flux': 3.0}], ['Find the double integral of x*y over [0, 2] x [0, 3].', {'integral': 9.0}], ['Find the double integral of x*y over the region 0 <= x <= 1, x^2 <= y <= x.', {'integral': 0.041666666666666664}], ['Evaluate erf(0.5).', {'erf': 0.5204998778130465}], ['Find the absolute maximum and minimum of x^3 - 3x on [0, 2].', {'absolute_max': 2.0, 'absolute_min': -2.0}], ['Find the Fourier coefficients of order 2 of f(x) = x on [-pi, pi].', {'b_k': -1.0}], ['Find the derivative of the integral from 0 to x^2 of sin(t) dt at x = 1.', {'derivative': 1.682941969615793}], ['Evaluate the gamma function at x = 4.5.', {'gamma': 11.631728396567448}], ['Use 2-point Gauss-Legendre quadrature to approximate the integral of x^3 + x^2 from 0 to 2.', {'approximation': 6.666666666666666}], ['Find the sum of the first 4 terms of the geometric series with first term 2 and ratio 3.', {'sum': 80.0}], ['Find the sum of the geometric series with first term 3 and ratio 0.5.', {'sum': 6.0}], ['Find the gradient of x^2 + y^2 at (1, 2).', {'gradient': [2.0, 4.0]}], ["Verify Green's theorem for F = (-y, x) on the rectangle [0, 1] x [0, 2].", {'circulation': 4.0}], ['Find dy/dx for x^2 + y^2 = 25 at the point (3, 4).', {'dy_dx': -0.75}], ['Evaluate the improper integral of exp(-x) from 0 to infinity.', {'integral': 1.0}], ['Find the inflection points of x^3 - 3x^2.', {'inflection_points': [1.0]}], ['Find the Jacobian of x = u*cos(v), y = u*sin(v) at (2, 0.5).', {'jacobian': 2.0}], ['Find the Laplacian of x^2*y + z^3 at (1, 2, 3).', {'laplacian': 22.0}], ['Find the left Riemann sum of x^2 on [0, 2] with n = 4.', {'approximation': 1.75}], ['Evaluate the Legendre polynomial P_3(0.5).', {'P': -0.4375}], ['Find the limit of (3x^2 + 1)/(x^2 - 5) as x approaches infinity.', {'limit': 3.0}], ['Find the limit of (x^2 - 4)/(x - 2) as x approaches 2.', {'limit': 4.0}]]
+
+
+def _close(a, b):
+    if isinstance(b, list):
+        return isinstance(a, (list, tuple)) and len(a) == len(b) and all(_close(x, y) for x, y in zip(a, b))
+    try:
+        return abs(complex(a) - complex(b)) <= 1e-6 * max(1.0, abs(complex(b)))
+    except (TypeError, ValueError):
+        return a == b
+
+
+def checks(P) -> dict:
+    out = {"certified_procedures": len(P.pack().procedures) == 71,
+           "refuses_nonsense": not P.ask("What is it?").solved}
+    for i, (q, want) in enumerate(QUESTIONS):
+        a = P.ask(q)
+        out[f"question_{i}"] = a.solved and all(_close(a.values.get(k), v) for k, v in want.items())
+    return out

@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "calculus-ai999x: an offline, verified calculus solver"
+authors:
+  - family-names: Farabi
+    given-names: Ibnul Jaif
+    affiliation: AI999X
+version: 1.0.0
+license: Apache-2.0
+url: "https://huggingface.co/AI999X/calculus-ai999x"
+repository-code: "https://huggingface.co/AI999X/calculus-ai999x"
+keywords:
+  - calculus
+  - limits
+  - derivatives
+  - integrals
+  - series
+  - taylor-polynomial
+  - multivariable-calculus
+  - vector-calculus
+  - special-functions
+  - numerical-integration
+  - ai999x
+  - offline
