@@ -807,6 +807,10 @@ $$
 - **Assumes:** $a < b$; f continuous on [a, b]
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![The solid made by turning y = √x (0 ≤ x ≤ 4) about the x-axis, with circular cross-sections drawn at x = 1, 2, 3, 4 (profile and radii computed by the package); the package's volume by disks, the integral of π(√x)² from 0 to 4, is 25](https://huggingface.co/AI999X/calculus-ai999x/resolve/main/figures/disk-volume-solid.svg)
+
+*The solid made by turning y = √x (0 ≤ x ≤ 4) about the x-axis, with circular cross-sections drawn at x = 1, 2, 3, 4 (profile and radii computed by the package); the package's volume by disks, the integral of π(√x)² from 0 to 4, is 25.1327.*
+
 ```python
 calculus_ai999x.solve('disk_volume', f='x^2', a=0, b=1)
 # -> volume = 0.628319   (SOLVED)
@@ -1123,6 +1127,10 @@ $$
 - **Assumes:** $a < b$; $1  \leq  n  \leq  100000$; f defined at the sample points
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![The area under y = x² on [0, 2] and the left Riemann sum with 8 rectangles (heights f(xᵢ) and the curve evaluated by the package): left sum 2](https://huggingface.co/AI999X/calculus-ai999x/resolve/main/figures/left-riemann-sum-area.svg)
+
+*The area under y = x² on [0, 2] and the left Riemann sum with 8 rectangles (heights f(xᵢ) and the curve evaluated by the package): left sum 2.1875, right sum 3.1875, exact integral 2.66667.*
+
 ```python
 calculus_ai999x.solve('left_riemann_sum', f='x^2', a=0, b=2, n=4)
 # -> approximation = 1.75   (SOLVED)
@@ -1437,6 +1445,10 @@ $$
 - **Method:** Newton-Raphson with the exact derivative, at 30 digits
 - **Assumes:** f'$(x_k)  \neq  0$ at every iterate; $1  \leq  n  \leq  50$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![Newton's method on x² − 2 from x₀ = 3: each tangent (through the curve point computed by the package) meets the axis at the next iterate — 1](https://huggingface.co/AI999X/calculus-ai999x/resolve/main/figures/newton-method-iteration.svg)
+
+*Newton's method on x² − 2 from x₀ = 3: each tangent (through the curve point computed by the package) meets the axis at the next iterate — 1.83333, 1.46212, 1.415, 1.41421; marked: x₄ = 1.41421, f(x₄) = 6.1568e-07.*
 
 ```python
 calculus_ai999x.solve('newton_method', f='x^2 - 2', x0=1, n=3)
@@ -1886,6 +1898,10 @@ $$
 - **Assumes:** $1  \leq  n  \leq  500$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![Partial sums of the geometric series 1 + ½ + ¼ + …, each computed by the package: S₁ = 1, S₄ = 1](https://huggingface.co/AI999X/calculus-ai999x/resolve/main/figures/geometric-partial-sum-stems.svg)
+
+*Partial sums of the geometric series 1 + ½ + ¼ + …, each computed by the package: S₁ = 1, S₄ = 1.875, S₁₂ = 1.99951; the gap to the sum of the series, 2, halves with every term.*
+
 ```python
 calculus_ai999x.solve('geometric_partial_sum', a=2, r=3, n=4)
 # -> sum = 80   (SOLVED)
@@ -2069,6 +2085,10 @@ $$
 - **Method:** exact symbolic derivatives at a divided by k!, then Horner evaluation in $(x_{1} - a)$
 - **Assumes:** f is n times differentiable at a and defined at x1; $0  \leq  n  \leq  12$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![Taylor polynomials of sin x about 0 of degree 1, 3, 5 and 7 against sin x itself, each evaluated by the package at 121 points; marked: x = 2](https://huggingface.co/AI999X/calculus-ai999x/resolve/main/figures/taylor-polynomial-curve.svg)
+
+*Taylor polynomials of sin x about 0 of degree 1, 3, 5 and 7 against sin x itself, each evaluated by the package at 121 points; marked: x = 2.5, degree-7 value = 0.588534 (sin 2.5 = 0.598472, error 0.00993823).*
 
 ```python
 calculus_ai999x.solve('taylor_polynomial', f='exp(x)', a=0, n=3, x1=0.5)

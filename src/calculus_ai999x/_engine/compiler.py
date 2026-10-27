@@ -74,6 +74,11 @@ _FINAL = re.compile(r"\b(after|afterwards|final|finally|at the end|ends up|reach
                     r"impact|leaves|leave)\b", re.I)
 _INITIAL = re.compile(r"\b(initial|initially|at the start|at first|before)\b", re.I)
 _CONNECT = re.compile(r"^[\s:=]*(?:(?:of|is|was|equals|equal to|μ|mu)[\s:=]*)*$", re.I)
+# what separates a value from a label written after it in another clause: punctuation, a conjunction, an interrogative
+# or a verb that starts a new statement ("195 V, determine the peak voltage", "1.05e6 1 and the Rayleigh number")
+_CLAUSE_BREAK = re.compile(r"[,;:()?]|\b(?:and|or|but|nor|what|which|how|find|calculate|determine|compute|estimate|"
+                           r"evaluate|give|if|when|while|where|whereas|then|so|is|are|was|were|will|would|should|"
+                           r"does|do|did)\b", re.I)
 
 
 @dataclass(frozen=True)
@@ -171,6 +176,20 @@ def _occurrences(text: str, entries: list) -> list:
                 taken.append((m.start(), m.end()))
                 out.append((m.start(), m.end(), e))
     return sorted(out, key=lambda o: o[0])
+
+
+def context_tags(terms: dict, low: str) -> set:
+    """The context tags the (lower-cased) wording produces. An entry may name `unless_tag` (a tag or a list): its tag is
+    not produced by that phrase when the wording also produces one of those tags. "pendulum" inside "double pendulum"
+    must not make the SIMPLE pendulum's relations applicable: the more specific wording contradicts their assumption
+    (a point mass on one light string)."""
+    hits = [c for c in terms.get("context", []) if _word(c["phrase"]).search(low)]
+    found = {c["tag"] for c in hits}
+
+    def blocked(c):
+        u = c.get("unless_tag") or ()
+        return bool(set([u] if isinstance(u, str) else u) & found)
+    return {c["tag"] for c in hits if not blocked(c)}
 
 
 def _symbol_uses(text: str, terms: dict, spans: list, tags: set) -> tuple:
@@ -342,10 +361,10 @@ def compile_problem(question: str, pack: Pack) -> Problem:
             unit, spelled, end = found
             measures.append((m.start(), end, value, unit, spelled))
 
-    labels = _occurrences(text, terms.get("labels", []))
+    labels = _occurrences(text, pack.reading_labels())
     claimed: set = set()
     givens: list = []
-    pre_tags = {c["tag"] for c in terms.get("context", []) if _word(c["phrase"]).search(low)}
+    pre_tags = context_tags(terms, low)
     sym_given, sym_asked = _symbol_uses(text, terms, [(a, b) for a, b, *_ in measures], pre_tags)
 
     # 2. a bare number is accepted only as a labelled pure number (a coefficient); otherwise we refuse
@@ -399,6 +418,10 @@ def compile_problem(question: str, pack: Pack) -> Problem:
             lo, hi = (le, s) if le <= s else (e, ls)
             if any(lo <= ms < hi for ms, *_ in measures if ms != s):
                 continue                               # another measurement stands between them
+            if le > s and _CLAUSE_BREAK.search(text[e:ls]):
+                # a label AFTER the value names it only within its own clause: in "8280 1, what is the skin-friction
+                # coefficient" it is the asked quantity, in "49100 1 and a Prandtl number" the next value's label
+                continue
             pairs.append((gap + (3 if le > s else 0), mi, li))
     role_of: dict = dict(forced)
     for _gap, mi, li in sorted(pairs):
@@ -419,6 +442,9 @@ def compile_problem(question: str, pack: Pack) -> Problem:
                 k.replace("_", " ") for k in kinds) + "; say which.", code="ambiguous_quantity")
         kind = entry["kind"] if entry else kinds[0]
         role = entry.get("role", "plain") if entry else "plain"
+        if (kind, role) == ("temperature", "plain") and "temperature_difference" in pack.kinds and \
+                re.search(r"\bby\s*$", text[max(0, s - 14):s].lower()):
+            kind = "temperature_difference"                # "the temperature rises by 30 K": a change, not a state
         si = to_si(value, unit, difference=pack.kinds[kind].difference)
         exact = None
         if unit.pi_factor is not None:
@@ -430,8 +456,7 @@ def compile_problem(question: str, pack: Pack) -> Problem:
         givens.append(Given(len(givens), kind, role, si, text[s:e], exact=exact))
 
     # 4. context: tags, and facts the wording implies ("from rest")
-    tags = tuple(sorted({c["tag"] for c in terms.get("context", [])
-                         if _word(c["phrase"]).search(low)}))
+    tags = tuple(sorted(context_tags(terms, low)))
     kind_tags = terms.get("kind_tags", {})             # a stated quantity of some kinds is itself a context
     tags = tuple(sorted(set(tags) | {kind_tags[g.kind] for g in givens if g.kind in kind_tags}))
     for imp in terms.get("implied", []):

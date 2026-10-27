@@ -4,7 +4,9 @@
 
 **[Install](https://pypi.org/project/calculus-ai999x/)** · **[Capability guide](https://huggingface.co/AI999X/calculus-ai999x/tree/main/docs)** · **[Evaluation](https://huggingface.co/AI999X/calculus-ai999x/tree/main/evaluation)** · **[AI999X on Hugging Face](https://huggingface.co/AI999X)** · **[Website](https://ai999x.com)** · **[Support: Buy Me a Coffee](https://buymeacoffee.com/ibnuljaiffarabi)**
 
-License: Apache-2.0 · Author: Ibnul Jaif Farabi (creator and engineer) · Organization: AI999X · Version 1.0.0
+License: Apache-2.0 · Author: Ibnul Jaif Farabi (creator and engineer) · Organization: AI999X · Version 1.0.1
+
+Field: **Mathematics & Statistics** · Tasks: Question Answering, Token Classification, Text Classification, Sentence Similarity, Feature Extraction
 
 calculus-ai999x is an offline, deterministic Python solver that answers calculus questions with verified results from 71 certified capabilities, gives 374 documented answers identically on Windows and Linux, and refuses rather than guesses when an answer cannot be verified.
 
@@ -25,7 +27,7 @@ calculus-ai999x is an offline, deterministic Python solver that answers calculus
 
 | Property | Value |
 |---|---|
-| Package | `calculus-ai999x` 1.0.0 (import `calculus_ai999x`) |
+| Package | `calculus-ai999x` 1.0.1 (import `calculus_ai999x`) |
 | Type | Deterministic neuro-symbolic calculus engine (rule-based reading + certified symbolic capabilities) |
 | Capabilities | 71 certified procedures |
 | Knowledge pack | version 1.0.0 |
@@ -59,7 +61,7 @@ calculus.ask("Who created you?").message
 # -> calculus-ai999x was created and engineered by Ibnul Jaif Farabi at AI999X.
 ```
 
-Command line: `calculus-ai999x "<question>"`, `calculus-ai999x --capabilities`. The outputs above were produced by running this exact code on calculus-ai999x 1.0.0.
+Command line: `calculus-ai999x "<question>"`, `calculus-ai999x --capabilities`. The outputs above were produced by running this exact code on calculus-ai999x 1.0.1.
 
 ## Find the right capability, and draw it
 
@@ -69,7 +71,7 @@ Command line: `calculus-ai999x "<question>"`, `calculus-ai999x --capabilities`. 
 import calculus_ai999x as calculus
 
 calculus.search("Solve x^2 - 5x + 6 = 0", k=2)
-# -> Roots of a quadratic equation (algebra-ai999x, 0.67); Solution of two linear equations in two unknowns (algebra-ai999x, 0.57)
+# -> Roots of a quadratic equation (math-foundations-ai999x, 0.63); Roots of a cubic equation (math-foundations-ai999x, 0.59)
 ```
 
 ## How every answer is verified
@@ -80,6 +82,116 @@ calculus.search("Solve x^2 - 5x + 6 = 0", k=2)
 4. **Checking** — dimensions, substitution back into the defining equation, and agreement between independent readings; any disagreement becomes a refusal, never a number.
 
 Capabilities are certified before they ship: each must reproduce hand-worked reference cases, reject a deliberately wrong variant (a control), and leave every benchmark answer unchanged.
+
+## Worked examples
+
+Each question was put to `calculus-ai999x`; the answer is the one it returned, with the steps it took.
+
+**Limit at a point** · _Limits_
+
+> Find the limit of (x^2 - 4)/(x - 2) as x approaches 2.
+
+→ **limit = 4**
+
+<details><summary>Steps</summary>
+
+- Limit at a point: a = 2, f = (x^2 - 4)/(x - 2) → limit = 4
+
+</details>
+
+**Absolute extrema on a closed interval** · _Derivatives_
+
+> Find the absolute maximum and minimum of x^3 - 3x on [0, 2].
+
+→ **absolute_max = 2, absolute_min = -2, critical_points = [1]**
+
+<details><summary>Steps</summary>
+
+- Absolute extrema on a closed interval: a = 0, b = 2, f = x^3 - 3x → absolute_max = 2, absolute_min = -2, critical_points = [1]
+
+</details>
+
+**Taylor polynomial** · _Series_
+
+> Find the Taylor polynomial of degree 3 of exp(x) about x = 0 and evaluate it at x = 0.5.
+
+→ **coefficients = [1, 1, 0.5, 0.1666666667], value = 1.645833333, function_value = 1.648721271, error = 0.002887937367**
+
+<details><summary>Steps</summary>
+
+- Taylor polynomial: a = 0, f = exp(x), n = 3, x1 = 0.5 → coefficients = [1, 1, 0.5, 0.1666666667], value = 1.645833333, function_value = 1.648721271, error = 0.002887937367
+
+</details>
+
+**Line integral of a vector field** · _Vector calculus_
+
+> Find the line integral of F = (-y, x) along x = cos(t), y = sin(t) from t = 0 to t = 2pi.
+
+→ **line_integral = 6.283185307**
+
+<details><summary>Steps</summary>
+
+- Line integral of a vector field: P = -y, Q = x, t0 = 0, t1 = 6.283185307, xt = cos(t), yt = sin(t) → line_integral = 6.283185307
+
+</details>
+
+**Definite integral** · _Integrals_
+
+`m.solve("definite_integral", f="x^2*exp(-x)", a=0, b=2)`
+
+→ **integral = 0.6466471676**
+
+<details><summary>Steps</summary>
+
+- Definite integral: f = x^2*exp(-x), a = 0, b = 2 → integral = 0.6466471676
+
+</details>
+
+**Fourier coefficients** · _Fourier series_
+
+> Find the Fourier coefficients of order 2 of f(x) = x on [-pi, pi].
+
+→ **a0 = 0, a_k = 0, b_k = -1**
+
+<details><summary>Steps</summary>
+
+- Fourier coefficients: L = 3.141592654, f = x, k = 2 → a0 = 0, a_k = 0, b_k = -1
+
+</details>
+
+## Figures
+
+Every point was computed by `calculus-ai999x`.
+
+**Taylor polynomials closing in on sin x**
+
+![Taylor polynomials closing in on sin x — computed by calculus-ai999x](https://huggingface.co/AI999X/calculus-ai999x/resolve/main/figures/taylor-polynomial-curve.svg)
+
+_Taylor polynomials of sin x about 0 of degree 1, 3, 5 and 7 against sin x itself, each evaluated by the package at 121 points; marked: x = 2.5, degree-7 value = 0.588534 (sin 2.5 = 0.598472, error 0.00993823)._
+
+**Left Riemann sum under y = x²**
+
+![Left Riemann sum under y = x² — computed by calculus-ai999x](https://huggingface.co/AI999X/calculus-ai999x/resolve/main/figures/left-riemann-sum-area.svg)
+
+_The area under y = x² on [0, 2] and the left Riemann sum with 8 rectangles (heights f(xᵢ) and the curve evaluated by the package): left sum 2.1875, right sum 3.1875, exact integral 2.66667._
+
+**Newton's method converging to √2**
+
+![Newton's method converging to √2 — computed by calculus-ai999x](https://huggingface.co/AI999X/calculus-ai999x/resolve/main/figures/newton-method-iteration.svg)
+
+_Newton's method on x² − 2 from x₀ = 3: each tangent (through the curve point computed by the package) meets the axis at the next iterate — 1.83333, 1.46212, 1.415, 1.41421; marked: x₄ = 1.41421, f(x₄) = 6.1568e-07._
+
+**Partial sums of a geometric series converging**
+
+![Partial sums of a geometric series converging — computed by calculus-ai999x](https://huggingface.co/AI999X/calculus-ai999x/resolve/main/figures/geometric-partial-sum-stems.svg)
+
+_Partial sums of the geometric series 1 + ½ + ¼ + …, each computed by the package: S₁ = 1, S₄ = 1.875, S₁₂ = 1.99951; the gap to the sum of the series, 2, halves with every term._
+
+**A solid of revolution and its disks**
+
+![A solid of revolution and its disks — computed by calculus-ai999x](https://huggingface.co/AI999X/calculus-ai999x/resolve/main/figures/disk-volume-solid.svg)
+
+_The solid made by turning y = √x (0 ≤ x ≤ 4) about the x-axis, with circular cross-sections drawn at x = 1, 2, 3, 4 (profile and radii computed by the package); the package's volume by disks, the integral of π(√x)² from 0 to 4, is 25.1327._
 
 ## Capabilities
 
@@ -104,10 +216,10 @@ Capabilities are certified before they ship: each must reproduce hand-worked ref
 ## Citation
 
 ```bibtex
-@software{calculus_ai999x_1_0_0,
+@software{calculus_ai999x_1_0_1,
   title  = {calculus-ai999x: an offline, verified calculus solver},
   author = {Farabi, Ibnul Jaif}, organization = {AI999X},
-  year   = {2026}, version = {1.0.0},
+  year   = {2026}, version = {1.0.1},
   url    = {https://huggingface.co/AI999X/calculus-ai999x}
 }
 ```

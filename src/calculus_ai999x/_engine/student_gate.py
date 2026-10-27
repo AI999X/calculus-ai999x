@@ -36,7 +36,7 @@ import re
 from dataclasses import dataclass, field
 
 from .answer import Answer
-from .compiler import _NUM, _number, _unit_after, compile_problem
+from .compiler import _NUM, _number, _unit_after, compile_problem, context_tags
 from .engine import ask
 from .pack import Pack
 from .quantity import UnitError, parse_unit, to_si
@@ -101,8 +101,7 @@ def _has(low: str, phrase: str) -> bool:
 
 
 def text_tags(question: str, pack: Pack) -> set:
-    low = question.lower()
-    return {c["tag"] for c in pack.terms.get("context", []) if _has(low, c["phrase"])}
+    return context_tags(pack.terms, question.lower())
 
 
 @dataclass

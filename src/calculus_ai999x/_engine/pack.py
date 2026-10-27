@@ -141,6 +141,28 @@ class Pack:
         return [{"key": k, "title": titles.get(k, k.replace("_", " ")), "uses": sorted(v)}
                 for k, v in sorted(self.family_uses.items())]
 
+    def reading_labels(self) -> list:
+        """The phrases the reader binds a value or the asked quantity with: the dictionary's labels and, when the
+        dictionary opts in (`"labels_from_descriptions": true`), each relation symbol's own description ("wavelength
+        of maximum spectral emission", "temperature at the mid-plane") — the words the domain's questions were
+        written from. A description becomes a label only when it is at least two words, is not already a label, and
+        names ONE kind and role across the whole pack; otherwise it is left out, never guessed between."""
+        if getattr(self, "_reading_labels", None) is not None:
+            return self._reading_labels
+        labels = list(self.terms.get("labels", []))
+        if self.terms.get("labels_from_descriptions"):
+            have = {e["phrase"].lower() for e in labels}
+            seen: dict = {}
+            for r in self.relations:
+                for s in r.symbols.values():
+                    d = " ".join((s.desc or "").lower().split())
+                    if len(d.split()) >= 2 and d not in have:
+                        seen.setdefault(d, set()).add((s.kind, s.role))
+            labels += [{"phrase": d, "kind": k, "role": role, "from": "description"}
+                       for d, readings in sorted(seen.items()) if len(readings) == 1 for k, role in readings]
+        self._reading_labels = labels
+        return labels
+
     def kinds_for(self, dim: Dim) -> list:
         return [k.name for k in self.kinds.values() if k.dim == dim]
 
