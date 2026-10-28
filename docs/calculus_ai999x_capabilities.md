@@ -187,6 +187,10 @@ $$
 - **Assumes:** f is defined and differentiable at $x = a$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![Top: y = x^3 - 2x (values computed by the package) with its tangent at x = 2](https://www.ai999x.com/?ax_fig=calculus-ai999x/derivative-at-point-graph)
+
+*Top: y = x^3 - 2x (values computed by the package) with its tangent at x = 2. Bottom: the derivative f′(x) = 3*x^2 - 2 computed by the package at each x; its value at x = 2 is the tangent's slope. Marked: f′(2) = 10.*
+
 ```python
 calculus_ai999x.solve('derivative_at_point', f='x^3 - 2x', a=2)
 # -> derivative = 10, derivative_expression = 3*x^2 - 2   (SOLVED)
@@ -242,6 +246,10 @@ $$
 - **Assumes:** f is twice differentiable at $x = a$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![Top: y = x^4 - 3x^2 on [−2](https://www.ai999x.com/?ax_fig=calculus-ai999x/second-derivative-at-point-graph)
+
+*Top: y = x^4 - 3x^2 on [−2.2, 2.2] (values computed by the package). Bottom: the second derivative f″(x) = 6*(2*x^2 - 1) from the package, shaded where it is positive (concave up) and negative (concave down). Marked: f″(1) = 6.*
+
 ```python
 calculus_ai999x.solve('second_derivative_at_point', f='x^4 - 3x^2', a=1)
 # -> second_derivative = 6, second_derivative_expression = 6*(2*x^2 - 1)   (SOLVED)
@@ -289,6 +297,10 @@ $$
 - **Method:** exact symbolic differentiation n times, then evaluation at $x = a$
 - **Assumes:** $1  \leq  n  \leq  12$; f is n times differentiable at $x = a$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![f(x) = sin(2x) and its derivatives of order 1 to 4 on [0, π], each computed by the package at 49 points; each differentiation doubles the amplitude](https://www.ai999x.com/?ax_fig=calculus-ai999x/nth-derivative-at-point-graph)
+
+*f(x) = sin(2x) and its derivatives of order 1 to 4 on [0, π], each computed by the package at 49 points; each differentiation doubles the amplitude. Marked: the order-4 derivative 16*sin(2*x) at x = 1, 14.5488.*
 
 ```python
 calculus_ai999x.solve('nth_derivative_at_point', f='sin(2x)', n=4, a=1)
@@ -339,6 +351,10 @@ $$
 - **Assumes:** f is differentiable at $x = a$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![The graph of y = x^2 + 1 (curve values computed by the package) and its tangent line at x = 2: slope f′(2) = 4, intercept -3](https://www.ai999x.com/?ax_fig=calculus-ai999x/tangent-line-graph)
+
+*The graph of y = x^2 + 1 (curve values computed by the package) and its tangent line at x = 2: slope f′(2) = 4, intercept -3. Marked: the point of tangency (2, 5).*
+
 ```python
 calculus_ai999x.solve('tangent_line', f='x^2 + 1', a=2)
 # -> slope = 4, intercept = -3, y0 = 5, equation = y = 4*x - 3   (SOLVED)
@@ -387,6 +403,10 @@ $$
 - **Assumes:** f'$(a)  \neq  0$ (otherwise the normal is vertical)
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![The graph of y = x^2 (values computed by the package) with its normal line at x = 1, drawn with equal scales so the right angle shows: normal slope -0](https://www.ai999x.com/?ax_fig=calculus-ai999x/normal-line-graph)
+
+*The graph of y = x^2 (values computed by the package) with its normal line at x = 1, drawn with equal scales so the right angle shows: normal slope -0.5, intercept 1.5; the tangent (slope 2) dashed. Marked: (1, 1).*
+
 ```python
 calculus_ai999x.solve('normal_line', f='x^2', a=1)
 # -> slope = -0.5, intercept = 1.5, y0 = 1   (SOLVED)
@@ -430,6 +450,10 @@ $$
 - **Method:** difference quotient of the two function values
 - **Assumes:** $a  \neq  b$; f defined at a and b
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![The secant of y = x^2 over [1, 3] (curve values computed by the package): f(1) = 1, f(3) = 9, average rate of change Δy/Δx = 4 (the rise Δy is derived from the two returned values)](https://www.ai999x.com/?ax_fig=calculus-ai999x/average-rate-of-change-graph)
+
+*The secant of y = x^2 over [1, 3] (curve values computed by the package): f(1) = 1, f(3) = 9, average rate of change Δy/Δx = 4 (the rise Δy is derived from the two returned values). Marked: the two end points.*
 
 ```python
 calculus_ai999x.solve('average_rate_of_change', f='x^2', a=1, b=3)
@@ -476,6 +500,10 @@ $$
 - **Assumes:** s twice differentiable at t0
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![Position s(t) = t^3 - 6t^2 + 9t, its velocity and its acceleration for t from 0 to 4](https://www.ai999x.com/?ax_fig=calculus-ai999x/velocity-acceleration-motion)
+
+*Position s(t) = t^3 - 6t^2 + 9t, its velocity and its acceleration for t from 0 to 4.5, each computed by the package; velocity is zero where s turns. Marked at t = 2: s = 2, v = -3, a = 0, speed 3.*
+
 ```python
 calculus_ai999x.solve('velocity_acceleration', s='t^3 - 6t^2 + 9t', t0=2)
 # -> velocity = -3, acceleration = 0, speed = 3, position = 2   (SOLVED)
@@ -521,6 +549,10 @@ $$
 - **Assumes:** f differentiable at a
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![The tangent-line approximation of y = sqrt(x) at x = 4 (slope 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/linear-approximation-graph)
+
+*The tangent-line approximation of y = sqrt(x) at x = 4 (slope 0.25; curve values computed by the package). At the worked example x = 4.1 it gives 2.025 against 2.02485 (error -0.000154327); at x = 7 (chosen, further away) 2.75 against 2.64575, error -0.104249. Marked: the base point.*
+
 ```python
 calculus_ai999x.solve('linear_approximation', f='sqrt(x)', a=4, x1=4.1)
 # -> approximation = 2.025, actual = 2.02485, error = -0.000154327, slope = 0.25   (SOLVED)
@@ -562,6 +594,10 @@ $$
 - **Method:** curvature formula of a graph from the exact first and second derivatives
 - **Assumes:** f twice differentiable at a
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![y = x^2 (values computed by the package) and its osculating circle at x = 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/curvature-graph)
+
+*y = x^2 (values computed by the package) and its osculating circle at x = 0.6 (chosen point): the package's curvature κ = 0.524741 gives radius 1/κ = 1.9057; the centre is placed along the normal from the returned slope 1.2 (derived). Marked: the point and its curvature.*
 
 ```python
 calculus_ai999x.solve('curvature', f='x^2', a=0)
@@ -609,6 +645,10 @@ $$
 - **Method:** high-precision tanh-sinh quadrature (30 digits) after an exact continuity check on [a, b]
 - **Assumes:** f real and continuous on the closed interval between a and b
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![The definite integral of y = x^3 - 4x from -1 to 2](https://www.ai999x.com/?ax_fig=calculus-ai999x/definite-integral-area)
+
+*The definite integral of y = x^3 - 4x from -1 to 2.5 (chosen limits; curve values computed by the package) is the signed area: regions above the axis count positive, below negative. Marked: the integral -0.984375.*
 
 ```python
 calculus_ai999x.solve('definite_integral', f='x^2', a=0, b=3)
@@ -665,6 +705,10 @@ $$
 - **Assumes:** $a < b$; f continuous on [a, b]
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![y = x^2 on [0, 3] (curve values computed by the package): its integral 9 equals the area of a rectangle of width 3 and height the average value 3](https://www.ai999x.com/?ax_fig=calculus-ai999x/average-value-area)
+
+*y = x^2 on [0, 3] (curve values computed by the package): its integral 9 equals the area of a rectangle of width 3 and height the average value 3. Marked: the average value.*
+
 ```python
 calculus_ai999x.solve('average_value', f='x^2', a=0, b=3)
 # -> average_value = 3, integral = 9   (SOLVED)
@@ -709,6 +753,10 @@ $$
 - **Method:** exact integration of |f - g|, split at the exact real roots of f - g
 - **Assumes:** $a < b$; f and g polynomials with rational coefficients
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![The region between y = x^2 and y = x on [0, 2] (curve values computed by the package): the area, the integral of |f − g|, is 1, while the net integral of f − g is 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/area-between-curves-area)
+
+*The region between y = x^2 and y = x on [0, 2] (curve values computed by the package): the area, the integral of |f − g|, is 1, while the net integral of f − g is 0.666667, because the curves cross. Marked: the crossing(s) at x = 1.*
 
 ```python
 calculus_ai999x.solve('area_between_curves', f='x^2', g='x', a=0, b=2)
@@ -758,6 +806,10 @@ $$
 - **Method:** exact real roots of f - g, then exact integration of |f - g| between consecutive roots
 - **Assumes:** f and g polynomials with rational coefficients meeting in at least two points
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![The region enclosed by y = x^2 and y = x (curve values computed by the package): the curves meet at x = 0, 1, and the enclosed area between x = 0 and x = 1 is 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/area-enclosed-curves-area)
+
+*The region enclosed by y = x^2 and y = x (curve values computed by the package): the curves meet at x = 0, 1, and the enclosed area between x = 0 and x = 1 is 0.166667. Marked: the intersections.*
 
 ```python
 calculus_ai999x.solve('area_enclosed_curves', f='x^2', g='x')
@@ -811,6 +863,14 @@ $$
 
 *The solid made by turning y = √x (0 ≤ x ≤ 4) about the x-axis, with circular cross-sections drawn at x = 1, 2, 3, 4 (profile and radii computed by the package); the package's volume by disks, the integral of π(√x)² from 0 to 4, is 25.1327.*
 
+![volume (the volume of the solid) against b (right end) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/disk-volume-curve)
+
+*volume (the volume of the solid) against b (right end) from 0.5 to 1.5. Other inputs as in the worked example: f = x^2, a = 0. 31 points computed by calculus-ai999x; marked: the worked example, b = 1, volume = 0.628319.*
+
+![volume (the volume of the solid) over b (right end) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/disk-volume-field)
+
+*volume (the volume of the solid) over b (right end) from 0.5 to 1.5 and a (left end) from -1 to 1: each of the 21 × 15 cells is one run of calculus-ai999x, shaded by its value (light 0.0105506 to dark 5.39961); iso-lines at volume = 1, 2, 3, 4, 5; blank cells: inputs the capability refuses. Other inputs as in the worked example: f = x^2. Marked: the worked example, b = 1, a = 0, volume = 0.628319.*
+
 ```python
 calculus_ai999x.solve('disk_volume', f='x^2', a=0, b=1)
 # -> volume = 0.628319   (SOLVED)
@@ -859,6 +919,10 @@ $$
 - **Assumes:** $a < b$; $f  \geq  g  \geq  0$ on [a, b] (checked exactly); polynomials
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![The solid made by turning the region between y = x + 2 (outer) and y = 1 (inner) about the x-axis for 0 ≤ x ≤ 1 (profiles computed by the package), with the washer at x = 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/washer-volume-solid)
+
+*The solid made by turning the region between y = x + 2 (outer) and y = 1 (inner) about the x-axis for 0 ≤ x ≤ 1 (profiles computed by the package), with the washer at x = 0.5 sketched (radii 2.5 and 1): volume 16.7552 from the package.*
+
 ```python
 calculus_ai999x.solve('washer_volume', f='x + 2', g='1', a=0, b=1)
 # -> volume = 16.7552   (SOLVED)
@@ -901,6 +965,10 @@ $$
 - **Assumes:** $0  \leq  a < b$; f(x) >= 0 on [a, b] (checked exactly)
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![Cylindrical shells: the region under y = x^2 for 0 ≤ x ≤ 2 turned about the y-axis (curve values computed by the package), two shells of radius x and height f(x) sketched: volume 25](https://www.ai999x.com/?ax_fig=calculus-ai999x/shell-volume-solid)
+
+*Cylindrical shells: the region under y = x^2 for 0 ≤ x ≤ 2 turned about the y-axis (curve values computed by the package), two shells of radius x and height f(x) sketched: volume 25.1327 from the package, the integral of 2πx f(x) dx.*
+
 ```python
 calculus_ai999x.solve('shell_volume', f='x^2', a=0, b=2)
 # -> volume = 25.1327   (SOLVED)
@@ -942,6 +1010,10 @@ $$
 - **Method:** arc-length integral of sqrt($1 + f$'(x)^2) with the exact derivative, by high-precision quadrature
 - **Assumes:** $a < b$; f' continuous on [a, b]
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![The arc of y = cosh(x) from x = 0 to x = 1, to scale (curve values computed by the package): arc length 1](https://www.ai999x.com/?ax_fig=calculus-ai999x/arc-length-graph)
+
+*The arc of y = cosh(x) from x = 0 to x = 1, to scale (curve values computed by the package): arc length 1.1752 from the package, against the straight chord between the same end points (length derived from the two returned values).*
 
 ```python
 calculus_ai999x.solve('arc_length', f='cosh(x)', a=0, b=1)
@@ -990,6 +1062,14 @@ $$
 - **Assumes:** $a < b$; f' continuous on [a, b]
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![surface_area (the area of the surface of revolution) against b (right end) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/surface-area-revolution-curve)
+
+*surface_area (the area of the surface of revolution) against b (right end) from 0.5 to 1.5. One curve for each value of a (left end): 0, -0.5, 0.5. Other inputs as in the worked example: f = x. 31 points per curve computed by calculus-ai999x; marked: the worked example, b = 1, surface_area = 4.44288.*
+
+![surface_area (the area of the surface of revolution) over b (right end) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/surface-area-revolution-field)
+
+*surface_area (the area of the surface of revolution) over b (right end) from 0.5 to 1.5 and a (left end) from -1 to 1: each of the 21 × 15 cells is one run of calculus-ai999x, shaded by its value (light 0.148701 to dark 14.4394); iso-lines at surface_area = 2.5, 5, 7.5, 10, 12.5; blank cells: inputs the capability refuses. Other inputs as in the worked example: f = x. Marked: the worked example, b = 1, a = 0, surface_area = 4.44288.*
+
 ```python
 calculus_ai999x.solve('surface_area_revolution', f='x', a=0, b=1)
 # -> surface_area = 4.44288   (SOLVED)
@@ -1033,6 +1113,10 @@ $$
 - **Assumes:** $a < b$; f(x) >= 0 on [a, b] (checked exactly)
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![The region under y = x^2 between x = 0 and x = 1, to scale (curve values computed by the package): area 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/centroid-region-region)
+
+*The region under y = x^2 between x = 0 and x = 1, to scale (curve values computed by the package): area 0.333333. Marked: its centroid (x̄, ȳ) = (0.75, 0.3).*
+
 ```python
 calculus_ai999x.solve('centroid_region', f='x^2', a=0, b=1)
 # -> area = 0.333333, x_bar = 0.75, y_bar = 0.3   (SOLVED)
@@ -1072,6 +1156,10 @@ $$
 - **Method:** convergence by a limit comparison with $1/x^{1.01}$ (exact limit), value by tanh-sinh quadrature on [a, infinity)
 - **Assumes:** f continuous on [a, infinity); $x^{1.01} f$(x) has a finite limit (comparison test), so the integral converges absolutely
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![Top: y = exp(-x) from x = 0 (values computed by the package), the area extending without end](https://www.ai999x.com/?ax_fig=calculus-ai999x/improper-integral-area)
+
+*Top: y = exp(-x) from x = 0 (values computed by the package), the area extending without end. Bottom: the integral from 0 to b for b up to 8, each computed by the package, approaching the improper integral 1 (marked).*
 
 ```python
 calculus_ai999x.solve('improper_integral', f='exp(-x)', a=0)
@@ -1131,6 +1219,10 @@ $$
 
 *The area under y = x² on [0, 2] and the left Riemann sum with 8 rectangles (heights f(xᵢ) and the curve evaluated by the package): left sum 2.1875, right sum 3.1875, exact integral 2.66667.*
 
+![Left and right Riemann sums of y = x^2 on [0, 2] for n = 1 … 64 rectangles, each computed by the package: for an increasing function the left sum lies below and the right sum above the exact integral 2](https://www.ai999x.com/?ax_fig=calculus-ai999x/left-riemann-sum-convergence)
+
+*Left and right Riemann sums of y = x^2 on [0, 2] for n = 1 … 64 rectangles, each computed by the package: for an increasing function the left sum lies below and the right sum above the exact integral 2.66667; at n = 64 they are 2.60449 and 2.72949.*
+
 ```python
 calculus_ai999x.solve('left_riemann_sum', f='x^2', a=0, b=2, n=4)
 # -> approximation = 1.75   (SOLVED)
@@ -1173,6 +1265,10 @@ $$
 - **Method:** h times the sum of f at the right endpoints $x_k = a + k$ h, $k = 1..n$
 - **Assumes:** $a < b$; $1  \leq  n  \leq  100000$; f defined at the sample points
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![y = x^2 on [0, 2] and the 4 rectangles whose heights are f at the right ends of the sub-intervals (heights and curve computed by the package; dots mark the sample points): sum 3](https://www.ai999x.com/?ax_fig=calculus-ai999x/right-riemann-sum-area)
+
+*y = x^2 on [0, 2] and the 4 rectangles whose heights are f at the right ends of the sub-intervals (heights and curve computed by the package; dots mark the sample points): sum 3.75, exact integral 2.66667.*
 
 ```python
 calculus_ai999x.solve('right_riemann_sum', f='x^2', a=0, b=2, n=4)
@@ -1217,6 +1313,10 @@ $$
 - **Method:** composite trapezoidal rule; exact value by high-precision quadrature
 - **Assumes:** $a < b$; $1  \leq  n  \leq  100000$; f continuous on [a, b]
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![y = x^2 on [0, 2] and the 4 trapezoids through the curve values at the nodes (computed by the package): trapezoid sum 2](https://www.ai999x.com/?ax_fig=calculus-ai999x/trapezoid-rule-area)
+
+*y = x^2 on [0, 2] and the 4 trapezoids through the curve values at the nodes (computed by the package): trapezoid sum 2.75, exact 2.66667, error 0.0833333 — the chords lie above a convex curve, so the rule overestimates.*
 
 ```python
 calculus_ai999x.solve('trapezoid_rule', f='x^2', a=0, b=2, n=4)
@@ -1263,6 +1363,10 @@ $$
 - **Assumes:** $a < b$; n even, $2  \leq  n  \leq  100000$; f continuous on [a, b]
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![Simpson's rule for y = x^4 on [0, 2] with n = 4: the curve values at the nodes (computed by the package) are weighted 1, 4, 2, 4, …, 1 (a parabola through each pair of panels, separated by dashed lines)](https://www.ai999x.com/?ax_fig=calculus-ai999x/simpson-rule-area)
+
+*Simpson's rule for y = x^4 on [0, 2] with n = 4: the curve values at the nodes (computed by the package) are weighted 1, 4, 2, 4, …, 1 (a parabola through each pair of panels, separated by dashed lines). Approximation 6.41667, exact 6.4, error 0.0166667.*
+
 ```python
 calculus_ai999x.solve('simpson_rule', f='x^4', a=0, b=2, n=4)
 # -> approximation = 6.41667, exact = 6.4, error = 0.0166667   (SOLVED)
@@ -1308,6 +1412,10 @@ $$
 - **Assumes:** $a < b$; $1  \leq  n  \leq  100000$; f continuous on [a, b]
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![y = x^2 on [0, 2] and the 4 rectangles whose heights are f at the midpoints of the sub-intervals (heights and curve computed by the package; dots mark the sample points): sum 2](https://www.ai999x.com/?ax_fig=calculus-ai999x/midpoint-rule-area)
+
+*y = x^2 on [0, 2] and the 4 rectangles whose heights are f at the midpoints of the sub-intervals (heights and curve computed by the package; dots mark the sample points): sum 2.625, exact integral 2.66667, error -0.0416667.*
+
 ```python
 calculus_ai999x.solve('midpoint_rule', f='x^2', a=0, b=2, n=4)
 # -> approximation = 2.625, exact = 2.66667, error = -0.0416667   (SOLVED)
@@ -1352,6 +1460,10 @@ $$
 - **Assumes:** $a < b$; $1  \leq  n  \leq  64$; f continuous on [a, b]
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![Error of n-point Gauss–Legendre quadrature for the integral of eˣ from 0 to 1 (chosen), n = 1 … 6, each run of the package, against Simpson's rule (logarithmic error axis): each extra point gains about two orders of magnitude](https://www.ai999x.com/?ax_fig=calculus-ai999x/gauss-legendre-convergence)
+
+*Error of n-point Gauss–Legendre quadrature for the integral of eˣ from 0 to 1 (chosen), n = 1 … 6, each run of the package, against Simpson's rule (logarithmic error axis): each extra point gains about two orders of magnitude. Worked example (x³ + x², 0 to 2, n = 2): 6.66667, exact 6.66667.*
+
 ```python
 calculus_ai999x.solve('gauss_legendre', f='x^3 + x^2', a=0, b=2, n=2)
 # -> approximation = 6.66667, exact = 6.66667, error = 0   (SOLVED)
@@ -1395,6 +1507,10 @@ $$
 - **Method:** difference quotients (f(a+h)-f(a))/h, (f(a)-f(a-h))/h, (f(a+h)-f(a-h))/(2h) at 30 digits; exact derivative symbolically
 - **Assumes:** $h > 0$; f defined at the points used
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![Error of the forward, backward and central difference approximations of the derivative of sin x at x = 1 (chosen) for steps h from 1 down to 1e−7, each run of the package (logarithmic axes): one-sided errors fall like h, the central one like h²](https://www.ai999x.com/?ax_fig=calculus-ai999x/numerical-derivative-convergence)
+
+*Error of the forward, backward and central difference approximations of the derivative of sin x at x = 1 (chosen) for steps h from 1 down to 1e−7, each run of the package (logarithmic axes): one-sided errors fall like h, the central one like h². Worked example (x², h = 0.1, central): 2, error 0.*
 
 ```python
 calculus_ai999x.solve('numerical_derivative', f='x^2', a=1, h=0.1, method='central')
@@ -1450,6 +1566,14 @@ $$
 
 *Newton's method on x² − 2 from x₀ = 3: each tangent (through the curve point computed by the package) meets the axis at the next iterate — 1.83333, 1.46212, 1.415, 1.41421; marked: x₄ = 1.41421, f(x₄) = 6.1568e-07.*
 
+![x_1 ](https://www.ai999x.com/?ax_fig=calculus-ai999x/newton-method-series)
+
+*x_1 .. x_n (iterates) returned by calculus-ai999x for the worked example, one value for each position in the list (3 values, first 1.5, last 1.41422, largest 1.5). Inputs: f = x^2 - 2, x0 = 1, n = 3.*
+
+![x_n (the n-th iterate) against x0 (the starting value x_0) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/newton-method-curve)
+
+*x_n (the n-th iterate) against x0 (the starting value x_0) from 0.1 to 10 on a logarithmic axis. One curve for each value of n (number of iterations): 3, 4, 5. Other inputs as in the worked example: f = x^2 - 2. 41 points per curve computed by calculus-ai999x; marked: the worked example, x0 = 1, x_n = 1.41422.*
+
 ```python
 calculus_ai999x.solve('newton_method', f='x^2 - 2', x0=1, n=3)
 # -> x_n = 1.41422, f_x_n = 6.0073e-06, iterates = [1.5, 1.4166666666666667, 1.4142156862745099]   (SOLVED)
@@ -1490,6 +1614,10 @@ $$
 - **Method:** exact symbolic limit (series expansion / Gruntz algorithm) from both sides; refused if the one-sided limits differ or are infinite
 - **Assumes:** the left and right limits exist, are finite and agree
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![y = (x^2 - 4)/(x - 2) near x = 2, where it is not defined (values computed by the package at 40 points, none at x = 2 itself): from both sides the values approach 4](https://www.ai999x.com/?ax_fig=calculus-ai999x/limit-at-point-graph)
+
+*y = (x^2 - 4)/(x - 2) near x = 2, where it is not defined (values computed by the package at 40 points, none at x = 2 itself): from both sides the values approach 4. Marked: the limit at the gap.*
 
 ```python
 calculus_ai999x.solve('limit_at_point', f='(x^2 - 4)/(x - 2)', a=2)
@@ -1543,6 +1671,10 @@ $$
 - **Assumes:** the limit exists and is finite
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![y = (3x^2 + 1)/(x^2 - 5) for x from 3 to 30000 (logarithmic axis; values computed by the package): the values settle onto the horizontal asymptote y = 3, the limit as x → ∞](https://www.ai999x.com/?ax_fig=calculus-ai999x/limit-at-infinity-graph)
+
+*y = (3x^2 + 1)/(x^2 - 5) for x from 3 to 30000 (logarithmic axis; values computed by the package): the values settle onto the horizontal asymptote y = 3, the limit as x → ∞. Marked: the last value drawn.*
+
 ```python
 calculus_ai999x.solve('limit_at_infinity', f='(3x^2 + 1)/(x^2 - 5)')
 # -> limit = 3   (SOLVED)
@@ -1591,6 +1723,10 @@ $$
 - **Assumes:** the point lies on the curve; $F_y  \neq  0$ there (no vertical tangent)
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![The curve x^2 + y^2 = 25, traced as the zero level of (x^2 + y^2) - (25) (values computed by the package on a 25 × 25 grid), and its tangent at (3, 4) with the slope found by implicit differentiation, dy/dx = -0](https://www.ai999x.com/?ax_fig=calculus-ai999x/implicit-derivative-curve)
+
+*The curve x^2 + y^2 = 25, traced as the zero level of (x^2 + y^2) - (25) (values computed by the package on a 25 × 25 grid), and its tangent at (3, 4) with the slope found by implicit differentiation, dy/dx = -0.75. Marked: the point.*
+
 ```python
 calculus_ai999x.solve('implicit_derivative', F='x^2 + y^2 = 25', p='3, 4')
 # -> dy_dx = -0.75   (SOLVED)
@@ -1636,6 +1772,10 @@ $$
 - **Assumes:** $a < b$; f is a polynomial with rational coefficients
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![y = x^3 - 3x on the closed interval [0, 2] (outside it dashed; curve values computed by the package)](https://www.ai999x.com/?ax_fig=calculus-ai999x/extrema-on-interval-graph)
+
+*y = x^3 - 3x on the closed interval [0, 2] (outside it dashed; curve values computed by the package). The candidates are the end points and the critical point(s) x = 1; marked: absolute maximum 2, absolute minimum -2.*
+
 ```python
 calculus_ai999x.solve('extrema_on_interval', f='x^3 - 3x', a=0, b=2)
 # -> absolute_max = 2, absolute_min = -2, critical_points = [1.0]   (SOLVED)
@@ -1678,6 +1818,10 @@ $$
 - **Method:** exact real roots of f' (Sturm isolation); the sign of f' on each side decides max / min / neither
 - **Assumes:** f is a polynomial of degree >= 2 with rational coefficients
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![The graph of y = x^3 - 3x (values computed by the package) with its critical points, where f′(x) = 0 (horizontal tangents dashed): local maxima at x = -1, local minima at x = 1](https://www.ai999x.com/?ax_fig=calculus-ai999x/critical-points-classify-graph)
+
+*The graph of y = x^3 - 3x (values computed by the package) with its critical points, where f′(x) = 0 (horizontal tangents dashed): local maxima at x = -1, local minima at x = 1.*
 
 ```python
 calculus_ai999x.solve('critical_points_classify', f='x^3 - 3x')
@@ -1723,6 +1867,10 @@ $$
 - **Method:** exact real roots of f''; kept only where f'' changes sign (odd multiplicity)
 - **Assumes:** f is a polynomial of degree >= 2 with rational coefficients
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![Top: y = x^3 - 3x^2 (values computed by the package) with its inflection points marked](https://www.ai999x.com/?ax_fig=calculus-ai999x/inflection-points-graph)
+
+*Top: y = x^3 - 3x^2 (values computed by the package) with its inflection points marked. Bottom: f″(x) from the package changes sign there, so the curve turns from concave down to concave up. Marked: x = 1.*
 
 ```python
 calculus_ai999x.solve('inflection_points', f='x^3 - 3x^2')
@@ -1772,6 +1920,10 @@ $$
 - **Assumes:** $a < b$; f a non-linear polynomial with rational coefficients
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![The mean value theorem for y = x^3 - 3x on [-2, 2](https://www.ai999x.com/?ax_fig=calculus-ai999x/mean-value-theorem-graph)
+
+*The mean value theorem for y = x^3 - 3x on [-2, 2.5] (chosen interval; curve values computed by the package): the secant slope is 2.25, and the tangent at each returned c has the same slope (tangent segments drawn with that slope through (c, f(c))). Marked: c = -1.32288, 1.32288.*
+
 ```python
 calculus_ai999x.solve('mean_value_theorem', f='x^2', a=0, b=2)
 # -> secant_slope = 2, c_values = [1.0]   (SOLVED)
@@ -1815,6 +1967,10 @@ $$
 - **Assumes:** f continuous between a and g(x0); g differentiable at x0
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![F(x) = ∫ from 0 to g(x) = x^2 of f(t) = sin(t) dt: the shaded area up to the moving limit g(1) = 1 (values computed by the package, t written as x)](https://www.ai999x.com/?ax_fig=calculus-ai999x/ftc-derivative-area)
+
+*F(x) = ∫ from 0 to g(x) = x^2 of f(t) = sin(t) dt: the shaded area up to the moving limit g(1) = 1 (values computed by the package, t written as x). By the fundamental theorem its rate of change is f(g(x))·g′(x); the package gives F′(1) = 1.68294 (marked).*
+
 ```python
 calculus_ai999x.solve('ftc_derivative', f='sin(t)', a=0, g='x^2', x0=1)
 # -> derivative = 1.68294   (SOLVED)
@@ -1855,6 +2011,14 @@ $$
 - **Method:** $a/(1 - r)$, exact in the stated decimals
 - **Assumes:** |r| < 1
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![sum (the sum of the series) against r (the common ratio) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/geometric-series-sum-curve)
+
+*sum (the sum of the series) against r (the common ratio) from 0.02 to 0.98. One curve for each value of a (the first term): 3, 1.5, 6. 41 points per curve computed by calculus-ai999x; marked: the worked example, r = 0.5, sum = 6.*
+
+![sum (the sum of the series) over r (the common ratio) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/geometric-series-sum-field)
+
+*sum (the sum of the series) over r (the common ratio) from 0.02 to 0.98 and a (the first term) from 1.5 to 4.5: each of the 21 × 15 cells is one run of calculus-ai999x, shaded by its value (light 1.53061 to dark 225); iso-lines at sum = 50, 100, 150, 200. Marked: the worked example, r = 0.5, a = 3, sum = 6.*
 
 ```python
 calculus_ai999x.solve('geometric_series_sum', a=3, r=0.5)
@@ -1901,6 +2065,10 @@ $$
 ![Partial sums of the geometric series 1 + ½ + ¼ + …, each computed by the package: S₁ = 1, S₄ = 1](https://huggingface.co/AI999X/calculus-ai999x/resolve/main/figures/geometric-partial-sum-stems.svg)
 
 *Partial sums of the geometric series 1 + ½ + ¼ + …, each computed by the package: S₁ = 1, S₄ = 1.875, S₁₂ = 1.99951; the gap to the sum of the series, 2, halves with every term.*
+
+![sum (the sum of the first n terms) against r (the common ratio) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/geometric-partial-sum-curve)
+
+*sum (the sum of the first n terms) against r (the common ratio) from 0.3 to 30 on a logarithmic axis, logarithmic output axis. One curve for each value of n (the number of terms): 4, 2, 8. Other inputs as in the worked example: a = 2. 41 points per curve computed by calculus-ai999x; marked: the worked example, r = 3, sum = 80.*
 
 ```python
 calculus_ai999x.solve('geometric_partial_sum', a=2, r=3, n=4)
@@ -1949,6 +2117,10 @@ $$
 - **Assumes:** $n  \geq  1$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![sum (the sum of the first n terms) against n (the number of terms) from 1 to 20](https://www.ai999x.com/?ax_fig=calculus-ai999x/arithmetic-series-sum-curve)
+
+*sum (the sum of the first n terms) against n (the number of terms) from 1 to 20. One curve for each value of d (the common difference): 3, 1.5, 6. Other inputs as in the worked example: a1 = 2. 20 points per curve computed by calculus-ai999x; marked: the worked example, n = 10, sum = 155.*
+
 ```python
 calculus_ai999x.solve('arithmetic_series_sum', a1=2, d=3, n=10)
 # -> sum = 155, last_term = 29   (SOLVED)
@@ -1988,6 +2160,10 @@ $$
 - **Method:** exact symbolic summation; refused if the series diverges or no closed form is found
 - **Assumes:** the series converges; a closed form exists
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![The infinite series of aₙ = 1/n^2 summed from n = k onward, for k = 1 … 12, each sum computed by the package, beside the terms themselves (computed by the package, n written as x): the tails shrink to 0, more slowly than the terms](https://www.ai999x.com/?ax_fig=calculus-ai999x/series-sum-stems)
+
+*The infinite series of aₙ = 1/n^2 summed from n = k onward, for k = 1 … 12, each sum computed by the package, beside the terms themselves (computed by the package, n written as x): the tails shrink to 0, more slowly than the terms. Marked: the full sum from n = 1, 1.64493.*
 
 ```python
 calculus_ai999x.solve('series_sum', a='1/n^2', k=1)
@@ -2040,6 +2216,10 @@ $$
 - **Assumes:** L exists, is finite and is not 1 (L = 1 is inconclusive and refused)
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![The ratio test: |aₙ₊₁/aₙ| for n = 1 … 40, the ratios formed from term values computed by the package (n written as x)](https://www.ai999x.com/?ax_fig=calculus-ai999x/ratio-test-stems)
+
+*The ratio test: |aₙ₊₁/aₙ| for n = 1 … 40, the ratios formed from term values computed by the package (n written as x). For aₙ = 2^n/n^3 they approach L = 2 > 1, so the series diverges; for aₙ = n^3/2^n (chosen) they approach 0.5 < 1 and it converges.*
+
 ```python
 calculus_ai999x.solve('ratio_test', a='2^n/n^3')
 # -> ratio_limit = 2, verdict = diverges   (SOLVED)
@@ -2090,6 +2270,14 @@ $$
 
 *Taylor polynomials of sin x about 0 of degree 1, 3, 5 and 7 against sin x itself, each evaluated by the package at 121 points; marked: x = 2.5, degree-7 value = 0.588534 (sin 2.5 = 0.598472, error 0.00993823).*
 
+![c_0 ](https://www.ai999x.com/?ax_fig=calculus-ai999x/taylor-polynomial-series)
+
+*c_0 .. c_n with c_k = f^(k)(a)/k! (coefficients) returned by calculus-ai999x for the worked example, one value for each position in the list (4 values, first 1, last 0.166667, largest 1). Inputs: f = exp(x), a = 0, n = 3, x1 = 0.5.*
+
+![value (P_n(x1)) against x1 (the evaluation point) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/taylor-polynomial-curve-2)
+
+*value (P_n(x1)) against x1 (the evaluation point) from 0.05 to 5 on a logarithmic axis. One curve for each value of n (the degree): 3, 4, 5. Other inputs as in the worked example: f = exp(x), a = 0. 41 points per curve computed by calculus-ai999x; marked: the worked example, x1 = 0.5, value = 1.64583.*
+
 ```python
 calculus_ai999x.solve('taylor_polynomial', f='exp(x)', a=0, n=3, x1=0.5)
 # -> coefficients = [1.0, 1.0, 0.5, 0.16666666666666666], value = 1.64583, function_value = 1.64872, error = 0.00288794   (SOLVED)
@@ -2136,6 +2324,10 @@ $$
 - **Method:** exact symbolic partial differentiation, then evaluation at the point
 - **Assumes:** f differentiable at the point
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![Level curves of f(x, y) = x^2*y + y^3 around (1, 2) (f computed by the package): the partial derivatives are the slopes of f along the two lines through the point, ∂f/∂x = 4 (the worked example) and ∂f/∂y = 13, both from the package](https://www.ai999x.com/?ax_fig=calculus-ai999x/partial-derivative-field)
+
+*Level curves of f(x, y) = x^2*y + y^3 around (1, 2) (f computed by the package): the partial derivatives are the slopes of f along the two lines through the point, ∂f/∂x = 4 (the worked example) and ∂f/∂y = 13, both from the package. Marked: the point, f = 10.*
 
 ```python
 calculus_ai999x.solve('partial_derivative', f='x^2*y + y^3', var='x', p='1, 2')
@@ -2184,6 +2376,10 @@ $$
 - **Assumes:** f differentiable at the point
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![Level curves of f(x, y) = x^2 + y^2 (shaded by value, f computed by the package on a 15 × 15 grid) and its gradient from the package at 25 points (arrows, all scaled by the same factor): the gradient is perpendicular to the level curves and points uphill](https://www.ai999x.com/?ax_fig=calculus-ai999x/gradient-field)
+
+*Level curves of f(x, y) = x^2 + y^2 (shaded by value, f computed by the package on a 15 × 15 grid) and its gradient from the package at 25 points (arrows, all scaled by the same factor): the gradient is perpendicular to the level curves and points uphill. Marked: ∇f(1, 2) = (2, 4), magnitude 4.47214.*
+
 ```python
 calculus_ai999x.solve('gradient', f='x^2 + y^2', p='1, 2')
 # -> gradient = [2.0, 4.0], magnitude = 4.47214   (SOLVED)
@@ -2225,6 +2421,10 @@ $$
 - **Method:** gradient (exact partial derivatives) dotted with u/|u|
 - **Assumes:** $u  \neq  0$ with as many components as p; f differentiable at p
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![Level curves of f(x, y) = x^2*y around (1, 2) (f computed by the package; the level through the point is f = 2), the gradient there (4, 1) and the stated direction (3, 4) as unit arrows: the directional derivative, the gradient's component along that direction, is 3](https://www.ai999x.com/?ax_fig=calculus-ai999x/directional-derivative-field)
+
+*Level curves of f(x, y) = x^2*y around (1, 2) (f computed by the package; the level through the point is f = 2), the gradient there (4, 1) and the stated direction (3, 4) as unit arrows: the directional derivative, the gradient's component along that direction, is 3.2 (marked).*
 
 ```python
 calculus_ai999x.solve('directional_derivative', f='x^2*y', p='1, 2', u='3, 4')
@@ -2270,6 +2470,10 @@ $$
 - **Assumes:** f differentiable at (x0, y0)
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![Two slices through the surface z = x^2 + y^2 at (1, 2) (surface values computed by the package): along x and along y the tangent plane z = 5 + 2(x − 1) + 4(y − 2) touches the surface with slopes fx = 2 and fy = 4](https://www.ai999x.com/?ax_fig=calculus-ai999x/tangent-plane-slices)
+
+*Two slices through the surface z = x^2 + y^2 at (1, 2) (surface values computed by the package): along x and along y the tangent plane z = 5 + 2(x − 1) + 4(y − 2) touches the surface with slopes fx = 2 and fy = 4. Marked: z0 = 5.*
+
 ```python
 calculus_ai999x.solve('tangent_plane', f='x^2 + y^2', p='1, 2')
 # -> z0 = 5, fx = 2, fy = 4, c = -5   (SOLVED)
@@ -2313,6 +2517,10 @@ $$
 - **Method:** exact second partial derivatives at the point; $D > 0$ and $f_xx > 0$ minimum, $D > 0$ and $f_xx < 0$ maximum, $D < 0$ saddle
 - **Assumes:** the gradient is zero at the point; $D  \neq  0$ (D = 0 is inconclusive and refused)
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![Top: level curves of the worked example f = x^2 + 3y^2 - 2x near (1, 0) (f computed by the package): fxx = 2, fyy = 6, fxy = 0, D = 12 — local minimum](https://www.ai999x.com/?ax_fig=calculus-ai999x/hessian-classification-field)
+
+*Top: level curves of the worked example f = x^2 + 3y^2 - 2x near (1, 0) (f computed by the package): fxx = 2, fyy = 6, fxy = 0, D = 12 — local minimum. Bottom (chosen): f = x^3 - 3x + y^2 with D = -12 at (−1, 0), saddle point, and D = 12 at (1, 0), local minimum.*
 
 ```python
 calculus_ai999x.solve('hessian_classification', f='x^2 + 3y^2 - 2x', p='1, 0')
@@ -2361,6 +2569,10 @@ $$
 - **Assumes:** f twice differentiable at the point
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![The Laplacian of f(x, y) = sin(x)*sin(y) (chosen) on [−3, 3]², computed by the package at 225 points: accent where ∇²f > 0 (f below the average of its surroundings, a hollow), violet where ∇²f < 0 (a hump); the grey lines are level curves of f](https://www.ai999x.com/?ax_fig=calculus-ai999x/laplacian-field)
+
+*The Laplacian of f(x, y) = sin(x)*sin(y) (chosen) on [−3, 3]², computed by the package at 225 points: accent where ∇²f > 0 (f below the average of its surroundings, a hollow), violet where ∇²f < 0 (a hump); the grey lines are level curves of f. Marked: ∇²f at (π/2, π/2) = -2. Worked example: ∇²(x^2 + y^2) at (1, 1) = 4.*
+
 ```python
 calculus_ai999x.solve('laplacian', f='x^2 + y^2', p='1, 1')
 # -> laplacian = 4   (SOLVED)
@@ -2402,6 +2614,10 @@ $$
 - **Method:** exact symbolic partial derivatives
 - **Assumes:** the components are differentiable at the point
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![The divergence of F = (x*y, y*z, x*z) in the plane z = 3, computed by the package at 81 points (accent: a source, violet: a sink), with the field's x and y components as arrows (computed by the package, z written in)](https://www.ai999x.com/?ax_fig=calculus-ai999x/divergence-field)
+
+*The divergence of F = (x*y, y*z, x*z) in the plane z = 3, computed by the package at 81 points (accent: a source, violet: a sink), with the field's x and y components as arrows (computed by the package, z written in). Worked example: div F at (1, 2, 3) = 6.*
 
 ```python
 calculus_ai999x.solve('divergence', P='x*y', Q='y*z', R='x*z', p='1, 2, 3')
@@ -2445,6 +2661,10 @@ $$
 - **Assumes:** the components are differentiable at the point
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![The curl of F = (x*y, y*z, z*x) in the plane z = 3, computed by the package at 49 points: arrows show its x and y components (common scale), shading its z component (accent positive, violet negative)](https://www.ai999x.com/?ax_fig=calculus-ai999x/curl-field)
+
+*The curl of F = (x*y, y*z, z*x) in the plane z = 3, computed by the package at 49 points: arrows show its x and y components (common scale), shading its z component (accent positive, violet negative). Worked example: curl at (1, 2, 3) = (-2, -3, -1).*
+
 ```python
 calculus_ai999x.solve('curl', P='x*y', Q='y*z', R='z*x', p='1, 2, 3')
 # -> curl = [-2.0, -3.0, -1.0]   (SOLVED)
@@ -2485,6 +2705,10 @@ $$
 - **Method:** exact partial derivatives; x_u y_v - x_v y_u
 - **Assumes:** x and y differentiable at the point
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![The map x = u*cos(v), y = u*sin(v) applied to a grid in the (u, v) plane (images computed by the package, u and v written as x and y in the expressions): the image of a small du × dv cell at (2, 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/jacobian-determinant-map)
+
+*The map x = u*cos(v), y = u*sin(v) applied to a grid in the (u, v) plane (images computed by the package, u and v written as x and y in the expressions): the image of a small du × dv cell at (2, 0.5) has area about |J| du dv with the package's Jacobian determinant J = 2 (marked).*
 
 ```python
 calculus_ai999x.solve('jacobian_determinant', xu='u*cos(v)', yv='u*sin(v)', p='2, 0.5')
@@ -2529,6 +2753,10 @@ $$
 - **Assumes:** $a < b$, $c < d$; f continuous on the rectangle
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![The integrand f(x, y) = x*y over the rectangle [0, 2] × [0, 3], shaded by value with level curves (computed by the package): the double integral, the volume under the surface, is 9](https://www.ai999x.com/?ax_fig=calculus-ai999x/double-integral-rectangle-field)
+
+*The integrand f(x, y) = x*y over the rectangle [0, 2] × [0, 3], shaded by value with level curves (computed by the package): the double integral, the volume under the surface, is 9.*
+
 ```python
 calculus_ai999x.solve('double_integral_rectangle', f='x*y', a=0, b=2, c=0, d=3)
 # -> integral = 9   (SOLVED)
@@ -2572,6 +2800,10 @@ $$
 - **Method:** iterated Gauss-Legendre rules of increasing order (inner rule mapped to [g1(x), g2(x)]) until two agree
 - **Assumes:** $a < b$; $g_{1}  \leq  g_{2}$ on [a, b]; f, g1, g2 continuous
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![The region 0 ≤ x ≤ 1, x^2 ≤ y ≤ x (boundary curves computed by the package), with vertical strips marking the inner integration in y: the double integral of f = x*y over it is 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/double-integral-region-region)
+
+*The region 0 ≤ x ≤ 1, x^2 ≤ y ≤ x (boundary curves computed by the package), with vertical strips marking the inner integration in y: the double integral of f = x*y over it is 0.0416667.*
 
 ```python
 calculus_ai999x.solve('double_integral_region', f='x*y', a=0, b=1, g1='x^2', g2='x')
@@ -2619,6 +2851,10 @@ $$
 - **Assumes:** $x_{0} < x_{1}$, $y_{0} < y_{1}$, $z_{0} < z_{1}$; f continuous on the box
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![integral (the value of the triple integral) against x0 (x from) from -1 to 1](https://www.ai999x.com/?ax_fig=calculus-ai999x/triple-integral-box-curve)
+
+*integral (the value of the triple integral) against x0 (x from) from -1 to 1. One curve for each value of x1 (x to): 1, 0.5, 2. Other inputs as in the worked example: f = x*y*z, y0 = 0, y1 = 2, z0 = 0, z1 = 3. 40 points per curve computed by calculus-ai999x; marked: the worked example, x0 = 0, integral = 4.5.*
+
 ```python
 calculus_ai999x.solve('triple_integral_box', f='x*y*z', x0=0, x1=1, y0=0, y1=2, z0=0, z1=3)
 # -> integral = 4.5   (SOLVED)
@@ -2661,6 +2897,10 @@ $$
 - **Method:** exact partial derivatives; Gauss-Legendre product rules of sqrt(1 + f_x^2 + f_y^2) until two orders agree
 - **Assumes:** $a < b$, $c < d$; f continuously differentiable on the rectangle
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![surface_area (the surface area) against b (x to) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/surface-area-graph-curve)
+
+*surface_area (the surface area) against b (x to) from 0.5 to 1.5. One curve for each value of d (y to): 1, 0.5, 2. Other inputs as in the worked example: f = x + y, a = 0, c = 0. 31 points per curve computed by calculus-ai999x; marked: the worked example, b = 1, surface_area = 1.73205.*
 
 ```python
 calculus_ai999x.solve('surface_area_graph', f='x + y', a=0, b=1, c=0, d=1)
@@ -2706,6 +2946,14 @@ $$
 - **Assumes:** the integrand is continuous for t between t0 and t1
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![line_integral (the integral of F ](https://www.ai999x.com/?ax_fig=calculus-ai999x/line-integral-vector-curve)
+
+*line_integral (the integral of F . dr along the path) against t1 (end parameter) from 3.14159 to 9.42478. One curve for each value of t0 (start parameter): 0, -0.5, 0.5. Other inputs as in the worked example: P = -y, Q = x, xt = cos(t), yt = sin(t). 31 points per curve computed by calculus-ai999x; marked: the worked example, t1 = 6.28319, line_integral = 6.28319.*
+
+![line_integral (the integral of F ](https://www.ai999x.com/?ax_fig=calculus-ai999x/line-integral-vector-field)
+
+*line_integral (the integral of F . dr along the path) over t1 (end parameter) from 3.14159 to 9.42478 and t0 (start parameter) from -1 to 1: each of the 21 × 15 cells is one run of calculus-ai999x, shaded by its value (light 2.14159 to dark 10.4248); iso-lines at line_integral = 4, 6, 8, 10. Other inputs as in the worked example: P = -y, Q = x, xt = cos(t), yt = sin(t). Marked: the worked example, t1 = 6.28319, t0 = 0, line_integral = 6.28319.*
+
 ```python
 calculus_ai999x.solve('line_integral_vector', P='-y', Q='x', xt='cos(t)', yt='sin(t)', t0=0, t1=6.283185307179586)
 # -> line_integral = 6.28319   (SOLVED)
@@ -2748,6 +2996,10 @@ $$
 - **Method:** f(r(t)) |r'(t)| with exact r'(t), then tanh-sinh quadrature
 - **Assumes:** $t_{0} < t_{1}$; the integrand continuous on [t0, t1]
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![Level curves of f(x, y) = x + y (computed by the package) and the path x = t, y = t, t from 0 to 1 (points computed by the package with t written as x): the line integral of f with respect to arc length, 1](https://www.ai999x.com/?ax_fig=calculus-ai999x/line-integral-scalar-field)
+
+*Level curves of f(x, y) = x + y (computed by the package) and the path x = t, y = t, t from 0 to 1 (points computed by the package with t written as x): the line integral of f with respect to arc length, 1.41421, sums f along the path (marked at its end).*
 
 ```python
 calculus_ai999x.solve('line_integral_scalar', f='x + y', xt='t', yt='t', t0=0, t1=1)
@@ -2793,6 +3045,10 @@ $$
 - **Method:** the four sides by tanh-sinh quadrature; the double integral of the exact Q_x - P_y by Gauss-Legendre product rules; refused unless the two agree
 - **Assumes:** $a < b$, $c < d$; P and Q continuously differentiable on the rectangle
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![The field F = (-y, x) (arrows of equal scale, components computed by the package) and the rectangle [0, 1] × [0, 2] traversed counter-clockwise: Green's theorem equates the circulation around it, 4, with the double integral of ∂Q/∂x − ∂P/∂y over it, 4, both from the package](https://www.ai999x.com/?ax_fig=calculus-ai999x/greens-theorem-field)
+
+*The field F = (-y, x) (arrows of equal scale, components computed by the package) and the rectangle [0, 1] × [0, 2] traversed counter-clockwise: Green's theorem equates the circulation around it, 4, with the double integral of ∂Q/∂x − ∂P/∂y over it, 4, both from the package.*
 
 ```python
 calculus_ai999x.solve('greens_theorem', P='-y', Q='x', a=0, b=1, c=0, d=2)
@@ -2841,6 +3097,10 @@ $$
 - **Assumes:** the box is non-degenerate; F continuously differentiable on the box
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![flux (the outward flux) against x1 (x to) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/divergence-theorem-box-curve)
+
+*flux (the outward flux) against x1 (x to) from 0.1 to 10 on a logarithmic axis. One curve for each value of y1 (y to): 1, 0.5, 2. Other inputs as in the worked example: P = x^2, Q = y^2, R = z^2, x0 = 0, y0 = 0, z0 = 0, z1 = 1. 41 points per curve computed by calculus-ai999x; marked: the worked example, x1 = 1, flux = 3.*
+
 ```python
 calculus_ai999x.solve('divergence_theorem_box', P='x^2', Q='y^2', R='z^2', x0=0, x1=1, y0=0, y1=1, z0=0, z1=1)
 # -> flux = 3   (SOLVED)
@@ -2882,6 +3142,10 @@ $$
 - **Method:** sqrt(x'$(t)^{2} + y$'(t)^2) with exact derivatives, tanh-sinh quadrature
 - **Assumes:** $t_{0} < t_{1}$; x and y continuously differentiable
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![The curve x = cos(t), y = sin(t) (coordinates computed by the package with t written as x), the arc from t = 0 to t = 3](https://www.ai999x.com/?ax_fig=calculus-ai999x/parametric-arc-length-curve)
+
+*The curve x = cos(t), y = sin(t) (coordinates computed by the package with t written as x), the arc from t = 0 to t = 3.14159 drawn thick and the rest of one turn dashed: arc length 3.14159 from the package.*
 
 ```python
 calculus_ai999x.solve('parametric_arc_length', xt='cos(t)', yt='sin(t)', t0=0, t1=3.141592653589793)
@@ -2925,6 +3189,10 @@ $$
 - **Assumes:** $dx/dt  \neq  0$ at t0
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![The parametric curve x = t^2, y = t^3 for t from −1](https://www.ai999x.com/?ax_fig=calculus-ai999x/parametric-slope-curve)
+
+*The parametric curve x = t^2, y = t^3 for t from −1.6 to 1.6 (each coordinate computed by the package with t written as x in the expression) and its tangent at t = 1, point (1, 1): slope dy/dx = 1.5, d²y/dx² = 0.75. Marked: the point.*
+
 ```python
 calculus_ai999x.solve('parametric_slope', xt='t^2', yt='t^3', t0=1)
 # -> dy_dx = 1.5, d2y_dx2 = 0.75   (SOLVED)
@@ -2966,6 +3234,10 @@ $$
 - **Assumes:** $\alpha < \beta  \leq  \alpha + 2$ pi; r continuous
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![The polar curve r = 1 + cos(theta) for θ from 0 to 6](https://www.ai999x.com/?ax_fig=calculus-ai999x/polar-area-polar)
+
+*The polar curve r = 1 + cos(theta) for θ from 0 to 6.28319 (r computed by the package at 73 angles, θ written as x in the expression) and the region it encloses: area 4.71239, the integral of r²/2 dθ, from the package.*
+
 ```python
 calculus_ai999x.solve('polar_area', r='1 + cos(theta)', al=0, be=6.283185307179586)
 # -> area = 4.71239   (SOLVED)
@@ -3005,6 +3277,10 @@ $$
 - **Method:** the standard library's Lanczos-type approximation (double precision)
 - **Assumes:** x is not 0 or a negative whole number; $x < 171.6$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![The gamma function for −4 < x ≤ 5, computed by the package at 176 points (poles at 0, −1, −2, −3, where it is not drawn): at the positive integers it is the factorial, Γ(n) = (n − 1)! — marked Γ(1) … Γ(4) = 1, 1, 2, 6](https://www.ai999x.com/?ax_fig=calculus-ai999x/gamma-function-curve)
+
+*The gamma function for −4 < x ≤ 5, computed by the package at 176 points (poles at 0, −1, −2, −3, where it is not drawn): at the positive integers it is the factorial, Γ(n) = (n − 1)! — marked Γ(1) … Γ(4) = 1, 1, 2, 6.*
 
 ```python
 calculus_ai999x.solve('gamma_function', x=5)
@@ -3052,6 +3328,14 @@ $$
 - **Assumes:** $a > 0$; $b > 0$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![beta (B(a, b)) against a (the first argument (> 0)) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/beta-function-curve)
+
+*beta (B(a, b)) against a (the first argument (> 0)) from 0.2 to 20 on a logarithmic axis, logarithmic output axis. One curve for each value of b (the second argument (> 0)): 3, 1.5, 6. 41 points per curve computed by calculus-ai999x; marked: the worked example, a = 2, beta = 0.0833333.*
+
+![beta (B(a, b)) over a (the first argument (> 0)) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/beta-function-field)
+
+*beta (B(a, b)) over a (the first argument (> 0)) from 0.2 to 20 and b (the second argument (> 0)) from 0.3 to 30 (logarithmic axes): each of the 21 × 15 cells is one run of calculus-ai999x, shaded by its value (light 1.7682e-15 to dark 7.74848, logarithmic shading); iso-lines at beta = 1.00e-12, 1.00e-11, 1.00e-10, 1.00e-9, 1.00e-8. Marked: the worked example, a = 2, b = 3, beta = 0.0833333.*
+
 ```python
 calculus_ai999x.solve('beta_function', a=2, b=3)
 # -> beta = 0.0833333   (SOLVED)
@@ -3092,6 +3376,10 @@ $$
 - **Method:** the standard library's erf and erfc (double precision)
 - **Assumes:** x real
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![erf (erf(x)) against x (the argument x) from -1 to 1](https://www.ai999x.com/?ax_fig=calculus-ai999x/error-function-curve)
+
+*erf (erf(x)) against x (the argument x) from -1 to 1. 41 points computed by calculus-ai999x; marked: the worked example, x = 0, erf = 0.*
 
 ```python
 calculus_ai999x.solve('error_function', x=0)
@@ -3134,6 +3422,14 @@ $$
 - **Assumes:** $a > 0$; $x  \geq  0$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![P (P(a, x) = gamma(a, x)/Gamma(a)) against a (the shape a (> 0)) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/regularized-gamma-curve)
+
+*P (P(a, x) = gamma(a, x)/Gamma(a)) against a (the shape a (> 0)) from 0.1 to 10 on a logarithmic axis. One curve for each value of x (the upper limit x (>= 0)): 2, 1, 4. 41 points per curve computed by calculus-ai999x; marked: the worked example, a = 1, P = 0.864665.*
+
+![P (P(a, x) = gamma(a, x)/Gamma(a)) over a (the shape a (> 0)) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/regularized-gamma-field)
+
+*P (P(a, x) = gamma(a, x)/Gamma(a)) over a (the shape a (> 0)) from 0.1 to 10 and x (the upper limit x (>= 0)) from 0.2 to 20 (logarithmic axes): each of the 21 × 15 cells is one run of calculus-ai999x, shaded by its value (light 2.3531e-14 to dark 1); iso-lines at P = 0.2, 0.4, 0.6, 0.8. Marked: the worked example, a = 1, x = 2, P = 0.864665.*
+
 ```python
 calculus_ai999x.solve('regularized_gamma', a=1, x=2)
 # -> P = 0.864665, Q = 0.135335   (SOLVED)
@@ -3173,6 +3469,10 @@ $$
 - **Method:** hypergeometric series at 30 digits
 - **Assumes:** $0  \leq  n  \leq  50$; |x| <= 1000
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![Bessel functions of the first kind J0 … J3 for 0 ≤ x ≤ 15, each computed by the package at 61 points: decaying oscillations, Jₙ starting at 0 for n ≥ 1](https://www.ai999x.com/?ax_fig=calculus-ai999x/bessel-j-curve)
+
+*Bessel functions of the first kind J0 … J3 for 0 ≤ x ≤ 15, each computed by the package at 61 points: decaying oscillations, Jₙ starting at 0 for n ≥ 1. Marked: J0(2.40483) = -6.1088e-17, its first zero.*
 
 ```python
 calculus_ai999x.solve('bessel_j', n=0, x=0)
@@ -3218,6 +3518,10 @@ $$
 - **Assumes:** $s > 1$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![zeta (zeta(s)) against s (the argument s (> 1)) from 1 to 3](https://www.ai999x.com/?ax_fig=calculus-ai999x/riemann-zeta-curve)
+
+*zeta (zeta(s)) against s (the argument s (> 1)) from 1 to 3. 30 points computed by calculus-ai999x; marked: the worked example, s = 2, zeta = 1.64493.*
+
 ```python
 calculus_ai999x.solve('riemann_zeta', s=2)
 # -> zeta = 1.64493   (SOLVED)
@@ -3259,6 +3563,10 @@ $$
 - **Assumes:** $0  \leq  n  \leq  200$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
+![Legendre polynomials of degree 1 to 5 on [−1, 1], each computed by the package at 81 points: degree n has n zeros in the interval](https://www.ai999x.com/?ax_fig=calculus-ai999x/legendre-polynomial-curve)
+
+*Legendre polynomials of degree 1 to 5 on [−1, 1], each computed by the package at 81 points: degree n has n zeros in the interval. Marked: the worked example P2(0.5) = -0.125.*
+
 ```python
 calculus_ai999x.solve('legendre_polynomial', n=2, x=0.5)
 # -> P = -0.125   (SOLVED)
@@ -3298,6 +3606,10 @@ $$
 - **Method:** the recurrence T_(k+1) = 2x T_k - T_(k-1)
 - **Assumes:** $0  \leq  n  \leq  500$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![Chebyshev polynomials of degree 1 to 5 on [−1, 1], each computed by the package at 81 points: degree n has n zeros in the interval](https://www.ai999x.com/?ax_fig=calculus-ai999x/chebyshev-polynomial-curve)
+
+*Chebyshev polynomials of degree 1 to 5 on [−1, 1], each computed by the package at 81 points: degree n has n zeros in the interval. Marked: the worked example T3(0.5) = -1.*
 
 ```python
 calculus_ai999x.solve('chebyshev_polynomial', n=3, x=0.5)
@@ -3341,6 +3653,10 @@ $$
 - **Method:** tanh-sinh quadrature on the k half-wave subintervals at 20 digits
 - **Assumes:** $L > 0$; f continuous on [-L, L]; $1  \leq  k  \leq  50$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![Fourier coefficients of f(x) = x on [−L, L] with L = 3](https://www.ai999x.com/?ax_fig=calculus-ai999x/fourier-coefficients-stems)
+
+*Fourier coefficients of f(x) = x on [−L, L] with L = 3.14159, for k = 1 … 10, each computed by the package: an odd function has only sine terms (aₖ = 0, a0 = 0), and bₖ alternates in sign while shrinking like 1/k. Marked: the worked example's b2.*
 
 ```python
 calculus_ai999x.solve('fourier_coefficients', f='x', L=3.141592653589793, k=2)

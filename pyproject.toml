@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "calculus-ai999x"
-version = "1.0.1"
+version = "1.0.2"
 description = "Offline calculus solver: limits, derivatives, integrals, series, Taylor polynomials, multivariable and vector calculus, special functions and numerical differentiation and integration, with steps, LaTeX and honest refusals"
 readme = "README.md"
 requires-python = ">=3.10"

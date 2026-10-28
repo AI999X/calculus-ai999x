@@ -4,7 +4,7 @@
 
 **[Install](https://pypi.org/project/calculus-ai999x/)** · **[Capability guide](https://huggingface.co/AI999X/calculus-ai999x/tree/main/docs)** · **[Evaluation](https://huggingface.co/AI999X/calculus-ai999x/tree/main/evaluation)** · **[AI999X on Hugging Face](https://huggingface.co/AI999X)** · **[Website](https://ai999x.com)** · **[Support: Buy Me a Coffee](https://buymeacoffee.com/ibnuljaiffarabi)**
 
-License: Apache-2.0 · Author: Ibnul Jaif Farabi (creator and engineer) · Organization: AI999X · Version 1.0.1
+License: Apache-2.0 · Author: Ibnul Jaif Farabi (creator and engineer) · Organization: AI999X · Version 1.0.2
 
 Field: **Mathematics & Statistics** · Tasks: Question Answering, Token Classification, Text Classification, Sentence Similarity, Feature Extraction
 
@@ -27,7 +27,7 @@ calculus-ai999x is an offline, deterministic Python solver that answers calculus
 
 | Property | Value |
 |---|---|
-| Package | `calculus-ai999x` 1.0.1 (import `calculus_ai999x`) |
+| Package | `calculus-ai999x` 1.0.2 (import `calculus_ai999x`) |
 | Type | Deterministic neuro-symbolic calculus engine (rule-based reading + certified symbolic capabilities) |
 | Capabilities | 71 certified procedures |
 | Knowledge pack | version 1.0.0 |
@@ -61,7 +61,7 @@ calculus.ask("Who created you?").message
 # -> calculus-ai999x was created and engineered by Ibnul Jaif Farabi at AI999X.
 ```
 
-Command line: `calculus-ai999x "<question>"`, `calculus-ai999x --capabilities`. The outputs above were produced by running this exact code on calculus-ai999x 1.0.1.
+Command line: `calculus-ai999x "<question>"`, `calculus-ai999x --capabilities`. The outputs above were produced by running this exact code on calculus-ai999x 1.0.2.
 
 ## Find the right capability, and draw it
 
@@ -216,10 +216,10 @@ _The solid made by turning y = √x (0 ≤ x ≤ 4) about the x-axis, with circu
 ## Citation
 
 ```bibtex
-@software{calculus_ai999x_1_0_1,
+@software{calculus_ai999x_1_0_2,
   title  = {calculus-ai999x: an offline, verified calculus solver},
   author = {Farabi, Ibnul Jaif}, organization = {AI999X},
-  year   = {2026}, version = {1.0.1},
+  year   = {2026}, version = {1.0.2},
   url    = {https://huggingface.co/AI999X/calculus-ai999x}
 }
 ```
