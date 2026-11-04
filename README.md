@@ -2,7 +2,7 @@
 
 [![tests](https://github.com/AI999X/calculus-ai999x/actions/workflows/ci.yml/badge.svg)](https://github.com/AI999X/calculus-ai999x/actions/workflows/ci.yml) [![PyPI](https://img.shields.io/pypi/v/calculus-ai999x)](https://pypi.org/project/calculus-ai999x/) [![Hugging Face](https://img.shields.io/badge/%F0%9F%A4%97-Hugging%20Face-yellow)](https://huggingface.co/AI999X/calculus-ai999x)
 
-**[Install](https://pypi.org/project/calculus-ai999x/)** · **[Capability guide](https://huggingface.co/AI999X/calculus-ai999x/tree/main/docs)** · **[Evaluation](https://huggingface.co/AI999X/calculus-ai999x/tree/main/evaluation)** · **[AI999X on Hugging Face](https://huggingface.co/AI999X)** · **[Website](https://ai999x.com)** · **[Support: Buy Me a Coffee](https://buymeacoffee.com/ibnuljaiffarabi)**
+**[Desktop app & command line](https://www.ai999x.com/desktop-cli/)** · **[Compute in your browser](https://www.ai999x.com/models/calculus-ai999x/#try)** · **[Install (Python)](https://pypi.org/project/calculus-ai999x/)** · **[Guides](https://huggingface.co/AI999X/calculus-ai999x/tree/main/docs)** · **[Evaluation](https://huggingface.co/AI999X/calculus-ai999x/tree/main/evaluation)** · **[AI999X on Hugging Face](https://huggingface.co/AI999X)** · **[Website](https://ai999x.com)** · **[Support: Buy Me a Coffee](https://buymeacoffee.com/ibnuljaiffarabi)**
 
 License: Apache-2.0 · Author: Ibnul Jaif Farabi (creator and engineer) · Organization: AI999X · Version 1.0.3
 
@@ -12,7 +12,284 @@ calculus-ai999x is an offline, deterministic Python solver that answers calculus
 
 **calculus-ai999x** is a compact, deterministic calculus engine for Python. It reads a question in plain English (or a typed call), picks a certified calculus capability, computes the answer exactly, checks it, and returns the result with its steps, units, LaTeX and assumptions — or an honest refusal that says what is missing. It runs fully offline on any CPU, needs no GPU, no API key and no internet, and is built to give **zero wrong answers**: when it is not sure, it refuses instead of guessing.
 
-[![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-support%20development-FFDD00?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/ibnuljaiffarabi) ![License](https://img.shields.io/badge/license-Apache--2.0-blue) ![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue) ![Offline](https://img.shields.io/badge/runs-offline%20on%20CPU-green)
+[![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-support%20development-FFDD00?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/ibnuljaiffarabi) ![License](https://img.shields.io/badge/license-Apache--2.0-blue) ![Python](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue) ![Offline](https://img.shields.io/badge/runs-offline%20on%20CPU-green) ![Rust](https://img.shields.io/badge/Rust-Windows%20%7C%20Linux%20%7C%20WebAssembly-orange)
+
+**Run it your way.** calculus-ai999x comes as the AI999X desktop app and as the command-line program `calculus` for Windows and Linux, runs in your browser as WebAssembly, and installs as a Python package. The desktop app, the command line and the browser run the same compiled Rust program on your own device: offline, no Python needed.
+
+## Get it
+
+| Way to run it | For | Get it |
+|---|---|---|
+| **AI999X Calculus desktop app** 1.2.0 | Windows, Linux — this model in its own app: search, ask in words, forms, live figures, explanations, offline | [Windows (x86-64)](https://www.ai999x.com/downloads/desktop/1.2.0/ai999x-calculus-1.2.0-windows-x86_64.zip) · [Linux (x86-64)](https://www.ai999x.com/downloads/desktop/1.2.0/ai999x-calculus-1.2.0-linux-x86_64.tar.gz) |
+| **AI999X desktop app** 1.2.0 | Windows, Linux — every AI999X model in one app: search, ask in words, forms, live figures, explanations, offline | [Windows (x86-64)](https://www.ai999x.com/downloads/desktop/1.2.0/ai999x-1.2.0-windows-x86_64.zip) · [Linux (x86-64)](https://www.ai999x.com/downloads/desktop/1.2.0/ai999x-1.2.0-linux-x86_64.tar.gz) |
+| **Command line** (`calculus`) | Windows, Linux — one program per model, offline, no Python | [Windows (x86-64)](https://www.ai999x.com/downloads/desktop/1.2.0/ai999x-cli-1.2.0-windows-x86_64.zip) · [Linux (x86-64)](https://www.ai999x.com/downloads/desktop/1.2.0/ai999x-cli-1.2.0-linux-x86_64.tar.gz) |
+| **In your browser** | any device — nothing to install | [Compute on the model page](https://www.ai999x.com/models/calculus-ai999x/#try) |
+| **Python** | Python 3.10+ | `pip install calculus-ai999x` |
+
+Checksums: [SHA256SUMS](https://www.ai999x.com/downloads/desktop/1.2.0/SHA256SUMS) · every version: [https://www.ai999x.com/downloads/desktop/latest/](https://www.ai999x.com/downloads/desktop/latest/) · install guide: [desktop & command line](https://www.ai999x.com/desktop-cli/)
+
+## Rust versions
+
+Calculus also comes as native programs compiled from Rust, version 1.2.0 of the AI999X desktop app and command line: they run offline on your computer and need no Python. Each file is in this repository's `rust/` folder, on the [GitHub release v1.0.3](https://github.com/AI999X/calculus-ai999x/releases/tag/v1.0.3) and on the website.
+
+| Program | System | File | Size | Download | Use |
+|---|---|---|---|---|---|
+| Desktop app (Calculus) | Windows x86-64 | `ai999x-calculus-1.2.0-windows-x86_64.zip` | 7.7 MB | [Hub](https://huggingface.co/AI999X/calculus-ai999x/resolve/main/rust/ai999x-calculus-1.2.0-windows-x86_64.zip) · [GitHub](https://github.com/AI999X/calculus-ai999x/releases/download/v1.0.3/ai999x-calculus-1.2.0-windows-x86_64.zip) · [website](https://www.ai999x.com/downloads/desktop/1.2.0/ai999x-calculus-1.2.0-windows-x86_64.zip) | unzip, then double-click `ai999x-calculus.exe` (no installer) |
+| Desktop app (Calculus) | Linux x86-64 | `ai999x-calculus-1.2.0-linux-x86_64.tar.gz` | 8.6 MB | [Hub](https://huggingface.co/AI999X/calculus-ai999x/resolve/main/rust/ai999x-calculus-1.2.0-linux-x86_64.tar.gz) · [GitHub](https://github.com/AI999X/calculus-ai999x/releases/download/v1.0.3/ai999x-calculus-1.2.0-linux-x86_64.tar.gz) · [website](https://www.ai999x.com/downloads/desktop/1.2.0/ai999x-calculus-1.2.0-linux-x86_64.tar.gz) | extract, then run `./ai999x-calculus` (X11 or Wayland desktop) |
+| Command line (`calculus`) | Windows x86-64 | `ai999x-calculus-cli-1.2.0-windows-x86_64.zip` | 3.2 MB | [Hub](https://huggingface.co/AI999X/calculus-ai999x/resolve/main/rust/ai999x-calculus-cli-1.2.0-windows-x86_64.zip) · [GitHub](https://github.com/AI999X/calculus-ai999x/releases/download/v1.0.3/ai999x-calculus-cli-1.2.0-windows-x86_64.zip) · [website (all models)](https://www.ai999x.com/downloads/desktop/1.2.0/ai999x-cli-1.2.0-windows-x86_64.zip) | unzip, then `calculus.exe ask "<question>"` or `calculus.exe solve <capability> name=value` |
+| Command line (`calculus`) | Linux x86-64 | `ai999x-calculus-cli-1.2.0-linux-x86_64.tar.gz` | 3.2 MB | [Hub](https://huggingface.co/AI999X/calculus-ai999x/resolve/main/rust/ai999x-calculus-cli-1.2.0-linux-x86_64.tar.gz) · [GitHub](https://github.com/AI999X/calculus-ai999x/releases/download/v1.0.3/ai999x-calculus-cli-1.2.0-linux-x86_64.tar.gz) · [website (all models)](https://www.ai999x.com/downloads/desktop/1.2.0/ai999x-cli-1.2.0-linux-x86_64.tar.gz) | extract, then `./calculus ask "<question>"` or `./calculus solve <capability> name=value` |
+
+The command-line archive holds `calculus` with a README of its commands and examples, the licence and the notice. Checksums: [`rust/SHA256SUMS`](https://huggingface.co/AI999X/calculus-ai999x/resolve/main/rust/SHA256SUMS) (`sha256sum -c SHA256SUMS`).
+
+## Quick start
+
+### Desktop app
+
+Download **AI999X Calculus** for your system (above), unpack it and start it; type a question in words or pick a capability, fill in the form and press Compute. Figures and an explanation of the answer appear beside it. The AI999X desktop app has the same, with Calculus among all AI999X models.
+
+Linux, from a terminal:
+
+```bash
+curl -LO https://www.ai999x.com/downloads/desktop/1.2.0/ai999x-calculus-1.2.0-linux-x86_64.tar.gz
+curl -LO https://www.ai999x.com/downloads/desktop/1.2.0/SHA256SUMS
+sha256sum -c --ignore-missing SHA256SUMS
+tar xzf ai999x-calculus-1.2.0-linux-x86_64.tar.gz
+./ai999x-calculus-1.2.0-linux-x86_64/ai999x-calculus
+```
+
+### Command line
+
+Linux:
+
+```bash
+curl -LO https://www.ai999x.com/downloads/desktop/1.2.0/ai999x-cli-1.2.0-linux-x86_64.tar.gz
+curl -LO https://www.ai999x.com/downloads/desktop/1.2.0/SHA256SUMS
+sha256sum -c --ignore-missing SHA256SUMS
+mkdir -p ~/.local/share && tar xzf ai999x-cli-1.2.0-linux-x86_64.tar.gz -C ~/.local/share
+echo 'export PATH="$HOME/.local/share/ai999x-cli-1.2.0-linux-x86_64:$PATH"' >> ~/.bashrc && source ~/.bashrc
+calculus --version
+```
+
+Windows (PowerShell):
+
+```powershell
+$F = "ai999x-cli-1.2.0-windows-x86_64.zip"
+Invoke-WebRequest "https://www.ai999x.com/downloads/desktop/1.2.0/$F" -OutFile $F
+Invoke-WebRequest "https://www.ai999x.com/downloads/desktop/1.2.0/SHA256SUMS" -OutFile SHA256SUMS
+(Get-FileHash $F -Algorithm SHA256).Hash.ToLower() -eq ((Select-String -SimpleMatch $F SHA256SUMS).Line -split ' ')[0]
+Expand-Archive $F -DestinationPath "$env:LOCALAPPDATA\AI999X" -Force
+$D = "$env:LOCALAPPDATA\AI999X\ai999x-cli-1.2.0-windows-x86_64"; $env:Path += ";$D"
+[Environment]::SetEnvironmentVariable("Path", [Environment]::GetEnvironmentVariable("Path", "User") + ";$D", "User")
+calculus --version
+```
+
+Every command below was run as shown; the text under it is what the program printed.
+
+**Ask in words** — Write the question as you would say it: the program reads the quantities and their units, picks the capability and answers.
+
+```console
+$ calculus ask "Find the limit of (x^2 - 4)/(x - 2) as x approaches 2."
+Read as: Limit at a point
+limit = 4
+  by: Limit at a point  (exact symbolic limit (series expansion / Gruntz algorithm) from both sides; refused if the one-sided limits differ or are infinite)
+  a = 2
+  f = (x^2 - 4)/(x - 2)
+  assumes: the left and right limits exist, are finite and agree
+```
+
+**What a capability needs** — The equation or method, every input and output with its SI unit. Read this before solve: it tells you the input names.
+
+```console
+$ calculus info limit_at_point
+Limit at a point
+  exact symbolic limit (series expansion / Gruntz algorithm) from both sides; refused if the one-sided limits differ or are infinite
+  in   f        the function f(x) (text) [1]
+  in   a        the point x = a [1]
+  out  limit    the limit of f(x) as x -> a [1]
+```
+
+**Solve** — Inputs as name=value, each with any unit of the right kind. The answer lists every output, the method used, each input converted to SI, and the conditions the answer assumes.
+
+```console
+$ calculus solve limit_at_point a=2.0 "f=(x^2 - 4)/(x - 2)"
+limit = 4
+  by: Limit at a point  (exact symbolic limit (series expansion / Gruntz algorithm) from both sides; refused if the one-sided limits differ or are infinite)
+  a = 2
+  f = (x^2 - 4)/(x - 2)
+  assumes: the left and right limits exist, are finite and agree
+```
+
+**Draw the figures** — The live figures for your own inputs, written as SVG files into the folder given with --out (here the current folder); open them in any browser. Without --out the SVG text comes back as JSON.
+
+```console
+$ calculus figures limit_at_point a=2.0 "f=(x^2 - 4)/(x - 2)" --out .
+[
+  {
+    "slug": "limit-at-point-live-1",
+    "title": "The limit of f(x) as x -> a as the point x = a varies",
+    "caption": "The limit of f(x) as x -> a as a runs from 0.5 to 3.5, every other input as you entered it (41 solutions). Marked: your a = 2 gives limit = 4. Your inputs: a = 2.0, f = (x^2 - 4)/(x - 2).",
+    "file": "./limit-at-point-live-1.svg"
+  }
+]
+```
+
+**Many questions at once** — One JSON request per line in, one JSON answer per line out, in order: for scripts, notebooks and agents (the program starts once). In PowerShell: Get-Content cases.jsonl | calculus batch
+
+`cases.jsonl`:
+
+```json
+{"key": "limit_at_point", "inputs": {"a": 2.0, "f": "(x^2 - 4)/(x - 2)"}}
+{"key": "extrema_on_interval", "inputs": {"a": 0.0, "b": 2.0, "f": "x^3 - 3x"}}
+```
+
+```console
+$ calculus batch < cases.jsonl
+{"outcome":"SOLVED","message":"","value":4.0,"unit":"","solved_for":"limit","si":[["a",2.0]],"values":[["limit",4.0,""]],"target":"limit","phrase":"the limit of f(x) as x -> a","assumptions":["the left and right limits exist, are finite and agree"],"name":"Limit at a point","equation":"exact symbolic limit (series expansion / Gruntz algorithm) from both sides; refused if the one-sided limits differ or are infinite"}
+{"outcome":"SOLVED","message":"","value":2.0,"unit":"","solved_for":"absolute_max","si":[["a",0.0],["b",2.0]],"values":[["absolute_max",2.0,""],["absolute_min",-2.0,""],["critical_points",[1.0],""]],"target":"absolute_max","phrase":"the largest value of f on [a, b]","assumptions":["a < b","f is a polynomial with rational coefficients"],"name":"Absolute extrema on a closed interval","equation":"exact real roots of f' in (a, b) (Sturm isolation), then f compared at the critical points and both ends"}
+```
+
+### In your browser
+
+Open [Calculus on ai999x.com](https://www.ai999x.com/models/calculus-ai999x/#try), choose a capability and press **Compute**: the model runs on your own device as WebAssembly; nothing is sent anywhere. Change any input (any unit of the right kind) and the answer, its explanation and the figures follow.
+
+In your own page: `calculus_ai999x.wasm` and the loader `ax-wasm.js` (https://www.ai999x.com/compute/rust/ax-wasm.js).
+
+### Python
+
+```bash
+pip install calculus-ai999x
+```
+
+## Worked examples in every form
+
+The same worked example from the command line, from Python and in the browser. Each command-line output is what the program printed.
+
+### Absolute extrema on a closed interval
+
+The absolute maximum and minimum values of a polynomial on [a, b] by the closed-interval method, with the critical points inside (a, b).
+
+Command line:
+
+```console
+$ calculus solve extrema_on_interval a=0 b=2 "f=x^3 - 3x"
+absolute_max = 2
+absolute_min = -2
+critical_points = [1.0]
+  by: Absolute extrema on a closed interval  (exact real roots of f' in (a, b) (Sturm isolation), then f compared at the critical points and both ends)
+  a = 0
+  b = 2
+  f = x^3 - 3x
+  assumes: a < b; f is a polynomial with rational coefficients
+```
+
+Python:
+
+```python
+import calculus_ai999x as m
+
+a = m.solve("extrema_on_interval", a="0", b="2", f="x^3 - 3x")
+print(a.values or (a.value, a.unit))
+```
+
+Browser: [open this capability on the model page](https://www.ai999x.com/models/calculus-ai999x/#cap-extrema_on_interval) and press **Compute in your browser**.
+
+_What this means:_ This calculation determines the highest and lowest values attained by the polynomial f(x) over the closed interval from a to b. The method identifies all critical points where the derivative vanishes within the open interval, then compares the function value at each such point against the values at the two endpoints. The largest of these comparisons yields the absolute maximum 2, while the smallest gives the absolute minimum -2. This approach relies on the Extreme Value Theorem, which guarantees that a continuous function on a closed bounded interval must attain both its global extrema.
+
+### Average rate of change
+
+The average rate of change (f(b) - f(a))/(b - a) of f over [a, b]: the slope of the secant line.
+
+Command line:
+
+```console
+$ calculus solve average_rate_of_change a=1 b=3 "f=x^2"
+average_rate = 4
+fa = 1
+fb = 9
+  by: Average rate of change  (difference quotient of the two function values)
+  a = 1
+  b = 3
+  f = x^2
+  assumes: a != b; f defined at a and b
+```
+
+Python:
+
+```python
+import calculus_ai999x as m
+
+a = m.solve("average_rate_of_change", a="1", b="3", f="x^2")
+print(a.values or (a.value, a.unit))
+```
+
+Browser: [open this capability on the model page](https://www.ai999x.com/models/calculus-ai999x/#cap-average_rate_of_change) and press **Compute in your browser**.
+
+_What this means:_ This calculation determines the average rate of change for the function over the interval defined by the start point 1 and the end point 3. It is computed using the difference quotient, which takes the value of the function at the end point, 9, subtracts the value at the start point, 1, and divides this difference by the width of the interval. The resulting value, 4, represents the slope of the secant line connecting these two points on the graph, indicating the mean speed or change per unit interval.
+
+### Critical points and their classification
+
+All critical points of a polynomial f(x) and which are local maxima or minima (first-derivative test).
+
+Command line:
+
+```console
+$ calculus solve critical_points_classify "f=x^3 - 3x"
+critical_points = [-1.0,1.0]
+local_maxima = [-1.0]
+local_minima = [1.0]
+  by: Critical points and their classification  (exact real roots of f' (Sturm isolation); the sign of f' on each side decides max / min / neither)
+  f = x^3 - 3x
+  assumes: f is a polynomial of degree >= 2 with rational coefficients
+```
+
+Python:
+
+```python
+import calculus_ai999x as m
+
+a = m.solve("critical_points_classify", f="x^3 - 3x")
+print(a.values or (a.value, a.unit))
+```
+
+Browser: [open this capability on the model page](https://www.ai999x.com/models/calculus-ai999x/#cap-critical_points_classify) and press **Compute in your browser**.
+
+_What this means:_ This calculation determines the locations where the slope of the polynomial x^3 - 3x is zero. Finding the exact real roots of the derivative identifies all critical points listed in ascending order as [-1, 1]. The sign change of the derivative around each point classifies them, resulting in the set of local maxima [-1] and the set of local minima [1].
+
+### Curvature of a graph
+
+The curvature kappa = |f''| / (1 + f'^2)^(3/2) of y = f(x) at x = a, and the radius of curvature 1/kappa.
+
+Command line:
+
+```console
+$ calculus solve curvature a=0 "f=x^2"
+curvature = 2
+radius_of_curvature = 0.5
+  by: Curvature of a graph  (curvature formula of a graph from the exact first and second derivatives)
+  a = 0
+  f = x^2
+  assumes: f twice differentiable at a
+```
+
+Python:
+
+```python
+import calculus_ai999x as m
+
+a = m.solve("curvature", a="0", f="x^2")
+print(a.values or (a.value, a.unit))
+```
+
+Browser: [open this capability on the model page](https://www.ai999x.com/models/calculus-ai999x/#cap-curvature) and press **Compute in your browser**.
+
+_What this means:_ This calculation determines how sharply the graph of the function bends at the specific point defined by the input x-value. Using the exact first and second derivatives of the function, it computes the curvature value and the corresponding radius of the osculating circle. The result indicates that at this location, the curve has a curvature of 2 and fits within a circle of radius 0.5, providing a precise geometric measure of the local bend.
+
+## Documentation
+
+- **Rust user guide** — the command line, every capability with a command and what it printed: [PDF](https://huggingface.co/AI999X/calculus-ai999x/blob/main/docs/calculus_ai999x_rust_guide.pdf) · [Markdown](https://huggingface.co/AI999X/calculus-ai999x/blob/main/docs/calculus_ai999x_rust_guide.md)
+- **Python guide** — every capability with a Python example: [PDF](https://huggingface.co/AI999X/calculus-ai999x/blob/main/docs/calculus_ai999x_capabilities.pdf) · [Markdown](https://huggingface.co/AI999X/calculus-ai999x/blob/main/docs/calculus_ai999x_capabilities.md)
+- **Desktop app & command line** — downloads, install, ask and search, figures, offline use, checksums: https://www.ai999x.com/desktop-cli/
+- **Model page** — compute in your browser, every capability explained: https://www.ai999x.com/models/calculus-ai999x/
 
 ## Highlights
 
@@ -20,6 +297,7 @@ calculus-ai999x is an offline, deterministic Python solver that answers calculus
 - **Zero wrong answers by design.** Seven explicit outcomes — SOLVED, NEEDS_INPUT, AMBIGUOUS, INVALID_INPUT, OUT_OF_SCOPE, UNRECOGNIZED_FORMAT, INTERNAL_ERROR — never a silent guess. Every one of its 374 documented answers is reproduced exactly on every tested platform.
 - **Plain-English questions and a guaranteed typed interface.** `ask()` reads documented question forms; `solve(capability_id, **inputs)` always solves a supported task with valid inputs.
 - **Explains itself.** Steps, formulas in LaTeX, units, assumptions and the model used, ready for notebooks, tutoring apps and homework checkers.
+- **Native and in the browser.** Every capability also computes natively in Rust: the desktop app and the `calculus` command line for Windows and Linux, and WebAssembly on the model page — no Python, no network.
 - **Small and portable.** Pure Python (sympy, mpmath); identical answers on Windows and Linux (Python 3.10, 3.11, 3.12, 3.13, 3.14).
 - **Coverage:** limits, derivatives, integrals, series, Taylor polynomials, multivariable and vector calculus, special functions and numerical differentiation and integration.
 
@@ -38,7 +316,7 @@ calculus-ai999x is an offline, deterministic Python solver that answers calculus
 | Creator / engineer | Ibnul Jaif Farabi |
 | Organization | AI999X |
 
-## Quickstart
+## Python quick start
 
 ```bash
 pip install calculus-ai999x
@@ -61,7 +339,7 @@ calculus.ask("Who created you?").message
 # -> calculus-ai999x was created and engineered by Ibnul Jaif Farabi at AI999X.
 ```
 
-Command line: `calculus-ai999x "<question>"`, `calculus-ai999x --capabilities`. The outputs above were produced by running this exact code on calculus-ai999x 1.0.3.
+The Python package also installs a Python command, `calculus-ai999x "<question>"`; for the native program use `calculus` (above). The outputs above were produced by running this exact code on calculus-ai999x 1.0.3.
 
 ## Find the right capability, and draw it
 
@@ -83,7 +361,7 @@ calculus.search("Solve x^2 - 5x + 6 = 0", k=2)
 
 Capabilities are certified before they ship: each must reproduce hand-worked reference cases, reject a deliberately wrong variant (a control), and leave every benchmark answer unchanged.
 
-## Worked examples
+## Python worked examples, with their steps
 
 Each question was put to `calculus-ai999x`; the answer is the one it returned, with the steps it took.
 
