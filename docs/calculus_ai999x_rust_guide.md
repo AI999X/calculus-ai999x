@@ -1,4 +1,4 @@
-# calculus: the Calculus program — user guide
+# calculus: the Calculus program, user guide
 
 **calculus-ai999x 1.1.0**, Rust build: command line, desktop app and browser. **Creator / engineer:** Ibnul Jaif Farabi · **Company:** AI999X · support@ai999x.com
 
@@ -17,63 +17,63 @@ Calculus covers limits, derivatives, integrals, series, Taylor polynomials, mult
 
 ## 1. Get it
 
-Version 1.4.0 of the AI999X desktop app and of the command-line bundle. Checksums for every file: https://downloads.ai999x.com/desktop/1.4.0/SHA256SUMS; the newest version is always under https://downloads.ai999x.com/desktop/latest/. Full instructions: https://www.ai999x.com/desktop-cli/
+Version 1.5.0 of the AI999X desktop app and of the command-line bundle. Checksums for every file: https://downloads.ai999x.com/desktop/1.5.0/SHA256SUMS; the newest version is always under https://downloads.ai999x.com/desktop/latest/. Full instructions: https://www.ai999x.com/desktop-cli/
 
 | what | system | download |
 |---|---|---|
-| Desktop app: Calculus | Windows x86-64 | https://downloads.ai999x.com/desktop/1.4.0/ai999x-calculus-1.4.0-windows-x86_64.zip |
-| Desktop app: Calculus | Linux x86-64 | https://downloads.ai999x.com/desktop/1.4.0/ai999x-calculus-1.4.0-linux-x86_64.tar.gz |
-| Desktop app: all models | Windows x86-64 | https://downloads.ai999x.com/desktop/1.4.0/ai999x-1.4.0-windows-x86_64.zip |
-| Desktop app: all models | Linux x86-64 | https://downloads.ai999x.com/desktop/1.4.0/ai999x-1.4.0-linux-x86_64.tar.gz |
-| Command line | Windows x86-64 | https://downloads.ai999x.com/desktop/1.4.0/ai999x-cli-1.4.0-windows-x86_64.zip |
-| Command line | Linux x86-64 | https://downloads.ai999x.com/desktop/1.4.0/ai999x-cli-1.4.0-linux-x86_64.tar.gz |
+| Desktop app: Calculus | Windows x86-64 | https://downloads.ai999x.com/desktop/1.5.0/ai999x-calculus-1.5.0-windows-x86_64.zip |
+| Desktop app: Calculus | Linux x86-64 | https://downloads.ai999x.com/desktop/1.5.0/ai999x-calculus-1.5.0-linux-x86_64.tar.gz |
+| Desktop app: all models | Windows x86-64 | https://downloads.ai999x.com/desktop/1.5.0/ai999x-1.5.0-windows-x86_64.zip |
+| Desktop app: all models | Linux x86-64 | https://downloads.ai999x.com/desktop/1.5.0/ai999x-1.5.0-linux-x86_64.tar.gz |
+| Command line | Windows x86-64 | https://downloads.ai999x.com/desktop/1.5.0/ai999x-cli-1.5.0-windows-x86_64.zip |
+| Command line | Linux x86-64 | https://downloads.ai999x.com/desktop/1.5.0/ai999x-cli-1.5.0-linux-x86_64.tar.gz |
 
 ### Desktop app
 
-Calculus in its own app: search, questions in words, input forms, live figures and explanations. Windows: Download ai999x-calculus-1.4.0-windows-x86_64.zip, right-click it → Extract All, then open the folder and start ai999x-calculus.exe. If Windows SmartScreen asks, choose More info → Run anyway. Linux:
+Calculus in its own app: search, questions in words, input forms, live figures and explanations. Windows: Download ai999x-calculus-1.5.0-windows-x86_64.zip, right-click it → Extract All, then open the folder and start ai999x-calculus.exe. If Windows SmartScreen asks, choose More info → Run anyway. Linux:
 
 ```shell
-curl -LO https://downloads.ai999x.com/desktop/1.4.0/ai999x-calculus-1.4.0-linux-x86_64.tar.gz
-curl -LO https://downloads.ai999x.com/desktop/1.4.0/SHA256SUMS
+curl -LO https://downloads.ai999x.com/desktop/1.5.0/ai999x-calculus-1.5.0-linux-x86_64.tar.gz
+curl -LO https://downloads.ai999x.com/desktop/1.5.0/SHA256SUMS
 sha256sum -c --ignore-missing SHA256SUMS
-tar xzf ai999x-calculus-1.4.0-linux-x86_64.tar.gz
-./ai999x-calculus-1.4.0-linux-x86_64/ai999x-calculus
+tar xzf ai999x-calculus-1.5.0-linux-x86_64.tar.gz
+./ai999x-calculus-1.5.0-linux-x86_64/ai999x-calculus
 ```
 
-It opens on this model: type a question or pick a capability, fill in the form and press Compute. The AI999X desktop app with every model works the same way (choose the model first). Windows: Download ai999x-1.4.0-windows-x86_64.zip, right-click it → Extract All, then open the folder and start ai999x.exe. If Windows SmartScreen asks, choose More info → Run anyway. Linux:
+It opens on this model: type a question or pick a capability, fill in the form and press Compute. The AI999X desktop app with every model works the same way (choose the model first). Windows: Download ai999x-1.5.0-windows-x86_64.zip, right-click it → Extract All, then open the folder and start ai999x.exe. If Windows SmartScreen asks, choose More info → Run anyway. Linux:
 
 ```shell
-curl -LO https://downloads.ai999x.com/desktop/1.4.0/ai999x-1.4.0-linux-x86_64.tar.gz
-curl -LO https://downloads.ai999x.com/desktop/1.4.0/SHA256SUMS
+curl -LO https://downloads.ai999x.com/desktop/1.5.0/ai999x-1.5.0-linux-x86_64.tar.gz
+curl -LO https://downloads.ai999x.com/desktop/1.5.0/SHA256SUMS
 sha256sum -c --ignore-missing SHA256SUMS
-tar xzf ai999x-1.4.0-linux-x86_64.tar.gz
-./ai999x-1.4.0-linux-x86_64/ai999x
+tar xzf ai999x-1.5.0-linux-x86_64.tar.gz
+./ai999x-1.5.0-linux-x86_64/ai999x
 ```
 
-### Command line — Linux
+### Command line: Linux
 
 The bundle holds one program per model; `calculus` is this one. The checksum line should print OK.
 
 ```shell
-curl -LO https://downloads.ai999x.com/desktop/1.4.0/ai999x-cli-1.4.0-linux-x86_64.tar.gz
-curl -LO https://downloads.ai999x.com/desktop/1.4.0/SHA256SUMS
+curl -LO https://downloads.ai999x.com/desktop/1.5.0/ai999x-cli-1.5.0-linux-x86_64.tar.gz
+curl -LO https://downloads.ai999x.com/desktop/1.5.0/SHA256SUMS
 sha256sum -c --ignore-missing SHA256SUMS
-mkdir -p ~/.local/share && tar xzf ai999x-cli-1.4.0-linux-x86_64.tar.gz -C ~/.local/share
-echo 'export PATH="$HOME/.local/share/ai999x-cli-1.4.0-linux-x86_64:$PATH"' >> ~/.bashrc && source ~/.bashrc
+mkdir -p ~/.local/share && tar xzf ai999x-cli-1.5.0-linux-x86_64.tar.gz -C ~/.local/share
+echo 'export PATH="$HOME/.local/share/ai999x-cli-1.5.0-linux-x86_64:$PATH"' >> ~/.bashrc && source ~/.bashrc
 calculus --version
 ```
 
-### Command line — Windows (PowerShell)
+### Command line: Windows (PowerShell)
 
 The fourth line should print True.
 
 ```powershell
-$F = "ai999x-cli-1.4.0-windows-x86_64.zip"
-Invoke-WebRequest "https://downloads.ai999x.com/desktop/1.4.0/$F" -OutFile $F
-Invoke-WebRequest "https://downloads.ai999x.com/desktop/1.4.0/SHA256SUMS" -OutFile SHA256SUMS
+$F = "ai999x-cli-1.5.0-windows-x86_64.zip"
+Invoke-WebRequest "https://downloads.ai999x.com/desktop/1.5.0/$F" -OutFile $F
+Invoke-WebRequest "https://downloads.ai999x.com/desktop/1.5.0/SHA256SUMS" -OutFile SHA256SUMS
 (Get-FileHash $F -Algorithm SHA256).Hash.ToLower() -eq ((Select-String -SimpleMatch $F SHA256SUMS).Line -split ' ')[0]
 Expand-Archive $F -DestinationPath "$env:LOCALAPPDATA\AI999X" -Force
-$D = "$env:LOCALAPPDATA\AI999X\ai999x-cli-1.4.0-windows-x86_64"; $env:Path += ";$D"
+$D = "$env:LOCALAPPDATA\AI999X\ai999x-cli-1.5.0-windows-x86_64"; $env:Path += ";$D"
 [Environment]::SetEnvironmentVariable("Path", [Environment]::GetEnvironmentVariable("Path", "User") + ";$D", "User")
 calculus --version
 ```
@@ -96,10 +96,41 @@ Prints the model, its version and that this is the Rust build.
 
 ```shell
 $ calculus --version
-calculus-ai999x 1.0.3 (Rust build, ax-engine 0.1.0)
+calculus-ai999x 1.5.0 (Rust build, ax-engine 1.5.0)
 ```
 
-### 2.2 List the capabilities
+### 2.2 Ask in words
+
+Write the question as you would say it: the program reads the quantities and their units, picks the capability and answers.
+
+```shell
+$ calculus ask "Find the limit of (x^2 - 4)/(x - 2) as x approaches 2."
+Read as: Limit at a point
+limit = 4
+  by: Limit at a point  (exact symbolic limit (series expansion / Gruntz algorithm) from both sides; refused if the one-sided limits differ or are infinite)
+  a = 2
+  f = (x^2 - 4)/(x - 2)
+  assumes: the left and right limits exist, are finite and agree
+```
+
+### 2.3 Find a capability
+
+Search the capabilities by what you want to know; the first column is the id to pass to info and solve.
+
+```shell
+$ calculus search "limit at a point"
+limit_at_point                       Limit at a point  (limits)
+limit_at_infinity                    Limit at infinity  (limits)
+derivative_at_point                  Derivative at a point  (derivatives)
+inflection_points                    Inflection points  (derivatives / concavity)
+second_derivative_at_point           Second derivative at a point  (derivatives)
+nth_derivative_at_point              Higher derivative at a point  (derivatives)
+critical_points_classify             Critical points and their classification  (derivatives / optimization)
+ftc_derivative                       Derivative of an integral (fundamental theorem)  (integrals)
+… 12 more
+```
+
+### 2.4 List the capabilities
 
 Every capability the program answers: its id (what you pass to solve) and its name.
 
@@ -110,13 +141,13 @@ area_between_curves                      Area between two curves
 area_enclosed_curves                     Area enclosed by two curves
 arithmetic_series_sum                    Sum of an arithmetic series
 average_rate_of_change                   Average rate of change
+average_value                            Average value of a function
 bessel_j                                 Bessel function of the first kind
 beta_function                            Beta function
-centroid_region                          Centroid of a region under a curve
-… 56 more
+… 63 more
 ```
 
-### 2.3 What a capability needs
+### 2.5 What a capability needs
 
 The equation or method, every input and output with its SI unit. Read this before solve: it tells you the input names.
 
@@ -129,7 +160,7 @@ Limit at a point
   out  limit    the limit of f(x) as x -> a [1]
 ```
 
-### 2.4 Solve
+### 2.6 Solve
 
 Inputs as name=value, each with any unit of the right kind. The answer lists every output, the method used, each input converted to SI, and the conditions the answer assumes.
 
@@ -137,12 +168,12 @@ Inputs as name=value, each with any unit of the right kind. The answer lists eve
 $ calculus solve limit_at_point a=2.0 "f=(x^2 - 4)/(x - 2)"
 limit = 4
   by: Limit at a point  (exact symbolic limit (series expansion / Gruntz algorithm) from both sides; refused if the one-sided limits differ or are infinite)
-  a = 2   []
+  a = 2
   f = (x^2 - 4)/(x - 2)
   assumes: the left and right limits exist, are finite and agree
 ```
 
-### 2.5 Machine-readable answer
+### 2.7 Machine-readable answer
 
 --json prints the same answer as one line of JSON (values in SI): for scripts and other programs.
 
@@ -151,7 +182,7 @@ $ calculus solve limit_at_point a=2.0 "f=(x^2 - 4)/(x - 2)" --json
 {"outcome":"SOLVED","message":"","value":4.0,"unit":"","solved_for":"limit","si":[["a",2.0]],"values":[["limit",4.0,""]],"target":"limit","phrase":"the limit of f(x) as x -> a","assumptions":["the left and right limits exist, are finite and agree"],"name":"Limit at a point","equation":"exact symbolic limit (series expansion / Gruntz algorithm) from both sides; refused if the one-sided limits differ or are infinite"}
 ```
 
-### 2.6 When an input is missing
+### 2.8 When an input is missing
 
 No number is guessed: the answer names what is missing, shows a complete call, and the program exits with status 1.
 
@@ -160,7 +191,7 @@ $ calculus solve limit_at_point a=2.0
 NEEDS_INPUT: limit_at_point needs f (the function f(x)). Example: solve('limit_at_point', f='(x^2 - 4)/(x - 2)', a=2).
 ```
 
-### 2.7 Many questions at once
+### 2.9 Many questions at once
 
 One JSON request per line in, one JSON answer per line out, in order: for scripts, notebooks and agents (the program starts once). In PowerShell: Get-Content cases.jsonl | calculus batch
 
@@ -256,7 +287,7 @@ By topic. For each: what it does, what it needs and gives, when it applies, and 
 
 <a id="extrema_on_interval"></a>
 
-#### Absolute extrema on a closed interval — `extrema_on_interval`
+#### Absolute extrema on a closed interval: `extrema_on_interval`
 
 The absolute maximum and minimum values of a polynomial on [a, b] by the closed-interval method, with the critical points inside (a, b).
 
@@ -266,12 +297,12 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the polynomial f(x) | — |
-| `a` | in | left end | — |
-| `b` | in | right end | — |
-| `absolute_max` | out | the largest value of f on [a, b] | — |
-| `absolute_min` | out | the smallest value | — |
-| `critical_points` | out | critical points in (a, b), ascending | — |
+| `f` | in | the polynomial f(x) | - |
+| `a` | in | left end | - |
+| `b` | in | right end | - |
+| `absolute_max` | out | the largest value of f on [a, b] | - |
+| `absolute_min` | out | the smallest value | - |
+| `critical_points` | out | critical points in (a, b), ascending | - |
 
 **Applies when:** a < b; f is a polynomial with rational coefficients.
 
@@ -281,8 +312,8 @@ absolute_max = 2
 absolute_min = -2
 critical_points = [1.0]
   by: Absolute extrema on a closed interval  (exact real roots of f' in (a, b) (Sturm isolation), then f compared at the critical points and both ends)
-  a = 0   []
-  b = 2   []
+  a = 0
+  b = 2
   f = x^3 - 3x
   assumes: a < b; f is a polynomial with rational coefficients
 ```
@@ -291,7 +322,7 @@ critical_points = [1.0]
 
 <a id="average_rate_of_change"></a>
 
-#### Average rate of change — `average_rate_of_change`
+#### Average rate of change: `average_rate_of_change`
 
 The average rate of change (f(b) - f(a))/(b - a) of f over [a, b]: the slope of the secant line.
 
@@ -301,12 +332,12 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x) | — |
-| `a` | in | start of the interval | — |
-| `b` | in | end of the interval | — |
-| `average_rate` | out | (f(b) - f(a))/(b - a) | — |
-| `fa` | out | f(a) | — |
-| `fb` | out | f(b) | — |
+| `f` | in | the function f(x) | - |
+| `a` | in | start of the interval | - |
+| `b` | in | end of the interval | - |
+| `average_rate` | out | (f(b) - f(a))/(b - a) | - |
+| `fa` | out | f(a) | - |
+| `fb` | out | f(b) | - |
 
 **Applies when:** a != b; f defined at a and b.
 
@@ -316,8 +347,8 @@ average_rate = 4
 fa = 1
 fb = 9
   by: Average rate of change  (difference quotient of the two function values)
-  a = 1   []
-  b = 3   []
+  a = 1
+  b = 3
   f = x^2
   assumes: a != b; f defined at a and b
 ```
@@ -326,7 +357,7 @@ fb = 9
 
 <a id="critical_points_classify"></a>
 
-#### Critical points and their classification — `critical_points_classify`
+#### Critical points and their classification: `critical_points_classify`
 
 All critical points of a polynomial f(x) and which are local maxima or minima (first-derivative test).
 
@@ -336,10 +367,10 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the polynomial f(x) | — |
-| `critical_points` | out | real solutions of f'(x) = 0, ascending | — |
-| `local_maxima` | out | critical points that are local maxima | — |
-| `local_minima` | out | critical points that are local minima | — |
+| `f` | in | the polynomial f(x) | - |
+| `critical_points` | out | real solutions of f'(x) = 0, ascending | - |
+| `local_maxima` | out | critical points that are local maxima | - |
+| `local_minima` | out | critical points that are local minima | - |
 
 **Applies when:** f is a polynomial of degree >= 2 with rational coefficients.
 
@@ -357,7 +388,7 @@ local_minima = [1.0]
 
 <a id="curvature"></a>
 
-#### Curvature of a graph — `curvature`
+#### Curvature of a graph: `curvature`
 
 The curvature kappa = |f''| / (1 + f'^2)^(3/2) of y = f(x) at x = a, and the radius of curvature 1/kappa.
 
@@ -367,10 +398,10 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x) | — |
-| `a` | in | the point x = a | — |
-| `curvature` | out | kappa at x = a | — |
-| `radius_of_curvature` | out | 1/kappa (absent where kappa = 0) | — |
+| `f` | in | the function f(x) | - |
+| `a` | in | the point x = a | - |
+| `curvature` | out | kappa at x = a | - |
+| `radius_of_curvature` | out | 1/kappa (absent where kappa = 0) | - |
 
 **Applies when:** f twice differentiable at a.
 
@@ -379,7 +410,7 @@ $ calculus solve curvature a=0 "f=x^2"
 curvature = 2
 radius_of_curvature = 0.5
   by: Curvature of a graph  (curvature formula of a graph from the exact first and second derivatives)
-  a = 0   []
+  a = 0
   f = x^2
   assumes: f twice differentiable at a
 ```
@@ -388,7 +419,7 @@ radius_of_curvature = 0.5
 
 <a id="derivative_at_point"></a>
 
-#### Derivative at a point — `derivative_at_point`
+#### Derivative at a point: `derivative_at_point`
 
 The derivative f'(a) of a function f(x) at x = a (the slope of its graph there).
 
@@ -398,10 +429,10 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x) | — |
-| `a` | in | the point x = a | — |
-| `derivative` | out | f'(a) | — |
-| `derivative_expression` | out | f'(x) as an expression | — |
+| `f` | in | the function f(x) | - |
+| `a` | in | the point x = a | - |
+| `derivative` | out | f'(a) | - |
+| `derivative_expression` | out | f'(x) as an expression | - |
 
 **Applies when:** f is defined and differentiable at x = a.
 
@@ -410,7 +441,7 @@ $ calculus solve derivative_at_point a=2 "f=x^3 - 2x"
 derivative = 10
 derivative_expression = 3*x^2 - 2
   by: Derivative at a point  (exact symbolic differentiation (sum, product, quotient and chain rules), then evaluation at x = a)
-  a = 2   []
+  a = 2
   f = x^3 - 2x
   assumes: f is defined and differentiable at x = a
 ```
@@ -419,7 +450,7 @@ derivative_expression = 3*x^2 - 2
 
 <a id="nth_derivative_at_point"></a>
 
-#### Higher derivative at a point — `nth_derivative_at_point`
+#### Higher derivative at a point: `nth_derivative_at_point`
 
 The n-th derivative f^(n)(a) of f(x) at x = a.
 
@@ -429,11 +460,11 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x) | — |
-| `n` | in | the order of the derivative | — |
-| `a` | in | the point x = a | — |
-| `nth_derivative` | out | f^(n)(a) | — |
-| `nth_derivative_expression` | out | f^(n)(x) | — |
+| `f` | in | the function f(x) | - |
+| `n` | in | the order of the derivative | - |
+| `a` | in | the point x = a | - |
+| `nth_derivative` | out | f^(n)(a) | - |
+| `nth_derivative_expression` | out | f^(n)(x) | - |
 
 **Applies when:** 1 <= n <= 12; f is n times differentiable at x = a.
 
@@ -442,7 +473,7 @@ $ calculus solve nth_derivative_at_point a=1 "f=sin(2x)" n=4
 nth_derivative = 14.54875883
 nth_derivative_expression = 16*sin(2*x)
   by: Higher derivative at a point  (exact symbolic differentiation n times, then evaluation at x = a)
-  a = 1   []
+  a = 1
   f = sin(2x)
   assumes: 1 <= n <= 12; f is n times differentiable at x = a
 ```
@@ -451,7 +482,7 @@ nth_derivative_expression = 16*sin(2*x)
 
 <a id="implicit_derivative"></a>
 
-#### Implicit differentiation — `implicit_derivative`
+#### Implicit differentiation: `implicit_derivative`
 
 The slope dy/dx of a curve given implicitly by F(x, y) = c, at a point on the curve.
 
@@ -461,9 +492,9 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `F` | in | the curve as an equation in x and y | — |
-| `p` | in | the point (x, y) on the curve | — |
-| `dy_dx` | out | dy/dx at the point | — |
+| `F` | in | the curve as an equation in x and y | - |
+| `p` | in | the point (x, y) on the curve | - |
+| `dy_dx` | out | dy/dx at the point | - |
 
 **Applies when:** the point lies on the curve; F_y != 0 there (no vertical tangent).
 
@@ -479,7 +510,7 @@ dy_dx = -0.75
 
 <a id="inflection_points"></a>
 
-#### Inflection points — `inflection_points`
+#### Inflection points: `inflection_points`
 
 The points where a polynomial changes concavity (f'' changes sign).
 
@@ -489,8 +520,8 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the polynomial f(x) | — |
-| `inflection_points` | out | x-values of the inflection points, ascending | — |
+| `f` | in | the polynomial f(x) | - |
+| `inflection_points` | out | x-values of the inflection points, ascending | - |
 
 **Applies when:** f is a polynomial of degree >= 2 with rational coefficients.
 
@@ -506,7 +537,7 @@ inflection_points = [1.0]
 
 <a id="linear_approximation"></a>
 
-#### Linear approximation — `linear_approximation`
+#### Linear approximation: `linear_approximation`
 
 Estimate f(x1) by the tangent line at x = a: L(x1) = f(a) + f'(a)(x1 - a); with the actual value and error.
 
@@ -516,13 +547,13 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x) | — |
-| `a` | in | the base point a | — |
-| `x1` | in | the point to estimate | — |
-| `approximation` | out | L(x1) | — |
-| `actual` | out | f(x1) | — |
-| `error` | out | f(x1) - L(x1) | — |
-| `slope` | out | f'(a) | — |
+| `f` | in | the function f(x) | - |
+| `a` | in | the base point a | - |
+| `x1` | in | the point to estimate | - |
+| `approximation` | out | L(x1) | - |
+| `actual` | out | f(x1) | - |
+| `error` | out | f(x1) - L(x1) | - |
+| `slope` | out | f'(a) | - |
 
 **Applies when:** f differentiable at a.
 
@@ -533,8 +564,8 @@ actual = 2.024845673
 error = -0.0001543268683
 slope = 0.25
   by: Linear approximation  (linearization (tangent line) at the base point)
-  a = 4   []
-  x1 = 4.1   []
+  a = 4
+  x1 = 4.1
   f = sqrt(x)
   assumes: f differentiable at a
 ```
@@ -543,7 +574,7 @@ slope = 0.25
 
 <a id="mean_value_theorem"></a>
 
-#### Mean value theorem — `mean_value_theorem`
+#### Mean value theorem: `mean_value_theorem`
 
 The secant slope of a polynomial on [a, b] and every c in (a, b) where f'(c) equals it.
 
@@ -553,11 +584,11 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the polynomial f(x) | — |
-| `a` | in | left end | — |
-| `b` | in | right end | — |
-| `secant_slope` | out | (f(b) - f(a))/(b - a) | — |
-| `c_values` | out | all c in (a, b) with f'(c) = the slope | — |
+| `f` | in | the polynomial f(x) | - |
+| `a` | in | left end | - |
+| `b` | in | right end | - |
+| `secant_slope` | out | (f(b) - f(a))/(b - a) | - |
+| `c_values` | out | all c in (a, b) with f'(c) = the slope | - |
 
 **Applies when:** a < b; f a non-linear polynomial with rational coefficients.
 
@@ -566,8 +597,8 @@ $ calculus solve mean_value_theorem a=0 b=3 "f=x^3"
 secant_slope = 9
 c_values = [1.7320508075688772]
   by: Mean value theorem  (exact secant slope, then the exact real roots of f'(x) - slope in (a, b))
-  a = 0   []
-  b = 3   []
+  a = 0
+  b = 3
   f = x^3
   assumes: a < b; f a non-linear polynomial with rational coefficients
 ```
@@ -576,7 +607,7 @@ c_values = [1.7320508075688772]
 
 <a id="normal_line"></a>
 
-#### Normal line — `normal_line`
+#### Normal line: `normal_line`
 
 The normal line (perpendicular to the tangent) to y = f(x) at x = a: slope -1/f'(a).
 
@@ -586,11 +617,11 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x) | — |
-| `a` | in | the point x = a | — |
-| `slope` | out | slope -1/f'(a) | — |
-| `intercept` | out | y-intercept | — |
-| `y0` | out | f(a) | — |
+| `f` | in | the function f(x) | - |
+| `a` | in | the point x = a | - |
+| `slope` | out | slope -1/f'(a) | - |
+| `intercept` | out | y-intercept | - |
+| `y0` | out | f(a) | - |
 
 **Applies when:** f'(a) != 0 (otherwise the normal is vertical).
 
@@ -600,7 +631,7 @@ slope = -0.5
 intercept = 1.5
 y0 = 1
   by: Normal line  (perpendicular slope -1/m through (a, f(a)))
-  a = 1   []
+  a = 1
   f = x^2
   assumes: f'(a) != 0 (otherwise the normal is vertical)
 ```
@@ -609,7 +640,7 @@ y0 = 1
 
 <a id="second_derivative_at_point"></a>
 
-#### Second derivative at a point — `second_derivative_at_point`
+#### Second derivative at a point: `second_derivative_at_point`
 
 The second derivative f''(a) of f(x) at x = a (concavity: positive means concave up).
 
@@ -619,10 +650,10 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x) | — |
-| `a` | in | the point x = a | — |
-| `second_derivative` | out | f''(a) | — |
-| `second_derivative_expression` | out | f''(x) | — |
+| `f` | in | the function f(x) | - |
+| `a` | in | the point x = a | - |
+| `second_derivative` | out | f''(a) | - |
+| `second_derivative_expression` | out | f''(x) | - |
 
 **Applies when:** f is twice differentiable at x = a.
 
@@ -631,7 +662,7 @@ $ calculus solve second_derivative_at_point a=1 "f=x^4 - 3x^2"
 second_derivative = 6
 second_derivative_expression = 12*x^2 - 6
   by: Second derivative at a point  (exact symbolic differentiation twice, then evaluation at x = a)
-  a = 1   []
+  a = 1
   f = x^4 - 3x^2
   assumes: f is twice differentiable at x = a
 ```
@@ -640,7 +671,7 @@ second_derivative_expression = 12*x^2 - 6
 
 <a id="tangent_line"></a>
 
-#### Tangent line — `tangent_line`
+#### Tangent line: `tangent_line`
 
 The tangent line y = m*x + b to y = f(x) at x = a: slope m = f'(a), intercept b = f(a) - a*f'(a).
 
@@ -650,12 +681,12 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x) | — |
-| `a` | in | the point of tangency x = a | — |
-| `slope` | out | slope m = f'(a) | — |
-| `intercept` | out | y-intercept b | — |
-| `y0` | out | f(a) | — |
-| `equation` | out | the line as y = m*x + b | — |
+| `f` | in | the function f(x) | - |
+| `a` | in | the point of tangency x = a | - |
+| `slope` | out | slope m = f'(a) | - |
+| `intercept` | out | y-intercept b | - |
+| `y0` | out | f(a) | - |
+| `equation` | out | the line as y = m*x + b | - |
 
 **Applies when:** f is differentiable at x = a.
 
@@ -666,7 +697,7 @@ intercept = -3
 y0 = 5
 equation = y = 4*x - 3
   by: Tangent line  (point-slope form through (a, f(a)) with the exact derivative)
-  a = 2   []
+  a = 2
   f = x^2 + 1
   assumes: f is differentiable at x = a
 ```
@@ -675,7 +706,7 @@ equation = y = 4*x - 3
 
 <a id="velocity_acceleration"></a>
 
-#### Velocity and acceleration from position — `velocity_acceleration`
+#### Velocity and acceleration from position: `velocity_acceleration`
 
 Velocity v = s'(t) and acceleration a = s''(t) at time t0 from a position function s(t).
 
@@ -685,12 +716,12 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `s` | in | the position s(t) | — |
-| `t0` | in | the time t0 | — |
-| `velocity` | out | v(t0) = s'(t0) | — |
-| `acceleration` | out | a(t0) = s''(t0) | — |
-| `speed` | out | \|v(t0)\| | — |
-| `position` | out | s(t0) | — |
+| `s` | in | the position s(t) | - |
+| `t0` | in | the time t0 | - |
+| `velocity` | out | v(t0) = s'(t0) | - |
+| `acceleration` | out | a(t0) = s''(t0) | - |
+| `speed` | out | \|v(t0)\| | - |
+| `position` | out | s(t0) | - |
 
 **Applies when:** s twice differentiable at t0.
 
@@ -701,7 +732,7 @@ acceleration = 0
 speed = 3
 position = 2
   by: Velocity and acceleration from position  (exact differentiation of the position once and twice)
-  t0 = 2   []
+  t0 = 2
   s = t^3 - 6t^2 + 9t
   assumes: s twice differentiable at t0
 ```
@@ -712,7 +743,7 @@ position = 2
 
 <a id="fourier_coefficients"></a>
 
-#### Fourier coefficients — `fourier_coefficients`
+#### Fourier coefficients: `fourier_coefficients`
 
 The Fourier coefficients a_0, a_k and b_k of f on [-L, L] (series a_0/2 + sum a_k cos(k pi x/L) + b_k sin(k pi x/L)).
 
@@ -722,22 +753,22 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x) | — |
-| `L` | in | the half-period L (> 0) | — |
-| `k` | in | the order k | — |
-| `a0` | out | a_0 = (1/L) integral of f | — |
-| `a_k` | out | a_k | — |
-| `b_k` | out | b_k | — |
+| `f` | in | the function f(x) | - |
+| `L` | in | the half-period L (> 0) | - |
+| `k` | in | the order k | - |
+| `a0` | out | a_0 = (1/L) integral of f | - |
+| `a_k` | out | a_k | - |
+| `b_k` | out | b_k | - |
 
 **Applies when:** L > 0; f continuous on [-L, L]; 1 <= k <= 50.
 
 ```shell
 $ calculus solve fourier_coefficients L=3.141592654 f=x k=2
 a0 = 0
-a_k = -2.806286047e-39
+a_k = 0
 b_k = -1
   by: Fourier coefficients  (tanh-sinh quadrature on the k half-wave subintervals at 20 digits)
-  L = 3.141592654   []
+  L = 3.141592654
   f = x
   assumes: L > 0; f continuous on [-L, L]; 1 <= k <= 50
 ```
@@ -748,7 +779,7 @@ In the worked example, L = 3.141592654, f = x, k = 2 go through the equation abo
 
 <a id="arc_length"></a>
 
-#### Arc length of a graph — `arc_length`
+#### Arc length of a graph: `arc_length`
 
 The length of the curve y = f(x) from x = a to x = b.
 
@@ -758,10 +789,10 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the curve f(x) | — |
-| `a` | in | left end | — |
-| `b` | in | right end | — |
-| `arc_length` | out | the length of the curve | — |
+| `f` | in | the curve f(x) | - |
+| `a` | in | left end | - |
+| `b` | in | right end | - |
+| `arc_length` | out | the length of the curve | - |
 
 **Applies when:** a < b; f' continuous on [a, b].
 
@@ -769,8 +800,8 @@ $$
 $ calculus solve arc_length a=0 b=1 "f=x^2"
 arc_length = 1.478942858
   by: Arc length of a graph  (arc-length integral of sqrt(1 + f'(x)^2) with the exact derivative, by high-precision quadrature)
-  a = 0   []
-  b = 1   []
+  a = 0
+  b = 1
   f = x^2
   assumes: a < b; f' continuous on [a, b]
 ```
@@ -779,7 +810,7 @@ arc_length = 1.478942858
 
 <a id="area_between_curves"></a>
 
-#### Area between two curves — `area_between_curves`
+#### Area between two curves: `area_between_curves`
 
 The area between the graphs of two polynomials y = f(x) and y = g(x) over [a, b], counting every piece as positive (the curves may cross).
 
@@ -789,13 +820,13 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the first curve f(x) (a polynomial) | — |
-| `g` | in | the second curve g(x) (a polynomial) | — |
-| `a` | in | left end | — |
-| `b` | in | right end | — |
-| `area` | out | the area between the curves | — |
-| `net_integral` | out | integral of f - g (signed) | — |
-| `crossings` | out | x where the curves cross inside (a, b) | — |
+| `f` | in | the first curve f(x) (a polynomial) | - |
+| `g` | in | the second curve g(x) (a polynomial) | - |
+| `a` | in | left end | - |
+| `b` | in | right end | - |
+| `area` | out | the area between the curves | - |
+| `net_integral` | out | integral of f - g (signed) | - |
+| `crossings` | out | x where the curves cross inside (a, b) | - |
 
 **Applies when:** a < b; f and g polynomials with rational coefficients.
 
@@ -805,10 +836,10 @@ area = 1
 net_integral = 0.6666666667
 crossings = [1.0]
   by: Area between two curves  (exact integration of |f - g|, split at the exact real roots of f - g)
-  a = 0   []
-  b = 2   []
-  g = x
+  a = 0
+  b = 2
   f = x^2
+  g = x
   assumes: a < b; f and g polynomials with rational coefficients
 ```
 
@@ -816,7 +847,7 @@ crossings = [1.0]
 
 <a id="area_enclosed_curves"></a>
 
-#### Area enclosed by two curves — `area_enclosed_curves`
+#### Area enclosed by two curves: `area_enclosed_curves`
 
 The area of the region enclosed by two polynomial curves y = f(x) and y = g(x), between their first and last intersection.
 
@@ -826,12 +857,12 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the first curve f(x) (a polynomial) | — |
-| `g` | in | the second curve g(x) (a polynomial) | — |
-| `area` | out | the enclosed area | — |
-| `x_left` | out | first intersection | — |
-| `x_right` | out | last intersection | — |
-| `intersections` | out | all intersection x-values | — |
+| `f` | in | the first curve f(x) (a polynomial) | - |
+| `g` | in | the second curve g(x) (a polynomial) | - |
+| `area` | out | the enclosed area | - |
+| `x_left` | out | first intersection | - |
+| `x_right` | out | last intersection | - |
+| `intersections` | out | all intersection x-values | - |
 
 **Applies when:** f and g polynomials with rational coefficients meeting in at least two points.
 
@@ -851,7 +882,7 @@ intersections = [0.0,1.0]
 
 <a id="average_value"></a>
 
-#### Average value of a function — `average_value`
+#### Average value of a function: `average_value`
 
 The average value (1/(b - a)) * integral of f from a to b of a function on [a, b].
 
@@ -861,21 +892,30 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x) | — |
-| `a` | in | start of the interval | — |
-| `b` | in | end of the interval | — |
-| `average_value` | out | the average value of f on [a, b] | — |
-| `integral` | out | the integral of f over [a, b] | — |
+| `f` | in | the function f(x) | - |
+| `a` | in | start of the interval | - |
+| `b` | in | end of the interval | - |
+| `average_value` | out | the average value of f on [a, b] | - |
+| `integral` | out | the integral of f over [a, b] | - |
 
 **Applies when:** a < b; f continuous on [a, b].
 
-*Not in `calculus` 1.1.0 yet:* use the Python package or the model's page in the browser.
+```shell
+$ calculus solve average_value a=0 b=3 "f=x^2"
+average_value = 3
+integral = 9
+  by: Average value of a function  (definite integral by high-precision quadrature, divided by the interval length)
+  a = 0
+  b = 3
+  f = x^2
+  assumes: a < b; f continuous on [a, b]
+```
 
 **What the worked example means:** This calculation determines the mean height of a continuous function across a specific interval. Computing the definite integral, which represents the total accumulated area under the curve as 9, and dividing it by the width of the interval defined by the start point 0 and end point 3 gives the average value 3. This result indicates the constant level that would produce the same total accumulation as the varying function over the given domain.
 
 <a id="centroid_region"></a>
 
-#### Centroid of a region under a curve — `centroid_region`
+#### Centroid of a region under a curve: `centroid_region`
 
 The area and centroid (x_bar, y_bar) of the region between y = f(x) >= 0 (a polynomial) and the x-axis for a <= x <= b.
 
@@ -885,12 +925,12 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the curve f(x) (a polynomial) | — |
-| `a` | in | left end | — |
-| `b` | in | right end | — |
-| `area` | out | area of the region | — |
-| `x_bar` | out | x-coordinate of the centroid | — |
-| `y_bar` | out | y-coordinate of the centroid | — |
+| `f` | in | the curve f(x) (a polynomial) | - |
+| `a` | in | left end | - |
+| `b` | in | right end | - |
+| `area` | out | area of the region | - |
+| `x_bar` | out | x-coordinate of the centroid | - |
+| `y_bar` | out | y-coordinate of the centroid | - |
 
 **Applies when:** a < b; f(x) >= 0 on [a, b] (checked exactly).
 
@@ -900,8 +940,8 @@ area = 0.3333333333
 x_bar = 0.75
 y_bar = 0.3
   by: Centroid of a region under a curve  (exact moments of the region: x_bar = (1/A) * integral of x f, y_bar = (1/2A) * integral of f^2)
-  a = 0   []
-  b = 1   []
+  a = 0
+  b = 1
   f = x^2
   assumes: a < b; f(x) >= 0 on [a, b] (checked exactly)
 ```
@@ -910,7 +950,7 @@ y_bar = 0.3
 
 <a id="definite_integral"></a>
 
-#### Definite integral — `definite_integral`
+#### Definite integral: `definite_integral`
 
 The definite integral of f(x) from x = a to x = b (net signed area).
 
@@ -920,10 +960,10 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the integrand f(x) | — |
-| `a` | in | lower limit | — |
-| `b` | in | upper limit | — |
-| `integral` | out | the value of the integral | — |
+| `f` | in | the integrand f(x) | - |
+| `a` | in | lower limit | - |
+| `b` | in | upper limit | - |
+| `integral` | out | the value of the integral | - |
 
 **Applies when:** f real and continuous on the closed interval between a and b.
 
@@ -931,8 +971,8 @@ $$
 $ calculus solve definite_integral a=0 b=3 "f=x^2"
 integral = 9
   by: Definite integral  (high-precision tanh-sinh quadrature (30 digits) after an exact continuity check on [a, b])
-  a = 0   []
-  b = 3   []
+  a = 0
+  b = 3
   f = x^2
   assumes: f real and continuous on the closed interval between a and b
 ```
@@ -941,7 +981,7 @@ integral = 9
 
 <a id="ftc_derivative"></a>
 
-#### Derivative of an integral (fundamental theorem) — `ftc_derivative`
+#### Derivative of an integral (fundamental theorem), `ftc_derivative`
 
 d/dx of the integral of f(t) from a to g(x), evaluated at x = x0 (first fundamental theorem with the chain rule).
 
@@ -951,11 +991,11 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the integrand f(t) | — |
-| `a` | in | the constant lower limit | — |
-| `g` | in | the upper limit g(x) | — |
-| `x0` | in | the point x = x0 | — |
-| `derivative` | out | d/dx of the integral at x0 | — |
+| `f` | in | the integrand f(t) | - |
+| `a` | in | the constant lower limit | - |
+| `g` | in | the upper limit g(x) | - |
+| `x0` | in | the point x = x0 | - |
+| `derivative` | out | d/dx of the integral at x0 | - |
 
 **Applies when:** f continuous between a and g(x0); g differentiable at x0.
 
@@ -963,10 +1003,10 @@ $$
 $ calculus solve ftc_derivative a=0 "f=sin(t)" "g=x^2" x0=1
 derivative = 1.68294197
   by: Derivative of an integral (fundamental theorem)  (f(g(x0)) * g'(x0) with the exact derivative of g)
-  a = 0   []
-  x0 = 1   []
-  g = x^2
+  a = 0
+  x0 = 1
   f = sin(t)
+  g = x^2
   assumes: f continuous between a and g(x0); g differentiable at x0
 ```
 
@@ -974,7 +1014,7 @@ derivative = 1.68294197
 
 <a id="improper_integral"></a>
 
-#### Improper integral to infinity — `improper_integral`
+#### Improper integral to infinity: `improper_integral`
 
 The improper integral of f(x) from x = a to infinity, when it converges.
 
@@ -984,19 +1024,26 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the integrand f(x) | — |
-| `a` | in | lower limit | — |
-| `integral` | out | the value of the improper integral | — |
+| `f` | in | the integrand f(x) | - |
+| `a` | in | lower limit | - |
+| `integral` | out | the value of the improper integral | - |
 
 **Applies when:** f continuous on [a, infinity); x^1.01 * f(x) has a finite limit (comparison test), so the integral converges absolutely.
 
-*Not in `calculus` 1.1.0 yet:* use the Python package or the model's page in the browser.
+```shell
+$ calculus solve improper_integral a=0 "f=exp(-x)"
+integral = 1
+  by: Improper integral to infinity  (convergence by a limit comparison with 1/x^1.01 (exact limit), value by tanh-sinh quadrature on [a, infinity))
+  a = 0
+  f = exp(-x)
+  assumes: f continuous on [a, infinity); x^1.01 * f(x) has a finite limit (comparison test), so the integral converges absolutely
+```
 
 **What the worked example means:** This calculation determines the area under the curve of the integrand from the specified lower limit extending infinitely outward. The method first verifies convergence by comparing the decay rate of the function against a power law, ensuring that the product of the variable raised to one point zero one and the function approaches a finite limit. Once convergence is established, the numerical value is computed using high-precision quadrature techniques on the unbounded domain. The resulting value, 1, represents the total accumulated quantity over this infinite range.
 
 <a id="left_riemann_sum"></a>
 
-#### Left Riemann sum — `left_riemann_sum`
+#### Left Riemann sum: `left_riemann_sum`
 
 The left-endpoint Riemann sum of f on [a, b] with n equal subintervals.
 
@@ -1006,11 +1053,11 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x) | — |
-| `a` | in | left end | — |
-| `b` | in | right end | — |
-| `n` | in | number of equal subintervals | — |
-| `approximation` | out | the left Riemann sum | — |
+| `f` | in | the function f(x) | - |
+| `a` | in | left end | - |
+| `b` | in | right end | - |
+| `n` | in | number of equal subintervals | - |
+| `approximation` | out | the left Riemann sum | - |
 
 **Applies when:** a < b; 1 <= n <= 100000; f defined at the sample points.
 
@@ -1018,8 +1065,8 @@ $$
 $ calculus solve left_riemann_sum a=0 b=2 "f=x^2" n=4
 approximation = 1.75
   by: Left Riemann sum  (h times the sum of f at the left endpoints x_k = a + k h, k = 0..n-1 (h = (b - a)/n))
-  a = 0   []
-  b = 2   []
+  a = 0
+  b = 2
   f = x^2
   assumes: a < b; 1 <= n <= 100000; f defined at the sample points
 ```
@@ -1028,7 +1075,7 @@ approximation = 1.75
 
 <a id="right_riemann_sum"></a>
 
-#### Right Riemann sum — `right_riemann_sum`
+#### Right Riemann sum: `right_riemann_sum`
 
 The right-endpoint Riemann sum of f on [a, b] with n equal subintervals.
 
@@ -1038,11 +1085,11 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x) | — |
-| `a` | in | left end | — |
-| `b` | in | right end | — |
-| `n` | in | number of equal subintervals | — |
-| `approximation` | out | the right Riemann sum | — |
+| `f` | in | the function f(x) | - |
+| `a` | in | left end | - |
+| `b` | in | right end | - |
+| `n` | in | number of equal subintervals | - |
+| `approximation` | out | the right Riemann sum | - |
 
 **Applies when:** a < b; 1 <= n <= 100000; f defined at the sample points.
 
@@ -1050,8 +1097,8 @@ $$
 $ calculus solve right_riemann_sum a=0 b=2 "f=x^2" n=4
 approximation = 3.75
   by: Right Riemann sum  (h times the sum of f at the right endpoints x_k = a + k h, k = 1..n)
-  a = 0   []
-  b = 2   []
+  a = 0
+  b = 2
   f = x^2
   assumes: a < b; 1 <= n <= 100000; f defined at the sample points
 ```
@@ -1060,7 +1107,7 @@ approximation = 3.75
 
 <a id="surface_area_revolution"></a>
 
-#### Surface area of revolution — `surface_area_revolution`
+#### Surface area of revolution: `surface_area_revolution`
 
 The area of the surface formed by rotating y = f(x), a <= x <= b, about the x-axis.
 
@@ -1070,10 +1117,10 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the curve f(x) | — |
-| `a` | in | left end | — |
-| `b` | in | right end | — |
-| `surface_area` | out | the area of the surface of revolution | — |
+| `f` | in | the curve f(x) | - |
+| `a` | in | left end | - |
+| `b` | in | right end | - |
+| `surface_area` | out | the area of the surface of revolution | - |
 
 **Applies when:** a < b; f' continuous on [a, b].
 
@@ -1081,8 +1128,8 @@ $$
 $ calculus solve surface_area_revolution a=0 b=1 f=x
 surface_area = 4.442882938
   by: Surface area of revolution  (2*pi times the integral of |f| * sqrt(1 + f'^2) (split where f changes sign), high-precision quadrature)
-  a = 0   []
-  b = 1   []
+  a = 0
+  b = 1
   f = x
   assumes: a < b; f' continuous on [a, b]
 ```
@@ -1091,7 +1138,7 @@ surface_area = 4.442882938
 
 <a id="disk_volume"></a>
 
-#### Volume of revolution (disk method) — `disk_volume`
+#### Volume of revolution (disk method): `disk_volume`
 
 The volume of the solid formed by rotating y = f(x), a <= x <= b, about the x-axis.
 
@@ -1101,10 +1148,10 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the curve f(x) | — |
-| `a` | in | left end | — |
-| `b` | in | right end | — |
-| `volume` | out | the volume of the solid | — |
+| `f` | in | the curve f(x) | - |
+| `a` | in | left end | - |
+| `b` | in | right end | - |
+| `volume` | out | the volume of the solid | - |
 
 **Applies when:** a < b; f continuous on [a, b].
 
@@ -1112,8 +1159,8 @@ $$
 $ calculus solve disk_volume a=0 b=1 "f=x^2"
 volume = 0.6283185307
   by: Volume of revolution (disk method)  (disk method: pi times the integral of f^2, by high-precision quadrature)
-  a = 0   []
-  b = 1   []
+  a = 0
+  b = 1
   f = x^2
   assumes: a < b; f continuous on [a, b]
 ```
@@ -1122,7 +1169,7 @@ volume = 0.6283185307
 
 <a id="shell_volume"></a>
 
-#### Volume of revolution (shell method) — `shell_volume`
+#### Volume of revolution (shell method): `shell_volume`
 
 The volume swept when the region under y = f(x) >= 0 (a polynomial), a <= x <= b with a >= 0, is rotated about the y-axis.
 
@@ -1132,10 +1179,10 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the curve f(x) (a polynomial) | — |
-| `a` | in | left end (>= 0) | — |
-| `b` | in | right end | — |
-| `volume` | out | the volume of the solid | — |
+| `f` | in | the curve f(x) (a polynomial) | - |
+| `a` | in | left end (>= 0) | - |
+| `b` | in | right end | - |
+| `volume` | out | the volume of the solid | - |
 
 **Applies when:** 0 <= a < b; f(x) >= 0 on [a, b] (checked exactly).
 
@@ -1143,8 +1190,8 @@ $$
 $ calculus solve shell_volume a=0 b=2 "f=x^2"
 volume = 25.13274123
   by: Volume of revolution (shell method)  (cylindrical shells, integrated exactly)
-  a = 0   []
-  b = 2   []
+  a = 0
+  b = 2
   f = x^2
   assumes: 0 <= a < b; f(x) >= 0 on [a, b] (checked exactly)
 ```
@@ -1153,7 +1200,7 @@ volume = 25.13274123
 
 <a id="washer_volume"></a>
 
-#### Volume of revolution (washer method) — `washer_volume`
+#### Volume of revolution (washer method): `washer_volume`
 
 The volume swept when the region between an outer curve y = f(x) and an inner curve y = g(x) (polynomials, f >= g >= 0) on [a, b] is rotated about the x-axis.
 
@@ -1163,11 +1210,11 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | outer radius f(x) (a polynomial) | — |
-| `g` | in | inner radius g(x) (a polynomial) | — |
-| `a` | in | left end | — |
-| `b` | in | right end | — |
-| `volume` | out | the volume of the solid | — |
+| `f` | in | outer radius f(x) (a polynomial) | - |
+| `g` | in | inner radius g(x) (a polynomial) | - |
+| `a` | in | left end | - |
+| `b` | in | right end | - |
+| `volume` | out | the volume of the solid | - |
 
 **Applies when:** a < b; f >= g >= 0 on [a, b] (checked exactly); polynomials.
 
@@ -1175,10 +1222,10 @@ $$
 $ calculus solve washer_volume a=0 b=1 "f=x + 2" g=1
 volume = 16.75516082
   by: Volume of revolution (washer method)  (washer method, integrated exactly)
-  a = 0   []
-  b = 1   []
-  g = 1
+  a = 0
+  b = 1
   f = x + 2
+  g = 1
   assumes: a < b; f >= g >= 0 on [a, b] (checked exactly); polynomials
 ```
 
@@ -1188,7 +1235,7 @@ volume = 16.75516082
 
 <a id="limit_at_point"></a>
 
-#### Limit at a point — `limit_at_point`
+#### Limit at a point: `limit_at_point`
 
 The two-sided limit of f(x) as x approaches a (including removable 0/0 forms such as sin(x)/x).
 
@@ -1198,9 +1245,9 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x) | — |
-| `a` | in | the point x = a | — |
-| `limit` | out | the limit of f(x) as x -> a | — |
+| `f` | in | the function f(x) | - |
+| `a` | in | the point x = a | - |
+| `limit` | out | the limit of f(x) as x -> a | - |
 
 **Applies when:** the left and right limits exist, are finite and agree.
 
@@ -1208,7 +1255,7 @@ $$
 $ calculus solve limit_at_point a=2 "f=(x^2 - 4)/(x - 2)"
 limit = 4
   by: Limit at a point  (exact symbolic limit (series expansion / Gruntz algorithm) from both sides; refused if the one-sided limits differ or are infinite)
-  a = 2   []
+  a = 2
   f = (x^2 - 4)/(x - 2)
   assumes: the left and right limits exist, are finite and agree
 ```
@@ -1217,7 +1264,7 @@ limit = 4
 
 <a id="limit_at_infinity"></a>
 
-#### Limit at infinity — `limit_at_infinity`
+#### Limit at infinity: `limit_at_infinity`
 
 The limit of f(x) as x grows without bound (horizontal asymptote, end behaviour).
 
@@ -1227,8 +1274,8 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x) | — |
-| `limit` | out | the limit of f(x) as x -> infinity | — |
+| `f` | in | the function f(x) | - |
+| `limit` | out | the limit of f(x) as x -> infinity | - |
 
 **Applies when:** the limit exists and is finite.
 
@@ -1246,7 +1293,7 @@ limit = 3
 
 <a id="double_integral_rectangle"></a>
 
-#### Double integral over a rectangle — `double_integral_rectangle`
+#### Double integral over a rectangle: `double_integral_rectangle`
 
 The double integral of f(x, y) over the rectangle [a, b] x [c, d].
 
@@ -1256,12 +1303,12 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the integrand f(x, y) | — |
-| `a` | in | x from | — |
-| `b` | in | x to | — |
-| `c` | in | y from | — |
-| `d` | in | y to | — |
-| `integral` | out | the value of the double integral | — |
+| `f` | in | the integrand f(x, y) | - |
+| `a` | in | x from | - |
+| `b` | in | x to | - |
+| `c` | in | y from | - |
+| `d` | in | y to | - |
+| `integral` | out | the value of the double integral | - |
 
 **Applies when:** a < b, c < d; f continuous on the rectangle.
 
@@ -1269,10 +1316,10 @@ $$
 $ calculus solve double_integral_rectangle a=0 b=2 c=0 d=3 "f=x*y"
 integral = 9
   by: Double integral over a rectangle  (product Gauss-Legendre rules of increasing order (24, 40, 64 nodes per direction) until two agree to 1e-12)
-  a = 0   []
-  b = 2   []
-  c = 0   []
-  d = 3   []
+  a = 0
+  b = 2
+  c = 0
+  d = 3
   f = x*y
   assumes: a < b, c < d; f continuous on the rectangle
 ```
@@ -1281,7 +1328,7 @@ integral = 9
 
 <a id="double_integral_region"></a>
 
-#### Double integral over a region — `double_integral_region`
+#### Double integral over a region: `double_integral_region`
 
 The double integral of f(x, y) over the region a <= x <= b, g1(x) <= y <= g2(x).
 
@@ -1291,12 +1338,12 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the integrand f(x, y) | — |
-| `a` | in | x from | — |
-| `b` | in | x to | — |
-| `g1` | in | the lower curve y = g1(x) | — |
-| `g2` | in | the upper curve y = g2(x) | — |
-| `integral` | out | the value of the double integral | — |
+| `f` | in | the integrand f(x, y) | - |
+| `a` | in | x from | - |
+| `b` | in | x to | - |
+| `g1` | in | the lower curve y = g1(x) | - |
+| `g2` | in | the upper curve y = g2(x) | - |
+| `integral` | out | the value of the double integral | - |
 
 **Applies when:** a < b; g1 <= g2 on [a, b]; f, g1, g2 continuous.
 
@@ -1304,8 +1351,8 @@ $$
 $ calculus solve double_integral_region a=0 b=1 "f=x*y" "g1=x^2" g2=x
 integral = 0.04166666667
   by: Double integral over a region  (iterated Gauss-Legendre rules of increasing order (inner rule mapped to [g1(x), g2(x)]) until two agree)
-  a = 0   []
-  b = 1   []
+  a = 0
+  b = 1
   f = x*y
   g1 = x^2
   g2 = x
@@ -1316,7 +1363,7 @@ integral = 0.04166666667
 
 <a id="surface_area_graph"></a>
 
-#### Surface area of a graph — `surface_area_graph`
+#### Surface area of a graph: `surface_area_graph`
 
 The area of the surface z = f(x, y) over the rectangle [a, b] x [c, d].
 
@@ -1326,12 +1373,12 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the surface z = f(x, y) | — |
-| `a` | in | x from | — |
-| `b` | in | x to | — |
-| `c` | in | y from | — |
-| `d` | in | y to | — |
-| `surface_area` | out | the surface area | — |
+| `f` | in | the surface z = f(x, y) | - |
+| `a` | in | x from | - |
+| `b` | in | x to | - |
+| `c` | in | y from | - |
+| `d` | in | y to | - |
+| `surface_area` | out | the surface area | - |
 
 **Applies when:** a < b, c < d; f continuously differentiable on the rectangle.
 
@@ -1339,10 +1386,10 @@ $$
 $ calculus solve surface_area_graph a=0 b=1 c=0 d=1 "f=x + y"
 surface_area = 1.732050808
   by: Surface area of a graph  (exact partial derivatives; Gauss-Legendre product rules of sqrt(1 + f_x^2 + f_y^2) until two orders agree)
-  a = 0   []
-  b = 1   []
-  c = 0   []
-  d = 1   []
+  a = 0
+  b = 1
+  c = 0
+  d = 1
   f = x + y
   assumes: a < b, c < d; f continuously differentiable on the rectangle
 ```
@@ -1351,7 +1398,7 @@ surface_area = 1.732050808
 
 <a id="triple_integral_box"></a>
 
-#### Triple integral over a box — `triple_integral_box`
+#### Triple integral over a box: `triple_integral_box`
 
 The triple integral of f(x, y, z) over the box [x0, x1] x [y0, y1] x [z0, z1].
 
@@ -1361,14 +1408,14 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the integrand f(x, y, z) | — |
-| `x0` | in | x from | — |
-| `x1` | in | x to | — |
-| `y0` | in | y from | — |
-| `y1` | in | y to | — |
-| `z0` | in | z from | — |
-| `z1` | in | z to | — |
-| `integral` | out | the value of the triple integral | — |
+| `f` | in | the integrand f(x, y, z) | - |
+| `x0` | in | x from | - |
+| `x1` | in | x to | - |
+| `y0` | in | y from | - |
+| `y1` | in | y to | - |
+| `z0` | in | z from | - |
+| `z1` | in | z to | - |
+| `integral` | out | the value of the triple integral | - |
 
 **Applies when:** x0 < x1, y0 < y1, z0 < z1; f continuous on the box.
 
@@ -1376,12 +1423,12 @@ $$
 $ calculus solve triple_integral_box "f=x*y*z" x0=0 x1=1 y0=0 y1=2 z0=0 z1=3
 integral = 4.5
   by: Triple integral over a box  (exact iterated integration for a polynomial integrand; otherwise product Gauss-Legendre rules of increasing order until two agree)
-  x0 = 0   []
-  x1 = 1   []
-  y0 = 0   []
-  y1 = 2   []
-  z0 = 0   []
-  z1 = 3   []
+  x0 = 0
+  x1 = 1
+  y0 = 0
+  y1 = 2
+  z0 = 0
+  z1 = 3
   f = x*y*z
   assumes: x0 < x1, y0 < y1, z0 < z1; f continuous on the box
 ```
@@ -1392,7 +1439,7 @@ integral = 4.5
 
 <a id="directional_derivative"></a>
 
-#### Directional derivative — `directional_derivative`
+#### Directional derivative: `directional_derivative`
 
 The rate of change of f at a point in the direction of a vector u (u is normalised to unit length).
 
@@ -1402,10 +1449,10 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x, y) or f(x, y, z) | — |
-| `p` | in | the point | — |
-| `u` | in | the direction vector | — |
-| `directional_derivative` | out | D_u f at the point | — |
+| `f` | in | the function f(x, y) or f(x, y, z) | - |
+| `p` | in | the point | - |
+| `u` | in | the direction vector | - |
+| `directional_derivative` | out | D_u f at the point | - |
 
 **Applies when:** u != 0 with as many components as p; f differentiable at p.
 
@@ -1421,7 +1468,7 @@ directional_derivative = 3.2
 
 <a id="gradient"></a>
 
-#### Gradient — `gradient`
+#### Gradient: `gradient`
 
 The gradient vector of f(x, y) or f(x, y, z) at a point and its length (the greatest rate of increase).
 
@@ -1431,10 +1478,10 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x, y) or f(x, y, z) | — |
-| `p` | in | the point (x, y) or (x, y, z) | — |
-| `gradient` | out | the gradient vector | — |
-| `magnitude` | out | its length | — |
+| `f` | in | the function f(x, y) or f(x, y, z) | - |
+| `p` | in | the point (x, y) or (x, y, z) | - |
+| `gradient` | out | the gradient vector | - |
+| `magnitude` | out | its length | - |
 
 **Applies when:** f differentiable at the point.
 
@@ -1451,7 +1498,7 @@ magnitude = 4.472135955
 
 <a id="jacobian_determinant"></a>
 
-#### Jacobian determinant — `jacobian_determinant`
+#### Jacobian determinant: `jacobian_determinant`
 
 The Jacobian determinant d(x, y)/d(u, v) of a transformation x = x(u, v), y = y(u, v) at a point.
 
@@ -1461,10 +1508,10 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `xu` | in | x as a function of u and v | — |
-| `yv` | in | y as a function of u and v | — |
-| `p` | in | the point (u, v) | — |
-| `jacobian` | out | the Jacobian determinant at the point | — |
+| `xu` | in | x as a function of u and v | - |
+| `yv` | in | y as a function of u and v | - |
+| `p` | in | the point (u, v) | - |
+| `jacobian` | out | the Jacobian determinant at the point | - |
 
 **Applies when:** x and y differentiable at the point.
 
@@ -1481,7 +1528,7 @@ jacobian = 2
 
 <a id="partial_derivative"></a>
 
-#### Partial derivative — `partial_derivative`
+#### Partial derivative: `partial_derivative`
 
 The partial derivative of f(x, y) or f(x, y, z) with respect to one variable, at a point.
 
@@ -1491,10 +1538,10 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x, y) or f(x, y, z) | — |
-| `var` | in | the variable | — |
-| `p` | in | the point (x, y) or (x, y, z) | — |
-| `partial` | out | the partial derivative at the point | — |
+| `f` | in | the function f(x, y) or f(x, y, z) | - |
+| `var` | in | the variable | - |
+| `p` | in | the point (x, y) or (x, y, z) | - |
+| `partial` | out | the partial derivative at the point | - |
 
 **Applies when:** f differentiable at the point.
 
@@ -1502,8 +1549,8 @@ $$
 $ calculus solve partial_derivative "f=x^2*y + y^3" "p=[1, 2]" var=x
 partial = 4
   by: Partial derivative  (exact symbolic partial differentiation, then evaluation at the point)
-  var = x
   f = x^2*y + y^3
+  var = x
   assumes: f differentiable at the point
 ```
 
@@ -1511,7 +1558,7 @@ partial = 4
 
 <a id="hessian_classification"></a>
 
-#### Second derivative test (two variables) — `hessian_classification`
+#### Second derivative test (two variables): `hessian_classification`
 
 Classifies a critical point of f(x, y) as a local minimum, local maximum or saddle point from the Hessian.
 
@@ -1521,13 +1568,13 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x, y) | — |
-| `p` | in | the critical point (x, y) | — |
-| `fxx` | out | f_xx | — |
-| `fxy` | out | f_xy | — |
-| `fyy` | out | f_yy | — |
-| `D` | out | D = f_xx f_yy - f_xy^2 | — |
-| `classification` | out | local minimum, local maximum or saddle point | — |
+| `f` | in | the function f(x, y) | - |
+| `p` | in | the critical point (x, y) | - |
+| `fxx` | out | f_xx | - |
+| `fxy` | out | f_xy | - |
+| `fyy` | out | f_yy | - |
+| `D` | out | D = f_xx f_yy - f_xy^2 | - |
+| `classification` | out | local minimum, local maximum or saddle point | - |
 
 **Applies when:** the gradient is zero at the point; D != 0 (D = 0 is inconclusive and refused).
 
@@ -1547,7 +1594,7 @@ In the worked example, f = x^2 + 3y^2 - 2x, p = [1, 0] go through the equation a
 
 <a id="tangent_plane"></a>
 
-#### Tangent plane — `tangent_plane`
+#### Tangent plane: `tangent_plane`
 
 The tangent plane z = f_x x + f_y y + c to the surface z = f(x, y) at (x0, y0).
 
@@ -1557,12 +1604,12 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the surface z = f(x, y) | — |
-| `p` | in | the point (x0, y0) | — |
-| `z0` | out | f(x0, y0) | — |
-| `fx` | out | f_x(x0, y0) | — |
-| `fy` | out | f_y(x0, y0) | — |
-| `c` | out | the constant term c | — |
+| `f` | in | the surface z = f(x, y) | - |
+| `p` | in | the point (x0, y0) | - |
+| `z0` | out | f(x0, y0) | - |
+| `fx` | out | f_x(x0, y0) | - |
+| `fy` | out | f_y(x0, y0) | - |
+| `c` | out | the constant term c | - |
 
 **Applies when:** f differentiable at (x0, y0).
 
@@ -1583,7 +1630,7 @@ c = -5
 
 <a id="numerical_derivative"></a>
 
-#### Finite-difference derivative — `numerical_derivative`
+#### Finite-difference derivative: `numerical_derivative`
 
 A forward, backward or central difference approximation of f'(a) with step h, with the exact derivative and the error.
 
@@ -1593,13 +1640,13 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x) | — |
-| `a` | in | the point x = a | — |
-| `h` | in | the step size h > 0 | — |
-| `method` | in | forward, backward or central difference | — |
-| `approximation` | out | the difference quotient | — |
-| `exact` | out | the exact f'(a) | — |
-| `error` | out | approximation - exact | — |
+| `f` | in | the function f(x) | - |
+| `a` | in | the point x = a | - |
+| `h` | in | the step size h > 0 | - |
+| `method` | in | forward, backward or central difference | - |
+| `approximation` | out | the difference quotient | - |
+| `exact` | out | the exact f'(a) | - |
+| `error` | out | approximation - exact | - |
 
 **Applies when:** h > 0; f defined at the points used.
 
@@ -1609,10 +1656,10 @@ approximation = 2
 exact = 2
 error = 0
   by: Finite-difference derivative  (difference quotients (f(a+h)-f(a))/h, (f(a)-f(a-h))/h, (f(a+h)-f(a-h))/(2h) at 30 digits; exact derivative symbolically)
-  a = 1   []
-  h = 0.1   []
-  method = central
+  a = 1
+  h = 0.1
   f = x^2
+  method = central
   assumes: h > 0; f defined at the points used
 ```
 
@@ -1622,7 +1669,7 @@ error = 0
 
 <a id="gauss_legendre"></a>
 
-#### Gauss-Legendre quadrature — `gauss_legendre`
+#### Gauss-Legendre quadrature: `gauss_legendre`
 
 The n-point Gauss-Legendre approximation of the integral of f on [a, b] (exact for polynomials of degree <= 2n - 1), with the exact value and the error.
 
@@ -1632,23 +1679,33 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x) | — |
-| `a` | in | left end | — |
-| `b` | in | right end | — |
-| `n` | in | number of nodes | — |
-| `approximation` | out | n-point Gauss-Legendre value | — |
-| `exact` | out | the integral | — |
-| `error` | out | approximation - exact | — |
+| `f` | in | the function f(x) | - |
+| `a` | in | left end | - |
+| `b` | in | right end | - |
+| `n` | in | number of nodes | - |
+| `approximation` | out | n-point Gauss-Legendre value | - |
+| `exact` | out | the integral | - |
+| `error` | out | approximation - exact | - |
 
 **Applies when:** a < b; 1 <= n <= 64; f continuous on [a, b].
 
-*Not in `calculus` 1.1.0 yet:* use the Python package or the model's page in the browser.
+```shell
+$ calculus solve gauss_legendre a=0 b=2 "f=x^3 + x^2" n=2
+approximation = 6.666666667
+exact = 6.666666667
+error = 0
+  by: Gauss-Legendre quadrature  (nodes = roots of the Legendre polynomial P_n (Newton's method on the three-term recurrence), weights 2/((1 - x^2) P_n'(x)^2), mapped to [a, b])
+  a = 0
+  b = 2
+  f = x^3 + x^2
+  assumes: a < b; 1 <= n <= 64; f continuous on [a, b]
+```
 
 In the worked example, a = 0, b = 2, f = x^3 + x^2, n = 2 go through the equation above and give approximation = 6.666666667, exact = 6.666666667, error = 0. It applies only when a < b; 1 <= n <= 64; f continuous on [a, b]: outside that it says what is wrong instead of returning a number.
 
 <a id="midpoint_rule"></a>
 
-#### Midpoint rule — `midpoint_rule`
+#### Midpoint rule: `midpoint_rule`
 
 The composite midpoint approximation of the integral of f on [a, b] with n subintervals, with the exact value and the error.
 
@@ -1658,13 +1715,13 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x) | — |
-| `a` | in | left end | — |
-| `b` | in | right end | — |
-| `n` | in | number of equal subintervals | — |
-| `approximation` | out | midpoint approximation M_n | — |
-| `exact` | out | the integral | — |
-| `error` | out | M_n - exact | — |
+| `f` | in | the function f(x) | - |
+| `a` | in | left end | - |
+| `b` | in | right end | - |
+| `n` | in | number of equal subintervals | - |
+| `approximation` | out | midpoint approximation M_n | - |
+| `exact` | out | the integral | - |
+| `error` | out | M_n - exact | - |
 
 **Applies when:** a < b; 1 <= n <= 100000; f continuous on [a, b].
 
@@ -1674,8 +1731,8 @@ approximation = 2.625
 exact = 2.666666667
 error = -0.04166666667
   by: Midpoint rule  (composite midpoint rule; exact value by high-precision quadrature)
-  a = 0   []
-  b = 2   []
+  a = 0
+  b = 2
   f = x^2
   assumes: a < b; 1 <= n <= 100000; f continuous on [a, b]
 ```
@@ -1684,7 +1741,7 @@ error = -0.04166666667
 
 <a id="simpson_rule"></a>
 
-#### Simpson's rule — `simpson_rule`
+#### Simpson's rule: `simpson_rule`
 
 The composite Simpson approximation of the integral of f on [a, b] with an even number n of subintervals, with the exact value and the error.
 
@@ -1694,13 +1751,13 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x) | — |
-| `a` | in | left end | — |
-| `b` | in | right end | — |
-| `n` | in | number of equal subintervals | — |
-| `approximation` | out | Simpson approximation S_n | — |
-| `exact` | out | the integral | — |
-| `error` | out | S_n - exact | — |
+| `f` | in | the function f(x) | - |
+| `a` | in | left end | - |
+| `b` | in | right end | - |
+| `n` | in | number of equal subintervals | - |
+| `approximation` | out | Simpson approximation S_n | - |
+| `exact` | out | the integral | - |
+| `error` | out | S_n - exact | - |
 
 **Applies when:** a < b; n even, 2 <= n <= 100000; f continuous on [a, b].
 
@@ -1710,8 +1767,8 @@ approximation = 6.416666667
 exact = 6.4
 error = 0.01666666667
   by: Simpson's rule  (composite Simpson's 1/3 rule (weights 1, 4, 2, ..., 4, 1); exact value by high-precision quadrature)
-  a = 0   []
-  b = 2   []
+  a = 0
+  b = 2
   f = x^4
   assumes: a < b; n even, 2 <= n <= 100000; f continuous on [a, b]
 ```
@@ -1720,7 +1777,7 @@ error = 0.01666666667
 
 <a id="trapezoid_rule"></a>
 
-#### Trapezoidal rule — `trapezoid_rule`
+#### Trapezoidal rule: `trapezoid_rule`
 
 The composite trapezoidal approximation of the integral of f on [a, b] with n subintervals, with the exact value and the error (approximation - exact).
 
@@ -1730,13 +1787,13 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x) | — |
-| `a` | in | left end | — |
-| `b` | in | right end | — |
-| `n` | in | number of equal subintervals | — |
-| `approximation` | out | trapezoidal approximation T_n | — |
-| `exact` | out | the integral | — |
-| `error` | out | T_n - exact | — |
+| `f` | in | the function f(x) | - |
+| `a` | in | left end | - |
+| `b` | in | right end | - |
+| `n` | in | number of equal subintervals | - |
+| `approximation` | out | trapezoidal approximation T_n | - |
+| `exact` | out | the integral | - |
+| `error` | out | T_n - exact | - |
 
 **Applies when:** a < b; 1 <= n <= 100000; f continuous on [a, b].
 
@@ -1746,8 +1803,8 @@ approximation = 2.75
 exact = 2.666666667
 error = 0.08333333333
   by: Trapezoidal rule  (composite trapezoidal rule; exact value by high-precision quadrature)
-  a = 0   []
-  b = 2   []
+  a = 0
+  b = 2
   f = x^2
   assumes: a < b; 1 <= n <= 100000; f continuous on [a, b]
 ```
@@ -1758,7 +1815,7 @@ error = 0.08333333333
 
 <a id="newton_method"></a>
 
-#### Newton's method — `newton_method`
+#### Newton's method: `newton_method`
 
 n iterations of Newton's method x_{k+1} = x_k - f(x_k)/f'(x_k) for a root of f, from x_0.
 
@@ -1768,12 +1825,12 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x) | — |
-| `x0` | in | the starting value x_0 | — |
-| `n` | in | number of iterations | — |
-| `x_n` | out | the n-th iterate | — |
-| `f_x_n` | out | f(x_n) | — |
-| `iterates` | out | x_1 .. x_n | — |
+| `f` | in | the function f(x) | - |
+| `x0` | in | the starting value x_0 | - |
+| `n` | in | number of iterations | - |
+| `x_n` | out | the n-th iterate | - |
+| `f_x_n` | out | f(x_n) | - |
+| `iterates` | out | x_1 .. x_n | - |
 
 **Applies when:** f'(x_k) != 0 at every iterate; 1 <= n <= 50.
 
@@ -1783,7 +1840,7 @@ x_n = 1.414215686
 f_x_n = 6.007304883e-06
 iterates = [1.5,1.4166666666666667,1.4142156862745099]
   by: Newton's method  (Newton-Raphson with the exact derivative, at 30 digits)
-  x0 = 1   []
+  x0 = 1
   f = x^2 - 2
   assumes: f'(x_k) != 0 at every iterate; 1 <= n <= 50
 ```
@@ -1794,7 +1851,7 @@ iterates = [1.5,1.4166666666666667,1.4142156862745099]
 
 <a id="parametric_arc_length"></a>
 
-#### Arc length of a parametric curve — `parametric_arc_length`
+#### Arc length of a parametric curve: `parametric_arc_length`
 
 The length of the curve x = x(t), y = y(t) for t0 <= t <= t1.
 
@@ -1804,11 +1861,11 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `xt` | in | x(t) | — |
-| `yt` | in | y(t) | — |
-| `t0` | in | start parameter | — |
-| `t1` | in | end parameter | — |
-| `arc_length` | out | the length of the curve | — |
+| `xt` | in | x(t) | - |
+| `yt` | in | y(t) | - |
+| `t0` | in | start parameter | - |
+| `t1` | in | end parameter | - |
+| `arc_length` | out | the length of the curve | - |
 
 **Applies when:** t0 < t1; x and y continuously differentiable.
 
@@ -1816,8 +1873,8 @@ $$
 $ calculus solve parametric_arc_length t0=0 t1=3.141592654 "xt=cos(t)" "yt=sin(t)"
 arc_length = 3.141592654
   by: Arc length of a parametric curve  (sqrt(x'(t)^2 + y'(t)^2) with exact derivatives, tanh-sinh quadrature)
-  t0 = 0   []
-  t1 = 3.141592654   []
+  t0 = 0
+  t1 = 3.141592654
   xt = cos(t)
   yt = sin(t)
   assumes: t0 < t1; x and y continuously differentiable
@@ -1827,7 +1884,7 @@ arc_length = 3.141592654
 
 <a id="parametric_slope"></a>
 
-#### Slope and concavity of a parametric curve — `parametric_slope`
+#### Slope and concavity of a parametric curve: `parametric_slope`
 
 dy/dx and d^2y/dx^2 of the curve x = x(t), y = y(t) at a parameter value t0.
 
@@ -1837,15 +1894,24 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `xt` | in | x(t) | — |
-| `yt` | in | y(t) | — |
-| `t0` | in | the parameter value | — |
-| `dy_dx` | out | dy/dx at t0 | — |
-| `d2y_dx2` | out | d^2y/dx^2 at t0 | — |
+| `xt` | in | x(t) | - |
+| `yt` | in | y(t) | - |
+| `t0` | in | the parameter value | - |
+| `dy_dx` | out | dy/dx at t0 | - |
+| `d2y_dx2` | out | d^2y/dx^2 at t0 | - |
 
 **Applies when:** dx/dt != 0 at t0.
 
-*Not in `calculus` 1.1.0 yet:* use the Python package or the model's page in the browser.
+```shell
+$ calculus solve parametric_slope t0=1 "xt=t^2" "yt=t^3"
+dy_dx = 1.5
+d2y_dx2 = 0.75
+  by: Slope and concavity of a parametric curve  (dy/dx = y'(t)/x'(t) and d^2y/dx^2 = (d/dt of dy/dx)/x'(t), exact derivatives)
+  t0 = 1
+  xt = t^2
+  yt = t^3
+  assumes: dx/dt != 0 at t0
+```
 
 **What the worked example means:** This calculation determines the instantaneous rate of change of y with respect to x, known as the slope, which equals 1.5, and the rate of change of that slope, or concavity, which equals 0.75. These values are derived from the parametric functions for position at the specific time 1, providing insight into the curve's geometry and motion direction without requiring an explicit function of x.
 
@@ -1853,7 +1919,7 @@ $$
 
 <a id="polar_area"></a>
 
-#### Area in polar coordinates — `polar_area`
+#### Area in polar coordinates: `polar_area`
 
 The area swept by the polar curve r = r(theta) between theta = alpha and theta = beta.
 
@@ -1863,10 +1929,10 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `r` | in | the polar curve r(theta) | — |
-| `al` | in | alpha, the start angle (radians) | — |
-| `be` | in | beta, the end angle (radians) | — |
-| `area` | out | the area | — |
+| `r` | in | the polar curve r(theta) | - |
+| `al` | in | alpha, the start angle (radians) | - |
+| `be` | in | beta, the end angle (radians) | - |
+| `area` | out | the area | - |
 
 **Applies when:** alpha < beta <= alpha + 2 pi; r continuous.
 
@@ -1874,8 +1940,8 @@ $$
 $ calculus solve polar_area al=0 be=6.283185307 "r=1 + cos(theta)"
 area = 4.71238898
   by: Area in polar coordinates  ((1/2) integral of r^2 by tanh-sinh quadrature)
-  al = 0   []
-  be = 6.283185307   []
+  al = 0
+  be = 6.283185307
   r = 1 + cos(theta)
   assumes: alpha < beta <= alpha + 2 pi; r continuous
 ```
@@ -1886,7 +1952,7 @@ area = 4.71238898
 
 <a id="geometric_partial_sum"></a>
 
-#### Partial sum of a geometric series — `geometric_partial_sum`
+#### Partial sum of a geometric series: `geometric_partial_sum`
 
 The sum of the first n terms a + a r + ... + a r^(n-1).
 
@@ -1896,10 +1962,10 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `a` | in | the first term | — |
-| `r` | in | the common ratio | — |
-| `n` | in | the number of terms | — |
-| `sum` | out | the sum of the first n terms | — |
+| `a` | in | the first term | - |
+| `r` | in | the common ratio | - |
+| `n` | in | the number of terms | - |
+| `sum` | out | the sum of the first n terms | - |
 
 **Applies when:** 1 <= n <= 500.
 
@@ -1907,8 +1973,8 @@ $$
 $ calculus solve geometric_partial_sum a=2 n=4 r=3
 sum = 80
   by: Partial sum of a geometric series  (a (1 - r^n)/(1 - r) (n a when r = 1), exact in the stated decimals)
-  a = 2   []
-  r = 3   []
+  a = 2
+  r = 3
   assumes: 1 <= n <= 500
 ```
 
@@ -1916,7 +1982,7 @@ sum = 80
 
 <a id="ratio_test"></a>
 
-#### Ratio test — `ratio_test`
+#### Ratio test: `ratio_test`
 
 The limit L of |a_(n+1)/a_n| and the ratio test's verdict for the series sum a_n (converges if L < 1, diverges if L > 1).
 
@@ -1926,19 +1992,26 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `a` | in | the general term a_n, in n | — |
-| `ratio_limit` | out | L = lim \|a_(n+1)/a_n\| | — |
-| `verdict` | out | converges or diverges | — |
+| `a` | in | the general term a_n, in n | - |
+| `ratio_limit` | out | L = lim \|a_(n+1)/a_n\| | - |
+| `verdict` | out | converges or diverges | - |
 
 **Applies when:** L exists, is finite and is not 1 (L = 1 is inconclusive and refused).
 
-*Not in `calculus` 1.1.0 yet:* use the Python package or the model's page in the browser.
+```shell
+$ calculus solve ratio_test "a=2^n/n^3"
+ratio_limit = 2
+verdict = diverges
+  by: Ratio test  (exact simplification of a_(n+1)/a_n and its symbolic limit as n -> infinity)
+  a = 2^n/n^3
+  assumes: L exists, is finite and is not 1 (L = 1 is inconclusive and refused)
+```
 
 **What the worked example means:** This calculation determines the convergence behavior of the series defined by the general term 2^n/n^3. Evaluating the limit of the absolute ratio between consecutive terms as n approaches infinity gives the value 2. Since this limit is strictly less than one, the ratio test concludes that the series converges absolutely. The result depends entirely on the asymptotic growth rate of the terms relative to each other.
 
 <a id="arithmetic_series_sum"></a>
 
-#### Sum of an arithmetic series — `arithmetic_series_sum`
+#### Sum of an arithmetic series: `arithmetic_series_sum`
 
 The sum of the first n terms of an arithmetic sequence, and its last term.
 
@@ -1948,11 +2021,11 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `a1` | in | the first term | — |
-| `d` | in | the common difference | — |
-| `n` | in | the number of terms | — |
-| `sum` | out | the sum of the first n terms | — |
-| `last_term` | out | the n-th term | — |
+| `a1` | in | the first term | - |
+| `d` | in | the common difference | - |
+| `n` | in | the number of terms | - |
+| `sum` | out | the sum of the first n terms | - |
+| `last_term` | out | the n-th term | - |
 
 **Applies when:** n >= 1.
 
@@ -1961,8 +2034,8 @@ $ calculus solve arithmetic_series_sum a1=2 d=3 n=10
 sum = 155
 last_term = 29
   by: Sum of an arithmetic series  (S_n = n (2 a_1 + (n - 1) d)/2, exact in the stated decimals)
-  a1 = 2   []
-  d = 3   []
+  a1 = 2
+  d = 3
   assumes: n >= 1
 ```
 
@@ -1970,7 +2043,7 @@ last_term = 29
 
 <a id="geometric_series_sum"></a>
 
-#### Sum of an infinite geometric series — `geometric_series_sum`
+#### Sum of an infinite geometric series: `geometric_series_sum`
 
 The sum a + a r + a r^2 + ... of a convergent geometric series.
 
@@ -1980,9 +2053,9 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `a` | in | the first term | — |
-| `r` | in | the common ratio | — |
-| `sum` | out | the sum of the series | — |
+| `a` | in | the first term | - |
+| `r` | in | the common ratio | - |
+| `sum` | out | the sum of the series | - |
 
 **Applies when:** |r| < 1.
 
@@ -1990,8 +2063,8 @@ $$
 $ calculus solve geometric_series_sum a=3 r=0.5
 sum = 6
   by: Sum of an infinite geometric series  (a/(1 - r), exact in the stated decimals)
-  a = 3   []
-  r = 0.5   []
+  a = 3
+  r = 0.5
   assumes: |r| < 1
 ```
 
@@ -1999,7 +2072,7 @@ sum = 6
 
 <a id="series_sum"></a>
 
-#### Sum of an infinite series — `series_sum`
+#### Sum of an infinite series: `series_sum`
 
 The exact sum of a convergent series sum_{n=k}^infinity a_n (telescoping, geometric-type, zeta values, alternating harmonic, ...).
 
@@ -2009,19 +2082,25 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `a` | in | the general term a_n, in n | — |
-| `k` | in | the starting index | — |
-| `sum` | out | the sum of the series | — |
+| `a` | in | the general term a_n, in n | - |
+| `k` | in | the starting index | - |
+| `sum` | out | the sum of the series | - |
 
 **Applies when:** the series converges; a closed form exists.
 
-Run `calculus info series_sum` for its inputs, then `calculus solve series_sum name=value ...`.
+```shell
+$ calculus solve series_sum "a=1/n^2" k=1
+sum = 1.644934067
+  by: Sum of an infinite series  (exact symbolic summation; refused if the series diverges or no closed form is found)
+  a = 1/n^2
+  assumes: the series converges; a closed form exists
+```
 
 **What the worked example means:** This calculation determines the precise closed-form value of an infinite series. Given the starting index 1 and the general term defined by 1/n^2, the method evaluates whether the series converges to a specific number. The resulting total sum is 1.64493. This approach relies on symbolic techniques such as telescoping or geometric series identification, ensuring that the answer is mathematically exact rather than a numerical approximation.
 
 <a id="taylor_polynomial"></a>
 
-#### Taylor polynomial — `taylor_polynomial`
+#### Taylor polynomial: `taylor_polynomial`
 
 The degree-n Taylor polynomial of f about x = a (Maclaurin when a = 0): its coefficients, its value at x1, f(x1) and the truncation error.
 
@@ -2031,14 +2110,14 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x) | — |
-| `a` | in | the centre x = a | — |
-| `n` | in | the degree | — |
-| `x1` | in | the evaluation point | — |
-| `coefficients` | out | c_0 .. c_n with c_k = f^(k)(a)/k! | — |
-| `value` | out | P_n(x1) | — |
-| `function_value` | out | f(x1) | — |
-| `error` | out | f(x1) - P_n(x1) | — |
+| `f` | in | the function f(x) | - |
+| `a` | in | the centre x = a | - |
+| `n` | in | the degree | - |
+| `x1` | in | the evaluation point | - |
+| `coefficients` | out | c_0 .. c_n with c_k = f^(k)(a)/k! | - |
+| `value` | out | P_n(x1) | - |
+| `function_value` | out | f(x1) | - |
+| `error` | out | f(x1) - P_n(x1) | - |
 
 **Applies when:** f is n times differentiable at a and defined at x1; 0 <= n <= 12.
 
@@ -2049,8 +2128,8 @@ value = 1.645833333
 function_value = 1.648721271
 error = 0.002887937367
   by: Taylor polynomial  (exact symbolic derivatives at a divided by k!, then Horner evaluation in (x1 - a))
-  a = 0   []
-  x1 = 0.5   []
+  a = 0
+  x1 = 0.5
   f = exp(x)
   assumes: f is n times differentiable at a and defined at x1; 0 <= n <= 12
 ```
@@ -2061,7 +2140,7 @@ error = 0.002887937367
 
 <a id="bessel_j"></a>
 
-#### Bessel function of the first kind — `bessel_j`
+#### Bessel function of the first kind: `bessel_j`
 
 The Bessel function J_n(x) of whole-number order n.
 
@@ -2071,9 +2150,9 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `n` | in | the order n | — |
-| `x` | in | the argument x | — |
-| `J` | out | J_n(x) | — |
+| `n` | in | the order n | - |
+| `x` | in | the argument x | - |
+| `J` | out | J_n(x) | - |
 
 **Applies when:** 0 <= n <= 50; |x| <= 1000.
 
@@ -2081,7 +2160,7 @@ $$
 $ calculus solve bessel_j n=0 x=1
 J = 0.7651976866
   by: Bessel function of the first kind  (hypergeometric series at 30 digits)
-  x = 1   []
+  x = 1
   assumes: 0 <= n <= 50; |x| <= 1000
 ```
 
@@ -2089,7 +2168,7 @@ J = 0.7651976866
 
 <a id="beta_function"></a>
 
-#### Beta function — `beta_function`
+#### Beta function: `beta_function`
 
 The beta function B(a, b) for positive a and b.
 
@@ -2099,9 +2178,9 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `a` | in | the first argument (> 0) | — |
-| `b` | in | the second argument (> 0) | — |
-| `beta` | out | B(a, b) | — |
+| `a` | in | the first argument (> 0) | - |
+| `b` | in | the second argument (> 0) | - |
+| `beta` | out | B(a, b) | - |
 
 **Applies when:** a > 0; b > 0.
 
@@ -2109,8 +2188,8 @@ $$
 $ calculus solve beta_function a=2 b=3
 beta = 0.08333333333
   by: Beta function  (exp(ln Gamma(a) + ln Gamma(b) - ln Gamma(a + b)))
-  a = 2   []
-  b = 3   []
+  a = 2
+  b = 3
   assumes: a > 0; b > 0
 ```
 
@@ -2118,7 +2197,7 @@ beta = 0.08333333333
 
 <a id="chebyshev_polynomial"></a>
 
-#### Chebyshev polynomial — `chebyshev_polynomial`
+#### Chebyshev polynomial: `chebyshev_polynomial`
 
 The value of the Chebyshev polynomial of the first kind T_n(x) (T_n(cos t) = cos(n t)).
 
@@ -2128,9 +2207,9 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `n` | in | the degree n | — |
-| `x` | in | the argument x | — |
-| `T` | out | T_n(x) | — |
+| `n` | in | the degree n | - |
+| `x` | in | the argument x | - |
+| `T` | out | T_n(x) | - |
 
 **Applies when:** 0 <= n <= 500.
 
@@ -2138,7 +2217,7 @@ $$
 $ calculus solve chebyshev_polynomial n=3 x=0.5
 T = -1
   by: Chebyshev polynomial  (the recurrence T_(k+1) = 2x T_k - T_(k-1))
-  x = 0.5   []
+  x = 0.5
   assumes: 0 <= n <= 500
 ```
 
@@ -2146,7 +2225,7 @@ T = -1
 
 <a id="error_function"></a>
 
-#### Error function — `error_function`
+#### Error function: `error_function`
 
 The error function erf(x) and the complementary error function erfc(x) = 1 - erf(x).
 
@@ -2156,9 +2235,9 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `x` | in | the argument x | — |
-| `erf` | out | erf(x) | — |
-| `erfc` | out | erfc(x) | — |
+| `x` | in | the argument x | - |
+| `erf` | out | erf(x) | - |
+| `erfc` | out | erfc(x) | - |
 
 **Applies when:** x real.
 
@@ -2167,7 +2246,7 @@ $ calculus solve error_function x=0.5
 erf = 0.5204998778
 erfc = 0.4795001222
   by: Error function  (the standard library's erf and erfc (double precision))
-  x = 0.5   []
+  x = 0.5
   assumes: x real
 ```
 
@@ -2175,7 +2254,7 @@ erfc = 0.4795001222
 
 <a id="gamma_function"></a>
 
-#### Gamma function — `gamma_function`
+#### Gamma function: `gamma_function`
 
 The value of the gamma function (Gamma(n) = (n-1)! for whole n).
 
@@ -2185,8 +2264,8 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `x` | in | the argument x | — |
-| `gamma` | out | Gamma(x) | — |
+| `x` | in | the argument x | - |
+| `gamma` | out | Gamma(x) | - |
 
 **Applies when:** x is not 0 or a negative whole number; x < 171.6.
 
@@ -2194,7 +2273,7 @@ $$
 $ calculus solve gamma_function x=4.5
 gamma = 11.6317284
   by: Gamma function  (the standard library's Lanczos-type approximation (double precision))
-  x = 4.5   []
+  x = 4.5
   assumes: x is not 0 or a negative whole number; x < 171.6
 ```
 
@@ -2202,7 +2281,7 @@ gamma = 11.6317284
 
 <a id="legendre_polynomial"></a>
 
-#### Legendre polynomial — `legendre_polynomial`
+#### Legendre polynomial: `legendre_polynomial`
 
 The value of the Legendre polynomial P_n(x).
 
@@ -2212,9 +2291,9 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `n` | in | the degree n | — |
-| `x` | in | the argument x | — |
-| `P` | out | P_n(x) | — |
+| `n` | in | the degree n | - |
+| `x` | in | the argument x | - |
+| `P` | out | P_n(x) | - |
 
 **Applies when:** 0 <= n <= 200.
 
@@ -2222,7 +2301,7 @@ $$
 $ calculus solve legendre_polynomial n=3 x=0.5
 P = -0.4375
   by: Legendre polynomial  (Bonnet's three-term recurrence (k+1) P_(k+1) = (2k+1) x P_k - k P_(k-1))
-  x = 0.5   []
+  x = 0.5
   assumes: 0 <= n <= 200
 ```
 
@@ -2230,7 +2309,7 @@ In the worked example, n = 3, x = 0.5 go through the equation above and give P =
 
 <a id="regularized_gamma"></a>
 
-#### Regularized incomplete gamma functions — `regularized_gamma`
+#### Regularized incomplete gamma functions: `regularized_gamma`
 
 The regularized lower and upper incomplete gamma functions P(a, x) and Q(a, x) = 1 - P(a, x).
 
@@ -2240,10 +2319,10 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `a` | in | the shape a (> 0) | — |
-| `x` | in | the upper limit x (>= 0) | — |
-| `P` | out | P(a, x) = gamma(a, x)/Gamma(a) | — |
-| `Q` | out | Q(a, x) = Gamma(a, x)/Gamma(a) | — |
+| `a` | in | the shape a (> 0) | - |
+| `x` | in | the upper limit x (>= 0) | - |
+| `P` | out | P(a, x) = gamma(a, x)/Gamma(a) | - |
+| `Q` | out | Q(a, x) = Gamma(a, x)/Gamma(a) | - |
 
 **Applies when:** a > 0; x >= 0.
 
@@ -2252,8 +2331,8 @@ $ calculus solve regularized_gamma a=2 x=3
 P = 0.8008517265
 Q = 0.1991482735
   by: Regularized incomplete gamma functions  (power series for x < a + 1, Lentz continued fraction otherwise (the smaller of P and Q computed directly))
-  a = 2   []
-  x = 3   []
+  a = 2
+  x = 3
   assumes: a > 0; x >= 0
 ```
 
@@ -2261,7 +2340,7 @@ Q = 0.1991482735
 
 <a id="riemann_zeta"></a>
 
-#### Riemann zeta function — `riemann_zeta`
+#### Riemann zeta function: `riemann_zeta`
 
 The Riemann zeta function zeta(s) = sum 1/n^s for s > 1 (the p-series sum).
 
@@ -2271,8 +2350,8 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `s` | in | the argument s (> 1) | — |
-| `zeta` | out | zeta(s) | — |
+| `s` | in | the argument s (> 1) | - |
+| `zeta` | out | zeta(s) | - |
 
 **Applies when:** s > 1.
 
@@ -2280,7 +2359,7 @@ $$
 $ calculus solve riemann_zeta s=2
 zeta = 1.644934067
   by: Riemann zeta function  (Euler-Maclaurin / Borwein evaluation at 30 digits)
-  s = 2   []
+  s = 2
   assumes: s > 1
 ```
 
@@ -2290,7 +2369,7 @@ zeta = 1.644934067
 
 <a id="curl"></a>
 
-#### Curl — `curl`
+#### Curl: `curl`
 
 The curl of a vector field F = (P, Q, R) at a point.
 
@@ -2300,11 +2379,11 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `P` | in | the x-component P(x, y, z) | — |
-| `Q` | in | the y-component Q(x, y, z) | — |
-| `R` | in | the z-component R(x, y, z) | — |
-| `p` | in | the point (x, y, z) | — |
-| `curl` | out | curl F at the point | — |
+| `P` | in | the x-component P(x, y, z) | - |
+| `Q` | in | the y-component Q(x, y, z) | - |
+| `R` | in | the z-component R(x, y, z) | - |
+| `p` | in | the point (x, y, z) | - |
+| `curl` | out | curl F at the point | - |
 
 **Applies when:** the components are differentiable at the point.
 
@@ -2312,9 +2391,9 @@ $$
 $ calculus solve curl "P=x*y" "Q=y*z" "R=z*x" "p=[1, 2, 3]"
 curl = [-2.0,-3.0,-1.0]
   by: Curl  (exact symbolic partial derivatives: (R_y - Q_z, P_z - R_x, Q_x - P_y))
+  P = x*y
   Q = y*z
   R = z*x
-  P = x*y
   assumes: the components are differentiable at the point
 ```
 
@@ -2322,7 +2401,7 @@ curl = [-2.0,-3.0,-1.0]
 
 <a id="divergence"></a>
 
-#### Divergence — `divergence`
+#### Divergence: `divergence`
 
 The divergence P_x + Q_y + R_z of a vector field F = (P, Q, R) at a point.
 
@@ -2332,11 +2411,11 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `P` | in | the x-component P(x, y, z) | — |
-| `Q` | in | the y-component Q(x, y, z) | — |
-| `R` | in | the z-component R(x, y, z) | — |
-| `p` | in | the point (x, y, z) | — |
-| `divergence` | out | div F at the point | — |
+| `P` | in | the x-component P(x, y, z) | - |
+| `Q` | in | the y-component Q(x, y, z) | - |
+| `R` | in | the z-component R(x, y, z) | - |
+| `p` | in | the point (x, y, z) | - |
+| `divergence` | out | div F at the point | - |
 
 **Applies when:** the components are differentiable at the point.
 
@@ -2344,9 +2423,9 @@ $$
 $ calculus solve divergence "P=x*y" "Q=y*z" "R=x*z" "p=[1, 2, 3]"
 divergence = 6
   by: Divergence  (exact symbolic partial derivatives)
+  P = x*y
   Q = y*z
   R = x*z
-  P = x*y
   assumes: the components are differentiable at the point
 ```
 
@@ -2354,7 +2433,7 @@ divergence = 6
 
 <a id="greens_theorem"></a>
 
-#### Green's theorem on a rectangle — `greens_theorem`
+#### Green's theorem on a rectangle: `greens_theorem`
 
 Both sides of Green's theorem for F = (P, Q) on the rectangle [a, b] x [c, d]: the counter-clockwise circulation around the boundary and the double integral of Q_x - P_y.
 
@@ -2364,24 +2443,36 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `P` | in | the x-component P(x, y) | — |
-| `Q` | in | the y-component Q(x, y) | — |
-| `a` | in | x from | — |
-| `b` | in | x to | — |
-| `c` | in | y from | — |
-| `d` | in | y to | — |
-| `circulation` | out | the boundary line integral (counter-clockwise) | — |
-| `double_integral` | out | the integral of Q_x - P_y | — |
+| `P` | in | the x-component P(x, y) | - |
+| `Q` | in | the y-component Q(x, y) | - |
+| `a` | in | x from | - |
+| `b` | in | x to | - |
+| `c` | in | y from | - |
+| `d` | in | y to | - |
+| `circulation` | out | the boundary line integral (counter-clockwise) | - |
+| `double_integral` | out | the integral of Q_x - P_y | - |
 
 **Applies when:** a < b, c < d; P and Q continuously differentiable on the rectangle.
 
-*Not in `calculus` 1.1.0 yet:* use the Python package or the model's page in the browser.
+```shell
+$ calculus solve greens_theorem P=-y Q=x a=0 b=1 c=0 d=2
+circulation = 4
+double_integral = 4
+  by: Green's theorem on a rectangle  (the four sides by tanh-sinh quadrature; the double integral of the exact Q_x - P_y by Gauss-Legendre product rules; refused unless the two agree)
+  a = 0
+  b = 1
+  c = 0
+  d = 2
+  P = -y
+  Q = x
+  assumes: a < b, c < d; P and Q continuously differentiable on the rectangle
+```
 
 **What the worked example means:** This calculation verifies Green's theorem by independently computing the counter-clockwise line integral around the boundary of the rectangle and the double integral of the curl, defined as the partial derivative of Q with respect to x minus the partial derivative of P with respect to y. The result shows that the total circulation 4 matches the accumulated rotation within the region, represented by the double integral value 4. This agreement holds provided the vector field components are continuously differentiable across the entire domain defined by the input bounds.
 
 <a id="laplacian"></a>
 
-#### Laplacian — `laplacian`
+#### Laplacian: `laplacian`
 
 The Laplacian f_xx + f_yy (+ f_zz) of a function at a point.
 
@@ -2391,9 +2482,9 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x, y) or f(x, y, z) | — |
-| `p` | in | the point | — |
-| `laplacian` | out | the Laplacian at the point | — |
+| `f` | in | the function f(x, y) or f(x, y, z) | - |
+| `p` | in | the point | - |
+| `laplacian` | out | the Laplacian at the point | - |
 
 **Applies when:** f twice differentiable at the point.
 
@@ -2409,7 +2500,7 @@ laplacian = 22
 
 <a id="line_integral_vector"></a>
 
-#### Line integral of a vector field — `line_integral_vector`
+#### Line integral of a vector field: `line_integral_vector`
 
 The line integral (work) of F = (P, Q) along the path x = x(t), y = y(t) from t0 to t1.
 
@@ -2419,13 +2510,13 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `P` | in | the x-component P(x, y) | — |
-| `Q` | in | the y-component Q(x, y) | — |
-| `xt` | in | the path x(t) | — |
-| `yt` | in | the path y(t) | — |
-| `t0` | in | start parameter | — |
-| `t1` | in | end parameter | — |
-| `line_integral` | out | the integral of F . dr along the path | — |
+| `P` | in | the x-component P(x, y) | - |
+| `Q` | in | the y-component Q(x, y) | - |
+| `xt` | in | the path x(t) | - |
+| `yt` | in | the path y(t) | - |
+| `t0` | in | start parameter | - |
+| `t1` | in | end parameter | - |
+| `line_integral` | out | the integral of F . dr along the path | - |
 
 **Applies when:** the integrand is continuous for t between t0 and t1.
 
@@ -2433,12 +2524,12 @@ $$
 $ calculus solve line_integral_vector P=-y Q=x t0=0 t1=6.283185307 "xt=cos(t)" "yt=sin(t)"
 line_integral = 6.283185307
   by: Line integral of a vector field  (F(r(t)) . r'(t) built exactly (symbolic r'), then tanh-sinh quadrature at 20 digits)
-  t0 = 0   []
-  t1 = 6.283185307   []
-  Q = x
-  yt = sin(t)
-  xt = cos(t)
+  t0 = 0
+  t1 = 6.283185307
   P = -y
+  Q = x
+  xt = cos(t)
+  yt = sin(t)
   assumes: the integrand is continuous for t between t0 and t1
 ```
 
@@ -2446,7 +2537,7 @@ line_integral = 6.283185307
 
 <a id="line_integral_scalar"></a>
 
-#### Line integral with respect to arc length — `line_integral_scalar`
+#### Line integral with respect to arc length: `line_integral_scalar`
 
 The integral of f(x, y) ds along the path x = x(t), y = y(t), t0 <= t <= t1 (mass of a wire, average along a curve).
 
@@ -2456,22 +2547,32 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `f` | in | the function f(x, y) | — |
-| `xt` | in | the path x(t) | — |
-| `yt` | in | the path y(t) | — |
-| `t0` | in | start parameter | — |
-| `t1` | in | end parameter | — |
-| `line_integral` | out | the integral of f ds along the path | — |
+| `f` | in | the function f(x, y) | - |
+| `xt` | in | the path x(t) | - |
+| `yt` | in | the path y(t) | - |
+| `t0` | in | start parameter | - |
+| `t1` | in | end parameter | - |
+| `line_integral` | out | the integral of f ds along the path | - |
 
 **Applies when:** t0 < t1; the integrand continuous on [t0, t1].
 
-*Not in `calculus` 1.1.0 yet:* use the Python package or the model's page in the browser.
+```shell
+$ calculus solve line_integral_scalar "f=x + y" t0=0 t1=1 xt=t yt=t
+line_integral = 1.414213562
+  by: Line integral with respect to arc length  (f(r(t)) |r'(t)| with exact r'(t), then tanh-sinh quadrature)
+  t0 = 0
+  t1 = 1
+  f = x + y
+  xt = t
+  yt = t
+  assumes: t0 < t1; the integrand continuous on [t0, t1]
+```
 
 **What the worked example means:** This calculation determines the total accumulation of the scalar function x + y along the curved path defined by x(t) and y(t). The process involves substituting the parametric equations into the function and multiplying by the magnitude of the derivative vector, which represents the arc length element. The result, 1.41421, quantifies physical properties such as the mass of a wire with variable density or the average value of a field along a trajectory. This method transforms a geometric integral into a standard single-variable definite integral over the parameter interval from 0 to 1.
 
 <a id="divergence_theorem_box"></a>
 
-#### Outward flux through a box (divergence theorem) — `divergence_theorem_box`
+#### Outward flux through a box (divergence theorem), `divergence_theorem_box`
 
 The outward flux of F = (P, Q, R) through the surface of the box [x0, x1] x [y0, y1] x [z0, z1].
 
@@ -2481,16 +2582,16 @@ $$
 
 | symbol |  | meaning | SI unit |
 |---|---|---|---|
-| `P` | in | the x-component | — |
-| `Q` | in | the y-component | — |
-| `R` | in | the z-component | — |
-| `x0` | in | x from | — |
-| `x1` | in | x to | — |
-| `y0` | in | y from | — |
-| `y1` | in | y to | — |
-| `z0` | in | z from | — |
-| `z1` | in | z to | — |
-| `flux` | out | the outward flux | — |
+| `P` | in | the x-component | - |
+| `Q` | in | the y-component | - |
+| `R` | in | the z-component | - |
+| `x0` | in | x from | - |
+| `x1` | in | x to | - |
+| `y0` | in | y from | - |
+| `y1` | in | y to | - |
+| `z0` | in | z from | - |
+| `z1` | in | z to | - |
+| `flux` | out | the outward flux | - |
 
 **Applies when:** the box is non-degenerate; F continuously differentiable on the box.
 
@@ -2498,12 +2599,12 @@ $$
 $ calculus solve divergence_theorem_box "P=x^2" "Q=y^2" "R=z^2" x0=0 x1=1 y0=0 y1=1 z0=0 z1=1
 flux = 3
   by: Outward flux through a box (divergence theorem)  (the divergence theorem: the triple integral of the exact divergence (exact for polynomials, otherwise Gauss-Legendre product rules until two orders agree))
-  x0 = 0   []
-  x1 = 1   []
-  y0 = 0   []
-  y1 = 1   []
-  z0 = 0   []
-  z1 = 1   []
+  x0 = 0
+  x1 = 1
+  y0 = 0
+  y1 = 1
+  z0 = 0
+  z1 = 1
   P = x^2
   Q = y^2
   R = z^2
@@ -2512,4 +2613,4 @@ flux = 3
 
 **What the worked example means:** This calculation determines the net flow of the vector field out of the rectangular region defined by the input coordinates. By applying the divergence theorem, the complex surface integral is converted into a simpler volume integral of the field's divergence over the box. The resulting value, 3, represents the total amount of the field leaving the enclosed space per unit time.
 
-Questions and reports: support@ai999x.com. AI999X — The Future Is Self-Improving.
+Questions and reports: support@ai999x.com. AI999X, The Future Is Self-Improving.
