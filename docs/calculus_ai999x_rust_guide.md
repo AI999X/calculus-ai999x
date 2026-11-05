@@ -1,6 +1,6 @@
 # calculus: the Calculus program — user guide
 
-**calculus-ai999x 1.0.3**, Rust build: command line, desktop app and browser. **Creator / engineer:** Ibnul Jaif Farabi · **Company:** AI999X · support@ai999x.com
+**calculus-ai999x 1.1.0**, Rust build: command line, desktop app and browser. **Creator / engineer:** Ibnul Jaif Farabi · **Company:** AI999X · support@ai999x.com
 
 Calculus covers limits, derivatives, integrals, series, Taylor polynomials, multivariable and vector calculus, special functions and numerical differentiation and integration. This guide is about `calculus`, the model as a self-contained program for Windows and Linux: 71 capabilities in 14 topics, answered on your own computer with no network, no Python and nothing else to install. The same compiled model runs in the AI999X desktop app and in the browser on the model's page (https://www.ai999x.com/models/calculus-ai999x/); the Python package (`pip install calculus-ai999x`) has its own guide. Every command output printed here is what the program printed.
 
@@ -17,24 +17,24 @@ Calculus covers limits, derivatives, integrals, series, Taylor polynomials, mult
 
 ## 1. Get it
 
-Version 1.4.0 of the AI999X desktop app and of the command-line bundle. Checksums for every file: https://www.ai999x.com/downloads/desktop/1.4.0/SHA256SUMS; the newest version is always under https://www.ai999x.com/downloads/desktop/latest/. Full instructions: https://www.ai999x.com/desktop-cli/
+Version 1.4.0 of the AI999X desktop app and of the command-line bundle. Checksums for every file: https://downloads.ai999x.com/desktop/1.4.0/SHA256SUMS; the newest version is always under https://downloads.ai999x.com/desktop/latest/. Full instructions: https://www.ai999x.com/desktop-cli/
 
 | what | system | download |
 |---|---|---|
-| Desktop app: Calculus | Windows x86-64 | https://www.ai999x.com/downloads/desktop/1.4.0/ai999x-calculus-1.4.0-windows-x86_64.zip |
-| Desktop app: Calculus | Linux x86-64 | https://www.ai999x.com/downloads/desktop/1.4.0/ai999x-calculus-1.4.0-linux-x86_64.tar.gz |
-| Desktop app: all models | Windows x86-64 | https://www.ai999x.com/downloads/desktop/1.4.0/ai999x-1.4.0-windows-x86_64.zip |
-| Desktop app: all models | Linux x86-64 | https://www.ai999x.com/downloads/desktop/1.4.0/ai999x-1.4.0-linux-x86_64.tar.gz |
-| Command line | Windows x86-64 | https://www.ai999x.com/downloads/desktop/1.4.0/ai999x-cli-1.4.0-windows-x86_64.zip |
-| Command line | Linux x86-64 | https://www.ai999x.com/downloads/desktop/1.4.0/ai999x-cli-1.4.0-linux-x86_64.tar.gz |
+| Desktop app: Calculus | Windows x86-64 | https://downloads.ai999x.com/desktop/1.4.0/ai999x-calculus-1.4.0-windows-x86_64.zip |
+| Desktop app: Calculus | Linux x86-64 | https://downloads.ai999x.com/desktop/1.4.0/ai999x-calculus-1.4.0-linux-x86_64.tar.gz |
+| Desktop app: all models | Windows x86-64 | https://downloads.ai999x.com/desktop/1.4.0/ai999x-1.4.0-windows-x86_64.zip |
+| Desktop app: all models | Linux x86-64 | https://downloads.ai999x.com/desktop/1.4.0/ai999x-1.4.0-linux-x86_64.tar.gz |
+| Command line | Windows x86-64 | https://downloads.ai999x.com/desktop/1.4.0/ai999x-cli-1.4.0-windows-x86_64.zip |
+| Command line | Linux x86-64 | https://downloads.ai999x.com/desktop/1.4.0/ai999x-cli-1.4.0-linux-x86_64.tar.gz |
 
 ### Desktop app
 
 Calculus in its own app: search, questions in words, input forms, live figures and explanations. Windows: Download ai999x-calculus-1.4.0-windows-x86_64.zip, right-click it → Extract All, then open the folder and start ai999x-calculus.exe. If Windows SmartScreen asks, choose More info → Run anyway. Linux:
 
 ```shell
-curl -LO https://www.ai999x.com/downloads/desktop/1.4.0/ai999x-calculus-1.4.0-linux-x86_64.tar.gz
-curl -LO https://www.ai999x.com/downloads/desktop/1.4.0/SHA256SUMS
+curl -LO https://downloads.ai999x.com/desktop/1.4.0/ai999x-calculus-1.4.0-linux-x86_64.tar.gz
+curl -LO https://downloads.ai999x.com/desktop/1.4.0/SHA256SUMS
 sha256sum -c --ignore-missing SHA256SUMS
 tar xzf ai999x-calculus-1.4.0-linux-x86_64.tar.gz
 ./ai999x-calculus-1.4.0-linux-x86_64/ai999x-calculus
@@ -43,8 +43,8 @@ tar xzf ai999x-calculus-1.4.0-linux-x86_64.tar.gz
 It opens on this model: type a question or pick a capability, fill in the form and press Compute. The AI999X desktop app with every model works the same way (choose the model first). Windows: Download ai999x-1.4.0-windows-x86_64.zip, right-click it → Extract All, then open the folder and start ai999x.exe. If Windows SmartScreen asks, choose More info → Run anyway. Linux:
 
 ```shell
-curl -LO https://www.ai999x.com/downloads/desktop/1.4.0/ai999x-1.4.0-linux-x86_64.tar.gz
-curl -LO https://www.ai999x.com/downloads/desktop/1.4.0/SHA256SUMS
+curl -LO https://downloads.ai999x.com/desktop/1.4.0/ai999x-1.4.0-linux-x86_64.tar.gz
+curl -LO https://downloads.ai999x.com/desktop/1.4.0/SHA256SUMS
 sha256sum -c --ignore-missing SHA256SUMS
 tar xzf ai999x-1.4.0-linux-x86_64.tar.gz
 ./ai999x-1.4.0-linux-x86_64/ai999x
@@ -55,8 +55,8 @@ tar xzf ai999x-1.4.0-linux-x86_64.tar.gz
 The bundle holds one program per model; `calculus` is this one. The checksum line should print OK.
 
 ```shell
-curl -LO https://www.ai999x.com/downloads/desktop/1.4.0/ai999x-cli-1.4.0-linux-x86_64.tar.gz
-curl -LO https://www.ai999x.com/downloads/desktop/1.4.0/SHA256SUMS
+curl -LO https://downloads.ai999x.com/desktop/1.4.0/ai999x-cli-1.4.0-linux-x86_64.tar.gz
+curl -LO https://downloads.ai999x.com/desktop/1.4.0/SHA256SUMS
 sha256sum -c --ignore-missing SHA256SUMS
 mkdir -p ~/.local/share && tar xzf ai999x-cli-1.4.0-linux-x86_64.tar.gz -C ~/.local/share
 echo 'export PATH="$HOME/.local/share/ai999x-cli-1.4.0-linux-x86_64:$PATH"' >> ~/.bashrc && source ~/.bashrc
@@ -69,8 +69,8 @@ The fourth line should print True.
 
 ```powershell
 $F = "ai999x-cli-1.4.0-windows-x86_64.zip"
-Invoke-WebRequest "https://www.ai999x.com/downloads/desktop/1.4.0/$F" -OutFile $F
-Invoke-WebRequest "https://www.ai999x.com/downloads/desktop/1.4.0/SHA256SUMS" -OutFile SHA256SUMS
+Invoke-WebRequest "https://downloads.ai999x.com/desktop/1.4.0/$F" -OutFile $F
+Invoke-WebRequest "https://downloads.ai999x.com/desktop/1.4.0/SHA256SUMS" -OutFile SHA256SUMS
 (Get-FileHash $F -Algorithm SHA256).Hash.ToLower() -eq ((Select-String -SimpleMatch $F SHA256SUMS).Line -split ' ')[0]
 Expand-Archive $F -DestinationPath "$env:LOCALAPPDATA\AI999X" -Force
 $D = "$env:LOCALAPPDATA\AI999X\ai999x-cli-1.4.0-windows-x86_64"; $env:Path += ";$D"
@@ -99,38 +99,7 @@ $ calculus --version
 calculus-ai999x 1.0.3 (Rust build, ax-engine 0.1.0)
 ```
 
-### 2.2 Ask in words
-
-Write the question as you would say it: the program reads the quantities and their units, picks the capability and answers.
-
-```shell
-$ calculus ask "Find the limit of (x^2 - 4)/(x - 2) as x approaches 2."
-Read as: Limit at a point
-limit = 4
-  by: Limit at a point  (exact symbolic limit (series expansion / Gruntz algorithm) from both sides; refused if the one-sided limits differ or are infinite)
-  a = 2
-  f = (x^2 - 4)/(x - 2)
-  assumes: the left and right limits exist, are finite and agree
-```
-
-### 2.3 Find a capability
-
-Search the capabilities by what you want to know; the first column is the id to pass to info and solve.
-
-```shell
-$ calculus search "limit at a point"
-limit_at_point                       Limit at a point  (limits)
-limit_at_infinity                    Limit at infinity  (limits)
-derivative_at_point                  Derivative at a point  (derivatives)
-inflection_points                    Inflection points  (derivatives / concavity)
-second_derivative_at_point           Second derivative at a point  (derivatives)
-nth_derivative_at_point              Higher derivative at a point  (derivatives)
-critical_points_classify             Critical points and their classification  (derivatives / optimization)
-ftc_derivative                       Derivative of an integral (fundamental theorem)  (integrals)
-… 12 more
-```
-
-### 2.4 List the capabilities
+### 2.2 List the capabilities
 
 Every capability the program answers: its id (what you pass to solve) and its name.
 
@@ -141,13 +110,13 @@ area_between_curves                      Area between two curves
 area_enclosed_curves                     Area enclosed by two curves
 arithmetic_series_sum                    Sum of an arithmetic series
 average_rate_of_change                   Average rate of change
-average_value                            Average value of a function
 bessel_j                                 Bessel function of the first kind
 beta_function                            Beta function
-… 63 more
+centroid_region                          Centroid of a region under a curve
+… 56 more
 ```
 
-### 2.5 What a capability needs
+### 2.3 What a capability needs
 
 The equation or method, every input and output with its SI unit. Read this before solve: it tells you the input names.
 
@@ -160,7 +129,7 @@ Limit at a point
   out  limit    the limit of f(x) as x -> a [1]
 ```
 
-### 2.6 Solve
+### 2.4 Solve
 
 Inputs as name=value, each with any unit of the right kind. The answer lists every output, the method used, each input converted to SI, and the conditions the answer assumes.
 
@@ -168,12 +137,12 @@ Inputs as name=value, each with any unit of the right kind. The answer lists eve
 $ calculus solve limit_at_point a=2.0 "f=(x^2 - 4)/(x - 2)"
 limit = 4
   by: Limit at a point  (exact symbolic limit (series expansion / Gruntz algorithm) from both sides; refused if the one-sided limits differ or are infinite)
-  a = 2
+  a = 2   []
   f = (x^2 - 4)/(x - 2)
   assumes: the left and right limits exist, are finite and agree
 ```
 
-### 2.7 Machine-readable answer
+### 2.5 Machine-readable answer
 
 --json prints the same answer as one line of JSON (values in SI): for scripts and other programs.
 
@@ -182,7 +151,7 @@ $ calculus solve limit_at_point a=2.0 "f=(x^2 - 4)/(x - 2)" --json
 {"outcome":"SOLVED","message":"","value":4.0,"unit":"","solved_for":"limit","si":[["a",2.0]],"values":[["limit",4.0,""]],"target":"limit","phrase":"the limit of f(x) as x -> a","assumptions":["the left and right limits exist, are finite and agree"],"name":"Limit at a point","equation":"exact symbolic limit (series expansion / Gruntz algorithm) from both sides; refused if the one-sided limits differ or are infinite"}
 ```
 
-### 2.8 When an input is missing
+### 2.6 When an input is missing
 
 No number is guessed: the answer names what is missing, shows a complete call, and the program exits with status 1.
 
@@ -191,29 +160,7 @@ $ calculus solve limit_at_point a=2.0
 NEEDS_INPUT: limit_at_point needs f (the function f(x)). Example: solve('limit_at_point', f='(x^2 - 4)/(x - 2)', a=2).
 ```
 
-### 2.9 Draw the figures
-
-The live figures for your own inputs, written as SVG files into the folder given with --out (here the current folder); open them in any browser. Without --out the SVG text comes back as JSON.
-
-```shell
-$ calculus figures limit_at_point a=2.0 "f=(x^2 - 4)/(x - 2)" --out .
-[
-  {
-    "slug": "limit-at-point-graph",
-    "title": "Limit at x = 2 across a gap",
-    "caption": "y = (x^2 - 4)/(x - 2) near x = 2 (values computed by the model at 42 points, none at x = 2 itself): from both sides the values approach 4. Marked: the limit at the gap. Your inputs: a = 2.0, f = (x^2 - 4)/(x - 2).",
-    "file": ".\\limit-at-point-graph.svg"
-  },
-  {
-    "slug": "limit-at-point-live-1",
-    "title": "The limit of f(x) as x -> a as the point x = a varies",
-    "caption": "The limit of f(x) as x -> a as a runs from 0.5 to 3.5, every other input as you entered it (41 solutions). Marked: your a = 2 gives limit = 4. Your inputs: a = 2.0, f = (x^2 - 4)/(x - 2).",
-    "file": ".\\limit-at-point-live-1.svg"
-  }
-]
-```
-
-### 2.10 Many questions at once
+### 2.7 Many questions at once
 
 One JSON request per line in, one JSON answer per line out, in order: for scripts, notebooks and agents (the program starts once). In PowerShell: Get-Content cases.jsonl | calculus batch
 
@@ -286,24 +233,6 @@ answers = [json.loads(line) for line in out.splitlines()]
 
 `calculus figures <capability> name=value ... --out DIR` draws the live figures for those inputs and writes each as an SVG file into DIR (an existing folder); without `--out` the SVG text comes back as JSON. The desktop app and the model page draw the same figures as soon as you press Compute.
 
-```shell
-$ calculus figures limit_at_point a=2.0 "f=(x^2 - 4)/(x - 2)" --out .
-[
-  {
-    "slug": "limit-at-point-graph",
-    "title": "Limit at x = 2 across a gap",
-    "caption": "y = (x^2 - 4)/(x - 2) near x = 2 (values computed by the model at 42 points, none at x = 2 itself): from both sides the values approach 4. Marked: the limit at the gap. Your inputs: a = 2.0, f = (x^2 - 4)/(x - 2).",
-    "file": ".\\limit-at-point-graph.svg"
-  },
-  {
-    "slug": "limit-at-point-live-1",
-    "title": "The limit of f(x) as x -> a as the point x = a varies",
-    "caption": "The limit of f(x) as x -> a as a runs from 0.5 to 3.5, every other input as you entered it (41 solutions). Marked: your a = 2 gives limit = 4. Your inputs: a = 2.0, f = (x^2 - 4)/(x - 2).",
-    "file": ".\\limit-at-point-live-1.svg"
-  }
-]
-```
-
 ## 7. In a web page or Node.js: WebAssembly
 
 The same model is a WebAssembly module, `calculus_ai999x.wasm` (https://www.ai999x.com/compute/rust/calculus_ai999x.wasm), with a small loader, `ax-wasm.js` (https://www.ai999x.com/compute/rust/ax-wasm.js). It runs in a browser, a Web Worker or Node.js, with no server.
@@ -352,8 +281,8 @@ absolute_max = 2
 absolute_min = -2
 critical_points = [1.0]
   by: Absolute extrema on a closed interval  (exact real roots of f' in (a, b) (Sturm isolation), then f compared at the critical points and both ends)
-  a = 0
-  b = 2
+  a = 0   []
+  b = 2   []
   f = x^3 - 3x
   assumes: a < b; f is a polynomial with rational coefficients
 ```
@@ -387,8 +316,8 @@ average_rate = 4
 fa = 1
 fb = 9
   by: Average rate of change  (difference quotient of the two function values)
-  a = 1
-  b = 3
+  a = 1   []
+  b = 3   []
   f = x^2
   assumes: a != b; f defined at a and b
 ```
@@ -450,7 +379,7 @@ $ calculus solve curvature a=0 "f=x^2"
 curvature = 2
 radius_of_curvature = 0.5
   by: Curvature of a graph  (curvature formula of a graph from the exact first and second derivatives)
-  a = 0
+  a = 0   []
   f = x^2
   assumes: f twice differentiable at a
 ```
@@ -481,7 +410,7 @@ $ calculus solve derivative_at_point a=2 "f=x^3 - 2x"
 derivative = 10
 derivative_expression = 3*x^2 - 2
   by: Derivative at a point  (exact symbolic differentiation (sum, product, quotient and chain rules), then evaluation at x = a)
-  a = 2
+  a = 2   []
   f = x^3 - 2x
   assumes: f is defined and differentiable at x = a
 ```
@@ -513,7 +442,7 @@ $ calculus solve nth_derivative_at_point a=1 "f=sin(2x)" n=4
 nth_derivative = 14.54875883
 nth_derivative_expression = 16*sin(2*x)
   by: Higher derivative at a point  (exact symbolic differentiation n times, then evaluation at x = a)
-  a = 1
+  a = 1   []
   f = sin(2x)
   assumes: 1 <= n <= 12; f is n times differentiable at x = a
 ```
@@ -604,8 +533,8 @@ actual = 2.024845673
 error = -0.0001543268683
 slope = 0.25
   by: Linear approximation  (linearization (tangent line) at the base point)
-  a = 4
-  x1 = 4.1
+  a = 4   []
+  x1 = 4.1   []
   f = sqrt(x)
   assumes: f differentiable at a
 ```
@@ -637,8 +566,8 @@ $ calculus solve mean_value_theorem a=0 b=3 "f=x^3"
 secant_slope = 9
 c_values = [1.7320508075688772]
   by: Mean value theorem  (exact secant slope, then the exact real roots of f'(x) - slope in (a, b))
-  a = 0
-  b = 3
+  a = 0   []
+  b = 3   []
   f = x^3
   assumes: a < b; f a non-linear polynomial with rational coefficients
 ```
@@ -671,7 +600,7 @@ slope = -0.5
 intercept = 1.5
 y0 = 1
   by: Normal line  (perpendicular slope -1/m through (a, f(a)))
-  a = 1
+  a = 1   []
   f = x^2
   assumes: f'(a) != 0 (otherwise the normal is vertical)
 ```
@@ -702,7 +631,7 @@ $ calculus solve second_derivative_at_point a=1 "f=x^4 - 3x^2"
 second_derivative = 6
 second_derivative_expression = 12*x^2 - 6
   by: Second derivative at a point  (exact symbolic differentiation twice, then evaluation at x = a)
-  a = 1
+  a = 1   []
   f = x^4 - 3x^2
   assumes: f is twice differentiable at x = a
 ```
@@ -737,7 +666,7 @@ intercept = -3
 y0 = 5
 equation = y = 4*x - 3
   by: Tangent line  (point-slope form through (a, f(a)) with the exact derivative)
-  a = 2
+  a = 2   []
   f = x^2 + 1
   assumes: f is differentiable at x = a
 ```
@@ -772,7 +701,7 @@ acceleration = 0
 speed = 3
 position = 2
   by: Velocity and acceleration from position  (exact differentiation of the position once and twice)
-  t0 = 2
+  t0 = 2   []
   s = t^3 - 6t^2 + 9t
   assumes: s twice differentiable at t0
 ```
@@ -805,10 +734,10 @@ $$
 ```shell
 $ calculus solve fourier_coefficients L=3.141592654 f=x k=2
 a0 = 0
-a_k = 0
+a_k = -2.806286047e-39
 b_k = -1
   by: Fourier coefficients  (tanh-sinh quadrature on the k half-wave subintervals at 20 digits)
-  L = 3.141592654
+  L = 3.141592654   []
   f = x
   assumes: L > 0; f continuous on [-L, L]; 1 <= k <= 50
 ```
@@ -840,8 +769,8 @@ $$
 $ calculus solve arc_length a=0 b=1 "f=x^2"
 arc_length = 1.478942858
   by: Arc length of a graph  (arc-length integral of sqrt(1 + f'(x)^2) with the exact derivative, by high-precision quadrature)
-  a = 0
-  b = 1
+  a = 0   []
+  b = 1   []
   f = x^2
   assumes: a < b; f' continuous on [a, b]
 ```
@@ -876,8 +805,8 @@ area = 1
 net_integral = 0.6666666667
 crossings = [1.0]
   by: Area between two curves  (exact integration of |f - g|, split at the exact real roots of f - g)
-  a = 0
-  b = 2
+  a = 0   []
+  b = 2   []
   g = x
   f = x^2
   assumes: a < b; f and g polynomials with rational coefficients
@@ -913,8 +842,8 @@ x_left = 0
 x_right = 1
 intersections = [0.0,1.0]
   by: Area enclosed by two curves  (exact real roots of f - g, then exact integration of |f - g| between consecutive roots)
-  g = x
   f = x^2
+  g = x
   assumes: f and g polynomials with rational coefficients meeting in at least two points
 ```
 
@@ -940,16 +869,7 @@ $$
 
 **Applies when:** a < b; f continuous on [a, b].
 
-```shell
-$ calculus solve average_value a=0 b=3 "f=x^2"
-average_value = 3
-integral = 9
-  by: Average value of a function  (definite integral by high-precision quadrature, divided by the interval length)
-  a = 0
-  b = 3
-  f = x^2
-  assumes: a < b; f continuous on [a, b]
-```
+*Not in `calculus` 1.1.0 yet:* use the Python package or the model's page in the browser.
 
 **What the worked example means:** This calculation determines the mean height of a continuous function across a specific interval. Computing the definite integral, which represents the total accumulated area under the curve as 9, and dividing it by the width of the interval defined by the start point 0 and end point 3 gives the average value 3. This result indicates the constant level that would produce the same total accumulation as the varying function over the given domain.
 
@@ -980,8 +900,8 @@ area = 0.3333333333
 x_bar = 0.75
 y_bar = 0.3
   by: Centroid of a region under a curve  (exact moments of the region: x_bar = (1/A) * integral of x f, y_bar = (1/2A) * integral of f^2)
-  a = 0
-  b = 1
+  a = 0   []
+  b = 1   []
   f = x^2
   assumes: a < b; f(x) >= 0 on [a, b] (checked exactly)
 ```
@@ -1011,8 +931,8 @@ $$
 $ calculus solve definite_integral a=0 b=3 "f=x^2"
 integral = 9
   by: Definite integral  (high-precision tanh-sinh quadrature (30 digits) after an exact continuity check on [a, b])
-  a = 0
-  b = 3
+  a = 0   []
+  b = 3   []
   f = x^2
   assumes: f real and continuous on the closed interval between a and b
 ```
@@ -1043,10 +963,10 @@ $$
 $ calculus solve ftc_derivative a=0 "f=sin(t)" "g=x^2" x0=1
 derivative = 1.68294197
   by: Derivative of an integral (fundamental theorem)  (f(g(x0)) * g'(x0) with the exact derivative of g)
-  a = 0
-  x0 = 1
-  f = sin(t)
+  a = 0   []
+  x0 = 1   []
   g = x^2
+  f = sin(t)
   assumes: f continuous between a and g(x0); g differentiable at x0
 ```
 
@@ -1070,14 +990,7 @@ $$
 
 **Applies when:** f continuous on [a, infinity); x^1.01 * f(x) has a finite limit (comparison test), so the integral converges absolutely.
 
-```shell
-$ calculus solve improper_integral a=0 "f=exp(-x)"
-integral = 1
-  by: Improper integral to infinity  (convergence by a limit comparison with 1/x^1.01 (exact limit), value by tanh-sinh quadrature on [a, infinity))
-  a = 0
-  f = exp(-x)
-  assumes: f continuous on [a, infinity); x^1.01 * f(x) has a finite limit (comparison test), so the integral converges absolutely
-```
+*Not in `calculus` 1.1.0 yet:* use the Python package or the model's page in the browser.
 
 **What the worked example means:** This calculation determines the area under the curve of the integrand from the specified lower limit extending infinitely outward. The method first verifies convergence by comparing the decay rate of the function against a power law, ensuring that the product of the variable raised to one point zero one and the function approaches a finite limit. Once convergence is established, the numerical value is computed using high-precision quadrature techniques on the unbounded domain. The resulting value, 1, represents the total accumulated quantity over this infinite range.
 
@@ -1105,8 +1018,8 @@ $$
 $ calculus solve left_riemann_sum a=0 b=2 "f=x^2" n=4
 approximation = 1.75
   by: Left Riemann sum  (h times the sum of f at the left endpoints x_k = a + k h, k = 0..n-1 (h = (b - a)/n))
-  a = 0
-  b = 2
+  a = 0   []
+  b = 2   []
   f = x^2
   assumes: a < b; 1 <= n <= 100000; f defined at the sample points
 ```
@@ -1137,8 +1050,8 @@ $$
 $ calculus solve right_riemann_sum a=0 b=2 "f=x^2" n=4
 approximation = 3.75
   by: Right Riemann sum  (h times the sum of f at the right endpoints x_k = a + k h, k = 1..n)
-  a = 0
-  b = 2
+  a = 0   []
+  b = 2   []
   f = x^2
   assumes: a < b; 1 <= n <= 100000; f defined at the sample points
 ```
@@ -1168,8 +1081,8 @@ $$
 $ calculus solve surface_area_revolution a=0 b=1 f=x
 surface_area = 4.442882938
   by: Surface area of revolution  (2*pi times the integral of |f| * sqrt(1 + f'^2) (split where f changes sign), high-precision quadrature)
-  a = 0
-  b = 1
+  a = 0   []
+  b = 1   []
   f = x
   assumes: a < b; f' continuous on [a, b]
 ```
@@ -1199,8 +1112,8 @@ $$
 $ calculus solve disk_volume a=0 b=1 "f=x^2"
 volume = 0.6283185307
   by: Volume of revolution (disk method)  (disk method: pi times the integral of f^2, by high-precision quadrature)
-  a = 0
-  b = 1
+  a = 0   []
+  b = 1   []
   f = x^2
   assumes: a < b; f continuous on [a, b]
 ```
@@ -1230,8 +1143,8 @@ $$
 $ calculus solve shell_volume a=0 b=2 "f=x^2"
 volume = 25.13274123
   by: Volume of revolution (shell method)  (cylindrical shells, integrated exactly)
-  a = 0
-  b = 2
+  a = 0   []
+  b = 2   []
   f = x^2
   assumes: 0 <= a < b; f(x) >= 0 on [a, b] (checked exactly)
 ```
@@ -1262,10 +1175,10 @@ $$
 $ calculus solve washer_volume a=0 b=1 "f=x + 2" g=1
 volume = 16.75516082
   by: Volume of revolution (washer method)  (washer method, integrated exactly)
-  a = 0
-  b = 1
-  f = x + 2
+  a = 0   []
+  b = 1   []
   g = 1
+  f = x + 2
   assumes: a < b; f >= g >= 0 on [a, b] (checked exactly); polynomials
 ```
 
@@ -1295,7 +1208,7 @@ $$
 $ calculus solve limit_at_point a=2 "f=(x^2 - 4)/(x - 2)"
 limit = 4
   by: Limit at a point  (exact symbolic limit (series expansion / Gruntz algorithm) from both sides; refused if the one-sided limits differ or are infinite)
-  a = 2
+  a = 2   []
   f = (x^2 - 4)/(x - 2)
   assumes: the left and right limits exist, are finite and agree
 ```
@@ -1356,10 +1269,10 @@ $$
 $ calculus solve double_integral_rectangle a=0 b=2 c=0 d=3 "f=x*y"
 integral = 9
   by: Double integral over a rectangle  (product Gauss-Legendre rules of increasing order (24, 40, 64 nodes per direction) until two agree to 1e-12)
-  a = 0
-  b = 2
-  c = 0
-  d = 3
+  a = 0   []
+  b = 2   []
+  c = 0   []
+  d = 3   []
   f = x*y
   assumes: a < b, c < d; f continuous on the rectangle
 ```
@@ -1391,11 +1304,11 @@ $$
 $ calculus solve double_integral_region a=0 b=1 "f=x*y" "g1=x^2" g2=x
 integral = 0.04166666667
   by: Double integral over a region  (iterated Gauss-Legendre rules of increasing order (inner rule mapped to [g1(x), g2(x)]) until two agree)
-  a = 0
-  b = 1
+  a = 0   []
+  b = 1   []
   f = x*y
-  g2 = x
   g1 = x^2
+  g2 = x
   assumes: a < b; g1 <= g2 on [a, b]; f, g1, g2 continuous
 ```
 
@@ -1426,10 +1339,10 @@ $$
 $ calculus solve surface_area_graph a=0 b=1 c=0 d=1 "f=x + y"
 surface_area = 1.732050808
   by: Surface area of a graph  (exact partial derivatives; Gauss-Legendre product rules of sqrt(1 + f_x^2 + f_y^2) until two orders agree)
-  a = 0
-  b = 1
-  c = 0
-  d = 1
+  a = 0   []
+  b = 1   []
+  c = 0   []
+  d = 1   []
   f = x + y
   assumes: a < b, c < d; f continuously differentiable on the rectangle
 ```
@@ -1463,12 +1376,12 @@ $$
 $ calculus solve triple_integral_box "f=x*y*z" x0=0 x1=1 y0=0 y1=2 z0=0 z1=3
 integral = 4.5
   by: Triple integral over a box  (exact iterated integration for a polynomial integrand; otherwise product Gauss-Legendre rules of increasing order until two agree)
-  x0 = 0
-  x1 = 1
-  y0 = 0
-  y1 = 2
-  z0 = 0
-  z1 = 3
+  x0 = 0   []
+  x1 = 1   []
+  y0 = 0   []
+  y1 = 2   []
+  z0 = 0   []
+  z1 = 3   []
   f = x*y*z
   assumes: x0 < x1, y0 < y1, z0 < z1; f continuous on the box
 ```
@@ -1559,8 +1472,8 @@ $$
 $ calculus solve jacobian_determinant "p=[2, 0.5]" "xu=u*cos(v)" "yv=u*sin(v)"
 jacobian = 2
   by: Jacobian determinant  (exact partial derivatives; x_u y_v - x_v y_u)
-  yv = u*sin(v)
   xu = u*cos(v)
+  yv = u*sin(v)
   assumes: x and y differentiable at the point
 ```
 
@@ -1589,8 +1502,8 @@ $$
 $ calculus solve partial_derivative "f=x^2*y + y^3" "p=[1, 2]" var=x
 partial = 4
   by: Partial derivative  (exact symbolic partial differentiation, then evaluation at the point)
-  f = x^2*y + y^3
   var = x
+  f = x^2*y + y^3
   assumes: f differentiable at the point
 ```
 
@@ -1696,10 +1609,10 @@ approximation = 2
 exact = 2
 error = 0
   by: Finite-difference derivative  (difference quotients (f(a+h)-f(a))/h, (f(a)-f(a-h))/h, (f(a+h)-f(a-h))/(2h) at 30 digits; exact derivative symbolically)
-  a = 1
-  h = 0.1
-  f = x^2
+  a = 1   []
+  h = 0.1   []
   method = central
+  f = x^2
   assumes: h > 0; f defined at the points used
 ```
 
@@ -1729,17 +1642,7 @@ $$
 
 **Applies when:** a < b; 1 <= n <= 64; f continuous on [a, b].
 
-```shell
-$ calculus solve gauss_legendre a=0 b=2 "f=x^3 + x^2" n=2
-approximation = 6.666666667
-exact = 6.666666667
-error = 0
-  by: Gauss-Legendre quadrature  (nodes = roots of the Legendre polynomial P_n (Newton's method on the three-term recurrence), weights 2/((1 - x^2) P_n'(x)^2), mapped to [a, b])
-  a = 0
-  b = 2
-  f = x^3 + x^2
-  assumes: a < b; 1 <= n <= 64; f continuous on [a, b]
-```
+*Not in `calculus` 1.1.0 yet:* use the Python package or the model's page in the browser.
 
 In the worked example, a = 0, b = 2, f = x^3 + x^2, n = 2 go through the equation above and give approximation = 6.666666667, exact = 6.666666667, error = 0. It applies only when a < b; 1 <= n <= 64; f continuous on [a, b]: outside that it says what is wrong instead of returning a number.
 
@@ -1771,8 +1674,8 @@ approximation = 2.625
 exact = 2.666666667
 error = -0.04166666667
   by: Midpoint rule  (composite midpoint rule; exact value by high-precision quadrature)
-  a = 0
-  b = 2
+  a = 0   []
+  b = 2   []
   f = x^2
   assumes: a < b; 1 <= n <= 100000; f continuous on [a, b]
 ```
@@ -1807,8 +1710,8 @@ approximation = 6.416666667
 exact = 6.4
 error = 0.01666666667
   by: Simpson's rule  (composite Simpson's 1/3 rule (weights 1, 4, 2, ..., 4, 1); exact value by high-precision quadrature)
-  a = 0
-  b = 2
+  a = 0   []
+  b = 2   []
   f = x^4
   assumes: a < b; n even, 2 <= n <= 100000; f continuous on [a, b]
 ```
@@ -1843,8 +1746,8 @@ approximation = 2.75
 exact = 2.666666667
 error = 0.08333333333
   by: Trapezoidal rule  (composite trapezoidal rule; exact value by high-precision quadrature)
-  a = 0
-  b = 2
+  a = 0   []
+  b = 2   []
   f = x^2
   assumes: a < b; 1 <= n <= 100000; f continuous on [a, b]
 ```
@@ -1880,7 +1783,7 @@ x_n = 1.414215686
 f_x_n = 6.007304883e-06
 iterates = [1.5,1.4166666666666667,1.4142156862745099]
   by: Newton's method  (Newton-Raphson with the exact derivative, at 30 digits)
-  x0 = 1
+  x0 = 1   []
   f = x^2 - 2
   assumes: f'(x_k) != 0 at every iterate; 1 <= n <= 50
 ```
@@ -1913,8 +1816,8 @@ $$
 $ calculus solve parametric_arc_length t0=0 t1=3.141592654 "xt=cos(t)" "yt=sin(t)"
 arc_length = 3.141592654
   by: Arc length of a parametric curve  (sqrt(x'(t)^2 + y'(t)^2) with exact derivatives, tanh-sinh quadrature)
-  t0 = 0
-  t1 = 3.141592654
+  t0 = 0   []
+  t1 = 3.141592654   []
   xt = cos(t)
   yt = sin(t)
   assumes: t0 < t1; x and y continuously differentiable
@@ -1942,16 +1845,7 @@ $$
 
 **Applies when:** dx/dt != 0 at t0.
 
-```shell
-$ calculus solve parametric_slope t0=1 "xt=t^2" "yt=t^3"
-dy_dx = 1.5
-d2y_dx2 = 0.75
-  by: Slope and concavity of a parametric curve  (dy/dx = y'(t)/x'(t) and d^2y/dx^2 = (d/dt of dy/dx)/x'(t), exact derivatives)
-  t0 = 1
-  yt = t^3
-  xt = t^2
-  assumes: dx/dt != 0 at t0
-```
+*Not in `calculus` 1.1.0 yet:* use the Python package or the model's page in the browser.
 
 **What the worked example means:** This calculation determines the instantaneous rate of change of y with respect to x, known as the slope, which equals 1.5, and the rate of change of that slope, or concavity, which equals 0.75. These values are derived from the parametric functions for position at the specific time 1, providing insight into the curve's geometry and motion direction without requiring an explicit function of x.
 
@@ -1980,8 +1874,8 @@ $$
 $ calculus solve polar_area al=0 be=6.283185307 "r=1 + cos(theta)"
 area = 4.71238898
   by: Area in polar coordinates  ((1/2) integral of r^2 by tanh-sinh quadrature)
-  al = 0
-  be = 6.283185307
+  al = 0   []
+  be = 6.283185307   []
   r = 1 + cos(theta)
   assumes: alpha < beta <= alpha + 2 pi; r continuous
 ```
@@ -2013,8 +1907,8 @@ $$
 $ calculus solve geometric_partial_sum a=2 n=4 r=3
 sum = 80
   by: Partial sum of a geometric series  (a (1 - r^n)/(1 - r) (n a when r = 1), exact in the stated decimals)
-  a = 2
-  r = 3
+  a = 2   []
+  r = 3   []
   assumes: 1 <= n <= 500
 ```
 
@@ -2038,14 +1932,7 @@ $$
 
 **Applies when:** L exists, is finite and is not 1 (L = 1 is inconclusive and refused).
 
-```shell
-$ calculus solve ratio_test "a=2^n/n^3"
-ratio_limit = 2
-verdict = diverges
-  by: Ratio test  (exact simplification of a_(n+1)/a_n and its symbolic limit as n -> infinity)
-  a = 2^n/n^3
-  assumes: L exists, is finite and is not 1 (L = 1 is inconclusive and refused)
-```
+*Not in `calculus` 1.1.0 yet:* use the Python package or the model's page in the browser.
 
 **What the worked example means:** This calculation determines the convergence behavior of the series defined by the general term 2^n/n^3. Evaluating the limit of the absolute ratio between consecutive terms as n approaches infinity gives the value 2. Since this limit is strictly less than one, the ratio test concludes that the series converges absolutely. The result depends entirely on the asymptotic growth rate of the terms relative to each other.
 
@@ -2074,8 +1961,8 @@ $ calculus solve arithmetic_series_sum a1=2 d=3 n=10
 sum = 155
 last_term = 29
   by: Sum of an arithmetic series  (S_n = n (2 a_1 + (n - 1) d)/2, exact in the stated decimals)
-  a1 = 2
-  d = 3
+  a1 = 2   []
+  d = 3   []
   assumes: n >= 1
 ```
 
@@ -2103,8 +1990,8 @@ $$
 $ calculus solve geometric_series_sum a=3 r=0.5
 sum = 6
   by: Sum of an infinite geometric series  (a/(1 - r), exact in the stated decimals)
-  a = 3
-  r = 0.5
+  a = 3   []
+  r = 0.5   []
   assumes: |r| < 1
 ```
 
@@ -2128,13 +2015,7 @@ $$
 
 **Applies when:** the series converges; a closed form exists.
 
-```shell
-$ calculus solve series_sum "a=1/n^2" k=1
-sum = 1.644934067
-  by: Sum of an infinite series  (exact symbolic summation; refused if the series diverges or no closed form is found)
-  a = 1/n^2
-  assumes: the series converges; a closed form exists
-```
+Run `calculus info series_sum` for its inputs, then `calculus solve series_sum name=value ...`.
 
 **What the worked example means:** This calculation determines the precise closed-form value of an infinite series. Given the starting index 1 and the general term defined by 1/n^2, the method evaluates whether the series converges to a specific number. The resulting total sum is 1.64493. This approach relies on symbolic techniques such as telescoping or geometric series identification, ensuring that the answer is mathematically exact rather than a numerical approximation.
 
@@ -2168,8 +2049,8 @@ value = 1.645833333
 function_value = 1.648721271
 error = 0.002887937367
   by: Taylor polynomial  (exact symbolic derivatives at a divided by k!, then Horner evaluation in (x1 - a))
-  a = 0
-  x1 = 0.5
+  a = 0   []
+  x1 = 0.5   []
   f = exp(x)
   assumes: f is n times differentiable at a and defined at x1; 0 <= n <= 12
 ```
@@ -2200,7 +2081,7 @@ $$
 $ calculus solve bessel_j n=0 x=1
 J = 0.7651976866
   by: Bessel function of the first kind  (hypergeometric series at 30 digits)
-  x = 1
+  x = 1   []
   assumes: 0 <= n <= 50; |x| <= 1000
 ```
 
@@ -2228,8 +2109,8 @@ $$
 $ calculus solve beta_function a=2 b=3
 beta = 0.08333333333
   by: Beta function  (exp(ln Gamma(a) + ln Gamma(b) - ln Gamma(a + b)))
-  a = 2
-  b = 3
+  a = 2   []
+  b = 3   []
   assumes: a > 0; b > 0
 ```
 
@@ -2257,7 +2138,7 @@ $$
 $ calculus solve chebyshev_polynomial n=3 x=0.5
 T = -1
   by: Chebyshev polynomial  (the recurrence T_(k+1) = 2x T_k - T_(k-1))
-  x = 0.5
+  x = 0.5   []
   assumes: 0 <= n <= 500
 ```
 
@@ -2286,7 +2167,7 @@ $ calculus solve error_function x=0.5
 erf = 0.5204998778
 erfc = 0.4795001222
   by: Error function  (the standard library's erf and erfc (double precision))
-  x = 0.5
+  x = 0.5   []
   assumes: x real
 ```
 
@@ -2313,7 +2194,7 @@ $$
 $ calculus solve gamma_function x=4.5
 gamma = 11.6317284
   by: Gamma function  (the standard library's Lanczos-type approximation (double precision))
-  x = 4.5
+  x = 4.5   []
   assumes: x is not 0 or a negative whole number; x < 171.6
 ```
 
@@ -2341,7 +2222,7 @@ $$
 $ calculus solve legendre_polynomial n=3 x=0.5
 P = -0.4375
   by: Legendre polynomial  (Bonnet's three-term recurrence (k+1) P_(k+1) = (2k+1) x P_k - k P_(k-1))
-  x = 0.5
+  x = 0.5   []
   assumes: 0 <= n <= 200
 ```
 
@@ -2371,8 +2252,8 @@ $ calculus solve regularized_gamma a=2 x=3
 P = 0.8008517265
 Q = 0.1991482735
   by: Regularized incomplete gamma functions  (power series for x < a + 1, Lentz continued fraction otherwise (the smaller of P and Q computed directly))
-  a = 2
-  x = 3
+  a = 2   []
+  x = 3   []
   assumes: a > 0; x >= 0
 ```
 
@@ -2399,7 +2280,7 @@ $$
 $ calculus solve riemann_zeta s=2
 zeta = 1.644934067
   by: Riemann zeta function  (Euler-Maclaurin / Borwein evaluation at 30 digits)
-  s = 2
+  s = 2   []
   assumes: s > 1
 ```
 
@@ -2431,9 +2312,9 @@ $$
 $ calculus solve curl "P=x*y" "Q=y*z" "R=z*x" "p=[1, 2, 3]"
 curl = [-2.0,-3.0,-1.0]
   by: Curl  (exact symbolic partial derivatives: (R_y - Q_z, P_z - R_x, Q_x - P_y))
-  P = x*y
-  R = z*x
   Q = y*z
+  R = z*x
+  P = x*y
   assumes: the components are differentiable at the point
 ```
 
@@ -2463,9 +2344,9 @@ $$
 $ calculus solve divergence "P=x*y" "Q=y*z" "R=x*z" "p=[1, 2, 3]"
 divergence = 6
   by: Divergence  (exact symbolic partial derivatives)
+  Q = y*z
   R = x*z
   P = x*y
-  Q = y*z
   assumes: the components are differentiable at the point
 ```
 
@@ -2494,19 +2375,7 @@ $$
 
 **Applies when:** a < b, c < d; P and Q continuously differentiable on the rectangle.
 
-```shell
-$ calculus solve greens_theorem P=-y Q=x a=0 b=1 c=0 d=2
-circulation = 4
-double_integral = 4
-  by: Green's theorem on a rectangle  (the four sides by tanh-sinh quadrature; the double integral of the exact Q_x - P_y by Gauss-Legendre product rules; refused unless the two agree)
-  a = 0
-  b = 1
-  c = 0
-  d = 2
-  Q = x
-  P = -y
-  assumes: a < b, c < d; P and Q continuously differentiable on the rectangle
-```
+*Not in `calculus` 1.1.0 yet:* use the Python package or the model's page in the browser.
 
 **What the worked example means:** This calculation verifies Green's theorem by independently computing the counter-clockwise line integral around the boundary of the rectangle and the double integral of the curl, defined as the partial derivative of Q with respect to x minus the partial derivative of P with respect to y. The result shows that the total circulation 4 matches the accumulated rotation within the region, represented by the double integral value 4. This agreement holds provided the vector field components are continuously differentiable across the entire domain defined by the input bounds.
 
@@ -2564,12 +2433,12 @@ $$
 $ calculus solve line_integral_vector P=-y Q=x t0=0 t1=6.283185307 "xt=cos(t)" "yt=sin(t)"
 line_integral = 6.283185307
   by: Line integral of a vector field  (F(r(t)) . r'(t) built exactly (symbolic r'), then tanh-sinh quadrature at 20 digits)
-  t0 = 0
-  t1 = 6.283185307
+  t0 = 0   []
+  t1 = 6.283185307   []
   Q = x
-  P = -y
   yt = sin(t)
   xt = cos(t)
+  P = -y
   assumes: the integrand is continuous for t between t0 and t1
 ```
 
@@ -2596,17 +2465,7 @@ $$
 
 **Applies when:** t0 < t1; the integrand continuous on [t0, t1].
 
-```shell
-$ calculus solve line_integral_scalar "f=x + y" t0=0 t1=1 xt=t yt=t
-line_integral = 1.414213562
-  by: Line integral with respect to arc length  (f(r(t)) |r'(t)| with exact r'(t), then tanh-sinh quadrature)
-  t0 = 0
-  t1 = 1
-  xt = t
-  yt = t
-  f = x + y
-  assumes: t0 < t1; the integrand continuous on [t0, t1]
-```
+*Not in `calculus` 1.1.0 yet:* use the Python package or the model's page in the browser.
 
 **What the worked example means:** This calculation determines the total accumulation of the scalar function x + y along the curved path defined by x(t) and y(t). The process involves substituting the parametric equations into the function and multiplying by the magnitude of the derivative vector, which represents the arc length element. The result, 1.41421, quantifies physical properties such as the mass of a wire with variable density or the average value of a field along a trajectory. This method transforms a geometric integral into a standard single-variable definite integral over the parameter interval from 0 to 1.
 
@@ -2639,15 +2498,15 @@ $$
 $ calculus solve divergence_theorem_box "P=x^2" "Q=y^2" "R=z^2" x0=0 x1=1 y0=0 y1=1 z0=0 z1=1
 flux = 3
   by: Outward flux through a box (divergence theorem)  (the divergence theorem: the triple integral of the exact divergence (exact for polynomials, otherwise Gauss-Legendre product rules until two orders agree))
-  x0 = 0
-  x1 = 1
-  y0 = 0
-  y1 = 1
-  z0 = 0
-  z1 = 1
+  x0 = 0   []
+  x1 = 1   []
+  y0 = 0   []
+  y1 = 1   []
+  z0 = 0   []
+  z1 = 1   []
   P = x^2
-  R = z^2
   Q = y^2
+  R = z^2
   assumes: the box is non-degenerate; F continuously differentiable on the box
 ```
 
