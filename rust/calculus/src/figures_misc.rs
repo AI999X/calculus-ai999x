@@ -316,16 +316,17 @@ pub fn gauss(s: &Solved) -> Option<Figure> {
     let (ap, ex) = (s.out("approximation")?, s.out("exact")?);
     let gn: Vec<i64> = (1..=6).collect();
     let sn: Vec<i64> = vec![2, 4, 6, 8, 10, 12];
-    let (mut fe, mut ae, mut be) = (f.clone(), a, b);
-    let mut g = errs(s, "gauss_legendre", &fe, ae, be, &gn);
-    let mut sm = errs(s, "simpson_rule", &fe, ae, be, &sn);
+    let (fe, ae, be) = (f.clone(), a, b);
+    let g = errs(s, "gauss_legendre", &fe, ae, be, &gn);
+    let sm = errs(s, "simpson_rule", &fe, ae, be, &sn);
     // errors at rounding level (a polynomial the rule integrates exactly) show nothing of the convergence
     let rel = |v: &[(f64, f64)]| v.iter().filter(|q| q.1 > 1e-12 * ex.abs().max(1.0)).count();
-    let chosen = rel(&g) < 3;
-    if chosen {
-        (fe, ae, be) = ("exp(x)".to_string(), 0.0, 1.0);
-        g = errs(s, "gauss_legendre", &fe, ae, be, &gn);
-        sm = errs(s, "simpson_rule", &fe, ae, be, &sn);
+    // the request's own errors are at rounding level (a polynomial the rule integrates exactly): no convergence to show.
+    // The chart once switched to exp(x) on [0, 1] under this request's header — another calculation (calculus review,
+    // 2026-11-13); now it is left out and the other charts stand.
+    let chosen = false;
+    if rel(&g) < 3 {
+        return None;
     }
     if g.len() < 2 {
         return None;
@@ -366,12 +367,14 @@ pub fn fd_convergence(s: &Solved) -> Option<Figure> {
             (m.to_string(), pts)
         }).filter(|x| x.1.len() >= 3).collect()
     };
-    let mut series = run(&f, a);
-    let chosen = series.len() < 2;
-    let (fe, ae) = if chosen { ("sin(x)".to_string(), 1.0) } else { (f.clone(), a) };
-    if chosen {
-        series = run(&fe, ae);
+    let series = run(&f, a);
+    // the request's errors are 0 (a function the differences get exactly): no convergence to show. The chart once
+    // switched to sin(x) at x = 1 — another calculation (calculus review, 2026-11-13); now it is left out.
+    if series.len() < 2 {
+        return None;
     }
+    let chosen = false;
+    let (fe, ae) = (f.clone(), a);
     if series.is_empty() {
         return None;
     }

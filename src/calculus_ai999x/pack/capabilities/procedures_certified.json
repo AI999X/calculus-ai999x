@@ -70,9 +70,20 @@
   "riemann_zeta",
   "legendre_polynomial",
   "chebyshev_polynomial",
-  "fourier_coefficients"
+  "fourier_coefficients",
+  "antiderivative",
+  "power_series_convergence",
+  "lagrange_multipliers",
+  "coordinate_conversion",
+  "polar_double_integral",
+  "curvilinear_triple_integral",
+  "conservative_field",
+  "space_curve_arc_length",
+  "space_curve_curvature",
+  "rms_value",
+  "total_differential"
  ],
- "generated": "2026-10-22",
+ "generated": "2026-11-13",
  "tool": "tools/certify_procedures.py",
  "report": "release/procedure_certification.json"
 }

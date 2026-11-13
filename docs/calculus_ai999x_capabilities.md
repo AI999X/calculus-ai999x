@@ -28,7 +28,8 @@ result.show()
 | Derivatives / tangent and normal lines | [Tangent line](#tangent_line), [Normal line](#normal_line) |
 | Fourier series | [Fourier coefficients](#fourier_coefficients) |
 | Integrals | [Definite integral](#definite_integral), [Derivative of an integral (fundamental theorem)](#ftc_derivative) |
-| Integrals / applications | [Average value of a function](#average_value) |
+| Integrals / antiderivatives | [Antiderivative (indefinite integral)](#antiderivative) |
+| Integrals / applications | [Average value of a function](#average_value), [Root-mean-square value of a function](#rms_value) |
 | Integrals / arc length | [Arc length of a graph](#arc_length) |
 | Integrals / area | [Area between two curves](#area_between_curves), [Area enclosed by two curves](#area_enclosed_curves) |
 | Integrals / centroids | [Centroid of a region under a curve](#centroid_region) |
@@ -38,20 +39,27 @@ result.show()
 | Integrals / volumes of revolution | [Volume of revolution (disk method)](#disk_volume), [Volume of revolution (washer method)](#washer_volume), [Volume of revolution (shell method)](#shell_volume) |
 | Limits | [Limit at a point](#limit_at_point), [Limit at infinity](#limit_at_infinity) |
 | Multiple integrals | [Double integral over a rectangle](#double_integral_rectangle), [Double integral over a region](#double_integral_region), [Triple integral over a box](#triple_integral_box), [Surface area of a graph](#surface_area_graph) |
+| Multiple integrals / cylindrical and spherical coordinates | [Triple integral in cylindrical or spherical coordinates](#curvilinear_triple_integral) |
+| Multiple integrals / polar coordinates | [Double integral in polar coordinates](#polar_double_integral) |
 | Multivariable calculus | [Partial derivative](#partial_derivative), [Gradient](#gradient), [Directional derivative](#directional_derivative), [Tangent plane](#tangent_plane) |
 | Multivariable calculus / change of variables | [Jacobian determinant](#jacobian_determinant) |
-| Multivariable calculus / optimization | [Second derivative test (two variables)](#hessian_classification) |
+| Multivariable calculus / optimization | [Second derivative test (two variables)](#hessian_classification), [Lagrange multipliers: extrema under a constraint](#lagrange_multipliers) |
+| Multivariable calculus / total differential | [Total differential and small changes](#total_differential) |
 | Numerical differentiation | [Finite-difference derivative](#numerical_derivative) |
 | Numerical integration | [Trapezoidal rule](#trapezoid_rule), [Simpson's rule](#simpson_rule), [Midpoint rule](#midpoint_rule), [Gauss-Legendre quadrature](#gauss_legendre) |
 | Numerical methods / root finding | [Newton's method](#newton_method) |
 | Parametric curves | [Arc length of a parametric curve](#parametric_arc_length), [Slope and concavity of a parametric curve](#parametric_slope) |
 | Polar curves | [Area in polar coordinates](#polar_area) |
 | Series | [Sum of an infinite geometric series](#geometric_series_sum), [Partial sum of a geometric series](#geometric_partial_sum), [Sum of an arithmetic series](#arithmetic_series_sum), [Sum of an infinite series](#series_sum), [Ratio test](#ratio_test) |
+| Series / power series | [Radius and interval of convergence of a power series](#power_series_convergence) |
 | Series / Taylor | [Taylor polynomial](#taylor_polynomial) |
 | Special functions | [Gamma function](#gamma_function), [Beta function](#beta_function), [Error function](#error_function), [Regularized incomplete gamma functions](#regularized_gamma), [Bessel function of the first kind](#bessel_j) |
 | Special functions / orthogonal polynomials | [Legendre polynomial](#legendre_polynomial), [Chebyshev polynomial](#chebyshev_polynomial) |
 | Special functions / series | [Riemann zeta function](#riemann_zeta) |
 | Vector calculus | [Laplacian](#laplacian), [Divergence](#divergence), [Curl](#curl), [Line integral of a vector field](#line_integral_vector), [Line integral with respect to arc length](#line_integral_scalar), [Green's theorem on a rectangle](#greens_theorem), [Outward flux through a box (divergence theorem)](#divergence_theorem_box) |
+| Vector calculus / line integrals | [Conservative vector field and potential function](#conservative_field) |
+| Vector-valued functions | [Arc length of a space curve](#space_curve_arc_length), [Curvature and unit tangent of a space curve](#space_curve_curvature) |
+| Vectors in space / coordinate systems | [Rectangular, cylindrical and spherical coordinates](#coordinate_conversion) |
 
 ## Outcomes
 
@@ -162,6 +170,17 @@ Call `solve("<id>", **inputs)` with plain numbers; the result's `values` holds e
 | legendre_polynomial | Legendre polynomial | n, x | P |
 | chebyshev_polynomial | Chebyshev polynomial | n, x | T |
 | fourier_coefficients | Fourier coefficients | f, L, k | a0, a_k, b_k |
+| antiderivative | Antiderivative (indefinite integral) | f, x0, F0 | antiderivative, constant, particular |
+| power_series_convergence | Radius and interval of convergence of a power series | a, k | radius, centre, left_end, right_end, left_behaviour, right_behaviour, interval, endpoint_exponent |
+| lagrange_multipliers | Lagrange multipliers: extrema under a constraint | f, g | max_value, max_point, max_lambda, min_value, min_point, min_lambda, constraint |
+| coordinate_conversion | Rectangular, cylindrical and spherical coordinates | system, p | rectangular, cylindrical, spherical |
+| polar_double_integral | Double integral in polar coordinates | f, r1, r2, al, be | integral, region_area |
+| curvilinear_triple_integral | Triple integral in cylindrical or spherical coordinates | f, system, u1, u2, th1, th2, w1, w2 | integral, region_volume |
+| conservative_field | Conservative vector field and potential function | P, Q, R, A, B | conservative, potential, line_integral, curl |
+| space_curve_arc_length | Arc length of a space curve | xt, yt, zt, t0, t1 | arc_length |
+| space_curve_curvature | Curvature and unit tangent of a space curve | xt, yt, zt, t0 | curvature, speed, unit_tangent, radius_of_curvature |
+| rms_value | Root-mean-square value of a function | f, a, b | rms, mean_square, mean |
+| total_differential | Total differential and small changes | f, p, d, mode | df, percent_change, f_value, partials, changes, exact_change |
 
 <a id="derivative_at_point"></a>
 
@@ -3667,3 +3686,665 @@ calculus_ai999x.solve('fourier_coefficients', f='x^2', L=3.141592653589793, k=1)
 | Find the Fourier coefficients of order 2 of f(x) = x on [-pi, pi]. | SOLVED | a0 = 0, a_k = 0, b_k = -1 |
 | Find the Fourier coefficients of order 1 of x^2 on the interval [-pi, pi]. | SOLVED | a0 = 6.57974, a_k = -4, b_k = 0 |
 | Find the Fourier coefficients of order 1 of 1/x on [-1, 1]. | INVALID_INPUT | Fourier coefficients: the function is not continuous (or not real) on the whole interval [-1, 1]. |
+
+<a id="antiderivative"></a>
+
+### Antiderivative (indefinite integral): `antiderivative`
+
+The antiderivative F(x) + C of f(x) term by term from the table of basic integrals (powers, polynomials, sin, cos and exp of a linear argument), and with an initial condition F(x0) = F0 the constant C and the particular antiderivative.
+
+$$
+\int f(x)\,dx = F(x) + C,\quad F'(x) = f(x)
+$$
+
+| input | meaning | condition |
+|---|---|---|
+| `f` | the integrand f(x) |  |
+| `x0` | the point x0 of an initial condition F(x0) = F0 |  |
+| `F0` | the value F(x0) of the initial condition |  |
+
+| output | meaning |
+|---|---|
+| `antiderivative` | F(x) + C |
+| `constant` | C for the initial condition |
+| `particular` | the antiderivative with that C |
+
+- **Method:** term-by-term table: $x^{n}$ -> $x^{n+1}/(n+1)$, $1/x$ -> log|x|, sin(ax+b) -> -cos(ax+b)/a, cos(ax+b) -> sin(ax+b)/a, exp(ax+b) -> exp(ax+b)/a; $C = F_{0} - F$(x0)
+- **Assumes:** f is a sum of terms $c x^{n}$ (n rational), $c sin$(a*x + b), $c cos$(a*x + b), $c exp$(a*x + b); anything else is refused; with an initial condition, F is defined at x0
+- **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![constant (C for the initial condition) against x0 (the point x0 of an initial condition F(x0) = F0) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/antiderivative-curve)
+
+*constant (C for the initial condition) against x0 (the point x0 of an initial condition F(x0) = F0) from 0.1 to 10 on a logarithmic axis. Other inputs as in the worked example: f = 3x^2 + 2x, F0 = 5. 41 points computed by calculus-ai999x; marked: the worked example, x0 = 1, constant = 3.*
+
+![constant (C for the initial condition) over x0 (the point x0 of an initial condition F(x0) = F0) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/antiderivative-field)
+
+*constant (C for the initial condition) over x0 (the point x0 of an initial condition F(x0) = F0) from 0.1 to 10 and F0 (the value F(x0) of the initial condition) from 2.5 to 7.5 (logarithmic horizontal axis): each of the 21 × 15 cells is one run of calculus-ai999x, shaded by its sign and magnitude (second colour negative); iso-lines at constant = -1000, -800, -600, -400, -200, 0. Other inputs as in the worked example: f = 3x^2 + 2x. Marked: the worked example, x0 = 1, F0 = 5, constant = 3.*
+
+```python
+calculus_ai999x.solve('antiderivative', f='3x^2 + 2x', x0=1, F0=5)
+# -> antiderivative = x^3 + x^2 + C, constant = 3, particular = x^3 + x^2 + 3   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('antiderivative', f='cos(2x)', x0=0, F0=1)
+# -> antiderivative = sin(2*x)/2 + C, constant = 1, particular = sin(2*x)/2 + 1   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('antiderivative', f='1/x', x0=1, F0=0)
+# -> antiderivative = log(Abs(x)) + C, constant = 0, particular = log(Abs(x)) + 0   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('antiderivative', f='exp(3x)', x0=0, F0=2)
+# -> antiderivative = exp(3*x)/3 + C, constant = 1.66667, particular = exp(3*x)/3 + 1.66666666667   (SOLVED)
+```
+
+**Questions in words (documented forms), as executed:**
+
+| question | outcome | result |
+|---|---|---|
+| Find the antiderivative of 3x^2 + 2x. | SOLVED | antiderivative = x^3 + x^2 + C |
+| Find the indefinite integral of exp(3x) dx. | SOLVED | antiderivative = exp(3*x)/3 + C |
+| Find the antiderivative F of cos(2x) with F(0) = 1. | SOLVED | antiderivative = sin(2*x)/2 + C, constant = 1, particular = sin(2*x)/2 + 1 |
+| Find the antiderivative F of 1/x with F(0) = 1. | INVALID_INPUT | Antiderivative (indefinite integral): the result is not finite. |
+| Find the antiderivative of sin(x)*cos(x). | INVALID_INPUT | Antiderivative (indefinite integral): this integrand is outside the documented table: sums of c*x^n (n rational) and of  |
+
+<a id="power_series_convergence"></a>
+
+### Radius and interval of convergence of a power series, `power_series_convergence`
+
+The radius and interval of convergence of the power series sum c_n $(x - a)^{n}$, with the behaviour (absolute, conditional or divergent) at each endpoint.
+
+$$
+R = \frac{1}{\lim_{n\to\infty}\left|c_{n+1}/c_n\right|},\quad |x - a| < R
+$$
+
+| input | meaning | condition |
+|---|---|---|
+| `a` | the general term c_n $(x - a)^{n}$, in n and x |  |
+| `k` | the starting index $n = k$ (only checked: the terms must be defined from there) |  |
+
+| output | meaning |
+|---|---|
+| `radius` | the radius of convergence R |
+| `centre` | the centre a |
+| `left_end` | a - R |
+| `right_end` | a + R |
+| `left_behaviour` | the series at $x = a - R$ |
+| `right_behaviour` | the series at $x = a + R$ |
+| `interval` | the interval of convergence |
+| `endpoint_exponent` | d where the terms at the endpoints behave like $n^{d}$ |
+
+- **Method:** ratio test: c_(n+1)/c_n -> rho, so $R = 1$/(|rho| |k|); at an endpoint |b_n| ~ C $n^{d}$ with d the net degree in n of the coefficient: same-sign terms converge iff $d < -1$ (p-series), alternating terms iff $d < 0$ (alternating series test), absolutely iff $d < -1$
+- **Assumes:** the term is c_n (k x + m)^(n + j) with c_n a product of constants, powers of polynomials in n and constants to the power $s n + t$ (s a whole number); other forms (n!, $n^{n}$, $x^{2n}$) are refused
+- **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![The worked example of Radius and interval of convergence of a power series as inputs and results: stated a = x^n/n; returned by calculus-ai999x: radius = 1, centre = 0, left_end = -1, right_end = 1, left_behaviour = converges conditionally, right_behaviour = diverges](https://www.ai999x.com/?ax_fig=calculus-ai999x/power-series-convergence-io)
+
+*The worked example of Radius and interval of convergence of a power series as inputs and results: stated a = x^n/n; returned by calculus-ai999x: radius = 1, centre = 0, left_end = -1, right_end = 1, left_behaviour = converges conditionally, right_behaviour = diverges.*
+
+```python
+calculus_ai999x.solve('power_series_convergence', a='x^n/n')
+# -> radius = 1, centre = 0, left_end = -1, right_end = 1, left_behaviour = converges conditionally, right_behaviour = diverges, interval = [-1, 1), endpoint_exponent = -1   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('power_series_convergence', a='(x - 2)^n/(n*3^n)')
+# -> radius = 3, centre = 2, left_end = -1, right_end = 5, left_behaviour = converges conditionally, right_behaviour = diverges, interval = [-1, 5), endpoint_exponent = -1   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('power_series_convergence', a='n*x^n/2^n', k=1)
+# -> radius = 2, centre = 0, left_end = -2, right_end = 2, left_behaviour = diverges, right_behaviour = diverges, interval = (-2, 2), endpoint_exponent = 1   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('power_series_convergence', a='(-1)^n*(x + 1)^n/n^2')
+# -> radius = 1, centre = -1, left_end = -2, right_end = 0, left_behaviour = converges absolutely, right_behaviour = converges absolutely, interval = [-2, 0], endpoint_exponent = -2   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('power_series_convergence', a='(2x - 1)^n/n')
+# -> radius = 0.5, centre = 0.5, left_end = 0, right_end = 1, left_behaviour = converges conditionally, right_behaviour = diverges, interval = [0, 1), endpoint_exponent = -1   (SOLVED)
+```
+
+**Questions in words (documented forms), as executed:**
+
+| question | outcome | result |
+|---|---|---|
+| Find the interval of convergence of the power series x^n/n. | SOLVED | radius = 1, centre = 0, left_end = -1, right_end = 1, left_behaviour = converges conditionally, right_behaviour = diverges, interval = [-1, 1), endpoint_exponent = -1 |
+| What is the radius of convergence of the series (x - 2)^n/(n*3^n)? | SOLVED | radius = 3, centre = 2, left_end = -1, right_end = 5, left_behaviour = converges conditionally, right_behaviour = diverges, interval = [-1, 5), endpoint_exponent = -1 |
+| Find the radius and interval of convergence of n*x^n/2^n from n = 1 to infinity. | SOLVED | radius = 2, centre = 0, left_end = -2, right_end = 2, left_behaviour = diverges, right_behaviour = diverges, interval = (-2, 2), endpoint_exponent = 1 |
+| Find the radius of convergence of x^(2n)/n. | INVALID_INPUT | Radius and interval of convergence of a power series: the power of (x - a) must be n (or n plus a whole number). |
+| Find the interval of convergence of x^n/n from n = 0. | INVALID_INPUT | Radius and interval of convergence of a power series: the expression is not defined there (ZeroDivisionError). |
+
+<a id="lagrange_multipliers"></a>
+
+### Lagrange multipliers: extrema under a constraint, `lagrange_multipliers`
+
+The maximum and minimum of f(x, y) subject to a constraint g(x, y) = c (a line, circle or axis-aligned ellipse), where they are attained, and the Lagrange multiplier at each.
+
+$$
+\nabla f = \lambda\,\nabla g,\quad g(x, y) = c
+$$
+
+| input | meaning | condition |
+|---|---|---|
+| `f` | the function f(x, y) to optimise |  |
+| `g` | the constraint, an equation g(x, y) = c |  |
+
+| output | meaning |
+|---|---|
+| `max_value` | the constrained maximum of f |
+| `max_point` | where it is attained (x, y) |
+| `max_lambda` | the multiplier lambda there |
+| `min_value` | the constrained minimum of f |
+| `min_point` | where it is attained (x, y) |
+| `min_lambda` | the multiplier lambda there |
+| `constraint` | line, circle or ellipse |
+
+- **Method:** grad $f = \lambda$ grad g on the constraint: on a line, f restricted to a parametrisation is a polynomial whose critical points are its derivative's exact real roots; on an ellipse $x = h + a$ cos t, $y = k + b$ sin t, the roots of df/dt are bracketed on 1440 subintervals and bisected; the largest and smallest values win
+- **Assumes:** the constraint is a line $a x + b y = c$ (then f is a polynomial with rational coefficients, and only the extremes that exist on the unbounded line are given) or a circle or ellipse with axes parallel to the coordinate axes (both extremes exist); f is not constant on the constraint; on a circle or ellipse, each extremum is nondegenerate (the second derivative of f along the curve is nonzero there); a degenerate one is refused
+- **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![The worked example of Lagrange multipliers: extrema under a constraint as inputs and results: stated f = x*y, g = x + y = 10; returned by calculus-ai999x: constraint = line, max_value = 25, max_point = [5](https://www.ai999x.com/?ax_fig=calculus-ai999x/lagrange-multipliers-io)
+
+*The worked example of Lagrange multipliers: extrema under a constraint as inputs and results: stated f = x*y, g = x + y = 10; returned by calculus-ai999x: constraint = line, max_value = 25, max_point = [5.0, 5.0], max_lambda = 5.*
+
+```python
+calculus_ai999x.solve('lagrange_multipliers', f='x*y', g='x + y = 10')
+# -> constraint = line, max_value = 25, max_point = [5.0, 5.0], max_lambda = 5   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('lagrange_multipliers', f='x + y', g='x^2 + y^2 = 2')
+# -> constraint = circle, max_value = 2, max_point = [1.0, 1.0], max_lambda = 0.5, min_value = -2, min_point = [-1.0, -1.0], min_lambda = -0.5   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('lagrange_multipliers', f='x*y', g='x^2 + y^2 = 2')
+# -> constraint = circle, max_value = 1, max_point = [-1.0, -1.0], max_lambda = 0.5, min_value = -1, min_point = [-1.0, 1.0], min_lambda = -0.5   (SOLVED)
+```
+
+**Questions in words (documented forms), as executed:**
+
+| question | outcome | result |
+|---|---|---|
+| Use Lagrange multipliers to find the maximum of xy subject to x + y = 10. | SOLVED | constraint = line, max_value = 25, max_point = [5.0, 5.0], max_lambda = 5 |
+| Find the maximum and minimum of x + y subject to x^2 + y^2 = 2. | SOLVED | constraint = circle, max_value = 2, max_point = [1.0, 1.0], max_lambda = 0.5, min_value = -2, min_point = [-1.0, -1.0], min_lambda = -0.5 |
+| Find the extreme values of x^3 subject to x + y = 1. | INVALID_INPUT | Lagrange multipliers: extrema under a constraint: f is unbounded above and below along the line: there is no constrained |
+| Find the extrema of x*y subject to x*y^2 = 1. | INVALID_INPUT | Lagrange multipliers: extrema under a constraint: the constraint must be a line or a circle/ellipse in x and y. |
+| Find the maximum and minimum of x^2 + 2y subject to x^2 + y^2 = 1. | INVALID_INPUT | Lagrange multipliers: extrema under a constraint: degenerate constrained extremum (the second derivative of f along the  |
+
+<a id="coordinate_conversion"></a>
+
+### Rectangular, cylindrical and spherical coordinates, `coordinate_conversion`
+
+Converts a point given in rectangular (x, y, z), cylindrical (r, theta, z) or spherical (rho, theta, phi) coordinates into all three systems.
+
+$$
+x = \rho\sin\phi\cos\theta,\ y = \rho\sin\phi\sin\theta,\ z = \rho\cos\phi;\quad r = \sqrt{x^2+y^2}
+$$
+
+| input | meaning | condition |
+|---|---|---|
+| `system` | the system the point is given in |  |
+| `p` | the point: (x, y, z), (r, theta, z) or (rho, theta, phi), angles in radians |  |
+
+| output | meaning |
+|---|---|
+| `rectangular` | (x, y, z) |
+| `cylindrical` | (r, theta, z), theta in [0, 2 pi) |
+| `spherical` | (rho, theta, phi), phi from the positive z-axis in [0, pi] |
+
+- **Method:** $x = r$ cos(theta), $y = r$ sin(theta); $r = \sqrt{x^{2} + y^{2}}$, theta = atan2(y, x); $\rho = \sqrt{r^{2} + z^{2}}$, phi = atan2(r, z); $x = \rho$ sin(phi) cos(theta), $y = \rho$ sin(phi) sin(theta), $z = \rho$ cos(phi)
+- **Assumes:** $r  \geq  0$ and $\rho  \geq  0$; $0  \leq  \phi  \leq  pi$ (the polar angle from the positive z-axis); $\theta = 0$ on the z-axis and $\phi = 0$ at the origin by convention
+- **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![(rho, theta, phi), phi from the positive z-axis in [0, pi] (spherical) returned by calculus-ai999x for the worked example, one value for each position in the list (3 values, first 1](https://www.ai999x.com/?ax_fig=calculus-ai999x/coordinate-conversion-series)
+
+*(rho, theta, phi), phi from the positive z-axis in [0, pi] (spherical) returned by calculus-ai999x for the worked example, one value for each position in the list (3 values, first 1.73205, last 0.955317, largest 1.73205); with rectangular ((x, y, z)), cylindrical ((r, theta, z), theta in [0, 2 pi)). Inputs: system = rectangular, p = 1, 1, 1.*
+
+```python
+calculus_ai999x.solve('coordinate_conversion', system='rectangular', p='1, 1, 1')
+# -> rectangular = [1.0, 1.0, 1.0], cylindrical = [1.41421356237, 0.785398163397, 1.0], spherical = [1.73205080757, 0.785398163397, 0.955316618125]   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('coordinate_conversion', system='cylindrical', p=[2, 1.0471975511965976, 1])
+# -> rectangular = [1.0, 1.73205080757, 1.0], cylindrical = [2.0, 1.0471975512, 1.0], spherical = [2.2360679775, 1.0471975512, 1.10714871779]   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('coordinate_conversion', system='spherical', p=[2, 0.7853981633974483, 1.5707963267948966])
+# -> rectangular = [1.41421356237, 1.41421356237, 0.0], cylindrical = [2.0, 0.785398163397, 0.0], spherical = [2.0, 0.785398163397, 1.57079632679]   (SOLVED)
+```
+
+**Questions in words (documented forms), as executed:**
+
+| question | outcome | result |
+|---|---|---|
+| Convert the point (1, 1, 1) from rectangular to spherical coordinates. | SOLVED | rectangular = [1.0, 1.0, 1.0], cylindrical = [1.41421356237, 0.785398163397, 1.0], spherical = [1.73205080757, 0.785398163397, 0.955316618125] |
+| Convert (2, pi/3, 1) from cylindrical to rectangular coordinates. | SOLVED | rectangular = [1.0, 1.73205080757, 1.0], cylindrical = [2.0, 1.0471975512, 1.0], spherical = [2.2360679775, 1.0471975512, 1.10714871779] |
+| Find the cylindrical coordinates of the point (0, 2, 5). | SOLVED | rectangular = [0.0, 2.0, 5.0], cylindrical = [2.0, 1.57079632679, 5.0], spherical = [5.38516480713, 1.57079632679, 0.380506377112] |
+| Convert (-1, 0, 2) from cylindrical to rectangular coordinates. | INVALID_INPUT | Rectangular, cylindrical and spherical coordinates: the radial distance r must be at least 0. |
+| Convert (1, 0, 4) from spherical to rectangular coordinates. | INVALID_INPUT | Rectangular, cylindrical and spherical coordinates: the polar angle phi must lie between 0 and pi (measured from the pos |
+
+<a id="polar_double_integral"></a>
+
+### Double integral in polar coordinates: `polar_double_integral`
+
+The double integral of f(x, y) over the polar region $r_{1}  \leq  r  \leq  r_{2}$, $theta1  \leq  \theta  \leq  theta2$ (a disk, an annulus or a sector), with $dA = r$ dr dtheta.
+
+$$
+\iint_R f\,dA = \int_{\theta_1}^{\theta_2}\!\int_{r_1}^{r_2} f(r\cos\theta, r\sin\theta)\,r\,dr\,d\theta
+$$
+
+| input | meaning | condition |
+|---|---|---|
+| `f` | the integrand f(x, y) |  |
+| `r1` | r from (>= 0) |  |
+| `r2` | r to |  |
+| `al` | theta from |  |
+| `be` | theta to |  |
+
+| output | meaning |
+|---|---|
+| `integral` | the value of the double integral |
+| `region_area` | the area of the region |
+
+- **Method:** f(r cos theta, r sin theta) r by product Gauss-Legendre rules of increasing order (24, 40, 64) until two agree to $1e-12$ of the integral of |f|
+- **Assumes:** $0  \leq  r_{1} < r_{2}$; $theta1 < theta2  \leq  theta1 + 2$ pi; f continuous on the region; constant limits only (a region $r  \leq  g$(theta) is not covered)
+- **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![integral (the value of the double integral) against r2 (r to) from 1 to 3](https://www.ai999x.com/?ax_fig=calculus-ai999x/polar-double-integral-curve)
+
+*integral (the value of the double integral) against r2 (r to) from 1 to 3. One curve for each value of be (theta to): 6.28319, 3.14159. Other inputs as in the worked example: f = 1, r1 = 0, al = 0. 31 points per curve computed by calculus-ai999x; marked: the worked example, r2 = 2, integral = 12.5664.*
+
+```python
+calculus_ai999x.solve('polar_double_integral', f='1', r1=0, r2=2, al=0, be=6.283185307179586)
+# -> integral = 12.5664, region_area = 12.5664   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('polar_double_integral', f='x^2 + y^2', r1=0, r2=1, al=0, be=6.283185307179586)
+# -> integral = 1.5708, region_area = 3.14159   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('polar_double_integral', f='x', r1=0, r2=1, al=0, be=1.5707963267948966)
+# -> integral = 0.333333, region_area = 0.785398   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('polar_double_integral', f='exp(-(x^2 + y^2))', r1=0, r2=1, al=0, be=6.283185307179586)
+# -> integral = 1.98587, region_area = 3.14159   (SOLVED)
+```
+
+**Questions in words (documented forms), as executed:**
+
+| question | outcome | result |
+|---|---|---|
+| Find the double integral of x^2 + y^2 over 0 <= r <= 1, 0 <= theta <= 2pi. | SOLVED | integral = 1.5708, region_area = 3.14159 |
+| Evaluate the double integral of x in polar coordinates over 0 <= r <= 1, 0 <= theta <= pi/2. | SOLVED | integral = 0.333333, region_area = 0.785398 |
+| Find the double integral of x^2 + y^2 over 2 <= r <= 1, 0 <= theta <= pi. | INVALID_INPUT | Double integral in polar coordinates: the radii need 0 <= r1 < r2. |
+
+<a id="curvilinear_triple_integral"></a>
+
+### Triple integral in cylindrical or spherical coordinates, `curvilinear_triple_integral`
+
+The triple integral of f(x, y, z) over a cylindrical region (r, theta, z between constant limits) with $dV = r$ dz dr dtheta, or a spherical region (rho, theta, phi between constant limits) with $dV = \rho^{2}$ sin(phi) drho dtheta dphi.
+
+$$
+dV = r\,dz\,dr\,d\theta = \rho^2\sin\phi\,d\rho\,d\theta\,d\phi
+$$
+
+| input | meaning | condition |
+|---|---|---|
+| `f` | the integrand f(x, y, z) |  |
+| `system` | the coordinate system |  |
+| `u1` | r (or rho) from (>= 0) |  |
+| `u2` | r (or rho) to |  |
+| `th1` | theta from |  |
+| `th2` | theta to |  |
+| `w1` | z (or phi) from |  |
+| `w2` | z (or phi) to |  |
+
+| output | meaning |
+|---|---|
+| `integral` | the value of the triple integral |
+| `region_volume` | the volume of the region |
+
+- **Method:** f in the curvilinear variables times the Jacobian (r, or $\rho^{2}$ sin phi) by product Gauss-Legendre rules of increasing order (12, 20, 28) until two agree to $1e-12$ of the integral of |f|
+- **Assumes:** $0  \leq  r_{1} < r_{2}$ (rho); $theta1 < theta2  \leq  theta1 + 2$ pi; $z_{1} < z_{2}$; for phi $0  \leq  phi1 < phi2  \leq  pi$; f continuous on the region; constant limits only
+- **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![integral (the value of the triple integral) against u2 (r (or rho) to) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/curvilinear-triple-integral-curve)
+
+*integral (the value of the triple integral) against u2 (r (or rho) to) from 0.5 to 1.5. One curve for each value of w2 (z (or phi) to): 2, 1, 4. Other inputs as in the worked example: f = 1, system = cylindrical, u1 = 0, th1 = 0, th2 = 6.283185307179586, w1 = 0. 31 points per curve computed by calculus-ai999x; marked: the worked example, u2 = 1, integral = 6.28319.*
+
+```python
+calculus_ai999x.solve('curvilinear_triple_integral', f='1', system='cylindrical', u1=0, u2=1, th1=0, th2=6.283185307179586, w1=0, w2=2)
+# -> integral = 6.28319, region_volume = 6.28319   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('curvilinear_triple_integral', f='z', system='cylindrical', u1=0, u2=2, th1=0, th2=6.283185307179586, w1=0, w2=1)
+# -> integral = 6.28319, region_volume = 12.5664   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('curvilinear_triple_integral', f='1', system='spherical', u1=0, u2=1, th1=0, th2=6.283185307179586, w1=0, w2=3.141592653589793)
+# -> integral = 4.18879, region_volume = 4.18879   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('curvilinear_triple_integral', f='z', system='spherical', u1=0, u2=1, th1=0, th2=6.283185307179586, w1=0, w2=1.5707963267948966)
+# -> integral = 0.785398, region_volume = 2.0944   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('curvilinear_triple_integral', f='x^2 + y^2 + z^2', system='spherical', u1=0, u2=1, th1=0, th2=6.283185307179586, w1=0, w2=3.141592653589793)
+# -> integral = 2.51327, region_volume = 4.18879   (SOLVED)
+```
+
+**Questions in words (documented forms), as executed:**
+
+| question | outcome | result |
+|---|---|---|
+| Find the triple integral of z over 0 <= r <= 2, 0 <= theta <= 2pi, 0 <= z <= 1. | SOLVED | integral = 6.28319, region_volume = 12.5664 |
+| Find the triple integral of 1 over 0 <= rho <= 1, 0 <= theta <= 2pi, 0 <= phi <= pi. | SOLVED | integral = 4.18879, region_volume = 4.18879 |
+| Evaluate the triple integral of x^2 + y^2 + z^2 in spherical coordinates over 0 <= rho <= 1, 0 <= theta <= 2pi, 0 <= phi <= pi. | SOLVED | integral = 2.51327, region_volume = 4.18879 |
+| Find the triple integral of 1 over 0 <= rho <= 1, 0 <= theta <= 2pi, 0 <= phi <= 4. | INVALID_INPUT | Triple integral in cylindrical or spherical coordinates: phi (from the positive z-axis) must stay between 0 and pi. |
+
+<a id="conservative_field"></a>
+
+### Conservative vector field and potential function, `conservative_field`
+
+Decides whether F = (P, Q) or (P, Q, R) is conservative (curl F = 0), finds a potential function f with grad $f = F$, and the path-independent line integral f(B) - f(A).
+
+$$
+\nabla\times\mathbf F = 0 \Rightarrow \mathbf F = \nabla f,\quad \int_A^B \mathbf F\cdot d\mathbf r = f(B) - f(A)
+$$
+
+| input | meaning | condition |
+|---|---|---|
+| `P` | the x-component P |  |
+| `Q` | the y-component Q |  |
+| `R` | the z-component R (3-D fields) |  |
+| `A` | the start point |  |
+| `B` | the end point |  |
+
+| output | meaning |
+|---|---|
+| `conservative` | yes or no |
+| `potential` | a potential function f (with $f = 0$ at the origin) + C |
+| `line_integral` | the integral of F . dr from A to $B = f$(B) - f(A) |
+| `curl` | the curl (Q_x - P_y in 2-D) when the field is not conservative |
+
+- **Method:** exact curl; if it vanishes, f = integral of P dx, plus the integral in y of Q - f_y, plus the integral in z of R - f_z, confirmed by grad $f = F$ exactly; the fundamental theorem for line integrals gives f(B) - f(A)
+- **Assumes:** polynomial components (fields on the whole plane or space, which is simply connected); A and B are given together, with as many coordinates as F has components
+- **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![The worked example of Conservative vector field and potential function as inputs and results: stated P = 2x*y, Q = x^2, A = 0, 0, B = 1, 2; returned by calculus-ai999x: conservative = yes, potential = x^2*y + C, line_integral = 2](https://www.ai999x.com/?ax_fig=calculus-ai999x/conservative-field-io)
+
+*The worked example of Conservative vector field and potential function as inputs and results: stated P = 2x*y, Q = x^2, A = 0, 0, B = 1, 2; returned by calculus-ai999x: conservative = yes, potential = x^2*y + C, line_integral = 2.*
+
+```python
+calculus_ai999x.solve('conservative_field', P='2x*y', Q='x^2', A='0, 0', B='1, 2')
+# -> conservative = yes, potential = x^2*y + C, line_integral = 2   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('conservative_field', P='y*z', Q='x*z', R='x*y', A=[0, 0, 0], B=[1, 2, 3])
+# -> conservative = yes, potential = x*y*z + C, line_integral = 6   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('conservative_field', P='2x + y', Q='x + 2y', A=[1, 0], B=[2, 1])
+# -> conservative = yes, potential = x^2 + x*y + y^2 + C, line_integral = 6   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('conservative_field', P='-y', Q='x')
+# -> conservative = no, curl = 2   (SOLVED)
+```
+
+**Questions in words (documented forms), as executed:**
+
+| question | outcome | result |
+|---|---|---|
+| Is F = (2x*y, x^2) conservative? | SOLVED | conservative = yes, potential = x^2*y + C |
+| Is the vector field F = (-y, x) conservative? | SOLVED | conservative = no, curl = 2 |
+| Find the potential function of F = (y*z, x*z, x*y). | SOLVED | conservative = yes, potential = x*y*z + C |
+| Find the work done by the conservative field F = (2x + y, x + 2y) from (1, 0) to (2, 1). | SOLVED | conservative = yes, potential = x^2 + x*y + y^2 + C, line_integral = 6 |
+| Is F = (sin(y), x*cos(y)) conservative? | INVALID_INPUT | Conservative vector field and potential function: the documented scope is a field with polynomial components (other fiel |
+
+<a id="space_curve_arc_length"></a>
+
+### Arc length of a space curve: `space_curve_arc_length`
+
+The length of the space curve r($t) = (x$(t), y(t), z(t)) for $t_{0}  \leq  t  \leq  t_{1}.$
+
+$$
+L = \int_{t_0}^{t_1}\sqrt{x'(t)^2 + y'(t)^2 + z'(t)^2}\,dt
+$$
+
+| input | meaning | condition |
+|---|---|---|
+| `xt` | x(t) |  |
+| `yt` | y(t) |  |
+| `zt` | z(t) |  |
+| `t0` | start parameter |  |
+| `t1` | end parameter |  |
+
+| output | meaning |
+|---|---|
+| `arc_length` | the length of the curve |
+
+- **Method:** |r'(t)| = sqrt(x'^$2 + y$'^$2 + z$'^2) with exact derivatives, tanh-sinh quadrature
+- **Assumes:** $t_{0} < t_{1}$; x, y and z continuously differentiable
+- **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![arc_length (the length of the curve) against t1 (end parameter) from 3](https://www.ai999x.com/?ax_fig=calculus-ai999x/space-curve-arc-length-curve)
+
+*arc_length (the length of the curve) against t1 (end parameter) from 3.14159 to 9.42478. One curve for each value of t0 (start parameter): 0, -0.5, 0.5. Other inputs as in the worked example: xt = cos(t), yt = sin(t), zt = t. 31 points per curve computed by calculus-ai999x; marked: the worked example, t1 = 6.28319, arc_length = 8.88577.*
+
+![arc_length (the length of the curve) over t1 (end parameter) from 3](https://www.ai999x.com/?ax_fig=calculus-ai999x/space-curve-arc-length-field)
+
+*arc_length (the length of the curve) over t1 (end parameter) from 3.14159 to 9.42478 and t0 (start parameter) from -1 to 1: each of the 21 × 15 cells is one run of calculus-ai999x, shaded by its value (light 3.02867 to dark 14.7429); iso-lines at arc_length = 4, 6, 8, 10, 12, 14. Other inputs as in the worked example: xt = cos(t), yt = sin(t), zt = t. Marked: the worked example, t1 = 6.28319, t0 = 0, arc_length = 8.88577.*
+
+```python
+calculus_ai999x.solve('space_curve_arc_length', xt='cos(t)', yt='sin(t)', zt='t', t0=0, t1=6.283185307179586)
+# -> arc_length = 8.88577   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('space_curve_arc_length', xt='2t', yt='3t', zt='6t', t0=0, t1=1)
+# -> arc_length = 7   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('space_curve_arc_length', xt='t', yt='t^2', zt='2t^3/3', t0=0, t1=1)
+# -> arc_length = 1.66667   (SOLVED)
+```
+
+**Questions in words (documented forms), as executed:**
+
+| question | outcome | result |
+|---|---|---|
+| Find the arc length of r(t) = (cos(t), sin(t), t) from t = 0 to t = 2pi. | SOLVED | arc_length = 8.88577 |
+| Find the length of the curve x = 2t, y = 3t, z = 6t from t = 0 to t = 1. | SOLVED | arc_length = 7 |
+| Find the arc length of r(t) = (t, t^2, t^3) from t = 1 to t = 0. | INVALID_INPUT | Arc length of a space curve: the parameter interval needs t0 < t1. |
+
+<a id="space_curve_curvature"></a>
+
+### Curvature and unit tangent of a space curve, `space_curve_curvature`
+
+The curvature kappa = |r' x r''|/|r'|^3, the speed |r'| and the unit tangent $T = r$'/|r'| of the space curve r($t) = (x$(t), y(t), z(t)) at $t = t_{0}.$
+
+$$
+\kappa = \frac{|\mathbf r'\times\mathbf r''|}{|\mathbf r'|^3},\quad \mathbf T = \frac{\mathbf r'}{|\mathbf r'|}
+$$
+
+| input | meaning | condition |
+|---|---|---|
+| `xt` | x(t) |  |
+| `yt` | y(t) |  |
+| `zt` | z(t) |  |
+| `t0` | the parameter value t0 |  |
+
+| output | meaning |
+|---|---|
+| `curvature` | kappa at t0 |
+| `speed` | \|r'(t0)\| |
+| `unit_tangent` | T(t0) |
+| `radius_of_curvature` | $1/\kappa$ (absent where kappa = 0) |
+
+- **Method:** exact first and second derivatives at t0; the cross-product formula
+- **Assumes:** r twice differentiable at t0; r'$(t_{0})  \neq  0$
+- **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![T(t0) (unit_tangent) returned by calculus-ai999x for the worked example, one value for each position in the list (3 values, first 0, last 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/space-curve-curvature-series)
+
+*T(t0) (unit_tangent) returned by calculus-ai999x for the worked example, one value for each position in the list (3 values, first 0, last 0.707107, largest 0.707107). Inputs: xt = cos(t), yt = sin(t), zt = t, t0 = 0.*
+
+```python
+calculus_ai999x.solve('space_curve_curvature', xt='cos(t)', yt='sin(t)', zt='t', t0=0)
+# -> curvature = 0.5, speed = 1.41421, unit_tangent = [0.0, 0.7071067811865475, 0.7071067811865475], radius_of_curvature = 2   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('space_curve_curvature', xt='t', yt='t^2', zt='t^3', t0=0)
+# -> curvature = 2, speed = 1, unit_tangent = [1.0, 0.0, 0.0], radius_of_curvature = 0.5   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('space_curve_curvature', xt='t', yt='t^2', zt='t^3', t0=1)
+# -> curvature = 0.166424, speed = 3.74166, unit_tangent = [0.2672612419124244, 0.5345224838248488, 0.8017837257372732], radius_of_curvature = 6.00877   (SOLVED)
+```
+
+**Questions in words (documented forms), as executed:**
+
+| question | outcome | result |
+|---|---|---|
+| Find the curvature of r(t) = (cos(t), sin(t), t) at t = 0. | SOLVED | curvature = 0.5, speed = 1.41421, unit_tangent = [0.0, 0.7071067811865475, 0.7071067811865475], radius_of_curvature = 2 |
+| Find the unit tangent vector of r(t) = (t, t^2, t^3) at t = 1. | SOLVED | curvature = 0.166424, speed = 3.74166, unit_tangent = [0.2672612419124244, 0.5345224838248488, 0.8017837257372732], radius_of_curvature = 6.00877 |
+| Find the curvature of r(t) = (t^2, t^2, t^3) at t = 0. | INVALID_INPUT | Curvature and unit tangent of a space curve: r'(t) = 0 there: the curve has no tangent direction (curvature undefined). |
+
+<a id="rms_value"></a>
+
+### Root-mean-square value of a function: `rms_value`
+
+The root-mean-square value sqrt((1/(b - a)) * integral of f^2) of f(x) over [a, b], with the mean square and the mean (average) value.
+
+$$
+f_{\text{rms}} = \sqrt{\frac{1}{b-a}\int_a^b f(x)^2\,dx}
+$$
+
+| input | meaning | condition |
+|---|---|---|
+| `f` | the function f(x) |  |
+| `a` | start of the interval |  |
+| `b` | end of the interval |  |
+
+| output | meaning |
+|---|---|
+| `rms` | the rms value |
+| `mean_square` | the mean of $f^{2}$ |
+| `mean` | the mean (average) value of f |
+
+- **Method:** the integrals of $f^{2}$ and f by high-precision tanh-sinh quadrature, divided by b - a
+- **Assumes:** $a < b$; f continuous on [a, b]
+- **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![rms (the rms value) against b (end of the interval) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/rms-value-curve)
+
+*rms (the rms value) against b (end of the interval) from 0.628319 to 62.8319 on a logarithmic axis. One curve for each value of a (start of the interval): 0, -0.5, 0.5. Other inputs as in the worked example: f = sin(x). 41 points per curve computed by calculus-ai999x; marked: the worked example, b = 6.28319, rms = 0.707107.*
+
+![rms (the rms value) over b (end of the interval) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/rms-value-field)
+
+*rms (the rms value) over b (end of the interval) from 0.628319 to 62.8319 and a (start of the interval) from -1 to 1 (logarithmic horizontal axis): each of the 21 × 15 cells is one run of calculus-ai999x, shaded by its value (light 0.30323 to dark 0.95794); iso-lines at rms = 0.4, 0.6, 0.8; blank cells: inputs the capability refuses. Other inputs as in the worked example: f = sin(x). Marked: the worked example, b = 6.28319, a = 0, rms = 0.707107.*
+
+```python
+calculus_ai999x.solve('rms_value', f='sin(x)', a=0, b=6.283185307179586)
+# -> rms = 0.707107, mean_square = 0.5, mean = 2.9005e-29   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('rms_value', f='x', a=0, b=1)
+# -> rms = 0.57735, mean_square = 0.333333, mean = 0.5   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('rms_value', f='3 + 2sin(x)', a=0, b=6.283185307179586)
+# -> rms = 3.31662, mean_square = 11, mean = 3   (SOLVED)
+```
+
+**Questions in words (documented forms), as executed:**
+
+| question | outcome | result |
+|---|---|---|
+| Find the rms value of sin(x) over [0, 2pi]. | SOLVED | rms = 0.707107, mean_square = 0.5, mean = 2.9005e-29 |
+| Find the root mean square value of x from 0 to 1. | SOLVED | rms = 0.57735, mean_square = 0.333333, mean = 0.5 |
+| Find the rms value of 1/x from -1 to 1. | INVALID_INPUT | Root-mean-square value of a function: the function is not continuous (or not real) on the whole interval [-1, 1]. |
+
+<a id="total_differential"></a>
+
+### Total differential and small changes: `total_differential`
+
+The approximate change $df = f_x$ dx + f_y dy (+ f_z dz) of f(x, y[, z]) at a point for small changes of its variables (or for percentage changes), with the percentage change of f and the exact change.
+
+$$
+df = \frac{\partial f}{\partial x}dx + \frac{\partial f}{\partial y}dy + \frac{\partial f}{\partial z}dz
+$$
+
+| input | meaning | condition |
+|---|---|---|
+| `f` | the function f(x, y) or f(x, y, z) |  |
+| `p` | the point (x, y) or (x, y, z) |  |
+| `d` | the small changes (dx, dy[, dz]), or the percentage changes (2 means 2 %) |  |
+| `mode` | change (absolute changes) or percent (percentage changes) |  |
+
+| output | meaning |
+|---|---|
+| `df` | the approximate change df |
+| `percent_change` | 100 df / f, in % |
+| `f_value` | f at the point |
+| `partials` | the partial derivatives at the point |
+| `changes` | the absolute changes used |
+| `exact_change` | f(p + dp) - f(p) |
+
+- **Method:** exact partial derivatives at the point; df = sum of f_xi dxi (a percentage change p % of xi is dxi = xi p/100)
+- **Assumes:** f differentiable at the point; one change per variable
+- **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
+
+![The plane vectors of the worked example as arrows from the origin: input p = (2, 3), d = (0](https://www.ai999x.com/?ax_fig=calculus-ai999x/total-differential-vectors)
+
+*The plane vectors of the worked example as arrows from the origin: input p = (2, 3), d = (0.01, -0.02); returned by calculus-ai999x: partials = (12, 4), changes = (0.01, -0.02); also returned df = 0.04, f_value = 12, percent_change = 0.333333, exact_change = 0.039498. Other inputs: f = x^2*y. Marked: the tip of each returned vector.*
+
+```python
+calculus_ai999x.solve('total_differential', f='x^2*y', p='2, 3', d='0.01, -0.02')
+# -> df = 0.04, f_value = 12, partials = [12.0, 4.0], changes = [0.01, -0.02], percent_change = 0.333333, exact_change = 0.039498   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('total_differential', f='x^2*y', p=[2, 3], d=[2, -1], mode='percent')
+# -> df = 0.36, f_value = 12, partials = [12.0, 4.0], changes = [0.04, -0.03], percent_change = 3, exact_change = 0.359952   (SOLVED)
+```
+
+```python
+calculus_ai999x.solve('total_differential', f='x*y*z', p=[1, 2, 3], d=[0.1, 0.1, 0.1], mode='change')
+# -> df = 1.1, f_value = 6, partials = [6.0, 3.0, 2.0], changes = [0.1, 0.1, 0.1], percent_change = 18.3333, exact_change = 1.161   (SOLVED)
+```
+
+**Questions in words (documented forms), as executed:**
+
+| question | outcome | result |
+|---|---|---|
+| Find the total differential of x^2*y at (2, 3) with dx = 0.01, dy = -0.02. | SOLVED | df = 0.04, f_value = 12, partials = [12.0, 4.0], changes = [0.01, -0.02], percent_change = 0.333333, exact_change = 0.039498 |
+| Find the percentage change in x^2*y at (2, 3) when x changes by 2% and y changes by -1%. | SOLVED | df = 0.36, f_value = 12, partials = [12.0, 4.0], changes = [0.04, -0.03], percent_change = 3, exact_change = 0.359952 |
+| Find the approximate change in x*y*z at (1, 2, 3) when dx = 0.1, dy = 0.1, dz = 0.1. | SOLVED | df = 1.1, f_value = 6, partials = [6.0, 3.0, 2.0], changes = [0.1, 0.1, 0.1], percent_change = 18.3333, exact_change = 1.161 |
+| Find the total differential of log(x)*y at (-1, 2) with dx = 0.1, dy = 0.1. | INVALID_INPUT | Total differential and small changes: the expression is not real there. |

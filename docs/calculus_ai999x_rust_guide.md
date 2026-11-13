@@ -1,8 +1,8 @@
 # calculus: the Calculus program, user guide
 
-**calculus-ai999x 1.1.0**, Rust build: command line, desktop app and browser. **Creator / engineer:** Ibnul Jaif Farabi · **Company:** AI999X · support@ai999x.com
+**calculus-ai999x 1.6.0**, Rust build: command line, desktop app and browser. **Creator / engineer:** Ibnul Jaif Farabi · **Company:** AI999X · support@ai999x.com
 
-Calculus covers limits, derivatives, integrals, series, Taylor polynomials, multivariable and vector calculus, special functions and numerical differentiation and integration. This guide is about `calculus`, the model as a self-contained program for Windows and Linux: 71 capabilities in 14 topics, answered on your own computer with no network, no Python and nothing else to install. The same compiled model runs in the AI999X desktop app and in the browser on the model's page (https://www.ai999x.com/models/calculus-ai999x/); the Python package (`pip install calculus-ai999x`) has its own guide. Every command output printed here is what the program printed.
+Calculus covers limits, derivatives, integrals, series, Taylor polynomials, multivariable and vector calculus, special functions and numerical differentiation and integration. This guide is about `calculus`, the model as a self-contained program for Windows and Linux: 82 capabilities in 16 topics, answered on your own computer with no network, no Python and nothing else to install. The same compiled model runs in the AI999X desktop app and in the browser on the model's page (https://www.ai999x.com/models/calculus-ai999x/); the Python package (`pip install calculus-ai999x`) has its own guide. Every command output printed here is what the program printed.
 
 ## Contents
 
@@ -17,37 +17,37 @@ Calculus covers limits, derivatives, integrals, series, Taylor polynomials, mult
 
 ## 1. Get it
 
-Version 1.5.0 of the AI999X desktop app and of the command-line bundle. Checksums for every file: https://downloads.ai999x.com/desktop/1.5.0/SHA256SUMS; the newest version is always under https://downloads.ai999x.com/desktop/latest/. Full instructions: https://www.ai999x.com/desktop-cli/
+Version 1.6.0 of the AI999X desktop app and of the command-line bundle. Checksums for every file: https://downloads.ai999x.com/desktop/1.6.0/SHA256SUMS; the newest version is always under https://downloads.ai999x.com/desktop/latest/. Full instructions: https://www.ai999x.com/desktop-cli/
 
 | what | system | download |
 |---|---|---|
-| Desktop app: Calculus | Windows x86-64 | https://downloads.ai999x.com/desktop/1.5.0/ai999x-calculus-1.5.0-windows-x86_64.zip |
-| Desktop app: Calculus | Linux x86-64 | https://downloads.ai999x.com/desktop/1.5.0/ai999x-calculus-1.5.0-linux-x86_64.tar.gz |
-| Desktop app: all models | Windows x86-64 | https://downloads.ai999x.com/desktop/1.5.0/ai999x-1.5.0-windows-x86_64.zip |
-| Desktop app: all models | Linux x86-64 | https://downloads.ai999x.com/desktop/1.5.0/ai999x-1.5.0-linux-x86_64.tar.gz |
-| Command line | Windows x86-64 | https://downloads.ai999x.com/desktop/1.5.0/ai999x-cli-1.5.0-windows-x86_64.zip |
-| Command line | Linux x86-64 | https://downloads.ai999x.com/desktop/1.5.0/ai999x-cli-1.5.0-linux-x86_64.tar.gz |
+| Desktop app: Calculus | Windows x86-64 | https://downloads.ai999x.com/desktop/1.6.0/ai999x-calculus-1.6.0-windows-x86_64.zip |
+| Desktop app: Calculus | Linux x86-64 | https://downloads.ai999x.com/desktop/1.6.0/ai999x-calculus-1.6.0-linux-x86_64.tar.gz |
+| Desktop app: all models | Windows x86-64 | https://downloads.ai999x.com/desktop/1.6.0/ai999x-1.6.0-windows-x86_64.zip |
+| Desktop app: all models | Linux x86-64 | https://downloads.ai999x.com/desktop/1.6.0/ai999x-1.6.0-linux-x86_64.tar.gz |
+| Command line | Windows x86-64 | https://downloads.ai999x.com/desktop/1.6.0/ai999x-cli-1.6.0-windows-x86_64.zip |
+| Command line | Linux x86-64 | https://downloads.ai999x.com/desktop/1.6.0/ai999x-cli-1.6.0-linux-x86_64.tar.gz |
 
 ### Desktop app
 
-Calculus in its own app: search, questions in words, input forms, live figures and explanations. Windows: Download ai999x-calculus-1.5.0-windows-x86_64.zip, right-click it → Extract All, then open the folder and start ai999x-calculus.exe. If Windows SmartScreen asks, choose More info → Run anyway. Linux:
+Calculus in its own app: search, questions in words, input forms, live figures and explanations. Windows: Download ai999x-calculus-1.6.0-windows-x86_64.zip, right-click it → Extract All, then open the folder and start ai999x-calculus.exe. If Windows SmartScreen asks, choose More info → Run anyway. Linux:
 
 ```shell
-curl -LO https://downloads.ai999x.com/desktop/1.5.0/ai999x-calculus-1.5.0-linux-x86_64.tar.gz
-curl -LO https://downloads.ai999x.com/desktop/1.5.0/SHA256SUMS
+curl -LO https://downloads.ai999x.com/desktop/1.6.0/ai999x-calculus-1.6.0-linux-x86_64.tar.gz
+curl -LO https://downloads.ai999x.com/desktop/1.6.0/SHA256SUMS
 sha256sum -c --ignore-missing SHA256SUMS
-tar xzf ai999x-calculus-1.5.0-linux-x86_64.tar.gz
-./ai999x-calculus-1.5.0-linux-x86_64/ai999x-calculus
+tar xzf ai999x-calculus-1.6.0-linux-x86_64.tar.gz
+./ai999x-calculus-1.6.0-linux-x86_64/ai999x-calculus
 ```
 
-It opens on this model: type a question or pick a capability, fill in the form and press Compute. The AI999X desktop app with every model works the same way (choose the model first). Windows: Download ai999x-1.5.0-windows-x86_64.zip, right-click it → Extract All, then open the folder and start ai999x.exe. If Windows SmartScreen asks, choose More info → Run anyway. Linux:
+It opens on this model: type a question or pick a capability, fill in the form and press Compute. The AI999X desktop app with every model works the same way (choose the model first). Windows: Download ai999x-1.6.0-windows-x86_64.zip, right-click it → Extract All, then open the folder and start ai999x.exe. If Windows SmartScreen asks, choose More info → Run anyway. Linux:
 
 ```shell
-curl -LO https://downloads.ai999x.com/desktop/1.5.0/ai999x-1.5.0-linux-x86_64.tar.gz
-curl -LO https://downloads.ai999x.com/desktop/1.5.0/SHA256SUMS
+curl -LO https://downloads.ai999x.com/desktop/1.6.0/ai999x-1.6.0-linux-x86_64.tar.gz
+curl -LO https://downloads.ai999x.com/desktop/1.6.0/SHA256SUMS
 sha256sum -c --ignore-missing SHA256SUMS
-tar xzf ai999x-1.5.0-linux-x86_64.tar.gz
-./ai999x-1.5.0-linux-x86_64/ai999x
+tar xzf ai999x-1.6.0-linux-x86_64.tar.gz
+./ai999x-1.6.0-linux-x86_64/ai999x
 ```
 
 ### Command line: Linux
@@ -55,11 +55,11 @@ tar xzf ai999x-1.5.0-linux-x86_64.tar.gz
 The bundle holds one program per model; `calculus` is this one. The checksum line should print OK.
 
 ```shell
-curl -LO https://downloads.ai999x.com/desktop/1.5.0/ai999x-cli-1.5.0-linux-x86_64.tar.gz
-curl -LO https://downloads.ai999x.com/desktop/1.5.0/SHA256SUMS
+curl -LO https://downloads.ai999x.com/desktop/1.6.0/ai999x-cli-1.6.0-linux-x86_64.tar.gz
+curl -LO https://downloads.ai999x.com/desktop/1.6.0/SHA256SUMS
 sha256sum -c --ignore-missing SHA256SUMS
-mkdir -p ~/.local/share && tar xzf ai999x-cli-1.5.0-linux-x86_64.tar.gz -C ~/.local/share
-echo 'export PATH="$HOME/.local/share/ai999x-cli-1.5.0-linux-x86_64:$PATH"' >> ~/.bashrc && source ~/.bashrc
+mkdir -p ~/.local/share && tar xzf ai999x-cli-1.6.0-linux-x86_64.tar.gz -C ~/.local/share
+echo 'export PATH="$HOME/.local/share/ai999x-cli-1.6.0-linux-x86_64:$PATH"' >> ~/.bashrc && source ~/.bashrc
 calculus --version
 ```
 
@@ -68,12 +68,12 @@ calculus --version
 The fourth line should print True.
 
 ```powershell
-$F = "ai999x-cli-1.5.0-windows-x86_64.zip"
-Invoke-WebRequest "https://downloads.ai999x.com/desktop/1.5.0/$F" -OutFile $F
-Invoke-WebRequest "https://downloads.ai999x.com/desktop/1.5.0/SHA256SUMS" -OutFile SHA256SUMS
+$F = "ai999x-cli-1.6.0-windows-x86_64.zip"
+Invoke-WebRequest "https://downloads.ai999x.com/desktop/1.6.0/$F" -OutFile $F
+Invoke-WebRequest "https://downloads.ai999x.com/desktop/1.6.0/SHA256SUMS" -OutFile SHA256SUMS
 (Get-FileHash $F -Algorithm SHA256).Hash.ToLower() -eq ((Select-String -SimpleMatch $F SHA256SUMS).Line -split ' ')[0]
 Expand-Archive $F -DestinationPath "$env:LOCALAPPDATA\AI999X" -Force
-$D = "$env:LOCALAPPDATA\AI999X\ai999x-cli-1.5.0-windows-x86_64"; $env:Path += ";$D"
+$D = "$env:LOCALAPPDATA\AI999X\ai999x-cli-1.6.0-windows-x86_64"; $env:Path += ";$D"
 [Environment]::SetEnvironmentVariable("Path", [Environment]::GetEnvironmentVariable("Path", "User") + ";$D", "User")
 calculus --version
 ```
@@ -96,7 +96,7 @@ Prints the model, its version and that this is the Rust build.
 
 ```shell
 $ calculus --version
-calculus-ai999x 1.5.0 (Rust build, ax-engine 1.5.0)
+calculus-ai999x 1.6.0 (Rust build, ax-engine 1.6.0)
 ```
 
 ### 2.2 Ask in words
@@ -136,6 +136,7 @@ Every capability the program answers: its id (what you pass to solve) and its na
 
 ```shell
 $ calculus list
+antiderivative                           Antiderivative (indefinite integral)
 arc_length                               Arc length of a graph
 area_between_curves                      Area between two curves
 area_enclosed_curves                     Area enclosed by two curves
@@ -143,8 +144,7 @@ arithmetic_series_sum                    Sum of an arithmetic series
 average_rate_of_change                   Average rate of change
 average_value                            Average value of a function
 bessel_j                                 Bessel function of the first kind
-beta_function                            Beta function
-… 63 more
+… 74 more
 ```
 
 ### 2.5 What a capability needs
@@ -775,7 +775,38 @@ b_k = -1
 
 In the worked example, L = 3.141592654, f = x, k = 2 go through the equation above and give a0 = 0, a_k = 0, b_k = -1. It applies only when L > 0; f continuous on [-L, L]; 1 <= k <= 50: outside that it says what is wrong instead of returning a number.
 
-### Integrals (14)
+### Integrals (16)
+
+<a id="antiderivative"></a>
+
+#### Antiderivative (indefinite integral): `antiderivative`
+
+The antiderivative F(x) + C of f(x) term by term from the table of basic integrals (powers, polynomials, sin, cos and exp of a linear argument), and with an initial condition F(x0) = F0 the constant C and the particular antiderivative.
+
+$$
+\int f(x)\,dx = F(x) + C,\quad F'(x) = f(x)
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `f` | in | the integrand f(x) | - |
+| `x0` | in | the point x0 of an initial condition F(x0) = F0 (optional) | - |
+| `F0` | in | the value F(x0) of the initial condition (optional) | - |
+| `antiderivative` | out | F(x) + C | - |
+| `constant` | out | C for the initial condition | - |
+| `particular` | out | the antiderivative with that C | - |
+
+**Applies when:** f is a sum of terms c*x^n (n rational), c*sin(a*x + b), c*cos(a*x + b), c*exp(a*x + b); anything else is refused; with an initial condition, F is defined at x0.
+
+```shell
+$ calculus solve antiderivative "f=3x^2 + 2x"
+antiderivative = x^3 + x^2 + C
+  by: Antiderivative (indefinite integral)  (term-by-term table: x^n -> x^(n+1)/(n+1), 1/x -> log|x|, sin(ax+b) -> -cos(ax+b)/a, cos(ax+b) -> sin(ax+b)/a, exp(ax+b) -> exp(ax+b)/a; C = F0 - F(x0))
+  f = 3x^2 + 2x
+  assumes: f is a sum of terms c*x^n (n rational), c*sin(a*x + b), c*cos(a*x + b), c*exp(a*x + b); anything else is refused; with an initial condition, F is defined at x0
+```
+
+In the worked example, f = 3x^2 + 2x go through the equation above and give antiderivative = x^3 + x^2 + C. It applies only when f is a sum of terms c*x^n (n rational), c*sin(a*x + b), c*cos(a*x + b), c*exp(a*x + b); anything else is refused; with an initial condition, F is defined at x0: outside that it says what is wrong instead of returning a number.
 
 <a id="arc_length"></a>
 
@@ -1105,6 +1136,41 @@ approximation = 3.75
 
 **What the worked example means:** This calculation determines the right-endpoint Riemann sum for the function f on the interval from a to b using n equal subintervals. The width of each rectangle, h, is derived from the difference between the bounds divided by the count of subintervals. Evaluating the function at the right boundary of each segment and summing these heights multiplied by the width gives an estimate of the total area under the curve. For the given inputs, this method yields an approximation value of 3.75, representing the discrete accumulation of the function's values across the specified domain.
 
+<a id="rms_value"></a>
+
+#### Root-mean-square value of a function: `rms_value`
+
+The root-mean-square value sqrt((1/(b - a)) * integral of f^2) of f(x) over [a, b], with the mean square and the mean (average) value.
+
+$$
+f_{\text{rms}} = \sqrt{\frac{1}{b-a}\int_a^b f(x)^2\,dx}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `f` | in | the function f(x) | - |
+| `a` | in | start of the interval | - |
+| `b` | in | end of the interval | - |
+| `rms` | out | the rms value | - |
+| `mean_square` | out | the mean of f^2 | - |
+| `mean` | out | the mean (average) value of f | - |
+
+**Applies when:** a < b; f continuous on [a, b].
+
+```shell
+$ calculus solve rms_value a=0 b=6.283185307 "f=sin(x)"
+rms = 0.7071067812
+mean_square = 0.5
+mean = 2.566474053e-21
+  by: Root-mean-square value of a function  (the integrals of f^2 and f by high-precision tanh-sinh quadrature, divided by b - a)
+  a = 0
+  b = 6.283185307
+  f = sin(x)
+  assumes: a < b; f continuous on [a, b]
+```
+
+In the worked example, a = 0, b = 6.283185307, f = sin(x) go through the equation above and give rms = 0.7071067812, mean_square = 0.5, mean = 2.900497483e-29. It applies only when a < b; f continuous on [a, b]: outside that it says what is wrong instead of returning a number.
+
 <a id="surface_area_revolution"></a>
 
 #### Surface area of revolution: `surface_area_revolution`
@@ -1289,7 +1355,44 @@ limit = 3
 
 **What the worked example means:** This calculation determines the horizontal asymptote of the function (3x^2 + 1)/(x^2 - 5) by finding the value it approaches as the input grows without bound. The result, 3, represents the stable end behavior of the function at large positive values.
 
-### Multiple integrals (4)
+### Multiple integrals (6)
+
+<a id="polar_double_integral"></a>
+
+#### Double integral in polar coordinates: `polar_double_integral`
+
+The double integral of f(x, y) over the polar region r1 <= r <= r2, theta1 <= theta <= theta2 (a disk, an annulus or a sector), with dA = r dr dtheta.
+
+$$
+\iint_R f\,dA = \int_{\theta_1}^{\theta_2}\!\int_{r_1}^{r_2} f(r\cos\theta, r\sin\theta)\,r\,dr\,d\theta
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `f` | in | the integrand f(x, y) | - |
+| `r1` | in | r from (>= 0) | - |
+| `r2` | in | r to | - |
+| `al` | in | theta from | - |
+| `be` | in | theta to | - |
+| `integral` | out | the value of the double integral | - |
+| `region_area` | out | the area of the region | - |
+
+**Applies when:** 0 <= r1 < r2; theta1 < theta2 <= theta1 + 2 pi; f continuous on the region; constant limits only (a region r <= g(theta) is not covered).
+
+```shell
+$ calculus solve polar_double_integral al=0 be=6.283185307 "f=x^2 + y^2" r1=0 r2=1
+integral = 1.570796327
+region_area = 3.141592654
+  by: Double integral in polar coordinates  (f(r cos theta, r sin theta) r by product Gauss-Legendre rules of increasing order (24, 40, 64) until two agree to 1e-12 of the integral of |f|)
+  al = 0
+  be = 6.283185307
+  r1 = 0
+  r2 = 1
+  f = x^2 + y^2
+  assumes: 0 <= r1 < r2; theta1 < theta2 <= theta1 + 2 pi; f continuous on the region; constant limits only (a region r <= g(theta) is not covered)
+```
+
+In the worked example, al = 0, be = 6.283185307, f = x^2 + y^2, r1 = 0, r2 = 1 go through the equation above and give integral = 1.570796327, region_area = 3.141592654. It applies only when 0 <= r1 < r2; theta1 < theta2 <= theta1 + 2 pi; f continuous on the region; constant limits only (a region r <= g(theta) is not covered): outside that it says what is wrong instead of returning a number.
 
 <a id="double_integral_rectangle"></a>
 
@@ -1396,6 +1499,49 @@ surface_area = 1.732050808
 
 **What the worked example means:** This calculation determines the total area of the curved surface defined by z equals f(x, y) across the rectangular region from x equal to 0 to x equal to 1, and y equal to 0 to y equal to 1. The method computes exact partial derivatives and applies a numerical integration technique to evaluate the square root term involving these derivatives. The resulting value, 1.73205, represents the physical extent of this surface in three-dimensional space.
 
+<a id="curvilinear_triple_integral"></a>
+
+#### Triple integral in cylindrical or spherical coordinates, `curvilinear_triple_integral`
+
+The triple integral of f(x, y, z) over a cylindrical region (r, theta, z between constant limits) with dV = r dz dr dtheta, or a spherical region (rho, theta, phi between constant limits) with dV = rho^2 sin(phi) drho dtheta dphi.
+
+$$
+dV = r\,dz\,dr\,d\theta = \rho^2\sin\phi\,d\rho\,d\theta\,d\phi
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `f` | in | the integrand f(x, y, z) | - |
+| `system` | in | the coordinate system | - |
+| `u1` | in | r (or rho) from (>= 0) | - |
+| `u2` | in | r (or rho) to | - |
+| `th1` | in | theta from | - |
+| `th2` | in | theta to | - |
+| `w1` | in | z (or phi) from | - |
+| `w2` | in | z (or phi) to | - |
+| `integral` | out | the value of the triple integral | - |
+| `region_volume` | out | the volume of the region | - |
+
+**Applies when:** 0 <= r1 < r2 (rho); theta1 < theta2 <= theta1 + 2 pi; z1 < z2; for phi 0 <= phi1 < phi2 <= pi; f continuous on the region; constant limits only.
+
+```shell
+$ calculus solve curvilinear_triple_integral f=z system=cylindrical th1=0 th2=6.283185307 u1=0 u2=2 w1=0 w2=1
+integral = 6.283185307
+region_volume = 12.56637061
+  by: Triple integral in cylindrical or spherical coordinates  (f in the curvilinear variables times the Jacobian (r, or rho^2 sin phi) by product Gauss-Legendre rules of increasing order (12, 20, 28) until two agree to 1e-12 of the integral of |f|)
+  th1 = 0
+  th2 = 6.283185307
+  u1 = 0
+  u2 = 2
+  w1 = 0
+  w2 = 1
+  f = z
+  system = cylindrical
+  assumes: 0 <= r1 < r2 (rho); theta1 < theta2 <= theta1 + 2 pi; z1 < z2; for phi 0 <= phi1 < phi2 <= pi; f continuous on the region; constant limits only
+```
+
+In the worked example, f = z, system = cylindrical, th1 = 0, th2 = 6.283185307, u1 = 0, u2 = 2, w1 = 0, w2 = 1 go through the equation above and give integral = 6.283185307, region_volume = 12.56637061. It applies only when 0 <= r1 < r2 (rho); theta1 < theta2 <= theta1 + 2 pi; z1 < z2; for phi 0 <= phi1 < phi2 <= pi; f continuous on the region; constant limits only: outside that it says what is wrong instead of returning a number.
+
 <a id="triple_integral_box"></a>
 
 #### Triple integral over a box: `triple_integral_box`
@@ -1435,7 +1581,7 @@ integral = 4.5
 
 **What the worked example means:** This calculation determines the volume accumulation of the function x*y*z across a rectangular region. The integration bounds are set by the intervals for x, y, and z coordinates, specifically from 0 to 1, 0 to 2, and 0 to 3. For polynomial inputs, the result is exact; otherwise, it uses adaptive numerical quadrature until convergence. The final computed value, 4.5, represents the total quantity such as mass or charge within that specific spatial domain.
 
-### Multivariable calculus (6)
+### Multivariable calculus (8)
 
 <a id="directional_derivative"></a>
 
@@ -1525,6 +1671,44 @@ jacobian = 2
 ```
 
 **What the worked example means:** The Jacobian determinant is computed for the transformation defined by x and y at the point [2, 0.5]. Using the exact partial derivatives, the result is 2. This value indicates how much area scales locally under this coordinate change. If the magnitude of 2 is greater than one, the transformation expands areas; if it is less than one, it contracts them.
+
+<a id="lagrange_multipliers"></a>
+
+#### Lagrange multipliers: extrema under a constraint, `lagrange_multipliers`
+
+The maximum and minimum of f(x, y) subject to a constraint g(x, y) = c (a line, circle or axis-aligned ellipse), where they are attained, and the Lagrange multiplier at each.
+
+$$
+\nabla f = \lambda\,\nabla g,\quad g(x, y) = c
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `f` | in | the function f(x, y) to optimise | - |
+| `g` | in | the constraint, an equation g(x, y) = c | - |
+| `max_value` | out | the constrained maximum of f | - |
+| `max_point` | out | where it is attained (x, y) | - |
+| `max_lambda` | out | the multiplier lambda there | - |
+| `min_value` | out | the constrained minimum of f | - |
+| `min_point` | out | where it is attained (x, y) | - |
+| `min_lambda` | out | the multiplier lambda there | - |
+| `constraint` | out | line, circle or ellipse | - |
+
+**Applies when:** the constraint is a line a*x + b*y = c (then f is a polynomial with rational coefficients, and only the extremes that exist on the unbounded line are given) or a circle or ellipse with axes parallel to the coordinate axes (both extremes exist); f is not constant on the constraint; on a circle or ellipse, each extremum is nondegenerate (the second derivative of f along the curve is nonzero there); a degenerate one is refused.
+
+```shell
+$ calculus solve lagrange_multipliers f=xy "g=x + y = 10"
+constraint = line
+max_value = 25
+max_point = [5.0,5.0]
+max_lambda = 5
+  by: Lagrange multipliers: extrema under a constraint  (grad f = lambda grad g on the constraint: on a line, f restricted to a parametrisation is a polynomial whose critical points are its derivative's exact real roots; on an ellipse x = h + a cos t, y = k + b sin t, the roots of df/dt are bracketed on 1440 subintervals and bisected; the largest and smallest values win)
+  f = xy
+  g = x + y = 10
+  assumes: the constraint is a line a*x + b*y = c (then f is a polynomial with rational coefficients, and only the extremes that exist on the unbounded line are given) or a circle or ellipse with axes parallel to the coordinate axes (both extremes exist); f is not constant on the constraint; on a circle or ellipse, each extremum is nondegenerate (the second derivative of f along the curve is nonzero there); a degenerate one is refused
+```
+
+In the worked example, f = xy, g = x + y = 10 go through the equation above and give constraint = line, max_value = 25, max_point = [5, 5], max_lambda = 5. It applies only when the constraint is a line a*x + b*y = c (then f is a polynomial with rational coefficients, and only the extremes that exist on the unbounded line are given) or a circle or ellipse with axes parallel to the coordinate axes (both extremes exist); f is not constant on the constraint; on a circle or ellipse, each extremum is nondegenerate (the second derivative of f along the curve is nonzero there); a degenerate one is refused: outside that it says what is wrong instead of returning a number.
 
 <a id="partial_derivative"></a>
 
@@ -1625,6 +1809,47 @@ c = -5
 ```
 
 **What the worked example means:** This calculation finds the best linear approximation of the surface near a specific point. Using the partial derivatives evaluated at [1, 2] shows that the slope in the x direction is 2 and the slope in the y direction is 4. The resulting equation, with constant term -5, describes the flat plane that touches the curved surface exactly at the height 5. This plane serves as a simple model for complex behavior in the immediate vicinity of the chosen coordinates.
+
+<a id="total_differential"></a>
+
+#### Total differential and small changes: `total_differential`
+
+The approximate change df = f_x dx + f_y dy (+ f_z dz) of f(x, y[, z]) at a point for small changes of its variables (or for percentage changes), with the percentage change of f and the exact change.
+
+$$
+df = \frac{\partial f}{\partial x}dx + \frac{\partial f}{\partial y}dy + \frac{\partial f}{\partial z}dz
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `f` | in | the function f(x, y) or f(x, y, z) | - |
+| `p` | in | the point (x, y) or (x, y, z) | - |
+| `d` | in | the small changes (dx, dy[, dz]), or the percentage changes (2 means 2 %) | - |
+| `mode` | in | change (absolute changes) or percent (percentage changes) (optional) | - |
+| `df` | out | the approximate change df | - |
+| `percent_change` | out | 100 df / f, in % | - |
+| `f_value` | out | f at the point | - |
+| `partials` | out | the partial derivatives at the point | - |
+| `changes` | out | the absolute changes used | - |
+| `exact_change` | out | f(p + dp) - f(p) | - |
+
+**Applies when:** f differentiable at the point; one change per variable.
+
+```shell
+$ calculus solve total_differential "d=[0.01, -0.02]" "f=x^2*y" mode=change "p=[2, 3]"
+df = 0.04
+f_value = 12
+partials = [12.0,4.0]
+changes = [0.01,-0.02]
+percent_change = 0.3333333333
+exact_change = 0.039498
+  by: Total differential and small changes  (exact partial derivatives at the point; df = sum of f_xi dxi (a percentage change p % of xi is dxi = xi p/100))
+  f = x^2*y
+  mode = change
+  assumes: f differentiable at the point; one change per variable
+```
+
+In the worked example, d = [0.01, -0.02], f = x^2*y, mode = change, p = [2, 3] go through the equation above and give df = 0.04, f_value = 12, partials = [12, 4], changes = [0.01, -0.02]. It applies only when f differentiable at the point; one change per variable: outside that it says what is wrong instead of returning a number.
 
 ### Numerical differentiation (1)
 
@@ -1948,7 +2173,7 @@ area = 4.71238898
 
 **What the worked example means:** This calculation determines the area enclosed by the polar curve between the start angle and the end angle. Integrating half of the square of the radius over this angular interval shows that the resulting area is 4.71239. This value represents the total region covered by the curve as it rotates from 0 to 6.28319.
 
-### Series (6)
+### Series (7)
 
 <a id="geometric_partial_sum"></a>
 
@@ -1979,6 +2204,48 @@ sum = 80
 ```
 
 **What the worked example means:** This calculation determines the total accumulation of the first 4 terms in a sequence where each term grows by multiplying the previous one by a constant factor. Starting with an initial value of 2, the sequence progresses through 4 steps using a multiplier of 3. The resulting sum, 80, represents the combined magnitude of all these individual terms added together, providing a precise snapshot of the total value reached at that specific stage of growth.
+
+<a id="power_series_convergence"></a>
+
+#### Radius and interval of convergence of a power series, `power_series_convergence`
+
+The radius and interval of convergence of the power series sum c_n (x - a)^n, with the behaviour (absolute, conditional or divergent) at each endpoint.
+
+$$
+R = \frac{1}{\lim_{n\to\infty}\left|c_{n+1}/c_n\right|},\quad |x - a| < R
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `a` | in | the general term c_n (x - a)^n, in n and x | - |
+| `k` | in | the starting index n = k (only checked: the terms must be defined from there) (optional) | - |
+| `radius` | out | the radius of convergence R | - |
+| `centre` | out | the centre a | - |
+| `left_end` | out | a - R | - |
+| `right_end` | out | a + R | - |
+| `left_behaviour` | out | the series at x = a - R | - |
+| `right_behaviour` | out | the series at x = a + R | - |
+| `interval` | out | the interval of convergence | - |
+| `endpoint_exponent` | out | d where the terms at the endpoints behave like n^d | - |
+
+**Applies when:** the term is c_n (k x + m)^(n + j) with c_n a product of constants, powers of polynomials in n and constants to the power s*n + t (s a whole number); other forms (n!, n^n, x^(2n)) are refused.
+
+```shell
+$ calculus solve power_series_convergence "a=x^n/n"
+radius = 1
+centre = 0
+left_end = -1
+right_end = 1
+left_behaviour = converges conditionally
+right_behaviour = diverges
+interval = [-1, 1)
+endpoint_exponent = -1
+  by: Radius and interval of convergence of a power series  (ratio test: c_(n+1)/c_n -> rho, so R = 1/(|rho| |k|); at an endpoint |b_n| ~ C n^d with d the net degree in n of the coefficient: same-sign terms converge iff d < -1 (p-series), alternating terms iff d < 0 (alternating series test), absolutely iff d < -1)
+  a = x^n/n
+  assumes: the term is c_n (k x + m)^(n + j) with c_n a product of constants, powers of polynomials in n and constants to the power s*n + t (s a whole number); other forms (n!, n^n, x^(2n)) are refused
+```
+
+In the worked example, a = x^n/n go through the equation above and give radius = 1, centre = 0, left_end = -1, right_end = 1. It applies only when the term is c_n (k x + m)^(n + j) with c_n a product of constants, powers of polynomials in n and constants to the power s*n + t (s a whole number); other forms (n!, n^n, x^(2n)) are refused: outside that it says what is wrong instead of returning a number.
 
 <a id="ratio_test"></a>
 
@@ -2365,7 +2632,43 @@ zeta = 1.644934067
 
 **What the worked example means:** This calculation determines the value of the Riemann zeta function, which is defined as the infinite sum of the reciprocals of integer powers. For the input argument 2, the computed output is 1.64493. This series converges only when the argument is strictly greater than one, representing a fundamental constant in number theory and physics.
 
-### Vector calculus (7)
+### Vector calculus (8)
+
+<a id="conservative_field"></a>
+
+#### Conservative vector field and potential function, `conservative_field`
+
+Decides whether F = (P, Q) or (P, Q, R) is conservative (curl F = 0), finds a potential function f with grad f = F, and the path-independent line integral f(B) - f(A).
+
+$$
+\nabla\times\mathbf F = 0 \Rightarrow \mathbf F = \nabla f,\quad \int_A^B \mathbf F\cdot d\mathbf r = f(B) - f(A)
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `P` | in | the x-component P | - |
+| `Q` | in | the y-component Q | - |
+| `R` | in | the z-component R (3-D fields) (optional) | - |
+| `A` | in | the start point (optional) | - |
+| `B` | in | the end point (optional) | - |
+| `conservative` | out | yes or no | - |
+| `potential` | out | a potential function f (with f = 0 at the origin) + C | - |
+| `line_integral` | out | the integral of F . dr from A to B = f(B) - f(A) | - |
+| `curl` | out | the curl (Q_x - P_y in 2-D) when the field is not conservative | - |
+
+**Applies when:** polynomial components (fields on the whole plane or space, which is simply connected); A and B are given together, with as many coordinates as F has components.
+
+```shell
+$ calculus solve conservative_field "P=2x*y" "Q=x^2"
+conservative = yes
+potential = y*x^2 + C
+  by: Conservative vector field and potential function  (exact curl; if it vanishes, f = integral of P dx, plus the integral in y of Q - f_y, plus the integral in z of R - f_z, confirmed by grad f = F exactly; the fundamental theorem for line integrals gives f(B) - f(A))
+  P = 2x*y
+  Q = x^2
+  assumes: polynomial components (fields on the whole plane or space, which is simply connected); A and B are given together, with as many coordinates as F has components
+```
+
+In the worked example, P = 2x*y, Q = x^2 go through the equation above and give conservative = yes, potential = x^2*y + C. It applies only when polynomial components (fields on the whole plane or space, which is simply connected); A and B are given together, with as many coordinates as F has components: outside that it says what is wrong instead of returning a number.
 
 <a id="curl"></a>
 
@@ -2612,5 +2915,115 @@ flux = 3
 ```
 
 **What the worked example means:** This calculation determines the net flow of the vector field out of the rectangular region defined by the input coordinates. By applying the divergence theorem, the complex surface integral is converted into a simpler volume integral of the field's divergence over the box. The resulting value, 3, represents the total amount of the field leaving the enclosed space per unit time.
+
+### Vector-valued functions (2)
+
+<a id="space_curve_arc_length"></a>
+
+#### Arc length of a space curve: `space_curve_arc_length`
+
+The length of the space curve r(t) = (x(t), y(t), z(t)) for t0 <= t <= t1.
+
+$$
+L = \int_{t_0}^{t_1}\sqrt{x'(t)^2 + y'(t)^2 + z'(t)^2}\,dt
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `xt` | in | x(t) | - |
+| `yt` | in | y(t) | - |
+| `zt` | in | z(t) | - |
+| `t0` | in | start parameter | - |
+| `t1` | in | end parameter | - |
+| `arc_length` | out | the length of the curve | - |
+
+**Applies when:** t0 < t1; x, y and z continuously differentiable.
+
+```shell
+$ calculus solve space_curve_arc_length t0=0 t1=6.283185307 "xt=cos(t)" "yt=sin(t)" zt=t
+arc_length = 8.885765876
+  by: Arc length of a space curve  (|r'(t)| = sqrt(x'^2 + y'^2 + z'^2) with exact derivatives, tanh-sinh quadrature)
+  t0 = 0
+  t1 = 6.283185307
+  xt = cos(t)
+  yt = sin(t)
+  zt = t
+  assumes: t0 < t1; x, y and z continuously differentiable
+```
+
+In the worked example, t0 = 0, t1 = 6.283185307, xt = cos(t), yt = sin(t), zt = t go through the equation above and give arc_length = 8.885765876. It applies only when t0 < t1; x, y and z continuously differentiable: outside that it says what is wrong instead of returning a number.
+
+<a id="space_curve_curvature"></a>
+
+#### Curvature and unit tangent of a space curve, `space_curve_curvature`
+
+The curvature kappa = |r' x r''|/|r'|^3, the speed |r'| and the unit tangent T = r'/|r'| of the space curve r(t) = (x(t), y(t), z(t)) at t = t0.
+
+$$
+\kappa = \frac{|\mathbf r'\times\mathbf r''|}{|\mathbf r'|^3},\quad \mathbf T = \frac{\mathbf r'}{|\mathbf r'|}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `xt` | in | x(t) | - |
+| `yt` | in | y(t) | - |
+| `zt` | in | z(t) | - |
+| `t0` | in | the parameter value t0 | - |
+| `curvature` | out | kappa at t0 | - |
+| `speed` | out | \|r'(t0)\| | - |
+| `unit_tangent` | out | T(t0) | - |
+| `radius_of_curvature` | out | 1/kappa (absent where kappa = 0) | - |
+
+**Applies when:** r twice differentiable at t0; r'(t0) != 0.
+
+```shell
+$ calculus solve space_curve_curvature t0=0 "xt=cos(t)" "yt=sin(t)" zt=t
+curvature = 0.5
+speed = 1.414213562
+unit_tangent = [0.0,0.7071067811865475,0.7071067811865475]
+radius_of_curvature = 2
+  by: Curvature and unit tangent of a space curve  (exact first and second derivatives at t0; the cross-product formula)
+  t0 = 0
+  xt = cos(t)
+  yt = sin(t)
+  zt = t
+  assumes: r twice differentiable at t0; r'(t0) != 0
+```
+
+In the worked example, t0 = 0, xt = cos(t), yt = sin(t), zt = t go through the equation above and give curvature = 0.5, speed = 1.414213562, unit_tangent = [0, 0.7071067812, 0.7071067812], radius_of_curvature = 2. It applies only when r twice differentiable at t0; r'(t0) != 0: outside that it says what is wrong instead of returning a number.
+
+### Vectors in space (1)
+
+<a id="coordinate_conversion"></a>
+
+#### Rectangular, cylindrical and spherical coordinates, `coordinate_conversion`
+
+Converts a point given in rectangular (x, y, z), cylindrical (r, theta, z) or spherical (rho, theta, phi) coordinates into all three systems.
+
+$$
+x = \rho\sin\phi\cos\theta,\ y = \rho\sin\phi\sin\theta,\ z = \rho\cos\phi;\quad r = \sqrt{x^2+y^2}
+$$
+
+| symbol |  | meaning | SI unit |
+|---|---|---|---|
+| `system` | in | the system the point is given in | - |
+| `p` | in | the point: (x, y, z), (r, theta, z) or (rho, theta, phi), angles in radians | - |
+| `rectangular` | out | (x, y, z) | - |
+| `cylindrical` | out | (r, theta, z), theta in [0, 2 pi) | - |
+| `spherical` | out | (rho, theta, phi), phi from the positive z-axis in [0, pi] | - |
+
+**Applies when:** r >= 0 and rho >= 0; 0 <= phi <= pi (the polar angle from the positive z-axis); theta = 0 on the z-axis and phi = 0 at the origin by convention.
+
+```shell
+$ calculus solve coordinate_conversion "p=[1, 1, 1]" system=rectangular
+rectangular = [1.0,1.0,1.0]
+cylindrical = [1.41421356237,0.785398163397,1.0]
+spherical = [1.73205080757,0.785398163397,0.955316618125]
+  by: Rectangular, cylindrical and spherical coordinates  (x = r cos(theta), y = r sin(theta); r = sqrt(x^2 + y^2), theta = atan2(y, x); rho = sqrt(r^2 + z^2), phi = atan2(r, z); x = rho sin(phi) cos(theta), y = rho sin(phi) sin(theta), z = rho cos(phi))
+  system = rectangular
+  assumes: r >= 0 and rho >= 0; 0 <= phi <= pi (the polar angle from the positive z-axis); theta = 0 on the z-axis and phi = 0 at the origin by convention
+```
+
+In the worked example, p = [1, 1, 1], system = rectangular go through the equation above and give rectangular = [1, 1, 1], cylindrical = [1.414213562, 0.7853981634, 1], spherical = [1.732050808, 0.7853981634, 0.9553166181]. It applies only when r >= 0 and rho >= 0; 0 <= phi <= pi (the polar angle from the positive z-axis); theta = 0 on the z-axis and phi = 0 at the origin by convention: outside that it says what is wrong instead of returning a number.
 
 Questions and reports: support@ai999x.com. AI999X, The Future Is Self-Improving.

@@ -4357,3 +4357,1548 @@ def _newton_fix(rng, d):
 
 PROCEDURES["newton_method"]["random_inputs"] = (lambda old: lambda rng: _newton_fix(rng, old(rng)))(
     PROCEDURES["newton_method"]["random_inputs"])
+
+
+# =========================================================================================== 18. core gaps (2026-11-12)
+# Conventions of this section: an antiderivative is written without its constant ("+ C" appended) and term by term
+# from the table c*x^n (n rational; n = -1 gives log|x|) and c*sin, c*cos, c*exp of a linear argument a*x + b;
+# theta is the azimuth in [0, 2 pi) (0 on the z-axis) and phi the polar angle from the positive z-axis in [0, pi];
+# lambda solves grad f = lambda grad g for the constraint written g(x, y) = c, taken from the component where grad g
+# is larger; tied extreme values (within 1e-10) are reported at the point with the smallest x, then y; results built
+# from cos and sin in floating point are rounded to 12 significant digits (identical on every platform).
+def _r12(v) -> float:
+    """A float rounded to 12 significant digits (-0 written as 0)."""
+    w = float(f"{float(v):.12g}")
+    return w + 0.0
+
+
+# ------------------------------------------------------------------------------------------- antiderivative
+def _lin_coef(arg, var):
+    """The coefficient a of a linear argument a*v + b (a a nonzero number), or None."""
+    if not arg.is_polynomial(var):
+        return None
+    d = sp.diff(arg, var)
+    if not d.is_number or d == 0:
+        return None
+    return d
+
+
+def _anti_term(t, var):
+    """The antiderivative (no constant) of one term c*g(v) from the documented table, or None."""
+    if t.is_polynomial(var):
+        return sp.integrate(t, var)
+    c, dep = sp.Integer(1), []
+    for fac in sp.Mul.make_args(t):
+        if fac.has(var):
+            dep.append(fac)
+        else:
+            c = c * fac
+    if len(dep) != 1:
+        return None
+    g = dep[0]
+    if g.is_Pow and g.base == var and g.exp.is_Rational:
+        n = g.exp
+        if n == -1:
+            return c * sp.log(sp.Abs(var))
+        return c * var ** (n + 1) / (n + 1)
+    if g.is_Pow and g.base == sp.E:
+        a = _lin_coef(g.exp, var)
+        if a is None:
+            return None
+        return c * g / a
+    if g.is_Pow:
+        return None
+    args = g.args
+    if len(args) != 1:
+        return None
+    u = args[0]
+    a = _lin_coef(u, var)
+    if a is None:
+        return None
+    if g == sp.sin(u):
+        return -c * sp.cos(u) / a
+    if g == sp.cos(u):
+        return c * sp.sin(u) / a
+    if g == sp.exp(u):
+        return c * g / a
+    return None
+
+
+def _antiderivative(e, var):
+    out = sp.Integer(0)
+    for t in sp.Add.make_args(sp.expand(e)):
+        a = _anti_term(t, var)
+        if a is None:
+            raise ValueError("this integrand is outside the documented table: sums of c*x^n (n rational) and of c*sin, "
+                             "c*cos, c*exp of a linear argument a*x + b (products, quotients and compositions that need "
+                             "substitution, parts or partial fractions are refused)")
+        out = out + a
+    return out
+
+
+@_memo
+def antiderivative(f, x0=None, F0=None):
+    if (x0 is None) != (F0 is None):
+        raise ValueError("an initial condition needs both the point x0 and the value F(x0)")
+    G = _antiderivative(parse_expr(f), X)
+    out = {"antiderivative": show(G) + " + C"}
+    if x0 is not None:
+        c = F0 - at(G, (X,), x0)
+        sgn = " - " if c < 0 else " + "
+        out["constant"] = c
+        out["particular"] = show(G) + sgn + f"{abs(c):.12g}"
+    return out
+
+
+_ANTI_PTS = (0.37, 1.21, 2.53, -0.83, -1.67, 3.4)
+
+
+def _verify_anti(i, o):
+    e = parse_expr(i["f"])
+    G = _antiderivative(e, X)
+    if o["antiderivative"] != show(G) + " + C":
+        return 1.0
+    res = []
+    with mp.workdps(30):
+        g, h = _compile(G, (X,)), _compile(e, (X,))
+        for p in _ANTI_PTS:
+            try:
+                d = mp.diff(g, mp.mpf(p))
+                want = h(mp.mpf(p))
+            except ValueError:
+                continue
+            res.append(rel_err(float(d), float(want), 1e-12))
+    if len(res) < 2:
+        return 1.0
+    if i.get("x0") is not None:
+        res.append(rel_err(o["constant"], i["F0"] - at(G, (X,), i["x0"]), 1e-12))
+    return worst(*res)
+
+
+@functools.lru_cache(maxsize=512)
+def _ref_anti_G(f):
+    return sp.integrate(parse_expr(f), X)
+
+
+def _ref_anti(f, x0=None, F0=None):
+    """Build-time only: sympy's general integrator (Risch / heuristic / manual rules) on the whole integrand; its log(x)
+    is log|x| + i pi for x < 0, so the real part is taken."""
+    if x0 is None:
+        return {}
+    v = complex(sp.N(_ref_anti_G(f).subs(X, _rat(x0)), 30))
+    return {"constant": F0 - v.real}
+
+
+def _wrong_anti(f, x0=None, F0=None):
+    d = sp.diff(parse_expr(f), X)                     # differentiated instead of integrated
+    out = {"antiderivative": show(d) + " + C"}
+    if x0 is not None:
+        out["constant"] = F0 - at(d, (X,), x0)
+    return out
+
+
+def _rand_anti(rng):
+    a, b, c = _c(rng, -4, 4), _c(rng, 1, 3), _c(rng, -3, 3)
+    fam = rng.randrange(8)
+    f = [rand_poly(rng), f"{a}*sin({b}*x) + {c}*x^2", f"{a}*cos({b}*x + {c}) + x", f"{a}*exp({b}*x/2) + {c}",
+         f"{a}/x + {b}*x", f"sqrt(x) + {c}", f"{a}/x^2 + {c}*x^3", f"x^3 - {b}*exp(-x)"][fam]
+    x0 = rng.choice([0.5, 1.0, 1.5, 2.0, 3.0]) if fam in (4, 5, 6) else rand_point(rng, -2, 2)
+    return {"f": _sgn(f), "x0": x0, "F0": float(rng.randint(-5, 5))}
+
+
+proc("antiderivative", name="Antiderivative (indefinite integral)", topic="integrals / antiderivatives",
+     purpose="The antiderivative F(x) + C of f(x) term by term from the table of basic integrals (powers, polynomials, "
+             "sin, cos and exp of a linear argument), and with an initial condition F(x0) = F0 the constant C and the "
+             "particular antiderivative.",
+     inputs=[T_("f", "the integrand f(x)"), N_("x0", "the point x0 of an initial condition F(x0) = F0", required=False),
+             N_("F0", "the value F(x0) of the initial condition", required=False)],
+     outputs=[O_("antiderivative", "F(x) + C", "text"), O_("constant", "C for the initial condition"),
+              O_("particular", "the antiderivative with that C", "text")],
+     primary="constant",
+     conditions=["f is a sum of terms c*x^n (n rational), c*sin(a*x + b), c*cos(a*x + b), c*exp(a*x + b); anything "
+                 "else is refused", "with an initial condition, F is defined at x0"],
+     method="term-by-term table: x^n -> x^(n+1)/(n+1), 1/x -> log|x|, sin(ax+b) -> -cos(ax+b)/a, cos(ax+b) -> "
+            "sin(ax+b)/a, exp(ax+b) -> exp(ax+b)/a; C = F0 - F(x0)",
+     latex=r"\int f(x)\,dx = F(x) + C,\quad F'(x) = f(x)",
+     run=antiderivative, verify=_verify_anti, reference=_ref_anti, wrong=_wrong_anti, random_inputs=_rand_anti,
+     templates=["Find the antiderivative of 3x^2 + 2x.", "Find the indefinite integral of exp(3x) dx.",
+                "Find the antiderivative F of cos(2x) with F(0) = 1."],
+     examples=[{"inputs": {"f": "3x^2 + 2x", "x0": 1, "F0": 5}, "outputs": {"antiderivative": "x^3 + x^2 + C", "constant": 3.0}},
+               {"inputs": {"f": "cos(2x)", "x0": 0, "F0": 1}, "outputs": {"antiderivative": "sin(2*x)/2 + C", "constant": 1.0}},
+               {"inputs": {"f": "1/x", "x0": 1, "F0": 0}, "outputs": {"antiderivative": "log(Abs(x)) + C", "constant": 0.0}},
+               {"inputs": {"f": "exp(3x)", "x0": 0, "F0": 2}, "outputs": {"antiderivative": "exp(3*x)/3 + C", "constant": 5 / 3}}],
+     questions=[{"q": "Find the antiderivative of 3x^2 + 2x.", "outputs": {"antiderivative": "x^3 + x^2 + C"}},
+                {"q": "Find the indefinite integral of exp(3x) dx.", "outputs": {"antiderivative": "exp(3*x)/3 + C"}},
+                {"q": "Find the antiderivative F of cos(2x) with F(0) = 1.", "outputs": {"constant": 1.0}},
+                {"q": "Find the antiderivative F of 1/x with F(0) = 1.", "outcome": "INVALID_INPUT"},
+                {"q": "Find the antiderivative of sin(x)*cos(x).", "outcome": "INVALID_INPUT"}],
+     keywords=["antiderivative", "indefinite integral"])
+rule("antiderivative",
+     "<(?:general |most general )?>antiderivative <(?:f )?>of {f}<(?: dx)?> <(?:with|given|if)> f({x0:n}) = {F0:n}",
+     "indefinite integral of {f}<(?: dx)?> <(?:with|given|if)> f({x0:n}) = {F0:n}",
+     "<(?:general |most general )?>antiderivative <(?:f )?>of {f}<(?: dx)?>",
+     "indefinite integral of {f}<(?: dx)?>", order=25)
+
+
+# ------------------------------------------------------------------------------------------- power series
+def _pseries_parts(e):
+    """The documented form of a power-series term c_n (k x + m)^(n + j): returns (k, m, rho, d) where the coefficient's
+    ratio c_(n+1)/c_n tends to rho (the product of B^s over its factors B^(s n + ...)) as rho (1 + d/n + ...), d being
+    the net degree in n of its polynomial factors (rational powers allowed). ValueError for anything else."""
+    k, m = None, None
+    rho = sp.Integer(1)
+    d = Fraction(0)
+    for fac in sp.Mul.make_args(e):
+        hx, hn = fac.has(X), fac.has(NN)
+        if not hx and not hn:
+            if fac == 0:
+                raise ValueError("the term is zero")
+            continue
+        if hx:
+            if k is not None or not fac.is_Pow:
+                raise ValueError("write the term as c_n * (x - a)^n, with x only in that power")
+            base, ex = fac.base, fac.exp
+            if base.has(NN) or not base.is_polynomial(X):
+                raise ValueError("the power must be of a linear expression k*x + m")
+            kk = sp.diff(base, X)
+            if not kk.is_number or kk == 0:
+                raise ValueError("the power must be of a linear expression k*x + m")
+            j = sp.expand(ex - NN)
+            if not j.is_Integer:
+                raise ValueError("the power of (x - a) must be n (or n plus a whole number)")
+            k, m = kk, base.subs(X, 0)
+            continue
+        if fac.is_polynomial(NN):
+            d = d + sp.Poly(fac, NN).degree()
+            continue
+        if not fac.is_Pow:
+            raise ValueError("the coefficient may contain powers and polynomials of n and constants to the power n only")
+        base, ex = fac.base, fac.exp
+        if base.has(NN) and not ex.has(NN):
+            if not base.is_polynomial(NN) or not ex.is_Rational:
+                raise ValueError("a power of a polynomial in n needs a rational exponent")
+            P = sp.Poly(base, NN)
+            if not ex.is_Integer and P.LC() < 0:
+                raise ValueError("the term is not real for large n")
+            d = d + P.degree() * Fraction(int(ex.p), int(ex.q))
+            continue
+        if not base.has(NN) and base.is_number and ex.is_polynomial(NN):
+            s = sp.diff(ex, NN)
+            if not s.is_Integer or s == 0:
+                raise ValueError("a constant to a power of n needs an exponent s*n + t with s a whole number")
+            if base == 0:
+                raise ValueError("the term is zero")
+            rho = rho * base ** s
+            continue
+        raise ValueError("the coefficient may contain powers and polynomials of n and constants to the power n only")
+    if k is None:
+        raise ValueError("write the series term with a power (x - a)^n, e.g. (x - 2)^n/(n*3^n)")
+    return k, m, rho, d
+
+
+def _end_verdict(sigma, d):
+    """Behaviour of sum b_n with |b_n| ~ C n^d and b_(n+1)/b_n eventually of sign sigma (p-series and alternating
+    series tests)."""
+    if d < -1:
+        return "converges absolutely"
+    if sigma < 0 and d < 0:
+        return "converges conditionally"
+    return "diverges"
+
+
+@_memo
+def power_series_convergence(a, k=None):
+    e = parse_expr(a, ("n", "x"))
+    kx, mx, rho, d = _pseries_parts(e)
+    rv, kf = _pfloat(rho), _pfloat(kx)
+    Rx = 1 / (sp.Abs(rho) * sp.Abs(kx))
+    cx = -mx / kx
+    R, c, lo, hi = _pfloat(Rx), _pfloat(cx), _pfloat(cx - Rx), _pfloat(cx + Rx)
+    if k is not None:
+        k = int(k)
+        if not 0 <= k <= 1000:
+            raise ValueError("the starting index must be between 0 and 1000")
+        xm = _pfloat(cx + Rx / 2)
+        for j in range(k, k + 4):
+            at(e, ("n", "x"), j, xm)
+    sr = (1 if rv > 0 else -1) * (1 if kf > 0 else -1)
+    right, left = _end_verdict(sr, d), _end_verdict(-sr, d)
+    lb = "(" if left == "diverges" else "["
+    rb = ")" if right == "diverges" else "]"
+    return {"radius": R, "centre": c, "left_end": lo, "right_end": hi, "left_behaviour": left, "right_behaviour": right,
+            "interval": lb + f"{lo:.12g}, {hi:.12g}" + rb, "endpoint_exponent": float(d)}
+
+
+def _end_probe(g, xe):
+    """(sign, d) of the terms at a convergence endpoint: b_(N+1)/b_N = sign (1 + d/N + ...), with d from N(|ratio| - 1)
+    at N = 4000 .. 32000 extrapolated (Richardson) to N -> infinity; a wrong radius makes it grow like N."""
+    ys, sg = [], 1
+    for N in (4000, 8000, 16000, 32000):
+        b0 = g(mp.mpf(N), xe)
+        if b0 == 0:
+            raise ValueError("a term vanishes at the endpoint")
+        q = g(mp.mpf(N + 1), xe) / b0
+        sg = 1 if q > 0 else -1
+        ys.append(N * (abs(q) - 1))
+    y1 = [2 * ys[j + 1] - ys[j] for j in range(3)]
+    y2 = [(4 * y1[j + 1] - y1[j]) / 3 for j in range(2)]
+    return sg, (8 * y2[1] - y2[0]) / 7
+
+
+def _verify_pseries(i, o):
+    e = parse_expr(i["a"], ("n", "x"))
+    d, R, c = o["endpoint_exponent"], o["radius"], o["centre"]
+    lo, hi = o["left_end"], o["right_end"]
+    res = [rel_err(lo, c - R, 1e-12), rel_err(hi, c + R, 1e-12)]
+    if not R > 0:
+        return 1.0
+    with mp.workdps(40):
+        g = _compile(e, ("n", "x"))
+        sr, dr = _end_probe(g, mp.mpf(c) + mp.mpf(R))
+        sl, dl = _end_probe(g, mp.mpf(c) - mp.mpf(R))
+    res.append(max(0.0, abs(float(dr) - d) - 1e-6))
+    res.append(max(0.0, abs(float(dl) - d) - 1e-6))
+    res.append(_same(o["right_behaviour"], _end_verdict(sr, d)))
+    res.append(_same(o["left_behaviour"], _end_verdict(sl, d)))
+    lb = "(" if o["left_behaviour"] == "diverges" else "["
+    rb = ")" if o["right_behaviour"] == "diverges" else "]"
+    res.append(_same(o["interval"], lb + f"{lo:.12g}, {hi:.12g}" + rb))
+    return worst(*res)
+
+
+def _ref_pseries(a, k=None):
+    """Build-time only: the ratio limit L(x) = lim |b_(n+1)(x)/b_n(x)| = |x - c|/R at x = 10 and x = 20 (mpmath's
+    extrapolated limits) gives R and c; at each endpoint mpmath's limit p = lim n (1 - |b_(n+1)/b_n|) (Raabe-Gauss)
+    decides: p > 1 absolutely, alternating with 0 < p <= 1 conditionally, otherwise divergent."""
+    # every sequence is shifted to n + 10: mpmath's limit samples from n = 1 (or 0), where 1/n, 1/sqrt(n) ... can be
+    # undefined (an mpf division by zero, which crashed certification on 2026-11-12)
+    g = ref_lam(a, ("n", "x"))
+    with mp.workdps(30):
+        L1 = mp.limit(lambda n: abs(g(n + 11, mp.mpf(10)) / g(n + 10, mp.mpf(10))), mp.inf)
+        L2 = mp.limit(lambda n: abs(g(n + 11, mp.mpf(20)) / g(n + 10, mp.mpf(20))), mp.inf)
+        if not L2 - L1 > 0:
+            raise ValueError("reference: the ratio limit does not grow with |x - c|")
+        R = 10 / (L2 - L1)
+        c = 10 - R * L1
+        if abs(c) < 1e-10:
+            c = mp.mpf(0)
+        out = {"radius": float(R), "centre": float(c), "left_end": float(c - R), "right_end": float(c + R)}
+        for key, xe in (("left_behaviour", c - R), ("right_behaviour", c + R)):
+            p = mp.limit(lambda n: (n + 10) * (1 - abs(g(n + 11, xe) / g(n + 10, xe))), mp.inf)
+            p12 = mp.nint(p * 12)
+            if abs(p * 12 - p12) < 1e-6:
+                p = p12 / 12
+            # the sign of consecutive terms at n = 100, 101 (sympy's mpmath lambdify gives 0.0 for some terms near
+            # n = 1000, an mpf division by zero that crashed certification on 2026-11-12)
+            t0, t1 = g(100, xe), g(101, xe)
+            if t0 == 0 or t1 == 0:
+                raise ValueError("reference: a term evaluates to zero at the endpoint")
+            sg = 1 if (t1 > 0) == (t0 > 0) else -1
+            out[key] = "converges absolutely" if p > 1 else ("converges conditionally" if sg < 0 and p > 0 else "diverges")
+    return out
+
+
+def _wrong_pseries(a, k=None):
+    r = power_series_convergence(a, k)
+    R = 1 / r["radius"]                                # the ratio limit taken as the radius (not its reciprocal)
+    return dict(r, radius=R, left_end=r["centre"] - R, right_end=r["centre"] + R)
+
+
+def _rand_pseries(rng):
+    B, a = rng.choice([2, 3, 4, 5]), rng.choice([-2, -1, 1, 2, 3])
+    sh = _sh("x", a)
+    fams = [f"{sh}^n/(n*{B}^n)", f"n*{sh}^n/{B}^n", f"(-1)^n*{sh}^n/(n^2*{B}^n)", f"{B}^n*{sh}^n/n",
+            f"{sh}^n/(n^2 + 1)", f"(-1)^(n + 1)*x^n/(n*{B}^n)", f"(2*x - {a})^n/(n*{B}^n)", f"n^2*x^n/{B}^n",
+            f"{sh}^n/(sqrt(n)*{B}^n)", f"(-1)^n*{sh}^n/(n + 1)"]
+    return {"a": _sgn(rng.choice(fams))}
+
+
+proc("power_series_convergence", name="Radius and interval of convergence of a power series", topic="series / power series",
+     purpose="The radius and interval of convergence of the power series sum c_n (x - a)^n, with the behaviour "
+             "(absolute, conditional or divergent) at each endpoint.",
+     inputs=[T_("a", "the general term c_n (x - a)^n, in n and x"),
+             I_("k", "the starting index n = k (only checked: the terms must be defined from there)", 0, 1000, required=False)],
+     outputs=[O_("radius", "the radius of convergence R"), O_("centre", "the centre a"), O_("left_end", "a - R"),
+              O_("right_end", "a + R"), O_("left_behaviour", "the series at x = a - R", "text"),
+              O_("right_behaviour", "the series at x = a + R", "text"), O_("interval", "the interval of convergence", "text"),
+              O_("endpoint_exponent", "d where the terms at the endpoints behave like n^d")],
+     primary="radius",
+     conditions=["the term is c_n (k x + m)^(n + j) with c_n a product of constants, powers of polynomials in n and "
+                 "constants to the power s*n + t (s a whole number); other forms (n!, n^n, x^(2n)) are refused"],
+     method="ratio test: c_(n+1)/c_n -> rho, so R = 1/(|rho| |k|); at an endpoint |b_n| ~ C n^d with d the net degree "
+            "in n of the coefficient: same-sign terms converge iff d < -1 (p-series), alternating terms iff d < 0 "
+            "(alternating series test), absolutely iff d < -1",
+     latex=r"R = \frac{1}{\lim_{n\to\infty}\left|c_{n+1}/c_n\right|},\quad |x - a| < R",
+     run=power_series_convergence, verify=_verify_pseries, reference=_ref_pseries, wrong=_wrong_pseries,
+     random_inputs=_rand_pseries,
+     templates=["Find the interval of convergence of the power series x^n/n.",
+                "What is the radius of convergence of the series (x - 2)^n/(n*3^n)?",
+                "Find the radius and interval of convergence of n*x^n/2^n from n = 1 to infinity."],
+     examples=[{"inputs": {"a": "x^n/n"}, "outputs": {"radius": 1.0, "centre": 0.0, "interval": "[-1, 1)",
+                                                      "left_behaviour": "converges conditionally", "right_behaviour": "diverges"}},
+               {"inputs": {"a": "(x - 2)^n/(n*3^n)"}, "outputs": {"radius": 3.0, "centre": 2.0, "interval": "[-1, 5)"}},
+               {"inputs": {"a": "n*x^n/2^n", "k": 1}, "outputs": {"radius": 2.0, "interval": "(-2, 2)"}},
+               {"inputs": {"a": "(-1)^n*(x + 1)^n/n^2"}, "outputs": {"radius": 1.0, "centre": -1.0, "interval": "[-2, 0]",
+                                                                    "left_behaviour": "converges absolutely"}},
+               {"inputs": {"a": "(2x - 1)^n/n"}, "outputs": {"radius": 0.5, "centre": 0.5, "interval": "[0, 1)"}}],
+     questions=[{"q": "Find the interval of convergence of the power series x^n/n.", "outputs": {"radius": 1.0, "interval": "[-1, 1)"}},
+                {"q": "What is the radius of convergence of the series (x - 2)^n/(n*3^n)?", "outputs": {"radius": 3.0}},
+                {"q": "Find the radius and interval of convergence of n*x^n/2^n from n = 1 to infinity.",
+                 "outputs": {"radius": 2.0, "interval": "(-2, 2)"}},
+                {"q": "Find the radius of convergence of x^(2n)/n.", "outcome": "INVALID_INPUT"},
+                {"q": "Find the interval of convergence of x^n/n from n = 0.", "outcome": "INVALID_INPUT"}],
+     keywords=["radius of convergence", "interval of convergence", "power series"])
+_PSER = ("<(?:radius|interval)(?: and (?:radius|interval))?> of convergence <(?:of|for)> "
+         "<(?:the )?(?:power )?(?:series )?>{a}")
+rule("power_series_convergence", _PSER + " from n = {k:i}<(?: to (?:infinity|oo))?>", _PSER, order=30)
+
+
+# ------------------------------------------------------------------------------------------- Lagrange multipliers
+def _conic(text):
+    """The constraint g(x, y) = c as G = A x^2 + B y^2 + C xy + D x + E y + F = 0 with exact coefficients
+    (ValueError if it is not of degree at most 2)."""
+    G = sp.expand(_eqn(text, _XY))
+    if not G.is_polynomial(X, Y):
+        raise ValueError("the constraint must be a line or a circle/ellipse in x and y")
+    z = {X: 0, Y: 0}
+    A, B, C = sp.diff(G, X, 2) / 2, sp.diff(G, Y, 2) / 2, sp.diff(G, X, Y)
+    D, E, F = sp.diff(G, X).subs(z), sp.diff(G, Y).subs(z), G.subs(z)
+    for v in (A, B, C, D, E, F):
+        if not v.is_number:
+            raise ValueError("the constraint must be a line or a circle/ellipse in x and y")
+    if sp.expand(G - (A * X ** 2 + B * Y ** 2 + C * X * Y + D * X + E * Y + F)) != 0:
+        raise ValueError("the constraint must be a line or a circle/ellipse in x and y")
+    return G, A, B, C, D, E, F
+
+
+def _ellipse_params(A, B, D, E, F):
+    """Centre (h0, k0) and semi-axes (a, b) of A x^2 + B y^2 + D x + E y + F = 0 (A, B of one sign)."""
+    Af, Bf, Df, Ef, Ff = _pfloat(A), _pfloat(B), _pfloat(D), _pfloat(E), _pfloat(F)
+    h0, k0 = -Df / (2 * Af), -Ef / (2 * Bf)
+    K = Af * h0 * h0 + Bf * k0 * k0 - Ff
+    if not K / Af > 0:
+        raise ValueError("the constraint curve is empty or a single point")
+    return h0, k0, math.sqrt(K / Af), math.sqrt(K / Bf)
+
+
+def _extreme(cands, sg):
+    """The largest (sg = 1) or smallest (sg = -1) value of (value, x, y) candidates; ties within 1e-10 go to the point
+    with the smallest x, then y."""
+    best = None
+    for v, x, y in cands:
+        if best is None:
+            best = (v, x, y)
+            continue
+        tol = 1e-10 * max(1.0, abs(v), abs(best[0]))
+        if sg * (v - best[0]) > tol:
+            best = (v, x, y)
+        elif abs(v - best[0]) <= tol and (x < best[1] - 1e-9 or (abs(x - best[1]) <= 1e-9 and y < best[2])):
+            best = (v, x, y)
+    return best
+
+
+def _lagrange_line(e, D, E, F):
+    if E != 0:
+        xt, yt = T, -(D * T + F) / E
+    else:
+        xt, yt = -F / D, T
+    h = sp.expand(e.subs({X: xt, Y: yt}, simultaneous=True))
+    if not h.is_polynomial(T):
+        raise ValueError("with a line constraint the function must be a polynomial in x and y")
+    P = sp.Poly(h, T)
+    co = P.all_coeffs()
+    for cf in co:
+        if not cf.is_Rational:
+            raise ValueError("with a line constraint the polynomial needs rational coefficients")
+    n = P.degree()
+    if n < 1:
+        raise ValueError("f is constant on the constraint")
+    if n % 2 == 1:
+        raise ValueError("f is unbounded above and below along the line: there is no constrained maximum or minimum")
+    cands, prev = [], None
+    for r in sp.real_roots(P.diff()):
+        t = float(r)
+        if prev is not None and abs(t - prev) <= 1e-12 * max(1.0, abs(t)):
+            continue
+        prev = t
+        x, y = at(xt, (T,), t), at(yt, (T,), t)
+        cands.append((at(e, _XY, x, y), x, y))
+    return cands, co[0] < 0, co[0] > 0
+
+
+def _dh(fx, fy, h0, k0, a, b, t):
+    x, y = h0 + a * math.cos(t), k0 + b * math.sin(t)
+    return -a * math.sin(t) * fx(x, y) + b * math.cos(t) * fy(x, y)
+
+
+def _lagrange_ellipse(e, A, B, D, E, F):
+    h0, k0, a, b = _ellipse_params(A, B, D, E, F)
+    fx, fy, fl = _fl(sp.diff(e, X), _XY), _fl(sp.diff(e, Y), _XY), _fl(e, _XY)
+    N = 1440
+    ts, s = [], []
+    for j in range(N + 1):
+        t = 2 * math.pi * (j + 0.37) / N
+        ts.append(t)
+        s.append(_dh(fx, fy, h0, k0, a, b, t))
+    roots = []
+    for j in range(N):
+        if s[j] == 0:
+            roots.append(ts[j])
+        elif s[j] * s[j + 1] < 0:
+            lo, hi, slo = ts[j], ts[j + 1], s[j]
+            for _ in range(80):
+                mid = (lo + hi) / 2
+                sm = _dh(fx, fy, h0, k0, a, b, mid)
+                if sm == 0:
+                    lo = mid
+                    hi = mid
+                    break
+                if (sm > 0) == (slo > 0):
+                    lo, slo = mid, sm
+                else:
+                    hi = mid
+            roots.append((lo + hi) / 2)
+    cands = []
+    for t in roots:
+        x, y = h0 + a * math.cos(t), k0 + b * math.sin(t)
+        cands.append((at(e, _XY, x, y), x, y))
+    if not cands:
+        raise ValueError("f is constant on the constraint")
+    vmax, vmin = cands[0][0], cands[0][0]
+    for cd in cands:
+        vmax, vmin = max(vmax, cd[0]), min(vmin, cd[0])
+    if vmax - vmin <= 1e-12 * max(1.0, abs(vmax)):
+        raise ValueError("f is constant on the constraint (every point is both a maximum and a minimum)")
+    for t in ts:
+        v = fl(h0 + a * math.cos(t), k0 + b * math.sin(t))
+        if v > vmax + 1e-9 * max(1.0, abs(vmax)) or v < vmin - 1e-9 * max(1.0, abs(vmin)):
+            raise ValueError("a critical point could not be resolved numerically")
+    return cands
+
+
+def _check_nondegenerate(e, A, B, D, E, F, x, y):
+    """ValueError unless the second derivative of f along the ellipse x = h + a cos t, y = k + b sin t is clearly
+    nonzero at (x, y). At a degenerate extremum (d f/dt with a multiple root, e.g. x^2 + 2y on the unit circle at (0, 1))
+    the location is fixed only to about the cube root of rounding, so it cannot be reported to 1e-9."""
+    h0, k0, a, b = _ellipse_params(A, B, D, E, F)
+    c, s = (x - h0) / a, (y - k0) / b
+    fx, fy = at(sp.diff(e, X), _XY, x, y), at(sp.diff(e, Y), _XY, x, y)
+    fxx, fxy, fyy = at(sp.diff(e, X, 2), _XY, x, y), at(sp.diff(e, X, Y), _XY, x, y), at(sp.diff(e, Y, 2), _XY, x, y)
+    h2 = a * a * s * s * fxx - 2 * a * b * s * c * fxy + b * b * c * c * fyy - a * c * fx - b * s * fy
+    S = a * a * abs(fxx) + 2 * a * b * abs(fxy) + b * b * abs(fyy) + a * abs(fx) + b * abs(fy)
+    if abs(h2) <= 1e-6 * max(S, 1e-300):
+        raise ValueError("degenerate constrained extremum (the second derivative of f along the constraint vanishes "
+                         "there): its location cannot be resolved numerically")
+
+
+@_memo
+def lagrange_multipliers(f, g):
+    e = parse_expr(f, _XY)
+    G, A, B, C, D, E, F = _conic(g)
+    if A == 0 and B == 0 and C == 0:
+        if D == 0 and E == 0:
+            raise ValueError("the constraint must involve x or y")
+        cands, has_max, has_min = _lagrange_line(e, D, E, F)
+        kind = "line"
+    elif C == 0 and A * B > 0:
+        cands = _lagrange_ellipse(e, A, B, D, E, F)
+        has_max, has_min = True, True
+        kind = "circle" if A == B else "ellipse"
+    else:
+        raise ValueError("documented constraints: a line a*x + b*y = c, or a circle or ellipse with axes parallel to "
+                         "the coordinate axes")
+    ex, ey, gxe, gye = sp.diff(e, X), sp.diff(e, Y), sp.diff(G, X), sp.diff(G, Y)
+    out = {"constraint": kind}
+    for key, sg, ok in (("max", 1, has_max), ("min", -1, has_min)):
+        if not ok:
+            continue
+        best = _extreme(cands, sg)
+        v, x, y = best[0], best[1], best[2]
+        if kind != "line":
+            _check_nondegenerate(e, A, B, D, E, F, x, y)
+        fx, fy = at(ex, _XY, x, y), at(ey, _XY, x, y)
+        gx, gy = at(gxe, _XY, x, y), at(gye, _XY, x, y)
+        num, den = (fx, gx) if abs(gx) >= abs(gy) else (fy, gy)
+        lam = 0.0 if abs(num) <= 1e-12 * max(1.0, abs(fx), abs(fy)) else num / den
+        out[key + "_value"] = _r12(v)
+        out[key + "_point"] = [_r12(x), _r12(y)]
+        out[key + "_lambda"] = _r12(lam)
+    return out
+
+
+def _constraint_samples(A, B, D, E, F):
+    out = []
+    if A == 0 and B == 0:
+        Df, Ef, Ff = _pfloat(D), _pfloat(E), _pfloat(F)
+        for j in range(401):
+            s = -50.0 + j * 0.25
+            if Ef != 0:
+                out.append((s, -(Df * s + Ff) / Ef))
+            else:
+                out.append((-Ff / Df, s))
+        return out
+    h0, k0, a, b = _ellipse_params(A, B, D, E, F)
+    for j in range(720):
+        t = 2 * math.pi * j / 720
+        out.append((h0 + a * math.cos(t), k0 + b * math.sin(t)))
+    return out
+
+
+def _verify_lagrange(i, o):
+    e = parse_expr(i["f"], _XY)
+    G, A, B, C, D, E, F = _conic(i["g"])
+    fl = _fl(e, _XY)
+    res, n = [], 0
+    for key in ("max", "min"):
+        if key + "_value" not in o:
+            continue
+        n += 1
+        pt = o[key + "_point"]
+        x, y, lam = pt[0], pt[1], o[key + "_lambda"]
+        fx, fy = at(sp.diff(e, X), _XY, x, y), at(sp.diff(e, Y), _XY, x, y)
+        gx, gy = at(sp.diff(G, X), _XY, x, y), at(sp.diff(G, Y), _XY, x, y)
+        S = max(1.0, abs(fx), abs(fy))
+        res.append(max(0.0, abs(at(G, _XY, x, y)) / max(1.0, abs(gx), abs(gy)) - 1e-9))
+        res.append(max(0.0, abs(fx - lam * gx) / S - 1e-9))
+        res.append(max(0.0, abs(fy - lam * gy) / S - 1e-9))
+        res.append(rel_err(o[key + "_value"], at(e, _XY, x, y), 1e-9))
+    if n == 0:
+        return 1.0
+    for x, y in _constraint_samples(A, B, D, E, F):
+        try:
+            v = fl(x, y)
+        except ValueError:
+            continue
+        if "max_value" in o:
+            res.append(max(0.0, (v - o["max_value"]) / max(1.0, abs(o["max_value"])) - 1e-9))
+        if "min_value" in o:
+            res.append(max(0.0, (o["min_value"] - v) / max(1.0, abs(o["min_value"])) - 1e-9))
+    return worst(*res)
+
+
+def _ref_lagrange(f, g):
+    """Build-time only. Line: sympy solves the constraint for one variable, sympy limits at +-infinity decide which
+    extremes exist, numpy's companion-matrix roots give the critical points. Ellipse: the square completed from sympy's
+    Poly coefficients, the derivative of f along the curve by complex-step differentiation on 4000 subintervals and
+    scipy's brentq. The same tie rule; lambda from complex-step partial derivatives."""
+    import cmath
+
+    import numpy as np
+    from scipy.optimize import brentq
+    e, G = parse_expr(f, _XY), sp.expand(_eqn(g, _XY))
+    Pq = sp.Poly(G, X, Y)
+    cm = [float(Pq.coeff_monomial(X ** a * Y ** b)) for a, b in ((2, 0), (0, 2), (1, 0), (0, 1), (0, 0))]
+    A, B, D, E, F = cm
+    fl = ref_lam(f, _XY, module="math")
+    cands = []
+    if A == 0 and B == 0:
+        s = sp.Symbol("s", real=True)
+        if E != 0:
+            xs, ys = s, sp.solve(G.subs(X, s), Y)[0]
+        else:
+            xs, ys = sp.solve(G.subs(Y, s), X)[0], s
+        h = sp.expand(e.subs({X: xs, Y: ys}, simultaneous=True))
+        top, bot = sp.limit(h, s, sp.oo), sp.limit(h, s, -sp.oo)
+        has = {"max": top == -sp.oo and bot == -sp.oo, "min": top == sp.oo and bot == sp.oo}
+        for r in np.roots([float(c) for c in sp.Poly(sp.diff(h, s), s).all_coeffs()]):
+            if abs(r.imag) < 1e-9:
+                x, y = float(xs.subs(s, float(r.real))), float(ys.subs(s, float(r.real)))
+                cands.append((float(fl(x, y)), x, y))
+    else:
+        h0, k0 = -D / (2 * A), -E / (2 * B)
+        K = A * h0 * h0 + B * k0 * k0 - F
+        a, b = math.sqrt(K / A), math.sqrt(K / B)
+        fc = ref_lam(f, _XY, module="cmath")
+        dh = lambda t: fc(h0 + a * cmath.cos(complex(t, 1e-30)), k0 + b * cmath.sin(complex(t, 1e-30))).imag / 1e-30  # noqa: E731
+        ts = [0.123 + 2 * math.pi * j / 4000 for j in range(4001)]
+        vs = [dh(t) for t in ts]
+        for j in range(4000):
+            if vs[j] == 0 or vs[j] * vs[j + 1] < 0:
+                t = ts[j] if vs[j] == 0 else brentq(dh, ts[j], ts[j + 1], xtol=1e-15, rtol=8.9e-16)
+                x, y = h0 + a * math.cos(t), k0 + b * math.sin(t)
+                cands.append((float(fl(x, y)), x, y))
+        has = {"max": True, "min": True}
+    gtext = _eqn_text(g)
+    out = {}
+    for key, sg in (("max", 1), ("min", -1)):
+        if not has[key]:
+            continue
+        v, x, y = _extreme(cands, sg)
+        fx, fy = ref_cpartial(f, _XY, (x, y), 0), ref_cpartial(f, _XY, (x, y), 1)
+        gx, gy = ref_cpartial(gtext, _XY, (x, y), 0), ref_cpartial(gtext, _XY, (x, y), 1)
+        num, den = (fx, gx) if abs(gx) >= abs(gy) else (fy, gy)
+        out[key + "_value"] = v
+        out[key + "_point"] = [x, y]
+        out[key + "_lambda"] = 0.0 if abs(num) <= 1e-12 * max(1.0, abs(fx), abs(fy)) else num / den
+    return out
+
+
+def _wrong_lagrange(f, g):
+    r = lagrange_multipliers(f, g)                    # the multiplier's sign flipped (g written as c - g)
+    for key in ("max_lambda", "min_lambda"):
+        if key in r:
+            r[key] = -r[key]
+    return r
+
+
+def _rand_lagrange(rng):
+    a, b = rng.randint(1, 3), rng.randint(1, 3)
+    if rng.random() < 0.4:
+        c = rng.choice([4, 6, 10, 12])
+        f = rng.choice(["x*y", f"{rng.randint(5, 20)} - x^2 - y^2", f"x*y - {a}*x", "3*x - x^2 - x*y - y^2"])
+        return {"f": f, "g": f"{a}*x + {b}*y = {c}"}
+    g = rng.choice(["x^2 + y^2 = 1", "x^2 + y^2 = 4", f"x^2 + {b}*y^2 = {a * b}", f"{a}*x^2 + y^2 = 4",
+                    "(x - 1)^2 + y^2 = 4", "x^2 + 2*x + y^2 = 3"])
+    f = rng.choice([f"x + {a}*y", "x*y", f"x^2 + {a}*y", f"{b}*x - y^2", "x^2*y", "exp(x) + y", f"x^2 - {a}*y^2 + x"])
+    return {"f": f, "g": g}
+
+
+proc("lagrange_multipliers", name="Lagrange multipliers: extrema under a constraint", topic="multivariable calculus / optimization",
+     purpose="The maximum and minimum of f(x, y) subject to a constraint g(x, y) = c (a line, circle or axis-aligned "
+             "ellipse), where they are attained, and the Lagrange multiplier at each.",
+     inputs=[T_("f", "the function f(x, y) to optimise"), T_("g", "the constraint, an equation g(x, y) = c")],
+     outputs=[O_("max_value", "the constrained maximum of f"), O_("max_point", "where it is attained (x, y)", "vector"),
+              O_("max_lambda", "the multiplier lambda there"), O_("min_value", "the constrained minimum of f"),
+              O_("min_point", "where it is attained (x, y)", "vector"), O_("min_lambda", "the multiplier lambda there"),
+              O_("constraint", "line, circle or ellipse", "text")],
+     primary="max_value",
+     conditions=["the constraint is a line a*x + b*y = c (then f is a polynomial with rational coefficients, and only "
+                 "the extremes that exist on the unbounded line are given) or a circle or ellipse with axes parallel to "
+                 "the coordinate axes (both extremes exist)", "f is not constant on the constraint",
+                 "on a circle or ellipse, each extremum is nondegenerate (the second derivative of f along the curve is "
+                 "nonzero there); a degenerate one is refused"],
+     method="grad f = lambda grad g on the constraint: on a line, f restricted to a parametrisation is a polynomial "
+            "whose critical points are its derivative's exact real roots; on an ellipse x = h + a cos t, y = k + b sin t, "
+            "the roots of df/dt are bracketed on 1440 subintervals and bisected; the largest and smallest values win",
+     latex=r"\nabla f = \lambda\,\nabla g,\quad g(x, y) = c",
+     run=lagrange_multipliers, verify=_verify_lagrange, reference=_ref_lagrange, wrong=_wrong_lagrange,
+     random_inputs=_rand_lagrange,
+     templates=["Use Lagrange multipliers to find the maximum of xy subject to x + y = 10.",
+                "Find the maximum and minimum of x + y subject to x^2 + y^2 = 2."],
+     examples=[{"inputs": {"f": "x*y", "g": "x + y = 10"}, "outputs": {"max_value": 25.0, "max_point": [5.0, 5.0], "max_lambda": 5.0}},
+               {"inputs": {"f": "x + y", "g": "x^2 + y^2 = 2"},
+                "outputs": {"max_value": 2.0, "max_point": [1.0, 1.0], "max_lambda": 0.5,
+                            "min_value": -2.0, "min_point": [-1.0, -1.0], "min_lambda": -0.5}},
+               {"inputs": {"f": "x*y", "g": "x^2 + y^2 = 2"},
+                "outputs": {"max_value": 1.0, "max_point": [-1.0, -1.0], "max_lambda": 0.5,
+                            "min_value": -1.0, "min_point": [-1.0, 1.0], "min_lambda": -0.5}}],
+     questions=[{"q": "Use Lagrange multipliers to find the maximum of xy subject to x + y = 10.", "outputs": {"max_value": 25.0}},
+                {"q": "Find the maximum and minimum of x + y subject to x^2 + y^2 = 2.", "outputs": {"max_value": 2.0, "min_value": -2.0}},
+                {"q": "Find the extreme values of x^3 subject to x + y = 1.", "outcome": "INVALID_INPUT"},
+                {"q": "Find the extrema of x*y subject to x*y^2 = 1.", "outcome": "INVALID_INPUT"},
+                {"q": "Find the maximum and minimum of x^2 + 2y subject to x^2 + y^2 = 1.", "outcome": "INVALID_INPUT"}],
+     keywords=["lagrange multipliers", "constrained optimization", "subject to"])
+rule("lagrange_multipliers",
+     "<(?:absolute )?(?:maximum and minimum|minimum and maximum|max and min|extreme values|extrema|maximum|minimum)"
+     "(?: values?)?> of {f} subject to <(?:the constraint )?>{g}",
+     "<(?:maximize|minimize|maximise|minimise|optimize|optimise)(?: and (?:maximize|minimize|maximise|minimise))?> {f} "
+     "subject to <(?:the constraint )?>{g}", order=20)
+
+
+# ------------------------------------------------------------------------------------------- coordinate systems
+def _to_rect(system, p):
+    a, b, c = float(p[0]), float(p[1]), float(p[2])
+    if system == "rectangular":
+        return [a, b, c]
+    if system == "cylindrical":
+        if a < 0:
+            raise ValueError("the radial distance r must be at least 0")
+        return [a * math.cos(b), a * math.sin(b), c]
+    if system == "spherical":
+        if a < 0:
+            raise ValueError("rho must be at least 0")
+        if not 0 <= c <= math.pi + 1e-12:
+            raise ValueError("the polar angle phi must lie between 0 and pi (measured from the positive z-axis)")
+        return [a * math.sin(c) * math.cos(b), a * math.sin(c) * math.sin(b), a * math.cos(c)]
+    raise ValueError("the system must be rectangular, cylindrical or spherical")
+
+
+@_memo
+def coordinate_conversion(system, p):
+    if len(p) != 3:
+        raise ValueError("the point needs three coordinates")
+    v = _to_rect(system, p)
+    S = max(abs(v[0]), abs(v[1]), abs(v[2]))
+    x = 0.0 if abs(v[0]) <= 1e-12 * S else v[0]
+    y = 0.0 if abs(v[1]) <= 1e-12 * S else v[1]
+    z = 0.0 if abs(v[2]) <= 1e-12 * S else v[2]
+    r = math.hypot(x, y)
+    rho = math.hypot(r, z)
+    th = math.atan2(y, x) if r > 0 else 0.0
+    if th < 0:
+        th = th + 2 * math.pi
+    ph = math.atan2(r, z) if rho > 0 else 0.0
+    return {"rectangular": [_r12(x), _r12(y), _r12(z)], "cylindrical": [_r12(r), _r12(th), _r12(z)],
+            "spherical": [_r12(rho), _r12(th), _r12(ph)]}
+
+
+def _verify_coords(i, o):
+    x, y, z = o["rectangular"]
+    r, th, zc = o["cylindrical"]
+    rho, th2, ph = o["spherical"]
+    S = max(1.0, abs(x), abs(y), abs(z))
+    src = _to_rect(i["system"], i["p"])
+    bad = 0.0
+    if r < 0 or rho < 0 or not 0 <= th < 2 * math.pi + 1e-9 or not 0 <= ph <= math.pi + 1e-9:
+        bad = 1.0
+    res = [bad, _same(th, th2), abs(zc - z) / S]
+    pairs = ((r * math.cos(th), x), (r * math.sin(th), y), (rho * math.sin(ph) * math.cos(th), x),
+             (rho * math.sin(ph) * math.sin(th), y), (rho * math.cos(ph), z), (src[0], x), (src[1], y), (src[2], z))
+    for a, b in pairs:
+        res.append(max(0.0, abs(a - b) / S - 1e-10))
+    return worst(*res)
+
+
+def _ref_coords(system, p):
+    """Build-time only: cmath.rect / cmath.phase and numpy's norm; phi by the half-angle formula
+    tan(phi/2) = r/(rho + z) (no arccos or atan2(r, z))."""
+    import cmath
+
+    import numpy as np
+    a, b, c = (float(v) for v in p)
+    if system == "rectangular":
+        v = [a, b, c]
+    elif system == "cylindrical":
+        w = cmath.rect(a, b)
+        v = [w.real, w.imag, c]
+    else:
+        w = cmath.rect(a * float(np.sin(c)), b)
+        v = [w.real, w.imag, a * float(np.cos(c))]
+    S = max(abs(t) for t in v)
+    x, y, z = [0.0 if abs(t) <= 1e-12 * S else t for t in v]
+    r, rho = abs(complex(x, y)), float(np.linalg.norm([x, y, z]))
+    th = cmath.phase(complex(x, y)) % (2 * math.pi) if r > 0 else 0.0
+    if rho == 0:
+        ph = 0.0
+    elif z >= 0:
+        ph = 2 * math.atan2(r, rho + z)
+    else:
+        ph = math.pi - 2 * math.atan2(r, rho - z)
+    return {"rectangular": [x, y, z], "cylindrical": [r, th, z], "spherical": [rho, th, ph]}
+
+
+def _wrong_coords(system, p):
+    r = coordinate_conversion(system, p)
+    rho, th, ph = r["spherical"]
+    r["spherical"] = [rho, th, _r12(math.pi / 2 - ph)]       # the elevation from the xy-plane taken as phi
+    return r
+
+
+def _rand_coords(rng):
+    s = rng.choice(["rectangular", "cylindrical", "spherical"])
+    if s == "rectangular":
+        p = [rand_point(rng, -3, 3), rand_point(rng, -3, 3), rand_point(rng, -3, 3)]
+    elif s == "cylindrical":
+        p = [round(rng.uniform(0.2, 4), 2), round(rng.uniform(-3, 6.5), 3), rand_point(rng, -3, 3)]
+    else:
+        p = [round(rng.uniform(0.2, 4), 2), round(rng.uniform(-3, 6.5), 3), round(rng.uniform(0.05, 3.1), 3)]
+    return {"system": s, "p": p}
+
+
+_SYSNAMES = {"rectangular": "rectangular", "cartesian": "rectangular", "cylindrical": "cylindrical", "spherical": "spherical"}
+
+
+def _coords_post(d):
+    s, t = _SYSNAMES.get(d.get("system")), _SYSNAMES.get(d.get("target"))
+    if s is None or t is None or s == t:
+        return None
+    return {"system": s, "p": [d["p1"], d["p2"], d["p3"]]}
+
+
+proc("coordinate_conversion", name="Rectangular, cylindrical and spherical coordinates", topic="vectors in space / coordinate systems",
+     purpose="Converts a point given in rectangular (x, y, z), cylindrical (r, theta, z) or spherical (rho, theta, phi) "
+             "coordinates into all three systems.",
+     inputs=[C_("system", "the system the point is given in", ["rectangular", "cylindrical", "spherical"]),
+             V_("p", "the point: (x, y, z), (r, theta, z) or (rho, theta, phi), angles in radians", 3, 3)],
+     outputs=[O_("rectangular", "(x, y, z)", "vector"), O_("cylindrical", "(r, theta, z), theta in [0, 2 pi)", "vector"),
+              O_("spherical", "(rho, theta, phi), phi from the positive z-axis in [0, pi]", "vector")],
+     primary="spherical",
+     conditions=["r >= 0 and rho >= 0", "0 <= phi <= pi (the polar angle from the positive z-axis)",
+                 "theta = 0 on the z-axis and phi = 0 at the origin by convention"],
+     method="x = r cos(theta), y = r sin(theta); r = sqrt(x^2 + y^2), theta = atan2(y, x); rho = sqrt(r^2 + z^2), "
+            "phi = atan2(r, z); x = rho sin(phi) cos(theta), y = rho sin(phi) sin(theta), z = rho cos(phi)",
+     latex=r"x = \rho\sin\phi\cos\theta,\ y = \rho\sin\phi\sin\theta,\ z = \rho\cos\phi;\quad r = \sqrt{x^2+y^2}",
+     run=coordinate_conversion, verify=_verify_coords, reference=_ref_coords, wrong=_wrong_coords,
+     random_inputs=_rand_coords,
+     templates=["Convert the point (1, 1, 1) from rectangular to spherical coordinates.",
+                "Convert (2, pi/3, 1) from cylindrical to rectangular coordinates."],
+     examples=[{"inputs": {"system": "rectangular", "p": "1, 1, 1"},
+                "outputs": {"cylindrical": [math.sqrt(2), math.pi / 4, 1.0],
+                            "spherical": [math.sqrt(3), math.pi / 4, math.atan2(math.sqrt(2), 1)]}},
+               {"inputs": {"system": "cylindrical", "p": [2, math.pi / 3, 1]},
+                "outputs": {"rectangular": [1.0, math.sqrt(3), 1.0], "spherical": [math.sqrt(5), math.pi / 3, math.atan2(2, 1)]}},
+               {"inputs": {"system": "spherical", "p": [2, math.pi / 4, math.pi / 2]},
+                "outputs": {"rectangular": [math.sqrt(2), math.sqrt(2), 0.0], "cylindrical": [2.0, math.pi / 4, 0.0]}}],
+     questions=[{"q": "Convert the point (1, 1, 1) from rectangular to spherical coordinates.",
+                 "outputs": {"spherical": [math.sqrt(3), math.pi / 4, math.atan2(math.sqrt(2), 1)]}},
+                {"q": "Convert (2, pi/3, 1) from cylindrical to rectangular coordinates.", "outputs": {"rectangular": [1.0, math.sqrt(3), 1.0]}},
+                {"q": "Find the cylindrical coordinates of the point (0, 2, 5).", "outputs": {"cylindrical": [2.0, math.pi / 2, 5.0]}},
+                {"q": "Convert (-1, 0, 2) from cylindrical to rectangular coordinates.", "outcome": "INVALID_INPUT"},
+                {"q": "Convert (1, 0, 4) from spherical to rectangular coordinates.", "outcome": "INVALID_INPUT"}],
+     keywords=["cylindrical coordinates", "spherical coordinates", "rectangular coordinates", "coordinate conversion"])
+rule("coordinate_conversion",
+     "convert <(?:the point )?>({p1:n}, {p2:n}, {p3:n}) from {system:w} <(?:coordinates )?>to {target:w}<(?: coordinates)?>",
+     order=20, post=_coords_post)
+rule("coordinate_conversion", "{target:w} coordinates of <(?:the point )?>({p1:n}, {p2:n}, {p3:n})",
+     fixed={"system": "rectangular"}, order=20, post=_coords_post)
+
+
+# ------------------------------------------------------------------------------------------- curvilinear integrals
+def _snap_int(v, S):
+    """An integral that cancels to rounding level (1e-12 of the integral of |f|) is written as exactly 0."""
+    return 0.0 if abs(v) <= 1e-12 * S else _r12(v)
+
+
+@_memo
+def polar_double_integral(f, r1, r2, al, be):
+    if not 0 <= r1 < r2:
+        raise ValueError("the radii need 0 <= r1 < r2")
+    if not al < be:
+        raise ValueError("the angles need theta1 < theta2")
+    if be - al > 2 * math.pi + 1e-12:
+        raise ValueError("the angle range may span at most one full turn (2 pi)")
+    g = _fl(parse_expr(f, _XY), _XY)
+    h = lambda r, th: g(r * math.cos(th), r * math.sin(th)) * r  # noqa: E731
+    v, S = _settled(lambda n: _gl2(h, r1, r2, lambda r: al, lambda r: be, n),
+                    lambda n: _gl2(lambda r, th: abs(h(r, th)), r1, r2, lambda r: al, lambda r: be, n), (24, 40, 64))
+    return {"integral": _snap_int(v, S), "region_area": _r12((r2 * r2 - r1 * r1) * (be - al) / 2)}
+
+
+def _verify_polar(i, o):
+    g = _fl(parse_expr(i["f"], _XY), _XY)
+    h = lambda r, th: g(r * math.cos(th), r * math.sin(th)) * r  # noqa: E731
+    r1, r2, al, be = i["r1"], i["r2"], i["al"], i["be"]
+    S = _gl2(lambda r, th: abs(h(r, th)), r1, r2, lambda r: al, lambda r: be, 32)
+    return worst(_scaled_err(o["integral"], _gl2(h, r1, r2, lambda r: al, lambda r: be, 32), S),
+                 rel_err(o["region_area"], (r2 * r2 - r1 * r1) * (be - al) / 2, 1e-11))
+
+
+def _ref_polar(f, r1, r2, al, be):
+    """Build-time only: scipy's adaptive dblquad (QUADPACK) of f(r cos t, r sin t) r (the same change of variables,
+    a different quadrature)."""
+    from scipy.integrate import dblquad
+    g = ref_lam(f, _XY, module="math")
+    v = dblquad(lambda r, th: g(r * math.cos(th), r * math.sin(th)) * r, al, be, r1, r2, epsabs=1e-13, epsrel=1e-13)[0]
+    return {"integral": float(v), "region_area": (r2 * r2 - r1 * r1) * (be - al) / 2}
+
+
+def _wrong_polar(f, r1, r2, al, be):
+    g = _fl(parse_expr(f, _XY), _XY)                 # the Jacobian r left out of dA
+    return {"integral": _gl2(lambda r, th: g(r * math.cos(th), r * math.sin(th)), r1, r2, lambda r: al, lambda r: be, 40)}
+
+
+def _rand_polar(rng):
+    a, b = _c(rng, -3, 3), rng.randint(1, 3)
+    f = rng.choice([f"x^2 + {b}*y^2 + {b}", "exp(-(x^2 + y^2))", f"{b} + x*y + y^2", f"sqrt(x^2 + y^2) + {b}",
+                    "x^2*y^2 + 1", f"{a}*x + {b + 3}", f"{b}*y^2 + x + 4"])
+    r1 = rng.choice([0.0, 0.0, 0.5, 1.0])
+    al = rng.choice([0.0, 0.0, math.pi / 4, -math.pi / 2])
+    return {"f": _sgn(f), "r1": r1, "r2": r1 + rng.choice([0.5, 1.0, 1.5, 2.0]), "al": al,
+            "be": al + rng.choice([math.pi / 2, math.pi, 2 * math.pi, 1.3])}
+
+
+proc("polar_double_integral", name="Double integral in polar coordinates", topic="multiple integrals / polar coordinates",
+     purpose="The double integral of f(x, y) over the polar region r1 <= r <= r2, theta1 <= theta <= theta2 (a disk, "
+             "an annulus or a sector), with dA = r dr dtheta.",
+     inputs=[T_("f", "the integrand f(x, y)"), N_("r1", "r from (>= 0)"), N_("r2", "r to"), N_("al", "theta from"),
+             N_("be", "theta to")],
+     outputs=[O_("integral", "the value of the double integral"), O_("region_area", "the area of the region")],
+     primary="integral",
+     conditions=["0 <= r1 < r2", "theta1 < theta2 <= theta1 + 2 pi", "f continuous on the region",
+                 "constant limits only (a region r <= g(theta) is not covered)"],
+     method="f(r cos theta, r sin theta) r by product Gauss-Legendre rules of increasing order (24, 40, 64) until two "
+            "agree to 1e-12 of the integral of |f|",
+     latex=r"\iint_R f\,dA = \int_{\theta_1}^{\theta_2}\!\int_{r_1}^{r_2} f(r\cos\theta, r\sin\theta)\,r\,dr\,d\theta",
+     run=polar_double_integral, verify=_verify_polar, reference=_ref_polar,
+     wrong=_wrong_polar, random_inputs=_rand_polar,
+     templates=["Find the double integral of x^2 + y^2 over 0 <= r <= 1, 0 <= theta <= 2pi.",
+                "Evaluate the double integral of x in polar coordinates over 0 <= r <= 1, 0 <= theta <= pi/2."],
+     examples=[{"inputs": {"f": "1", "r1": 0, "r2": 2, "al": 0, "be": 2 * math.pi}, "outputs": {"integral": 4 * math.pi, "region_area": 4 * math.pi}},
+               {"inputs": {"f": "x^2 + y^2", "r1": 0, "r2": 1, "al": 0, "be": 2 * math.pi}, "outputs": {"integral": math.pi / 2}},
+               {"inputs": {"f": "x", "r1": 0, "r2": 1, "al": 0, "be": math.pi / 2}, "outputs": {"integral": 1 / 3}},
+               {"inputs": {"f": "exp(-(x^2 + y^2))", "r1": 0, "r2": 1, "al": 0, "be": 2 * math.pi},
+                "outputs": {"integral": math.pi * (1 - math.exp(-1))}}],
+     questions=[{"q": "Find the double integral of x^2 + y^2 over 0 <= r <= 1, 0 <= theta <= 2pi.", "outputs": {"integral": math.pi / 2}},
+                {"q": "Evaluate the double integral of x in polar coordinates over 0 <= r <= 1, 0 <= theta <= pi/2.",
+                 "outputs": {"integral": 1 / 3}},
+                {"q": "Find the double integral of x^2 + y^2 over 2 <= r <= 1, 0 <= theta <= pi.", "outcome": "INVALID_INPUT"}],
+     keywords=["polar coordinates", "double integral in polar coordinates"])
+rule("polar_double_integral",
+     "double integral of {f}<(?: da)?><(?: in polar coordinates)?> over <(?:the region )?>{r1:n} <= r <= {r2:n},<(?: and)?> "
+     "{al:n} <= theta <= {be:n}", order=14)
+
+
+@_memo
+def curvilinear_triple_integral(f, system, u1, u2, th1, th2, w1, w2):
+    if system not in ("cylindrical", "spherical"):
+        raise ValueError("the system must be cylindrical or spherical")
+    if not 0 <= u1 < u2:
+        raise ValueError("the radial limits need 0 <= lower < upper")
+    if not th1 < th2:
+        raise ValueError("the angles need theta1 < theta2")
+    if th2 - th1 > 2 * math.pi + 1e-12:
+        raise ValueError("the theta range may span at most one full turn (2 pi)")
+    if not w1 < w2:
+        raise ValueError("the third limits need lower < upper")
+    g = _fl(parse_expr(f, _XYZ), _XYZ)
+    if system == "cylindrical":
+        h = lambda u, t, w: g(u * math.cos(t), u * math.sin(t), w) * u  # noqa: E731
+        vol = (u2 * u2 - u1 * u1) / 2 * (th2 - th1) * (w2 - w1)
+    else:
+        if w1 < 0 or w2 > math.pi + 1e-12:
+            raise ValueError("phi (from the positive z-axis) must stay between 0 and pi")
+        h = lambda u, t, w: g(u * math.sin(w) * math.cos(t), u * math.sin(w) * math.sin(t), u * math.cos(w)) * u * u * math.sin(w)  # noqa: E731
+        vol = (u2 ** 3 - u1 ** 3) / 3 * (th2 - th1) * (math.cos(w1) - math.cos(w2))
+    bx = ((u1, u2), (th1, th2), (w1, w2))
+    v, S = _settled(lambda n: _gl3(h, bx, n), lambda n: _gl3(lambda u, t, w: abs(h(u, t, w)), bx, n), (12, 20, 28))
+    return {"integral": _snap_int(v, S), "region_volume": _r12(vol)}
+
+
+def _curvi_integrand(f, system, jac=True):
+    g = _fl(parse_expr(f, _XYZ), _XYZ)
+    if system == "cylindrical":
+        return lambda u, t, w: g(u * math.cos(t), u * math.sin(t), w) * (u if jac else 1.0)
+    return lambda u, t, w: (g(u * math.sin(w) * math.cos(t), u * math.sin(w) * math.sin(t), u * math.cos(w))
+                            * (u * u * math.sin(w) if jac else 1.0))
+
+
+def _verify_curvi(i, o):
+    h = _curvi_integrand(i["f"], i["system"])
+    bx = ((i["u1"], i["u2"]), (i["th1"], i["th2"]), (i["w1"], i["w2"]))
+    u1, u2, th, w1, w2 = i["u1"], i["u2"], i["th2"] - i["th1"], i["w1"], i["w2"]
+    vol = ((u2 * u2 - u1 * u1) / 2 * th * (w2 - w1) if i["system"] == "cylindrical"
+           else (u2 ** 3 - u1 ** 3) / 3 * th * (math.cos(w1) - math.cos(w2)))
+    return worst(_scaled_err(o["integral"], _gl3(h, bx, 16), _gl3(lambda u, t, w: abs(h(u, t, w)), bx, 16)),
+                 rel_err(o["region_volume"], vol, 1e-11))
+
+
+def _ref_curvi(f, system, u1, u2, th1, th2, w1, w2):
+    """Build-time only: scipy's adaptive tplquad (QUADPACK) in the same coordinates (a different quadrature)."""
+    from scipy.integrate import tplquad
+    h = _curvi_integrand(f, system)
+    vol = ((u2 * u2 - u1 * u1) / 2 * (th2 - th1) * (w2 - w1) if system == "cylindrical"
+           else (u2 ** 3 - u1 ** 3) / 3 * (th2 - th1) * (math.cos(w1) - math.cos(w2)))
+    v = tplquad(lambda w, t, u: h(u, t, w), u1, u2, th1, th2, w1, w2, epsabs=1e-11, epsrel=1e-11)[0]
+    return {"integral": float(v), "region_volume": vol}
+
+
+def _rand_curvi(rng):
+    b = rng.randint(1, 3)
+    f = rng.choice(["1", f"z + {b + 2}", "x^2 + y^2 + z^2", f"x^2 + {b}", f"{b} + x*y + z^2", "exp(-z) + 1"])
+    u1 = rng.choice([0.0, 0.0, 0.5])
+    th1 = rng.choice([0.0, 0.0, math.pi / 2])
+    th2 = th1 + rng.choice([math.pi / 2, math.pi, 2 * math.pi])
+    if rng.random() < 0.5:
+        w1 = rng.choice([0.0, -1.0, 1.0])
+        return {"f": f, "system": "cylindrical", "u1": u1, "u2": u1 + rng.choice([1.0, 1.5, 2.0]), "th1": th1, "th2": th2,
+                "w1": w1, "w2": w1 + rng.choice([1.0, 2.0])}
+    w1 = rng.choice([0.0, 0.0, math.pi / 6])
+    return {"f": f, "system": "spherical", "u1": u1, "u2": u1 + rng.choice([1.0, 1.5, 2.0]), "th1": th1, "th2": th2,
+            "w1": w1, "w2": rng.choice([math.pi / 2, math.pi, 2 * math.pi / 3])}
+
+
+proc("curvilinear_triple_integral", name="Triple integral in cylindrical or spherical coordinates",
+     topic="multiple integrals / cylindrical and spherical coordinates",
+     purpose="The triple integral of f(x, y, z) over a cylindrical region (r, theta, z between constant limits) with "
+             "dV = r dz dr dtheta, or a spherical region (rho, theta, phi between constant limits) with "
+             "dV = rho^2 sin(phi) drho dtheta dphi.",
+     inputs=[T_("f", "the integrand f(x, y, z)"), C_("system", "the coordinate system", ["cylindrical", "spherical"]),
+             N_("u1", "r (or rho) from (>= 0)"), N_("u2", "r (or rho) to"), N_("th1", "theta from"), N_("th2", "theta to"),
+             N_("w1", "z (or phi) from"), N_("w2", "z (or phi) to")],
+     outputs=[O_("integral", "the value of the triple integral"), O_("region_volume", "the volume of the region")],
+     primary="integral",
+     conditions=["0 <= r1 < r2 (rho)", "theta1 < theta2 <= theta1 + 2 pi", "z1 < z2; for phi 0 <= phi1 < phi2 <= pi",
+                 "f continuous on the region", "constant limits only"],
+     method="f in the curvilinear variables times the Jacobian (r, or rho^2 sin phi) by product Gauss-Legendre rules "
+            "of increasing order (12, 20, 28) until two agree to 1e-12 of the integral of |f|",
+     latex=r"dV = r\,dz\,dr\,d\theta = \rho^2\sin\phi\,d\rho\,d\theta\,d\phi",
+     run=curvilinear_triple_integral, verify=_verify_curvi, reference=_ref_curvi,
+     wrong=lambda f, system, u1, u2, th1, th2, w1, w2: {"integral": _gl3(_curvi_integrand(f, system, False),
+                                                                       ((u1, u2), (th1, th2), (w1, w2)), 20)},
+     random_inputs=_rand_curvi,
+     templates=["Find the triple integral of z over 0 <= r <= 2, 0 <= theta <= 2pi, 0 <= z <= 1.",
+                "Find the triple integral of 1 over 0 <= rho <= 1, 0 <= theta <= 2pi, 0 <= phi <= pi."],
+     examples=[{"inputs": {"f": "1", "system": "cylindrical", "u1": 0, "u2": 1, "th1": 0, "th2": 2 * math.pi, "w1": 0, "w2": 2},
+                "outputs": {"integral": 2 * math.pi, "region_volume": 2 * math.pi}},
+               {"inputs": {"f": "z", "system": "cylindrical", "u1": 0, "u2": 2, "th1": 0, "th2": 2 * math.pi, "w1": 0, "w2": 1},
+                "outputs": {"integral": 2 * math.pi}},
+               {"inputs": {"f": "1", "system": "spherical", "u1": 0, "u2": 1, "th1": 0, "th2": 2 * math.pi, "w1": 0, "w2": math.pi},
+                "outputs": {"integral": 4 * math.pi / 3, "region_volume": 4 * math.pi / 3}},
+               {"inputs": {"f": "z", "system": "spherical", "u1": 0, "u2": 1, "th1": 0, "th2": 2 * math.pi, "w1": 0, "w2": math.pi / 2},
+                "outputs": {"integral": math.pi / 4}},
+               {"inputs": {"f": "x^2 + y^2 + z^2", "system": "spherical", "u1": 0, "u2": 1, "th1": 0, "th2": 2 * math.pi, "w1": 0,
+                           "w2": math.pi}, "outputs": {"integral": 4 * math.pi / 5}}],
+     questions=[{"q": "Find the triple integral of z over 0 <= r <= 2, 0 <= theta <= 2pi, 0 <= z <= 1.", "outputs": {"integral": 2 * math.pi}},
+                {"q": "Find the triple integral of 1 over 0 <= rho <= 1, 0 <= theta <= 2pi, 0 <= phi <= pi.",
+                 "outputs": {"integral": 4 * math.pi / 3}},
+                {"q": "Evaluate the triple integral of x^2 + y^2 + z^2 in spherical coordinates over 0 <= rho <= 1, 0 <= theta <= 2pi, "
+                      "0 <= phi <= pi.", "outputs": {"integral": 4 * math.pi / 5}},
+                {"q": "Find the triple integral of 1 over 0 <= rho <= 1, 0 <= theta <= 2pi, 0 <= phi <= 4.", "outcome": "INVALID_INPUT"}],
+     keywords=["cylindrical coordinates", "spherical coordinates", "triple integral"])
+rule("curvilinear_triple_integral",
+     "triple integral of {f}<(?: dv)?><(?: in cylindrical coordinates)?> over <(?:the region )?>{u1:n} <= r <= {u2:n},<(?: and)?> "
+     "{th1:n} <= theta <= {th2:n},<(?: and)?> {w1:n} <= z <= {w2:n}", fixed={"system": "cylindrical"}, order=14)
+rule("curvilinear_triple_integral",
+     "triple integral of {f}<(?: dv)?><(?: in spherical coordinates)?> over <(?:the region )?>{u1:n} <= rho <= {u2:n},<(?: and)?> "
+     "{th1:n} <= theta <= {th2:n},<(?: and)?> {w1:n} <= phi <= {w2:n}", fixed={"system": "spherical"}, order=14)
+
+
+# ------------------------------------------------------------------------------------------- conservative fields
+def _pfield(P, Q, R):
+    three = R is not None
+    names = _XYZ if three else _XY
+    F = [parse_expr(P, names), parse_expr(Q, names)]
+    if three:
+        F.append(parse_expr(R, names))
+    for c in F:
+        ok = c.is_polynomial(X, Y, Z) if three else c.is_polynomial(X, Y)
+        if not ok:
+            raise ValueError("the documented scope is a field with polynomial components (other fields are refused)")
+    return F, names
+
+
+@_memo
+def conservative_field(P, Q, R=None, A=None, B=None):
+    F, names = _pfield(P, Q, R)
+    three = R is not None
+    if (A is None) != (B is None):
+        raise ValueError("a line integral needs both the start point A and the end point B")
+    if A is not None and (len(A) != len(names) or len(B) != len(names)):
+        raise ValueError("the points need as many coordinates as the field has components")
+    if three:
+        curl = [sp.expand(sp.diff(F[2], Y) - sp.diff(F[1], Z)), sp.expand(sp.diff(F[0], Z) - sp.diff(F[2], X)),
+                sp.expand(sp.diff(F[1], X) - sp.diff(F[0], Y))]
+    else:
+        curl = [sp.expand(sp.diff(F[1], X) - sp.diff(F[0], Y))]
+    nonzero = False
+    for c in curl:
+        if c != 0:
+            nonzero = True
+    if nonzero:
+        text = show(curl[0])
+        if three:
+            text = "(" + show(curl[0]) + ", " + show(curl[1]) + ", " + show(curl[2]) + ")"
+        return {"conservative": "no", "curl": text}
+    phi = sp.integrate(F[0], X)
+    phi = phi + sp.integrate(sp.expand(F[1] - sp.diff(phi, Y)), Y)
+    if three:
+        phi = phi + sp.integrate(sp.expand(F[2] - sp.diff(phi, Z)), Z)
+    phi = sp.expand(phi)
+    for k in range(len(names)):
+        if sp.expand(sp.diff(phi, _SYMS[names[k]]) - F[k]) != 0:
+            raise ValueError("the potential function could not be confirmed")
+    out = {"conservative": "yes", "potential": show(phi) + " + C"}
+    if A is not None:
+        out["line_integral"] = at(phi, names, *B) - at(phi, names, *A)
+    return out
+
+
+_CPTS = ((0.3, -0.7, 1.1), (1.3, 0.4, -0.6), (-0.9, 1.7, 0.5))
+
+
+def _verify_cons(i, o):
+    R = i.get("R")
+    F, names = _pfield(i["P"], i["Q"], R)
+    k = len(names)
+    texts = [i["P"], i["Q"]]
+    if R is not None:
+        texts.append(R)
+    if o["conservative"] == "no":
+        best = 0.0
+        for p in _CPTS:
+            q = list(p[:k])
+            dQx = float(_mp_partial(texts[1], names, q, [1, 0, 0][:k]))
+            dPy = float(_mp_partial(texts[0], names, q, [0, 1, 0][:k]))
+            best = max(best, abs(dQx - dPy))
+            if k == 3:
+                dRy = float(_mp_partial(texts[2], names, q, [0, 1, 0]))
+                dQz = float(_mp_partial(texts[1], names, q, [0, 0, 1]))
+                dPz = float(_mp_partial(texts[0], names, q, [0, 0, 1]))
+                dRx = float(_mp_partial(texts[2], names, q, [1, 0, 0]))
+                best = max(best, abs(dRy - dQz), abs(dPz - dRx))
+        return 0.0 if best > 1e-6 else 1.0
+    text = o["potential"]
+    if o["conservative"] != "yes" or not text.endswith(" + C"):
+        return 1.0
+    ptext = text[:-4]
+    Phi = parse_expr(ptext, names)
+    res = []
+    for p in _CPTS:
+        q = list(p[:k])
+        for j in range(k):
+            orders = [0] * k
+            orders[j] = 1
+            res.append(rel_err(float(_mp_partial(ptext, names, q, orders)), at(F[j], names, *q), 1e-10))
+    if "line_integral" in o:
+        res.append(rel_err(o["line_integral"], at(Phi, names, *i["B"]) - at(Phi, names, *i["A"]), 1e-12))
+    return worst(*res)
+
+
+def _ref_cons(P, Q, R=None, A=None, B=None):
+    """Build-time only: sympy's simplified curl decides; the line integral along the straight segment from A to B by
+    scipy's quad (path independence: no potential function is used)."""
+    names = _XYZ if R is not None else _XY
+    comps = [parse_expr(c, names) for c in ([P, Q, R] if R is not None else [P, Q])]
+    curl = [sp.diff(comps[1], X) - sp.diff(comps[0], Y)]
+    if R is not None:
+        curl += [sp.diff(comps[2], Y) - sp.diff(comps[1], Z), sp.diff(comps[0], Z) - sp.diff(comps[2], X)]
+    yes = all(sp.simplify(c) == 0 for c in curl)
+    out = {"conservative": "yes" if yes else "no"}
+    if yes and A is not None:
+        fs = [sp.lambdify([_SYMS[n] for n in names], c, "math") for c in comps]
+        dv = [b - a for a, b in zip(A, B)]
+        out["line_integral"] = ref_quad(lambda s: math.fsum(fs[j](*[a + s * d for a, d in zip(A, dv)]) * dv[j]
+                                                            for j in range(len(names))), 0.0, 1.0)
+    return out
+
+
+def _wrong_cons(P, Q, R=None, A=None, B=None):
+    r = conservative_field(P, Q, R, A, B)
+    if "line_integral" in r:
+        r["line_integral"] = -r["line_integral"]       # potential taken at A minus at B
+    return r
+
+
+def _rand_cons(rng):
+    three = rng.random() < 0.4
+    names = _XYZ if three else _XY
+    mons = ["x^2*y", "x*y^2", "x*y", "y^3", "x^3", "x^2", "y^2", "x"]
+    if three:
+        mons = mons + ["x*y*z", "y*z^2", "x*z", "z^3", "x^2*z", "z"]
+    phi = parse_expr(_join([_term(_c(rng, -3, 3), t) for t in rng.sample(mons, 3)]), names)
+    comps = [show(sp.diff(phi, _SYMS[v])) for v in names]
+    k = len(names)
+    while True:
+        A, B = rand_pt(rng, k), rand_pt(rng, k)
+        if abs(float(phi.subs(dict(zip([_SYMS[v] for v in names], B)))) - float(phi.subs(dict(zip([_SYMS[v] for v in names], A))))) > 0.1:
+            break
+    out = {"P": comps[0], "Q": comps[1], "A": A, "B": B}
+    if three:
+        out["R"] = comps[2]
+    return out
+
+
+proc("conservative_field", name="Conservative vector field and potential function", topic="vector calculus / line integrals",
+     purpose="Decides whether F = (P, Q) or (P, Q, R) is conservative (curl F = 0), finds a potential function f with "
+             "grad f = F, and the path-independent line integral f(B) - f(A).",
+     inputs=[T_("P", "the x-component P"), T_("Q", "the y-component Q"), T_("R", "the z-component R (3-D fields)", required=False),
+             V_("A", "the start point", required=False), V_("B", "the end point", required=False)],
+     outputs=[O_("conservative", "yes or no", "text"), O_("potential", "a potential function f (with f = 0 at the origin) + C", "text"),
+              O_("line_integral", "the integral of F . dr from A to B = f(B) - f(A)"),
+              O_("curl", "the curl (Q_x - P_y in 2-D) when the field is not conservative", "text")],
+     primary="line_integral",
+     conditions=["polynomial components (fields on the whole plane or space, which is simply connected)",
+                 "A and B are given together, with as many coordinates as F has components"],
+     method="exact curl; if it vanishes, f = integral of P dx, plus the integral in y of Q - f_y, plus the integral in z "
+            "of R - f_z, confirmed by grad f = F exactly; the fundamental theorem for line integrals gives f(B) - f(A)",
+     latex=r"\nabla\times\mathbf F = 0 \Rightarrow \mathbf F = \nabla f,\quad \int_A^B \mathbf F\cdot d\mathbf r = f(B) - f(A)",
+     run=conservative_field, verify=_verify_cons, reference=_ref_cons, wrong=_wrong_cons, random_inputs=_rand_cons,
+     templates=["Is F = (2x*y, x^2) conservative?", "Find the potential function of F = (y*z, x*z, x*y).",
+                "Find the work done by the conservative field F = (2x + y, x + 2y) from (1, 0) to (2, 1)."],
+     examples=[{"inputs": {"P": "2x*y", "Q": "x^2", "A": "0, 0", "B": "1, 2"},
+                "outputs": {"conservative": "yes", "potential": "x^2*y + C", "line_integral": 2.0}},
+               {"inputs": {"P": "y*z", "Q": "x*z", "R": "x*y", "A": [0, 0, 0], "B": [1, 2, 3]},
+                "outputs": {"conservative": "yes", "potential": "x*y*z + C", "line_integral": 6.0}},
+               {"inputs": {"P": "2x + y", "Q": "x + 2y", "A": [1, 0], "B": [2, 1]},
+                "outputs": {"potential": "x^2 + x*y + y^2 + C", "line_integral": 6.0}},
+               {"inputs": {"P": "-y", "Q": "x"}, "outputs": {"conservative": "no", "curl": "2"}}],
+     questions=[{"q": "Is F = (2x*y, x^2) conservative?", "outputs": {"conservative": "yes"}},
+                {"q": "Is the vector field F = (-y, x) conservative?", "outputs": {"conservative": "no"}},
+                {"q": "Find the potential function of F = (y*z, x*z, x*y).", "outputs": {"potential": "x*y*z + C"}},
+                {"q": "Find the work done by the conservative field F = (2x + y, x + 2y) from (1, 0) to (2, 1).",
+                 "outputs": {"line_integral": 6.0}},
+                {"q": "Is F = (sin(y), x*cos(y)) conservative?", "outcome": "INVALID_INPUT"}],
+     keywords=["conservative field", "potential function", "path independence"])
+_CF = "<(?:the )?(?:conservative )?(?:vector )?(?:force )?(?:field )?>f = "
+rule("conservative_field",
+     "is " + _CF + "({P}, {Q}, {R}) conservative", "is " + _CF + "({P}, {Q}) conservative",
+     "potential <(?:function )?><(?:of|for)> " + _CF + "({P}, {Q}, {R})", "potential <(?:function )?><(?:of|for)> " + _CF + "({P}, {Q})",
+     "<(?:work done by|line integral of)> " + _CF + "({P}, {Q}, {R}) from {A:v} to {B:v}",
+     "<(?:work done by|line integral of)> " + _CF + "({P}, {Q}) from {A:v} to {B:v}", order=14)
+
+
+# ------------------------------------------------------------------------------------------- space curves
+def _path3(xt, yt, zt):
+    return parse_expr(xt, ("t",)), parse_expr(yt, ("t",)), parse_expr(zt, ("t",))
+
+
+def _arc3_integrand(i):
+    ex, ey, ez = _path3(i["xt"], i["yt"], i["zt"])
+    return sp.sqrt(sp.diff(ex, T) ** 2 + sp.diff(ey, T) ** 2 + sp.diff(ez, T) ** 2)
+
+
+@_memo
+def space_curve_arc_length(xt, yt, zt, t0, t1):
+    if not t0 < t1:
+        raise ValueError("the parameter interval needs t0 < t1")
+    ex, ey, ez = _path3(xt, yt, zt)
+    return {"arc_length": _q_t(sp.sqrt(sp.diff(ex, T) ** 2 + sp.diff(ey, T) ** 2 + sp.diff(ez, T) ** 2), t0, t1)}
+
+
+def _ref_arc3(xt, yt, zt, t0, t1):
+    dx, dy, dz = ref_cdiff(xt, ("t",)), ref_cdiff(yt, ("t",)), ref_cdiff(zt, ("t",))
+    return {"arc_length": ref_quad(lambda t: math.sqrt(dx(t) ** 2 + dy(t) ** 2 + dz(t) ** 2), t0, t1)}
+
+
+_CURVES3 = [("cos(t)", "sin(t)", "t"), ("2*cos(t)", "2*sin(t)", "3*t"), ("t", "t^2", "t^3"), ("exp(t)*cos(t)", "exp(t)*sin(t)", "exp(t)"),
+            ("t", "t^2", "2*t^3/3"), ("cos(2*t)", "t", "sin(2*t)"), ("t^2", "t", "sqrt(t + 4)"), ("sin(t)", "cos(t)", "t^2/2")]
+
+
+proc("space_curve_arc_length", name="Arc length of a space curve", topic="vector-valued functions",
+     purpose="The length of the space curve r(t) = (x(t), y(t), z(t)) for t0 <= t <= t1.",
+     inputs=[T_("xt", "x(t)"), T_("yt", "y(t)"), T_("zt", "z(t)"), N_("t0", "start parameter"), N_("t1", "end parameter")],
+     outputs=[O_("arc_length", "the length of the curve")],
+     primary="arc_length", conditions=["t0 < t1", "x, y and z continuously differentiable"],
+     method="|r'(t)| = sqrt(x'^2 + y'^2 + z'^2) with exact derivatives, tanh-sinh quadrature",
+     latex=r"L = \int_{t_0}^{t_1}\sqrt{x'(t)^2 + y'(t)^2 + z'(t)^2}\,dt",
+     run=space_curve_arc_length, verify=_verify_line(_arc3_integrand, "arc_length"), reference=_ref_arc3,
+     wrong=lambda xt, yt, zt, t0, t1: (lambda ex, ey, ez: {"arc_length": _q_t(sp.sqrt(sp.diff(ex, T) ** 2 + sp.diff(ey, T) ** 2), t0, t1)})(
+         *_path3(xt, yt, zt)),
+     random_inputs=lambda rng: (lambda c, t0: {"xt": c[0], "yt": c[1], "zt": c[2], "t0": t0, "t1": round(t0 + rng.uniform(0.5, 3), 2)})(
+         rng.choice(_CURVES3), round(rng.uniform(0, 1), 2)),
+     templates=["Find the arc length of r(t) = (cos(t), sin(t), t) from t = 0 to t = 2pi.",
+                "Find the length of the curve x = 2t, y = 3t, z = 6t from t = 0 to t = 1."],
+     examples=[{"inputs": {"xt": "cos(t)", "yt": "sin(t)", "zt": "t", "t0": 0, "t1": 2 * math.pi}, "outputs": {"arc_length": 2 * math.pi * math.sqrt(2)}},
+               {"inputs": {"xt": "2t", "yt": "3t", "zt": "6t", "t0": 0, "t1": 1}, "outputs": {"arc_length": 7.0}},
+               {"inputs": {"xt": "t", "yt": "t^2", "zt": "2t^3/3", "t0": 0, "t1": 1}, "outputs": {"arc_length": 5 / 3}}],
+     questions=[{"q": "Find the arc length of r(t) = (cos(t), sin(t), t) from t = 0 to t = 2pi.", "outputs": {"arc_length": 2 * math.pi * math.sqrt(2)}},
+                {"q": "Find the length of the curve x = 2t, y = 3t, z = 6t from t = 0 to t = 1.", "outputs": {"arc_length": 7.0}},
+                {"q": "Find the arc length of r(t) = (t, t^2, t^3) from t = 1 to t = 0.", "outcome": "INVALID_INPUT"}],
+     keywords=["arc length", "space curve", "helix"])
+rule("space_curve_arc_length",
+     "<(?:arc length|length)> of <(?:the )?(?:space )?(?:curve )?>r(t) = ({xt}, {yt}, {zt})<,?> from t = {t0:n} to t = {t1:n}",
+     "<(?:arc length|length)> of the <(?:space )?>curve x = {xt}, y = {yt}, z = {zt}<,?> from t = {t0:n} to t = {t1:n}", order=12)
+
+
+@_memo
+def space_curve_curvature(xt, yt, zt, t0):
+    E = _path3(xt, yt, zt)
+    for c in E:
+        at(c, (T,), t0)
+    d1 = [at(sp.diff(c, T), (T,), t0) for c in E]
+    d2 = [at(sp.diff(c, T, 2), (T,), t0) for c in E]
+    s = math.sqrt(math.fsum(v * v for v in d1))
+    if s <= 1e-12 * max(1.0, abs(d2[0]), abs(d2[1]), abs(d2[2])):
+        raise ValueError("r'(t) = 0 there: the curve has no tangent direction (curvature undefined)")
+    cr = [d1[1] * d2[2] - d1[2] * d2[1], d1[2] * d2[0] - d1[0] * d2[2], d1[0] * d2[1] - d1[1] * d2[0]]
+    k = math.sqrt(math.fsum(v * v for v in cr)) / s ** 3
+    out = {"curvature": k, "speed": s, "unit_tangent": [v / s for v in d1]}
+    if k > 0:
+        out["radius_of_curvature"] = 1 / k
+    return out
+
+
+def _verify_curv3(i, o):
+    texts = (i["xt"], i["yt"], i["zt"])
+    d1 = [float(_mp_diff(c, i["t0"], 1, ("t",))) for c in texts]
+    d2 = [float(_mp_diff(c, i["t0"], 2, ("t",))) for c in texts]
+    s = math.sqrt(math.fsum(v * v for v in d1))
+    cr = [d1[1] * d2[2] - d1[2] * d2[1], d1[2] * d2[0] - d1[0] * d2[2], d1[0] * d2[1] - d1[1] * d2[0]]
+    k = math.sqrt(math.fsum(v * v for v in cr)) / s ** 3
+    res = [rel_err(o["curvature"], k, 1e-9), rel_err(o["speed"], s, 1e-11), _vec_err(o["unit_tangent"], [v / s for v in d1], 1e-11)]
+    if "radius_of_curvature" in o:
+        res.append(rel_err(o["radius_of_curvature"] * k, 1.0, 1e-9))
+    return worst(*res)
+
+
+def _ref_curv3(xt, yt, zt, t0):
+    import numpy as np
+    gs = [ref_lam(c, ("t",)) for c in (xt, yt, zt)]
+    d1 = np.array([ref_diff(g, t0) for g in gs])
+    d2 = np.array([ref_diff(g, t0, 2) for g in gs])
+    s = float(np.linalg.norm(d1))
+    return {"curvature": float(np.linalg.norm(np.cross(d1, d2))) / s ** 3, "speed": s, "unit_tangent": [float(v) / s for v in d1]}
+
+
+def _wrong_curv3(xt, yt, zt, t0):
+    r = space_curve_curvature(xt, yt, zt, t0)
+    d2 = [at(sp.diff(c, T, 2), (T,), t0) for c in _path3(xt, yt, zt)]
+    return dict(r, curvature=math.sqrt(math.fsum(v * v for v in d2)) / r["speed"] ** 2)     # |r''|/|r'|^2
+
+
+proc("space_curve_curvature", name="Curvature and unit tangent of a space curve", topic="vector-valued functions",
+     purpose="The curvature kappa = |r' x r''|/|r'|^3, the speed |r'| and the unit tangent T = r'/|r'| of the space curve "
+             "r(t) = (x(t), y(t), z(t)) at t = t0.",
+     inputs=[T_("xt", "x(t)"), T_("yt", "y(t)"), T_("zt", "z(t)"), N_("t0", "the parameter value t0")],
+     outputs=[O_("curvature", "kappa at t0"), O_("speed", "|r'(t0)|"), O_("unit_tangent", "T(t0)", "vector"),
+              O_("radius_of_curvature", "1/kappa (absent where kappa = 0)")],
+     primary="curvature", conditions=["r twice differentiable at t0", "r'(t0) != 0"],
+     method="exact first and second derivatives at t0; the cross-product formula",
+     latex=r"\kappa = \frac{|\mathbf r'\times\mathbf r''|}{|\mathbf r'|^3},\quad \mathbf T = \frac{\mathbf r'}{|\mathbf r'|}",
+     run=space_curve_curvature, verify=_verify_curv3, reference=_ref_curv3, wrong=_wrong_curv3,
+     random_inputs=lambda rng: (lambda c: {"xt": c[0], "yt": c[1], "zt": c[2], "t0": round(rng.uniform(0.2, 2.0), 2)})(rng.choice(_CURVES3)),
+     templates=["Find the curvature of r(t) = (cos(t), sin(t), t) at t = 0.",
+                "Find the unit tangent vector of r(t) = (t, t^2, t^3) at t = 1."],
+     examples=[{"inputs": {"xt": "cos(t)", "yt": "sin(t)", "zt": "t", "t0": 0},
+                "outputs": {"curvature": 0.5, "speed": math.sqrt(2), "unit_tangent": [0.0, 1 / math.sqrt(2), 1 / math.sqrt(2)]}},
+               {"inputs": {"xt": "t", "yt": "t^2", "zt": "t^3", "t0": 0}, "outputs": {"curvature": 2.0, "speed": 1.0}},
+               {"inputs": {"xt": "t", "yt": "t^2", "zt": "t^3", "t0": 1},
+                "outputs": {"curvature": math.sqrt(76) / 14 ** 1.5, "unit_tangent": [1 / math.sqrt(14), 2 / math.sqrt(14), 3 / math.sqrt(14)]}}],
+     questions=[{"q": "Find the curvature of r(t) = (cos(t), sin(t), t) at t = 0.", "outputs": {"curvature": 0.5}},
+                {"q": "Find the unit tangent vector of r(t) = (t, t^2, t^3) at t = 1.",
+                 "outputs": {"unit_tangent": [1 / math.sqrt(14), 2 / math.sqrt(14), 3 / math.sqrt(14)]}},
+                {"q": "Find the curvature of r(t) = (t^2, t^2, t^3) at t = 0.", "outcome": "INVALID_INPUT"}],
+     keywords=["curvature of a space curve", "unit tangent vector", "helix"])
+rule("space_curve_curvature",
+     "<(?:radius of )?>curvature of <(?:the )?(?:space )?(?:curve )?>r(t) = ({xt}, {yt}, {zt}) at t = {t0:n}",
+     "unit tangent <(?:vector )?>of <(?:the )?(?:space )?(?:curve )?>r(t) = ({xt}, {yt}, {zt}) at t = {t0:n}",
+     "<(?:radius of )?>curvature of the <(?:space )?>curve x = {xt}, y = {yt}, z = {zt} at t = {t0:n}", order=12)
+
+
+# ------------------------------------------------------------------------------------------- rms value
+@_memo
+def rms_value(f, a, b):
+    if not a < b:
+        raise ValueError("the interval needs a < b")
+    e = parse_expr(f)
+    continuous_on(e, X, a, b)
+    ms = quad(_compile(e ** 2, (X,)), a, b) / (b - a)
+    mean = quad(_compile(e, (X,)), a, b) / (b - a)
+    return {"rms": math.sqrt(max(ms, 0.0)), "mean_square": ms, "mean": mean}
+
+
+proc("rms_value", name="Root-mean-square value of a function", topic="integrals / applications",
+     purpose="The root-mean-square value sqrt((1/(b - a)) * integral of f^2) of f(x) over [a, b], with the mean square "
+             "and the mean (average) value.",
+     inputs=[T_("f", "the function f(x)"), N_("a", "start of the interval"), N_("b", "end of the interval")],
+     outputs=[O_("rms", "the rms value"), O_("mean_square", "the mean of f^2"), O_("mean", "the mean (average) value of f")],
+     primary="rms", conditions=["a < b", "f continuous on [a, b]"],
+     method="the integrals of f^2 and f by high-precision tanh-sinh quadrature, divided by b - a",
+     latex=r"f_{\text{rms}} = \sqrt{\frac{1}{b-a}\int_a^b f(x)^2\,dx}",
+     run=rms_value,
+     verify=lambda i, o: worst(rel_err(o["mean_square"], _gl_check(i["f"], i["a"], i["b"], transform=lambda g, x: g(x) ** 2) / (i["b"] - i["a"]), 1e-10),
+                               rel_err(o["rms"] ** 2, o["mean_square"], 1e-12),
+                               rel_err(o["mean"], _gl_check(i["f"], i["a"], i["b"]) / (i["b"] - i["a"]), 1e-10)),
+     reference=lambda f, a, b: (lambda g: (lambda ms: {"rms": math.sqrt(ms), "mean_square": ms})(ref_quad(lambda x: g(x) ** 2, a, b) / (b - a)))(
+         ref_lam(f, module="math")),
+     wrong=lambda f, a, b: (lambda r: dict(r, rms=r["mean"]))(rms_value(f, a, b)),
+     random_inputs=lambda rng: (lambda ab: {"f": rand_smooth(rng), "a": ab[0], "b": ab[1]})(rand_interval(rng)),
+     templates=["Find the rms value of sin(x) over [0, 2pi].", "Find the root mean square value of x from 0 to 1."],
+     examples=[{"inputs": {"f": "sin(x)", "a": 0, "b": 2 * math.pi}, "outputs": {"rms": 1 / math.sqrt(2), "mean_square": 0.5}},
+               {"inputs": {"f": "x", "a": 0, "b": 1}, "outputs": {"rms": 1 / math.sqrt(3), "mean": 0.5}},
+               {"inputs": {"f": "3 + 2sin(x)", "a": 0, "b": 2 * math.pi}, "outputs": {"rms": math.sqrt(11), "mean": 3.0}}],
+     questions=[{"q": "Find the rms value of sin(x) over [0, 2pi].", "outputs": {"rms": 1 / math.sqrt(2)}},
+                {"q": "Find the root mean square value of x from 0 to 1.", "outputs": {"rms": 1 / math.sqrt(3)}},
+                {"q": "Find the rms value of 1/x from -1 to 1.", "outcome": "INVALID_INPUT"}],
+     keywords=["rms value", "root mean square"])
+_RMS = "<(?:rms|r\\.m\\.s\\.?|root mean square|root-mean-square)> value of {f} "
+rule("rms_value", _RMS + _FROM, _RMS + _ON, order=30)
+
+
+# ------------------------------------------------------------------------------------------- total differential
+@_memo
+def total_differential(f, p, d, mode="change"):
+    names = _vars(p)
+    if len(d) != len(p):
+        raise ValueError("give one change for each variable")
+    if mode not in ("change", "percent"):
+        raise ValueError("mode must be change or percent")
+    e = parse_expr(f, names)
+    f0 = at(e, names, *p)
+    grads = [at(sp.diff(e, _SYMS[v]), names, *p) for v in names]
+    dx = [float(v) for v in d] if mode == "change" else [p[k] * d[k] / 100 for k in range(len(p))]
+    df = math.fsum(grads[k] * dx[k] for k in range(len(p)))
+    out = {"df": df, "f_value": f0, "partials": grads, "changes": dx}
+    if f0 != 0:
+        out["percent_change"] = 100 * df / f0
+    try:
+        out["exact_change"] = at(e, names, *[p[k] + dx[k] for k in range(len(p))]) - f0
+    except ValueError:
+        pass
+    return out
+
+
+def _verify_totdiff(i, o):
+    p = i["p"]
+    names = _vars(p)
+    k = len(names)
+    dx = [float(v) for v in i["d"]] if i.get("mode", "change") == "change" else [p[j] * i["d"][j] / 100 for j in range(k)]
+    g = [float(_mp_partial(i["f"], names, p, [int(m == j) for m in range(k)])) for j in range(k)]
+    df = math.fsum(g[j] * dx[j] for j in range(k))
+    S = math.fsum(abs(g[j] * dx[j]) for j in range(k))
+    res = [max(0.0, abs(o["df"] - df) / max(abs(df), S, 1e-300) - 1e-10), _vec_err(o["partials"], g, 1e-10),
+           rel_err(o["f_value"], at(parse_expr(i["f"], names), names, *p), 1e-12)]
+    if "percent_change" in o:
+        res.append(rel_err(o["percent_change"], 100 * o["df"] / o["f_value"], 1e-12))
+    return worst(*res)
+
+
+def _ref_totdiff(f, p, d, mode="change"):
+    names = _vars(p)
+    dx = [float(v) for v in d] if mode == "change" else [p[k] * d[k] / 100 for k in range(len(p))]
+    g = [ref_cpartial(f, names, p, k) for k in range(len(p))]
+    df = math.fsum(a * b for a, b in zip(g, dx))
+    f0 = float(ref_lam(f, names, module="math")(*p))
+    out = {"df": df, "partials": g}
+    if f0 != 0:
+        out["percent_change"] = 100 * df / f0
+    return out
+
+
+def _wrong_totdiff(f, p, d, mode="change"):
+    r = total_differential(f, p, d, mode)
+    k = len(p) - 1
+    df = r["df"] - r["partials"][k] * r["changes"][k]       # the last variable's term left out
+    out = dict(r, df=df)
+    if "percent_change" in r:
+        out["percent_change"] = 100 * df / r["f_value"]
+    return out
+
+
+def _rand_totdiff(rng):
+    three = rng.random() < 0.35
+    f = rng.choice([_sgn(f"x^2*y + {_c(rng, -3, 3)}*y"), "x*y*z" if three else "x*y^2", "sqrt(x^2 + y^2)",
+                    "x^2*y*z" if three else "x^3/y", f"exp(x/{rng.randint(2, 4)})*y", "x*sin(y) + 3"])
+    if "z" in f:
+        three = True
+    k = 3 if three else 2
+    p = [float(rng.randint(1, 4)) for _ in range(k)]
+    if rng.random() < 0.5:
+        return {"f": f, "p": p, "d": [rng.choice([-0.05, -0.02, 0.01, 0.02, 0.03]) for _ in range(k)], "mode": "change"}
+    return {"f": f, "p": p, "d": [float(rng.choice([-3, -2, -1, 1, 2, 4])) for _ in range(k)], "mode": "percent"}
+
+
+def _td_post(d):
+    if "dx" in d:
+        keys, mode = ("dx", "dy", "dz"), "change"
+    else:
+        keys, mode = ("px", "py", "pz"), "percent"
+    vals = [d[k] for k in keys if k in d]
+    if len(vals) != len(d["p"]):
+        return None
+    return {"f": d["f"], "p": d["p"], "d": vals, "mode": mode}
+
+
+proc("total_differential", name="Total differential and small changes", topic="multivariable calculus / total differential",
+     purpose="The approximate change df = f_x dx + f_y dy (+ f_z dz) of f(x, y[, z]) at a point for small changes of "
+             "its variables (or for percentage changes), with the percentage change of f and the exact change.",
+     inputs=[T_("f", "the function f(x, y) or f(x, y, z)"), V_("p", "the point (x, y) or (x, y, z)"),
+             V_("d", "the small changes (dx, dy[, dz]), or the percentage changes (2 means 2 %)"),
+             C_("mode", "change (absolute changes) or percent (percentage changes)", ["change", "percent"], required=False)],
+     outputs=[O_("df", "the approximate change df"), O_("percent_change", "100 df / f, in %"), O_("f_value", "f at the point"),
+              O_("partials", "the partial derivatives at the point", "vector"), O_("changes", "the absolute changes used", "vector"),
+              O_("exact_change", "f(p + dp) - f(p)")],
+     primary="df", conditions=["f differentiable at the point", "one change per variable"],
+     method="exact partial derivatives at the point; df = sum of f_xi dxi (a percentage change p % of xi is dxi = xi p/100)",
+     latex=r"df = \frac{\partial f}{\partial x}dx + \frac{\partial f}{\partial y}dy + \frac{\partial f}{\partial z}dz",
+     run=total_differential, verify=_verify_totdiff, reference=_ref_totdiff, wrong=_wrong_totdiff, random_inputs=_rand_totdiff,
+     templates=["Find the total differential of x^2*y at (2, 3) with dx = 0.01, dy = -0.02.",
+                "Find the percentage change in x^2*y at (2, 3) when x changes by 2% and y changes by -1%."],
+     examples=[{"inputs": {"f": "x^2*y", "p": "2, 3", "d": "0.01, -0.02"}, "outputs": {"df": 0.04, "partials": [12.0, 4.0]}},
+               {"inputs": {"f": "x^2*y", "p": [2, 3], "d": [2, -1], "mode": "percent"}, "outputs": {"df": 0.36, "percent_change": 3.0}},
+               {"inputs": {"f": "x*y*z", "p": [1, 2, 3], "d": [0.1, 0.1, 0.1], "mode": "change"}, "outputs": {"df": 1.1}}],
+     questions=[{"q": "Find the total differential of x^2*y at (2, 3) with dx = 0.01, dy = -0.02.", "outputs": {"df": 0.04}},
+                {"q": "Find the percentage change in x^2*y at (2, 3) when x changes by 2% and y changes by -1%.",
+                 "outputs": {"percent_change": 3.0}},
+                {"q": "Find the approximate change in x*y*z at (1, 2, 3) when dx = 0.1, dy = 0.1, dz = 0.1.", "outputs": {"df": 1.1}},
+                {"q": "Find the total differential of log(x)*y at (-1, 2) with dx = 0.1, dy = 0.1.", "outcome": "INVALID_INPUT"}],
+     keywords=["total differential", "small changes", "percentage error"])
+_TD3 = "dx = {dx:n}<,?(?: and)?> dy = {dy:n}<,?(?: and)?> dz = {dz:n}"
+_TD2 = "dx = {dx:n}<,?(?: and)?> dy = {dy:n}"
+_PC3 = "x changes by {px:n}%<,?(?: and)?> y changes by {py:n}%<,?(?: and)?> z changes by {pz:n}%"
+_PC2 = "x changes by {px:n}%<,?(?: and)?> y changes by {py:n}%"
+_TDA = "total differential of {f} at <(?:the point )?>{p:v} <(?:with|for|when|if)> "
+# "approximate" / "estimate" are removed by _clean's leading-verb prefix, so the documented form reads "change in ..."
+_TDB = "<(?:approximate |small )?>change in {f}<(?:at|from)> <(?:the point )?>{p:v} <(?:with|for|when|if)> "
+_TDC = "<(?:percentage|percent) change> in {f} at <(?:the point )?>{p:v} <(?:when|if)> "
+rule("total_differential", _TDA + _TD3, _TDA + _TD2, _TDB + _TD3, _TDB + _TD2, _TDC + _PC3, _TDC + _PC2, order=20, post=_td_post)

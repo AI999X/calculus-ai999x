@@ -15,7 +15,7 @@ def _bind(product) -> None:
     _P = product
 
 
-CapabilityId = Literal["arc_length", "area_between_curves", "area_enclosed_curves", "arithmetic_series_sum", "average_rate_of_change", "average_value", "bessel_j", "beta_function", "centroid_region", "chebyshev_polynomial", "critical_points_classify", "curl", "curvature", "definite_integral", "derivative_at_point", "directional_derivative", "disk_volume", "divergence", "divergence_theorem_box", "double_integral_rectangle", "double_integral_region", "error_function", "extrema_on_interval", "fourier_coefficients", "ftc_derivative", "gamma_function", "gauss_legendre", "geometric_partial_sum", "geometric_series_sum", "gradient", "greens_theorem", "hessian_classification", "implicit_derivative", "improper_integral", "inflection_points", "jacobian_determinant", "laplacian", "left_riemann_sum", "legendre_polynomial", "limit_at_infinity", "limit_at_point", "line_integral_scalar", "line_integral_vector", "linear_approximation", "mean_value_theorem", "midpoint_rule", "newton_method", "normal_line", "nth_derivative_at_point", "numerical_derivative", "parametric_arc_length", "parametric_slope", "partial_derivative", "polar_area", "ratio_test", "regularized_gamma", "riemann_zeta", "right_riemann_sum", "second_derivative_at_point", "series_sum", "shell_volume", "simpson_rule", "surface_area_graph", "surface_area_revolution", "tangent_line", "tangent_plane", "taylor_polynomial", "trapezoid_rule", "triple_integral_box", "velocity_acceleration", "washer_volume"]
+CapabilityId = Literal["antiderivative", "arc_length", "area_between_curves", "area_enclosed_curves", "arithmetic_series_sum", "average_rate_of_change", "average_value", "bessel_j", "beta_function", "centroid_region", "chebyshev_polynomial", "conservative_field", "coordinate_conversion", "critical_points_classify", "curl", "curvature", "curvilinear_triple_integral", "definite_integral", "derivative_at_point", "directional_derivative", "disk_volume", "divergence", "divergence_theorem_box", "double_integral_rectangle", "double_integral_region", "error_function", "extrema_on_interval", "fourier_coefficients", "ftc_derivative", "gamma_function", "gauss_legendre", "geometric_partial_sum", "geometric_series_sum", "gradient", "greens_theorem", "hessian_classification", "implicit_derivative", "improper_integral", "inflection_points", "jacobian_determinant", "lagrange_multipliers", "laplacian", "left_riemann_sum", "legendre_polynomial", "limit_at_infinity", "limit_at_point", "line_integral_scalar", "line_integral_vector", "linear_approximation", "mean_value_theorem", "midpoint_rule", "newton_method", "normal_line", "nth_derivative_at_point", "numerical_derivative", "parametric_arc_length", "parametric_slope", "partial_derivative", "polar_area", "polar_double_integral", "power_series_convergence", "ratio_test", "regularized_gamma", "riemann_zeta", "right_riemann_sum", "rms_value", "second_derivative_at_point", "series_sum", "shell_volume", "simpson_rule", "space_curve_arc_length", "space_curve_curvature", "surface_area_graph", "surface_area_revolution", "tangent_line", "tangent_plane", "taylor_polynomial", "total_differential", "trapezoid_rule", "triple_integral_box", "velocity_acceleration", "washer_volume"]
 
 
 def solve(find: CapabilityId | str, given: dict | None = None, conditions=(), *, target: str | None = None, **inputs):
@@ -29,6 +29,19 @@ def help(name: CapabilityId | str | None = None) -> str:     # noqa: A001 (the p
     print(text)
     return text
 
+
+def antiderivative(f=None, x0=None, F0=None):
+    """Antiderivative (indefinite integral). The antiderivative F(x) + C of f(x) term by term from the table of basic integrals (powers, polynomials, sin, cos and exp of a linear argument), and with an initial condition F(x0) = F0 the constant C and the particular antiderivative.
+    Formula: \\int f(x)\\,dx = F(x) + C,\\quad F'(x) = f(x)
+    Inputs:
+        f: the integrand f(x)
+        x0: the point x0 of an initial condition F(x0) = F0 (optional)
+        F0: the value F(x0) of the initial condition (optional)
+    Outputs: antiderivative (F(x) + C), constant (C for the initial condition), particular (the antiderivative with that C)
+    See also: help("antiderivative")
+    """
+    given = {k: v for k, v in dict(f=f, x0=x0, F0=F0).items() if v is not None}
+    return _P.solve("antiderivative", **given)
 
 def arc_length(f=None, a=None, b=None):
     """Arc length of a graph. The length of the curve y = f(x) from x = a to x = b.
@@ -157,6 +170,33 @@ def chebyshev_polynomial(n=None, x=None):
     given = {k: v for k, v in dict(n=n, x=x).items() if v is not None}
     return _P.solve("chebyshev_polynomial", **given)
 
+def conservative_field(P=None, Q=None, R=None, A=None, B=None):
+    """Conservative vector field and potential function. Decides whether F = (P, Q) or (P, Q, R) is conservative (curl F = 0), finds a potential function f with grad f = F, and the path-independent line integral f(B) - f(A).
+    Formula: \\nabla\\times\\mathbf F = 0 \\Rightarrow \\mathbf F = \\nabla f,\\quad \\int_A^B \\mathbf F\\cdot d\\mathbf r = f(B) - f(A)
+    Inputs:
+        P: the x-component P
+        Q: the y-component Q
+        R: the z-component R (3-D fields) (optional)
+        A: the start point (optional)
+        B: the end point (optional)
+    Outputs: conservative (yes or no), potential (a potential function f (with f = 0 at the origin) + C), line_integral (the integral of F . dr from A to B = f(B) - f(A)), curl (the curl (Q_x - P_y in 2-D) when the field is not conservative)
+    See also: help("conservative_field")
+    """
+    given = {k: v for k, v in dict(P=P, Q=Q, R=R, A=A, B=B).items() if v is not None}
+    return _P.solve("conservative_field", **given)
+
+def coordinate_conversion(system=None, p=None):
+    """Rectangular, cylindrical and spherical coordinates. Converts a point given in rectangular (x, y, z), cylindrical (r, theta, z) or spherical (rho, theta, phi) coordinates into all three systems.
+    Formula: x = \\rho\\sin\\phi\\cos\\theta,\\ y = \\rho\\sin\\phi\\sin\\theta,\\ z = \\rho\\cos\\phi;\\quad r = \\sqrt{x^2+y^2}
+    Inputs:
+        system: the system the point is given in
+        p: the point: (x, y, z), (r, theta, z) or (rho, theta, phi), angles in radians
+    Outputs: rectangular ((x, y, z)), cylindrical ((r, theta, z), theta in [0, 2 pi)), spherical ((rho, theta, phi), phi from the positive z-axis in [0, pi])
+    See also: help("coordinate_conversion")
+    """
+    given = {k: v for k, v in dict(system=system, p=p).items() if v is not None}
+    return _P.solve("coordinate_conversion", **given)
+
 def critical_points_classify(f=None):
     """Critical points and their classification. All critical points of a polynomial f(x) and which are local maxima or minima (first-derivative test).
     Formula: f'(c) = 0,\\ f' \\text{ changes } + \\to - \\Rightarrow \\text{local max}
@@ -193,6 +233,24 @@ def curvature(f=None, a=None):
     """
     given = {k: v for k, v in dict(f=f, a=a).items() if v is not None}
     return _P.solve("curvature", **given)
+
+def curvilinear_triple_integral(f=None, system=None, u1=None, u2=None, th1=None, th2=None, w1=None, w2=None):
+    """Triple integral in cylindrical or spherical coordinates. The triple integral of f(x, y, z) over a cylindrical region (r, theta, z between constant limits) with dV = r dz dr dtheta, or a spherical region (rho, theta, phi between constant limits) with dV = rho^2 sin(phi) drho dtheta dphi.
+    Formula: dV = r\\,dz\\,dr\\,d\\theta = \\rho^2\\sin\\phi\\,d\\rho\\,d\\theta\\,d\\phi
+    Inputs:
+        f: the integrand f(x, y, z)
+        system: the coordinate system
+        u1: r (or rho) from (>= 0)
+        u2: r (or rho) to
+        th1: theta from
+        th2: theta to
+        w1: z (or phi) from
+        w2: z (or phi) to
+    Outputs: integral (the value of the triple integral), region_volume (the volume of the region)
+    See also: help("curvilinear_triple_integral")
+    """
+    given = {k: v for k, v in dict(f=f, system=system, u1=u1, u2=u2, th1=th1, th2=th2, w1=w1, w2=w2).items() if v is not None}
+    return _P.solve("curvilinear_triple_integral", **given)
 
 def definite_integral(f=None, a=None, b=None):
     """Definite integral. The definite integral of f(x) from x = a to x = b (net signed area).
@@ -497,6 +555,18 @@ def jacobian_determinant(xu=None, yv=None, p=None):
     given = {k: v for k, v in dict(xu=xu, yv=yv, p=p).items() if v is not None}
     return _P.solve("jacobian_determinant", **given)
 
+def lagrange_multipliers(f=None, g=None):
+    """Lagrange multipliers: extrema under a constraint. The maximum and minimum of f(x, y) subject to a constraint g(x, y) = c (a line, circle or axis-aligned ellipse), where they are attained, and the Lagrange multiplier at each.
+    Formula: \\nabla f = \\lambda\\,\\nabla g,\\quad g(x, y) = c
+    Inputs:
+        f: the function f(x, y) to optimise
+        g: the constraint, an equation g(x, y) = c
+    Outputs: max_value (the constrained maximum of f), max_point (where it is attained (x, y)), max_lambda (the multiplier lambda there), min_value (the constrained minimum of f), min_point (where it is attained (x, y)), min_lambda (the multiplier lambda there), constraint (line, circle or ellipse)
+    See also: help("lagrange_multipliers")
+    """
+    given = {k: v for k, v in dict(f=f, g=g).items() if v is not None}
+    return _P.solve("lagrange_multipliers", **given)
+
 def laplacian(f=None, p=None):
     """Laplacian. The Laplacian f_xx + f_yy (+ f_zz) of a function at a point.
     Formula: \\nabla^2 f = f_{xx} + f_{yy} + f_{zz}
@@ -734,6 +804,33 @@ def polar_area(r=None, al=None, be=None):
     given = {k: v for k, v in dict(r=r, al=al, be=be).items() if v is not None}
     return _P.solve("polar_area", **given)
 
+def polar_double_integral(f=None, r1=None, r2=None, al=None, be=None):
+    """Double integral in polar coordinates. The double integral of f(x, y) over the polar region r1 <= r <= r2, theta1 <= theta <= theta2 (a disk, an annulus or a sector), with dA = r dr dtheta.
+    Formula: \\iint_R f\\,dA = \\int_{\\theta_1}^{\\theta_2}\\!\\int_{r_1}^{r_2} f(r\\cos\\theta, r\\sin\\theta)\\,r\\,dr\\,d\\theta
+    Inputs:
+        f: the integrand f(x, y)
+        r1: r from (>= 0)
+        r2: r to
+        al: theta from
+        be: theta to
+    Outputs: integral (the value of the double integral), region_area (the area of the region)
+    See also: help("polar_double_integral")
+    """
+    given = {k: v for k, v in dict(f=f, r1=r1, r2=r2, al=al, be=be).items() if v is not None}
+    return _P.solve("polar_double_integral", **given)
+
+def power_series_convergence(a=None, k=None):
+    """Radius and interval of convergence of a power series. The radius and interval of convergence of the power series sum c_n (x - a)^n, with the behaviour (absolute, conditional or divergent) at each endpoint.
+    Formula: R = \\frac{1}{\\lim_{n\\to\\infty}\\left|c_{n+1}/c_n\\right|},\\quad |x - a| < R
+    Inputs:
+        a: the general term c_n (x - a)^n, in n and x
+        k: the starting index n = k (only checked: the terms must be defined from there) (optional)
+    Outputs: radius (the radius of convergence R), centre (the centre a), left_end (a - R), right_end (a + R), left_behaviour (the series at x = a - R), right_behaviour (the series at x = a + R), interval (the interval of convergence), endpoint_exponent (d where the terms at the endpoints behave like n^d)
+    See also: help("power_series_convergence")
+    """
+    given = {k: v for k, v in dict(a=a, k=k).items() if v is not None}
+    return _P.solve("power_series_convergence", **given)
+
 def ratio_test(a=None):
     """Ratio test. The limit L of |a_(n+1)/a_n| and the ratio test's verdict for the series sum a_n (converges if L < 1, diverges if L > 1).
     Formula: L = \\lim_{n\\to\\infty}\\left|\\frac{a_{n+1}}{a_n}\\right|
@@ -781,6 +878,19 @@ def right_riemann_sum(f=None, a=None, b=None, n=None):
     """
     given = {k: v for k, v in dict(f=f, a=a, b=b, n=n).items() if v is not None}
     return _P.solve("right_riemann_sum", **given)
+
+def rms_value(f=None, a=None, b=None):
+    """Root-mean-square value of a function. The root-mean-square value sqrt((1/(b - a)) * integral of f^2) of f(x) over [a, b], with the mean square and the mean (average) value.
+    Formula: f_{\\text{rms}} = \\sqrt{\\frac{1}{b-a}\\int_a^b f(x)^2\\,dx}
+    Inputs:
+        f: the function f(x)
+        a: start of the interval
+        b: end of the interval
+    Outputs: rms (the rms value), mean_square (the mean of f^2), mean (the mean (average) value of f)
+    See also: help("rms_value")
+    """
+    given = {k: v for k, v in dict(f=f, a=a, b=b).items() if v is not None}
+    return _P.solve("rms_value", **given)
 
 def second_derivative_at_point(f=None, a=None):
     """Second derivative at a point. The second derivative f''(a) of f(x) at x = a (concavity: positive means concave up).
@@ -832,6 +942,35 @@ def simpson_rule(f=None, a=None, b=None, n=None):
     """
     given = {k: v for k, v in dict(f=f, a=a, b=b, n=n).items() if v is not None}
     return _P.solve("simpson_rule", **given)
+
+def space_curve_arc_length(xt=None, yt=None, zt=None, t0=None, t1=None):
+    """Arc length of a space curve. The length of the space curve r(t) = (x(t), y(t), z(t)) for t0 <= t <= t1.
+    Formula: L = \\int_{t_0}^{t_1}\\sqrt{x'(t)^2 + y'(t)^2 + z'(t)^2}\\,dt
+    Inputs:
+        xt: x(t)
+        yt: y(t)
+        zt: z(t)
+        t0: start parameter
+        t1: end parameter
+    Outputs: arc_length (the length of the curve)
+    See also: help("space_curve_arc_length")
+    """
+    given = {k: v for k, v in dict(xt=xt, yt=yt, zt=zt, t0=t0, t1=t1).items() if v is not None}
+    return _P.solve("space_curve_arc_length", **given)
+
+def space_curve_curvature(xt=None, yt=None, zt=None, t0=None):
+    """Curvature and unit tangent of a space curve. The curvature kappa = |r' x r''|/|r'|^3, the speed |r'| and the unit tangent T = r'/|r'| of the space curve r(t) = (x(t), y(t), z(t)) at t = t0.
+    Formula: \\kappa = \\frac{|\\mathbf r'\\times\\mathbf r''|}{|\\mathbf r'|^3},\\quad \\mathbf T = \\frac{\\mathbf r'}{|\\mathbf r'|}
+    Inputs:
+        xt: x(t)
+        yt: y(t)
+        zt: z(t)
+        t0: the parameter value t0
+    Outputs: curvature (kappa at t0), speed (|r'(t0)|), unit_tangent (T(t0)), radius_of_curvature (1/kappa (absent where kappa = 0))
+    See also: help("space_curve_curvature")
+    """
+    given = {k: v for k, v in dict(xt=xt, yt=yt, zt=zt, t0=t0).items() if v is not None}
+    return _P.solve("space_curve_curvature", **given)
 
 def surface_area_graph(f=None, a=None, b=None, c=None, d=None):
     """Surface area of a graph. The area of the surface z = f(x, y) over the rectangle [a, b] x [c, d].
@@ -899,6 +1038,20 @@ def taylor_polynomial(f=None, a=None, n=None, x1=None):
     given = {k: v for k, v in dict(f=f, a=a, n=n, x1=x1).items() if v is not None}
     return _P.solve("taylor_polynomial", **given)
 
+def total_differential(f=None, p=None, d=None, mode=None):
+    """Total differential and small changes. The approximate change df = f_x dx + f_y dy (+ f_z dz) of f(x, y[, z]) at a point for small changes of its variables (or for percentage changes), with the percentage change of f and the exact change.
+    Formula: df = \\frac{\\partial f}{\\partial x}dx + \\frac{\\partial f}{\\partial y}dy + \\frac{\\partial f}{\\partial z}dz
+    Inputs:
+        f: the function f(x, y) or f(x, y, z)
+        p: the point (x, y) or (x, y, z)
+        d: the small changes (dx, dy[, dz]), or the percentage changes (2 means 2 %)
+        mode: change (absolute changes) or percent (percentage changes) (optional)
+    Outputs: df (the approximate change df), percent_change (100 df / f, in %), f_value (f at the point), partials (the partial derivatives at the point), changes (the absolute changes used), exact_change (f(p + dp) - f(p))
+    See also: help("total_differential")
+    """
+    given = {k: v for k, v in dict(f=f, p=p, d=d, mode=mode).items() if v is not None}
+    return _P.solve("total_differential", **given)
+
 def trapezoid_rule(f=None, a=None, b=None, n=None):
     """Trapezoidal rule. The composite trapezoidal approximation of the integral of f on [a, b] with n subintervals, with the exact value and the error (approximation - exact).
     Formula: T_n = \\frac{h}{2}\\left[f(x_0) + 2\\sum_{k=1}^{n-1} f(x_k) + f(x_n)\\right]
@@ -957,4 +1110,4 @@ def washer_volume(f=None, g=None, a=None, b=None):
     return _P.solve("washer_volume", **given)
 
 
-__all__ = ["CapabilityId", "solve", "help", "arc_length", "area_between_curves", "area_enclosed_curves", "arithmetic_series_sum", "average_rate_of_change", "average_value", "bessel_j", "beta_function", "centroid_region", "chebyshev_polynomial", "critical_points_classify", "curl", "curvature", "definite_integral", "derivative_at_point", "directional_derivative", "disk_volume", "divergence", "divergence_theorem_box", "double_integral_rectangle", "double_integral_region", "error_function", "extrema_on_interval", "fourier_coefficients", "ftc_derivative", "gamma_function", "gauss_legendre", "geometric_partial_sum", "geometric_series_sum", "gradient", "greens_theorem", "hessian_classification", "implicit_derivative", "improper_integral", "inflection_points", "jacobian_determinant", "laplacian", "left_riemann_sum", "legendre_polynomial", "limit_at_infinity", "limit_at_point", "line_integral_scalar", "line_integral_vector", "linear_approximation", "mean_value_theorem", "midpoint_rule", "newton_method", "normal_line", "nth_derivative_at_point", "numerical_derivative", "parametric_arc_length", "parametric_slope", "partial_derivative", "polar_area", "ratio_test", "regularized_gamma", "riemann_zeta", "right_riemann_sum", "second_derivative_at_point", "series_sum", "shell_volume", "simpson_rule", "surface_area_graph", "surface_area_revolution", "tangent_line", "tangent_plane", "taylor_polynomial", "trapezoid_rule", "triple_integral_box", "velocity_acceleration", "washer_volume"]
+__all__ = ["CapabilityId", "solve", "help", "antiderivative", "arc_length", "area_between_curves", "area_enclosed_curves", "arithmetic_series_sum", "average_rate_of_change", "average_value", "bessel_j", "beta_function", "centroid_region", "chebyshev_polynomial", "conservative_field", "coordinate_conversion", "critical_points_classify", "curl", "curvature", "curvilinear_triple_integral", "definite_integral", "derivative_at_point", "directional_derivative", "disk_volume", "divergence", "divergence_theorem_box", "double_integral_rectangle", "double_integral_region", "error_function", "extrema_on_interval", "fourier_coefficients", "ftc_derivative", "gamma_function", "gauss_legendre", "geometric_partial_sum", "geometric_series_sum", "gradient", "greens_theorem", "hessian_classification", "implicit_derivative", "improper_integral", "inflection_points", "jacobian_determinant", "lagrange_multipliers", "laplacian", "left_riemann_sum", "legendre_polynomial", "limit_at_infinity", "limit_at_point", "line_integral_scalar", "line_integral_vector", "linear_approximation", "mean_value_theorem", "midpoint_rule", "newton_method", "normal_line", "nth_derivative_at_point", "numerical_derivative", "parametric_arc_length", "parametric_slope", "partial_derivative", "polar_area", "polar_double_integral", "power_series_convergence", "ratio_test", "regularized_gamma", "riemann_zeta", "right_riemann_sum", "rms_value", "second_derivative_at_point", "series_sum", "shell_volume", "simpson_rule", "space_curve_arc_length", "space_curve_curvature", "surface_area_graph", "surface_area_revolution", "tangent_line", "tangent_plane", "taylor_polynomial", "total_differential", "trapezoid_rule", "triple_integral_box", "velocity_acceleration", "washer_volume"]
