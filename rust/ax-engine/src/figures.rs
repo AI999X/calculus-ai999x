@@ -796,6 +796,12 @@ fn knobs(specs: &[InSpec], given: &[(String, Input)]) -> Vec<Knob> {
                 if t.len() > 400 || assignment_spans(&t).is_some() || formula_vars(&t).is_some() {
                     continue;
                 }
+                // the digits of a number written in a base ("1011" in base 2, "ff" in base 16) are not a decimal
+                // number to sweep: 1002..1010 are no base-2 numbers (discrete math review, 2026-11-13)
+                let ml = format!("{} {}", meaning, sp.unit).to_lowercase();
+                if ["digit", "base", "binary", "octal", "hexadecimal", "radix", "bit string", "bits"].iter().any(|w| ml.contains(w)) {
+                    continue;
+                }
                 let nums = text_numbers(&t);
                 for &(s, e, n) in &nums {
                     // a number written more than once is marked where it is varied: "the number 2 in 2x^2 - 3x + 1"
@@ -1222,6 +1228,18 @@ fn figures_from(p: &Pack, key: &str, given: &[(String, Input)], target: Option<&
                     None => vec![],
                 }
             };
+            // varying entry i of an input list whose answer is a list of the same length: entry i of the answer is the
+            // one that follows it, marked first (y[5] varied while derivative[1] was marked, flat; linear algebra
+            // review, 2026-11-13)
+            if let (Some(i), Some(Track::E(s, _))) = (k.idx, k.tracks.first().cloned()) {
+                let n = b.outs.iter().find(|o| o.sym == s).and_then(|o| numlist(&o.val)).map(|l| l.len()).unwrap_or(0);
+                if n == k.base.len() && i < n {
+                    let mut t = vec![Track::E(s.clone(), i)];
+                    t.extend(k.tracks.iter().filter(|x| !matches!(x, Track::E(ss, j) if *ss == s && *j == i)).cloned());
+                    t.truncate(4);
+                    k.tracks = t;
+                }
+            }
             k.cat = (0..cat_cands.len()).find(|j| changed[*j]).and_then(|j| cat_cands[j].clone())
                 .or_else(|| b.cat.clone());
             ranked.push((score, k));
@@ -2222,6 +2240,18 @@ fn fig_points(b: &Base) -> Option<(String, String, String)> {
             }
         }
     }
+    // only arrows that ARE vectors or points in the plane (a vector, a force, a velocity, a position): two numbers of
+    // another kind (quadrature nodes beside weights, b beside x of a linear system, coordinates in another basis beside
+    // the vector) are not drawn as arrows on one plane (linear algebra review, 2026-11-13)
+    let words_of = |s: &str, ans: bool| -> String {
+        let m = if ans { b.outs.iter().find(|o| o.sym == s).map(|o| o.meaning.clone()) }
+                else { b.specs.iter().find(|x| x.sym == s).map(|x| x.meaning.clone()) };
+        format!("{s} {}", m.unwrap_or_default()).to_lowercase()
+    };
+    let geometric = |w: &str| ["vector", "point", "position", "velocity", "force", "displacement", "direction", "gradient",
+                               "momentum", "acceleration", "field", "arrow", "projection", "normal"].iter().any(|k| w.contains(k))
+        && !["coordinates in", "basis b", "weights", "nodes", "right-hand side", "solution of", "iterate"].iter().any(|k| w.contains(k));
+    vecs2.retain(|(s, _, ans)| geometric(&words_of(s, *ans)));
     // one plane, one unit: the vectors of the first answer vector's unit
     let unit_of = |s: &str, ans: bool| -> String {
         if ans { b.outs.iter().find(|o| o.sym == s).map(|o| o.unit.clone()).unwrap_or_default() } else {
@@ -3262,7 +3292,14 @@ pub(crate) fn line_chart_xy(series: &[(String, Vec<Option<(f64, f64)>>)], bands:
     let ya = if ys.is_empty() { None } else {
         let (mut lo, mut hi) = minmax(&ys);
         let log = !lin_y && lo > 0.0 && hi / lo > 1e3;
-        if !log && ys.len() >= 10 {
+        // whole-number counts (roots found, a gcd, a number of solutions) start at 0: a count of 0 must be visible
+        // (only counts near zero: whole numbers between 1000 and 1010 keep their own range)
+        if !log && lo > 0.0 && (hi <= 50.0 || lo <= 0.5 * hi) && ys.iter().all(|y| *y >= 0.0 && y.fract() == 0.0) {
+            lo = 0.0;
+        }
+        // a sweep over whole numbers (a gcd as n steps) has no pole: every value is shown, none clipped (the gcd's
+        // spikes of 46 and 23 were cut at an axis ending at 3; discrete math review, 2026-11-13)
+        if !log && !int_x && ys.len() >= 10 {
             // a curve that shoots off near a pole: the axis follows the bulk of the values (and the marked one);
             // the rest is clipped at the frame
             let mut s = ys.clone();

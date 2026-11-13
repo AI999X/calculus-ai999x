@@ -884,7 +884,7 @@ $$
 
 ![volume (the volume of the solid) against b (right end) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/disk-volume-curve)
 
-*volume (the volume of the solid) against b (right end) from 0.5 to 1.5. Other inputs as in the worked example: f = x^2, a = 0. 31 points computed by calculus-ai999x; marked: the worked example, b = 1, volume = 0.628319.*
+*volume (the volume of the solid) against b (right end) from 0.5 to 1.5. Other inputs as in the worked example: f = x^2, a = 0.0. 31 points computed by calculus-ai999x; marked: the worked example, b = 1, volume = 0.628319.*
 
 ![volume (the volume of the solid) over b (right end) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/disk-volume-field)
 
@@ -1583,7 +1583,7 @@ $$
 
 ![x_1 ](https://www.ai999x.com/?ax_fig=calculus-ai999x/newton-method-series)
 
-*x_1 .. x_n (iterates) returned by calculus-ai999x for the worked example, one value for each position in the list (3 values, first 1.5, last 1.41422, largest 1.5). Inputs: f = x^2 - 2, x0 = 1, n = 3.*
+*x_1 .. x_n (iterates) returned by calculus-ai999x for the worked example, one value for each position in the list (3 values, first 1.5, last 1.41422, largest 1.5). Inputs: f = x^2 - 2, x0 = 1.0, n = 3.*
 
 ![x_n (the n-th iterate) against x0 (the starting value x_0) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/newton-method-curve)
 
@@ -2083,7 +2083,7 @@ $$
 
 ![sum (the sum of the first n terms) against r (the common ratio) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/geometric-partial-sum-curve)
 
-*sum (the sum of the first n terms) against r (the common ratio) from 0.3 to 30 on a logarithmic axis, logarithmic output axis. One curve for each value of n (the number of terms): 4, 2, 8. Other inputs as in the worked example: a = 2. 41 points per curve computed by calculus-ai999x; marked: the worked example, r = 3, sum = 80.*
+*sum (the sum of the first n terms) against r (the common ratio) from 0.3 to 30 on a logarithmic axis, logarithmic output axis. One curve for each value of n (the number of terms): 4, 2, 8. Other inputs as in the worked example: a = 2.0. 41 points per curve computed by calculus-ai999x; marked: the worked example, r = 3, sum = 80.*
 
 ```python
 calculus_ai999x.solve('geometric_partial_sum', a=2, r=3, n=4)
@@ -2134,7 +2134,7 @@ $$
 
 ![sum (the sum of the first n terms) against n (the number of terms) from 1 to 20](https://www.ai999x.com/?ax_fig=calculus-ai999x/arithmetic-series-sum-curve)
 
-*sum (the sum of the first n terms) against n (the number of terms) from 1 to 20. One curve for each value of d (the common difference): 3, 1.5, 6. Other inputs as in the worked example: a1 = 2. 20 points per curve computed by calculus-ai999x; marked: the worked example, n = 10, sum = 155.*
+*sum (the sum of the first n terms) against n (the number of terms) from 1 to 20. One curve for each value of d (the common difference): 3, 1.5, 6. Other inputs as in the worked example: a1 = 2.0. 20 points per curve computed by calculus-ai999x; marked: the worked example, n = 10, sum = 155.*
 
 ```python
 calculus_ai999x.solve('arithmetic_series_sum', a1=2, d=3, n=10)
@@ -2287,11 +2287,11 @@ $$
 
 ![c_0 ](https://www.ai999x.com/?ax_fig=calculus-ai999x/taylor-polynomial-series)
 
-*c_0 .. c_n with c_k = f^(k)(a)/k! (coefficients) returned by calculus-ai999x for the worked example, one value for each position in the list (4 values, first 1, last 0.166667, largest 1). Inputs: f = exp(x), a = 0, n = 3, x1 = 0.5.*
+*c_0 .. c_n with c_k = f^(k)(a)/k! (coefficients) returned by calculus-ai999x for the worked example, one value for each position in the list (4 values, first 1, last 0.166667, largest 1). Inputs: f = exp(x), a = 0.0, n = 3, x1 = 0.5.*
 
 ![value (P_n(x1)) against x1 (the evaluation point) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/taylor-polynomial-curve-2)
 
-*value (P_n(x1)) against x1 (the evaluation point) from 0.05 to 5 on a logarithmic axis. One curve for each value of n (the degree): 3, 4, 5. Other inputs as in the worked example: f = exp(x), a = 0. 41 points per curve computed by calculus-ai999x; marked: the worked example, x1 = 0.5, value = 1.64583.*
+*value (P_n(x1)) against x1 (the evaluation point) from 0.05 to 5 on a logarithmic axis. One curve for each value of n (the degree): 3, 4, 5. Other inputs as in the worked example: f = exp(x), a = 0.0. 41 points per curve computed by calculus-ai999x; marked: the worked example, x1 = 0.5, value = 1.64583.*
 
 ```python
 calculus_ai999x.solve('taylor_polynomial', f='exp(x)', a=0, n=3, x1=0.5)
@@ -2868,7 +2868,7 @@ $$
 
 ![integral (the value of the triple integral) against x0 (x from) from -1 to 1](https://www.ai999x.com/?ax_fig=calculus-ai999x/triple-integral-box-curve)
 
-*integral (the value of the triple integral) against x0 (x from) from -1 to 1. One curve for each value of x1 (x to): 1, 0.5, 2. Other inputs as in the worked example: f = x*y*z, y0 = 0, y1 = 2, z0 = 0, z1 = 3. 40 points per curve computed by calculus-ai999x; marked: the worked example, x0 = 0, integral = 4.5.*
+*integral (the value of the triple integral) against x0 (x from) from -1 to 1. One curve for each value of x1 (x to): 1, 0.5, 2. Other inputs as in the worked example: f = x*y*z, y0 = 0.0, y1 = 2.0, z0 = 0.0, z1 = 3.0. 40 points per curve computed by calculus-ai999x; marked: the worked example, x0 = 0, integral = 4.5.*
 
 ```python
 calculus_ai999x.solve('triple_integral_box', f='x*y*z', x0=0, x1=1, y0=0, y1=2, z0=0, z1=3)
@@ -2915,7 +2915,7 @@ $$
 
 ![surface_area (the surface area) against b (x to) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/surface-area-graph-curve)
 
-*surface_area (the surface area) against b (x to) from 0.5 to 1.5. One curve for each value of d (y to): 1, 0.5, 2. Other inputs as in the worked example: f = x + y, a = 0, c = 0. 31 points per curve computed by calculus-ai999x; marked: the worked example, b = 1, surface_area = 1.73205.*
+*surface_area (the surface area) against b (x to) from 0.5 to 1.5. One curve for each value of d (y to): 1, 0.5, 2. Other inputs as in the worked example: f = x + y, a = 0.0, c = 0.0. 31 points per curve computed by calculus-ai999x; marked: the worked example, b = 1, surface_area = 1.73205.*
 
 ```python
 calculus_ai999x.solve('surface_area_graph', f='x + y', a=0, b=1, c=0, d=1)
@@ -3110,7 +3110,7 @@ $$
 
 ![flux (the outward flux) against x1 (x to) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/divergence-theorem-box-curve)
 
-*flux (the outward flux) against x1 (x to) from 0.1 to 10 on a logarithmic axis. One curve for each value of y1 (y to): 1, 0.5, 2. Other inputs as in the worked example: P = x^2, Q = y^2, R = z^2, x0 = 0, y0 = 0, z0 = 0, z1 = 1. 41 points per curve computed by calculus-ai999x; marked: the worked example, x1 = 1, flux = 3.*
+*flux (the outward flux) against x1 (x to) from 0.1 to 10 on a logarithmic axis. One curve for each value of y1 (y to): 1, 0.5, 2. Other inputs as in the worked example: P = x^2, Q = y^2, R = z^2, x0 = 0.0, y0 = 0.0, z0 = 0.0, z1 = 1.0. 41 points per curve computed by calculus-ai999x; marked: the worked example, x1 = 1, flux = 3.*
 
 ```python
 calculus_ai999x.solve('divergence_theorem_box', P='x^2', Q='y^2', R='z^2', x0=0, x1=1, y0=0, y1=1, z0=0, z1=1)
@@ -3388,9 +3388,9 @@ $$
 - **Assumes:** x real
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![erf (erf(x)) against x (the argument x) from -1 to 1](https://www.ai999x.com/?ax_fig=calculus-ai999x/error-function-curve)
+![erf (erf(x)) against x (the argument x) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/error-function-curve)
 
-*erf (erf(x)) against x (the argument x) from -1 to 1. 41 points computed by calculus-ai999x; marked: the worked example, x = 0, erf = 0.*
+*erf (erf(x)) against x (the argument x) from 0.05 to 5 on a logarithmic axis. 41 points computed by calculus-ai999x; marked: the worked example, x = 0.5, erf = 0.5205.*
 
 ```python
 calculus_ai999x.solve('error_function', x=0)
@@ -3433,13 +3433,13 @@ $$
 - **Assumes:** $a > 0$; $x  \geq  0$
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![P (P(a, x) = gamma(a, x)/Gamma(a)) against a (the shape a (> 0)) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/regularized-gamma-curve)
+![P (P(a, x) = gamma(a, x)/Gamma(a)) against x (the upper limit x (>= 0)) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/regularized-gamma-curve)
 
-*P (P(a, x) = gamma(a, x)/Gamma(a)) against a (the shape a (> 0)) from 0.1 to 10 on a logarithmic axis. One curve for each value of x (the upper limit x (>= 0)): 2, 1, 4. 41 points per curve computed by calculus-ai999x; marked: the worked example, a = 1, P = 0.864665.*
+*P (P(a, x) = gamma(a, x)/Gamma(a)) against x (the upper limit x (>= 0)) from 0.3 to 30 on a logarithmic axis. One curve for each value of a (the shape a (> 0)): 2, 1, 4. 41 points per curve computed by calculus-ai999x; marked: the worked example, x = 3, P = 0.800852.*
 
 ![P (P(a, x) = gamma(a, x)/Gamma(a)) over a (the shape a (> 0)) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/regularized-gamma-field)
 
-*P (P(a, x) = gamma(a, x)/Gamma(a)) over a (the shape a (> 0)) from 0.1 to 10 and x (the upper limit x (>= 0)) from 0.2 to 20 (logarithmic axes): each of the 21 × 15 cells is one run of calculus-ai999x, shaded by its value (light 2.3531e-14 to dark 1); iso-lines at P = 0.2, 0.4, 0.6, 0.8. Marked: the worked example, a = 1, x = 2, P = 0.864665.*
+*P (P(a, x) = gamma(a, x)/Gamma(a)) over a (the shape a (> 0)) from 0.2 to 20 and x (the upper limit x (>= 0)) from 0.3 to 30 (logarithmic axes): each of the 21 × 15 cells is one run of calculus-ai999x, shaded by its value (light 1.0771e-29 to dark 1); iso-lines at P = 0.2, 0.4, 0.6, 0.8. Marked: the worked example, a = 2, x = 3, P = 0.800852.*
 
 ```python
 calculus_ai999x.solve('regularized_gamma', a=1, x=2)
@@ -3959,9 +3959,9 @@ $$
 - **Assumes:** $0  \leq  r_{1} < r_{2}$; $theta1 < theta2  \leq  theta1 + 2$ pi; f continuous on the region; constant limits only (a region $r  \leq  g$(theta) is not covered)
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![integral (the value of the double integral) against r2 (r to) from 1 to 3](https://www.ai999x.com/?ax_fig=calculus-ai999x/polar-double-integral-curve)
+![integral (the value of the double integral) against r2 (r to) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/polar-double-integral-curve)
 
-*integral (the value of the double integral) against r2 (r to) from 1 to 3. One curve for each value of be (theta to): 6.28319, 3.14159. Other inputs as in the worked example: f = 1, r1 = 0, al = 0. 31 points per curve computed by calculus-ai999x; marked: the worked example, r2 = 2, integral = 12.5664.*
+*integral (the value of the double integral) against r2 (r to) from 0.5 to 1.5. One curve for each value of be (theta to): 6.28319, 3.14159. Other inputs as in the worked example: f = 1, r1 = 0.0, al = 0.0. 31 points per curve computed by calculus-ai999x; marked: the worked example, r2 = 1, integral = 3.14159.*
 
 ```python
 calculus_ai999x.solve('polar_double_integral', f='1', r1=0, r2=2, al=0, be=6.283185307179586)
@@ -4021,9 +4021,9 @@ $$
 - **Assumes:** $0  \leq  r_{1} < r_{2}$ (rho); $theta1 < theta2  \leq  theta1 + 2$ pi; $z_{1} < z_{2}$; for phi $0  \leq  phi1 < phi2  \leq  pi$; f continuous on the region; constant limits only
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![integral (the value of the triple integral) against u2 (r (or rho) to) from 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/curvilinear-triple-integral-curve)
+![integral (the value of the triple integral) against u2 (r (or rho) to) from 1 to 3](https://www.ai999x.com/?ax_fig=calculus-ai999x/curvilinear-triple-integral-curve)
 
-*integral (the value of the triple integral) against u2 (r (or rho) to) from 0.5 to 1.5. One curve for each value of w2 (z (or phi) to): 2, 1, 4. Other inputs as in the worked example: f = 1, system = cylindrical, u1 = 0, th1 = 0, th2 = 6.283185307179586, w1 = 0. 31 points per curve computed by calculus-ai999x; marked: the worked example, u2 = 1, integral = 6.28319.*
+*integral (the value of the triple integral) against u2 (r (or rho) to) from 1 to 3. One curve for each value of w2 (z (or phi) to): 1, 0.5, 2. Other inputs as in the worked example: f = 1, system = cylindrical, u1 = 0.0, th1 = 0.0, th2 = 6.283185307179586, w1 = 0.0. 31 points per curve computed by calculus-ai999x; marked: the worked example, u2 = 2, integral = 12.5664.*
 
 ```python
 calculus_ai999x.solve('curvilinear_triple_integral', f='1', system='cylindrical', u1=0, u2=1, th1=0, th2=6.283185307179586, w1=0, w2=2)
@@ -4209,7 +4209,7 @@ $$
 
 ![T(t0) (unit_tangent) returned by calculus-ai999x for the worked example, one value for each position in the list (3 values, first 0, last 0](https://www.ai999x.com/?ax_fig=calculus-ai999x/space-curve-curvature-series)
 
-*T(t0) (unit_tangent) returned by calculus-ai999x for the worked example, one value for each position in the list (3 values, first 0, last 0.707107, largest 0.707107). Inputs: xt = cos(t), yt = sin(t), zt = t, t0 = 0.*
+*T(t0) (unit_tangent) returned by calculus-ai999x for the worked example, one value for each position in the list (3 values, first 0, last 0.707107, largest 0.707107). Inputs: xt = cos(t), yt = sin(t), zt = t, t0 = 0.0.*
 
 ```python
 calculus_ai999x.solve('space_curve_curvature', xt='cos(t)', yt='sin(t)', zt='t', t0=0)
