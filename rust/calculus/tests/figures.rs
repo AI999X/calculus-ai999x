@@ -29,7 +29,6 @@ const KINDS: &[(&str, &[&str])] = &[
     ("extrema_on_interval", &["graph"]),
     ("fourier_coefficients", &["stems"]),
     ("ftc_derivative", &["area"]),
-    ("gauss_legendre", &["convergence"]),
     ("geometric_partial_sum", &["stems"]),
     ("geometric_series_sum", &["field"]),
     ("gradient", &["field"]),
