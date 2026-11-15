@@ -1475,10 +1475,6 @@ $$
 - **Assumes:** $a < b$; $1  \leq  n  \leq  64$; f continuous on [a, b]
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![Error of n-point Gauss–Legendre quadrature for the integral of eˣ from 0 to 1 (chosen), n = 1 … 6, each run of the package, against Simpson's rule (logarithmic error axis): each extra point gains about two orders of magnitude](https://www.ai999x.com/?ax_fig=calculus-ai999x/gauss-legendre-convergence)
-
-*Error of n-point Gauss–Legendre quadrature for the integral of eˣ from 0 to 1 (chosen), n = 1 … 6, each run of the package, against Simpson's rule (logarithmic error axis): each extra point gains about two orders of magnitude. Worked example (x³ + x², 0 to 2, n = 2): 6.66667, exact 6.66667.*
-
 ```python
 calculus_ai999x.solve('gauss_legendre', f='x^3 + x^2', a=0, b=2, n=2)
 # -> approximation = 6.66667, exact = 6.66667, error = 0   (SOLVED)
