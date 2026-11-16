@@ -10,34 +10,135 @@ Calculus covers limits, derivatives, integrals, series, Taylor polynomials, mult
 
 | | |
 |---|---|
-| **Desktop app** (Windows, Linux) | [Windows](https://downloads.ai999x.com/desktop/latest/ai999x-windows-x86_64.zip) · [Linux](https://downloads.ai999x.com/desktop/latest/ai999x-linux-x86_64.tar.gz) |
-| **Command line** `calculus` (Windows, Linux) | [Windows](https://downloads.ai999x.com/desktop/latest/ai999x-cli-windows-x86_64.zip) · [Linux](https://downloads.ai999x.com/desktop/latest/ai999x-cli-linux-x86_64.tar.gz) |
+| **Desktop app** (Windows, Linux) | [Windows](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.4/ai999x-1.6.4-windows-x86_64.zip) · [Linux](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.4/ai999x-1.6.4-linux-x86_64.tar.gz) |
+| **Command line** `calculus` (Windows, Linux) | [Windows](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.4/ai999x-cli-1.6.4-windows-x86_64.zip) · [Linux](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.4/ai999x-cli-1.6.4-linux-x86_64.tar.gz) |
 | **Browser** (any device) | [Try it on the model page](https://www.ai999x.com/models/calculus-ai999x/#try) |
 | **Python** 3.10+ | `pip install calculus-ai999x`: a pure-Python build of the same calculations (the compiled engine is in the app, the command line and the browser) |
 
-## Example
+## Ask in words: 15 examples
+
+Each question below was asked on this release; the comment under it is the line it printed.
 
 ```python
 import calculus_ai999x as calculus
-a = calculus.ask("Find the limit of (x^2 - 4)/(x - 2) as x approaches 2.")
-print(a.outcome, a.value)
+
+a = calculus.ask(
+    "Find the Fourier coefficients of order 2 of f(x) = x on [-pi, "
+    "pi]."
+)
+print(a.outcome, a.values)
+# SOLVED {'a0': 0.0, 'a_k': 0.0, 'b_k': -1.0}
+
+a = calculus.ask("Find the antiderivative of 3x^2 + 2x.")
+print(a.outcome, a.values)
+# SOLVED {'antiderivative': 'x^3 + x^2 + C'}
+
+a = calculus.ask(
+    "Find the limit of (x^2 - 4)/(x - 2) as x approaches 2."
+)
+print(a.outcome, a.values)
+# SOLVED {'limit': 4.0}
+
+a = calculus.ask(
+    "Find the double integral of x^2 + y^2 over 0 <= r <= 1, 0 <= "
+    "theta <= 2pi."
+)
+print(a.outcome, a.values)
+# SOLVED {'integral': 1.57079632679, 'region_area': 3.14159265359}
+
+a = calculus.ask(
+    "Find the directional derivative of x^2*y at (1, 2) in the "
+    "direction (3, 4)."
+)
+print(a.outcome, a.values)
+# SOLVED {'directional_derivative': 3.2}
+
+a = calculus.ask(
+    "Estimate the derivative of x^2 at x = 1 using a central "
+    "difference with h = 0.1."
+)
+print(a.outcome, a.values)
+# SOLVED {'approximation': 2.0, 'exact': 2.0, 'error': 0.0}
+
+a = calculus.ask(
+    "Find the arc length of the parametric curve x = cos(t), y = "
+    "sin(t) from t = 0 to t = pi."
+)
+print(a.outcome, a.values)
+# SOLVED {'arc_length': 3.141592653589793}
+
+a = calculus.ask(
+    "Find the area enclosed by the polar curve r = 1 + cos(theta) from "
+    "theta = 0 to theta = 2pi."
+)
+print(a.outcome, a.values)
+# SOLVED {'area': 4.71238898038469}
+
+a = calculus.ask(
+    "Find the sum of the first 4 terms of the geometric series with "
+    "first term 2 and ratio 3."
+)
+print(a.outcome, a.values)
+# SOLVED {'sum': 80.0}
+
+a = calculus.ask("Evaluate the Bessel function J_0(1).")
+print(a.outcome, a.values)
+# SOLVED {'J': 0.7651976865579666}
+
+a = calculus.ask("Is F = (2x*y, x^2) conservative?")
+print(a.outcome, a.values)
+# SOLVED {'conservative': 'yes', 'potential': 'x^2*y + C'}
+
+a = calculus.ask(
+    "Find the arc length of r(t) = (cos(t), sin(t), t) from t = 0 to t "
+    "= 2pi."
+)
+print(a.outcome, a.values)
+# SOLVED {'arc_length': 8.885765876316732}
+
+a = calculus.ask(
+    "Find the average rate of change of f(x) = x^2 from x = 1 to x = "
+    "3."
+)
+print(a.outcome, a.values)
+# SOLVED {'average_rate': 4.0, 'fa': 1.0, 'fb': 9.0}
+
+a = calculus.ask("Find the arc length of y = x^2 from x = 0 to x = 1.")
+print(a.outcome, a.values)
+# SOLVED {'arc_length': 1.4789428575445975}
+
+a = calculus.ask(
+    "Find the limit of (3x^2 + 1)/(x^2 - 5) as x approaches infinity."
+)
+print(a.outcome, a.values)
+# SOLVED {'limit': 3.0}
 ```
 
-Output:
+## Screenshots
 
-```text
-SOLVED 4.0
-```
+[![The Calculus desktop app: Arc length of a graph, with its worked example and live scene](https://www.ai999x.com/?ax_shot=calculus-ai999x/hero-dark.webp)](https://www.ai999x.com/models/calculus-ai999x/)
+
+[![Absolute extrema on a closed interval: the live scene in the Calculus desktop app](https://www.ai999x.com/?ax_shot=calculus-ai999x/see-1.webp)](https://www.ai999x.com/models/calculus-ai999x/)
+
+*Absolute extrema on a closed interval*
+
+[![Directional derivative: the live scene in the Calculus desktop app](https://www.ai999x.com/?ax_shot=calculus-ai999x/see-2.webp)](https://www.ai999x.com/models/calculus-ai999x/)
+
+*Directional derivative*
+
+[![Error function: the live scene in the Calculus desktop app](https://www.ai999x.com/?ax_shot=calculus-ai999x/see-3.webp)](https://www.ai999x.com/models/calculus-ai999x/)
+
+*Error function*
 
 Every calculation, with its formula, a worked example and its figures: **[Calculus on ai999x.com](https://www.ai999x.com/models/calculus-ai999x/)**. Install guides for the app and the command line: [https://www.ai999x.com/desktop-cli/](https://www.ai999x.com/desktop-cli/).
 
-Version 1.6.3 · License: Apache-2.0 · Author: Ibnul Jaif Farabi · Organization: AI999X · Contact: support@ai999x.com · [Support the project](https://buymeacoffee.com/ibnuljaiffarabi)
+Version 1.6.4 · License: Apache-2.0 · Author: Ibnul Jaif Farabi · Organization: AI999X · Contact: support@ai999x.com · [Support the project](https://buymeacoffee.com/ibnuljaiffarabi)
 
 *The Future Is Self-Improving.*
 
 ## Source and releases
 
-This repository holds the installable source of each release, exactly as published on [PyPI](https://pypi.org/project/calculus-ai999x/) (`pip install .` builds it). Releases are tagged `v1.6.3`; the [GitHub release](https://github.com/AI999X/calculus-ai999x/releases/tag/v1.6.3) carries the wheel, the desktop app and the command-line program for Windows and Linux, and their checksums.
+This repository holds the installable source of each release, exactly as published on [PyPI](https://pypi.org/project/calculus-ai999x/) (`pip install .` builds it). Releases are tagged `v1.6.4`; the [GitHub release](https://github.com/AI999X/calculus-ai999x/releases/tag/v1.6.4) carries the wheel, the desktop app and the command-line program for Windows and Linux, and their checksums.
 
 ## Build the program from source
 

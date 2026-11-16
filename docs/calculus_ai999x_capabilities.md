@@ -1931,9 +1931,9 @@ $$
 - **Assumes:** $a < b$; f a non-linear polynomial with rational coefficients
 - **Evidence:** certified procedure (gates: conditions, control, examples, fast_enough, questions, reference, sensitivity, templates)
 
-![The mean value theorem for y = x^2 on [0, 2] (the worked example; curve values computed by the package): the secant slope is 2, and the tangent at each returned c has the same slope (tangent segments drawn with that slope through (c, f(c)))](https://www.ai999x.com/?ax_fig=calculus-ai999x/mean-value-theorem-graph)
+![The mean value theorem for y = x^2 on [0, 3] (the worked example; curve values computed by the package): the secant slope is 3, and the tangent at each returned c has the same slope (tangent segments drawn with that slope through (c, f(c)))](https://www.ai999x.com/?ax_fig=calculus-ai999x/mean-value-theorem-graph)
 
-*The mean value theorem for y = x^2 on [0, 2] (the worked example; curve values computed by the package): the secant slope is 2, and the tangent at each returned c has the same slope (tangent segments drawn with that slope through (c, f(c))). Marked: c = 1.*
+*The mean value theorem for y = x^2 on [0, 3] (the worked example; curve values computed by the package): the secant slope is 3, and the tangent at each returned c has the same slope (tangent segments drawn with that slope through (c, f(c))). Marked: c = 1.5.*
 
 ```python
 calculus_ai999x.solve('mean_value_theorem', f='x^2', a=0, b=2)
@@ -3287,7 +3287,7 @@ $$
 
 ![The gamma function for −4 < x ≤ 5, computed by the package at 176 points (poles at 0, −1, −2, −3, where it is not drawn): at the positive integers it is the factorial, Γ(n) = (n − 1)!, dots Γ(1) … Γ(4) = 1, 1, 2, 6](https://www.ai999x.com/?ax_fig=calculus-ai999x/gamma-function-curve)
 
-*The gamma function for −4 < x ≤ 5, computed by the package at 176 points (poles at 0, −1, −2, −3, where it is not drawn): at the positive integers it is the factorial, Γ(n) = (n − 1)!, dots Γ(1) … Γ(4) = 1, 1, 2, 6. The worked example: Γ(5) = 24 (marked).*
+*The gamma function for −4 < x ≤ 5, computed by the package at 176 points (poles at 0, −1, −2, −3, where it is not drawn): at the positive integers it is the factorial, Γ(n) = (n − 1)!, dots Γ(1) … Γ(4) = 1, 1, 2, 6. The worked example: Γ(4.5) = 11.6317 (marked).*
 
 ```python
 calculus_ai999x.solve('gamma_function', x=5)
@@ -3479,7 +3479,7 @@ $$
 
 ![Bessel functions of the first kind J0, J1, J2, J3 for 0 ≤ x ≤ 15, each computed by the package at 61 points: decaying oscillations, Jₙ starting at 0 for n ≥ 1](https://www.ai999x.com/?ax_fig=calculus-ai999x/bessel-j-curve)
 
-*Bessel functions of the first kind J0, J1, J2, J3 for 0 ≤ x ≤ 15, each computed by the package at 61 points: decaying oscillations, Jₙ starting at 0 for n ≥ 1. Marked: the worked example, J0(0) = 1.*
+*Bessel functions of the first kind J0, J1, J2, J3 for 0 ≤ x ≤ 15, each computed by the package at 61 points: decaying oscillations, Jₙ starting at 0 for n ≥ 1. Marked: the worked example, J0(1) = 0.765198.*
 
 ```python
 calculus_ai999x.solve('bessel_j', n=0, x=0)
@@ -3572,7 +3572,7 @@ $$
 
 ![Legendre polynomials of degree 1 to 5 on [−1, 1], each computed by the package at 81 points: degree n has n zeros in the interval](https://www.ai999x.com/?ax_fig=calculus-ai999x/legendre-polynomial-curve)
 
-*Legendre polynomials of degree 1 to 5 on [−1, 1], each computed by the package at 81 points: degree n has n zeros in the interval. Marked: the worked example P2(0.5) = -0.125.*
+*Legendre polynomials of degree 1 to 5 on [−1, 1], each computed by the package at 81 points: degree n has n zeros in the interval. Marked: the worked example P3(0.5) = -0.4375.*
 
 ```python
 calculus_ai999x.solve('legendre_polynomial', n=2, x=0.5)
