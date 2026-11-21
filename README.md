@@ -10,8 +10,8 @@ Calculus covers limits, derivatives, integrals, series, Taylor polynomials, mult
 
 | | |
 |---|---|
-| **Desktop app** (Windows, Linux) | [Windows](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.5/ai999x-calculus-1.6.5-windows-x86_64.zip) · [Linux](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.5/ai999x-calculus-1.6.5-linux-x86_64.tar.gz) |
-| **Command line** `calculus` (Windows, Linux) | [Windows](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.4/ai999x-cli-1.6.4-windows-x86_64.zip) · [Linux](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.4/ai999x-cli-1.6.4-linux-x86_64.tar.gz) |
+| **Desktop app** (Windows, Linux) | [Windows](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.6/ai999x-calculus-1.6.6-windows-x86_64.zip) · [Linux](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.6/ai999x-calculus-1.6.6-linux-x86_64.tar.gz) |
+| **Command line** `calculus` (Windows, Linux) | [Windows](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.6/ai999x-cli-1.6.6-windows-x86_64.zip) · [Linux](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.6/ai999x-cli-1.6.6-linux-x86_64.tar.gz) |
 | **Browser** (any device) | [Try it on the model page](https://www.ai999x.com/models/calculus-ai999x/#capabilities) |
 | **Python** 3.10+ | `pip install calculus-ai999x`: a pure-Python build of the same calculations (the compiled engine is in the app, the command line and the browser) |
 
@@ -198,96 +198,6 @@ $ calculus solve space_curve_arc_length t0=0 t1=6.283185307 "xt=cos(t)" "yt=sin(
 arc_length = 8.885765876
 ```
 
-## Rust library: 15 examples
-
-The crate `calculus-ai999x` (in `rust/` of the GitHub repository) answers a JSON request with `calculus_ai999x::solve_json`. Each call below was compiled and run on this release; the comment under it is what it printed. The whole program is `rust/calculus/examples/readme.rs`: `cd rust && cargo run --release --example readme -p calculus-ai999x`.
-
-```rust
-use serde_json::{json, Value};
-
-fn show(request: Value) {
-    let answer: Value = serde_json::from_str(&calculus_ai999x::solve_json(&request.to_string())).unwrap();
-    println!("{}", answer["outcome"].as_str().unwrap_or(""));
-    for v in answer["values"].as_array().into_iter().flatten() {
-        let unit = v[2].as_str().unwrap_or("");
-        let unit = if unit.is_empty() || unit == "1" { String::new() } else { format!(" {unit}") };
-        println!("{} = {}{}", v[0].as_str().unwrap_or(""), v[1], unit);
-    }
-}
-
-show(json!({"key": "extrema_on_interval", "inputs": {"a": "0", "b": "2", "f": "x^3 - 3x"}}));
-// SOLVED
-// absolute_max = 2.0
-// absolute_min = -2.0
-// critical_points = [1.0]
-
-show(json!({"key": "fourier_coefficients", "inputs": {"L": "3.141592654", "f": "x", "k": "2"}}));
-// SOLVED
-// a0 = 0.0
-// a_k = 0.0
-// b_k = -1.0000000001305729
-
-show(json!({"key": "antiderivative", "inputs": {"f": "3x^2 + 2x"}}));
-// SOLVED
-// antiderivative = "x^3 + x^2 + C"
-
-show(json!({"key": "limit_at_point", "inputs": {"a": "2", "f": "(x^2 - 4)/(x - 2)"}}));
-// SOLVED
-// limit = 4.0
-
-show(json!({"key": "polar_double_integral", "inputs": {"al": "0", "be": "6.283185307", "f": "x^2 + y^2", "r1": "0", "r2": "1"}}));
-// SOLVED
-// integral = 1.57079632675
-// region_area = 3.1415926535
-
-show(json!({"key": "directional_derivative", "inputs": {"f": "x^2*y", "p": [1, 2], "u": [3, 4]}}));
-// SOLVED
-// directional_derivative = 3.2
-
-show(json!({"key": "numerical_derivative", "inputs": {"a": "1", "f": "x^2", "h": "0.1", "method": "central"}}));
-// SOLVED
-// approximation = 2.0
-// exact = 2.0
-// error = 0.0
-
-show(json!({"key": "gauss_legendre", "inputs": {"a": "0", "b": "2", "f": "x^3 + x^2", "n": "2"}}));
-// SOLVED
-// approximation = 6.666666666666667
-// exact = 6.666666666666667
-// error = 0.0
-
-show(json!({"key": "newton_method", "inputs": {"f": "x^2 - 2", "n": "3", "x0": "1"}}));
-// SOLVED
-// x_n = 1.4142156862745099
-// f_x_n = 6.007304882737409e-6
-// iterates = [1.5,1.4166666666666667,1.4142156862745099]
-
-show(json!({"key": "parametric_arc_length", "inputs": {"t0": "0", "t1": "3.141592654", "xt": "cos(t)", "yt": "sin(t)"}}));
-// SOLVED
-// arc_length = 3.141592654
-
-show(json!({"key": "polar_area", "inputs": {"al": "0", "be": "6.283185307", "r": "1 + cos(theta)"}}));
-// SOLVED
-// area = 4.712388980025517
-
-show(json!({"key": "geometric_partial_sum", "inputs": {"a": "2", "n": "4", "r": "3"}}));
-// SOLVED
-// sum = 80.0
-
-show(json!({"key": "bessel_j", "inputs": {"n": "0", "x": "1"}}));
-// SOLVED
-// J = 0.7651976865579666
-
-show(json!({"key": "conservative_field", "inputs": {"P": "2x*y", "Q": "x^2"}}));
-// SOLVED
-// conservative = "yes"
-// potential = "y*x^2 + C"
-
-show(json!({"key": "space_curve_arc_length", "inputs": {"t0": "0", "t1": "6.283185307", "xt": "cos(t)", "yt": "sin(t)", "zt": "t"}}));
-// SOLVED
-// arc_length = 8.88576587606276
-```
-
 ## Guides
 
 - Desktop app guide: the window, every calculation, scenes and charts: [PDF](https://huggingface.co/AI999X/calculus-ai999x/blob/main/docs/calculus_ai999x_desktop_guide.pdf) · [HTML](https://huggingface.co/AI999X/calculus-ai999x/blob/main/docs/calculus_ai999x_desktop_guide.html) · [Markdown](https://huggingface.co/AI999X/calculus-ai999x/blob/main/docs/calculus_ai999x_desktop_guide.md)
@@ -296,7 +206,7 @@ show(json!({"key": "space_curve_arc_length", "inputs": {"t0": "0", "t1": "6.2831
 
 Every calculation, with its formula, a worked example and its figures: **[Calculus on ai999x.com](https://www.ai999x.com/models/calculus-ai999x/)**. Install guides for the app and the command line: [https://www.ai999x.com/desktop-cli/](https://www.ai999x.com/desktop-cli/).
 
-Version 1.6.4 · License: Apache-2.0 · Author: Ibnul Jaif Farabi · Organization: AI999X · Contact: support@ai999x.com · [Support the project](https://buymeacoffee.com/ibnuljaiffarabi)
+Version 1.6.6 · License: Apache-2.0 · Author: Ibnul Jaif Farabi · Organization: AI999X · Contact: support@ai999x.com · [Support the project](https://buymeacoffee.com/ibnuljaiffarabi)
 
 *The Future Is Self-Improving.*
 
