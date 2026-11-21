@@ -10,8 +10,8 @@ Calculus covers limits, derivatives, integrals, series, Taylor polynomials, mult
 
 | | |
 |---|---|
-| **Desktop app** (Windows, Linux) | [Windows](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.6/ai999x-calculus-1.6.6-windows-x86_64.zip) · [Linux](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.6/ai999x-calculus-1.6.6-linux-x86_64.tar.gz) |
-| **Command line** `calculus` (Windows, Linux) | [Windows](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.6/ai999x-cli-1.6.6-windows-x86_64.zip) · [Linux](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.6/ai999x-cli-1.6.6-linux-x86_64.tar.gz) |
+| **Desktop app** (Windows, Linux) | [Windows](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.7/ai999x-calculus-1.6.7-windows-x86_64.zip) · [Linux](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.7/ai999x-calculus-1.6.7-linux-x86_64.tar.gz) |
+| **Command line** `calculus` (Windows, Linux) | [Windows](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.7/ai999x-cli-1.6.7-windows-x86_64.zip) · [Linux](https://github.com/AI999X/ai999x-desktop/releases/download/v1.6.7/ai999x-cli-1.6.7-linux-x86_64.tar.gz) |
 | **Browser** (any device) | [Try it on the model page](https://www.ai999x.com/models/calculus-ai999x/#capabilities) |
 | **Python** 3.10+ | `pip install calculus-ai999x`: a pure-Python build of the same calculations (the compiled engine is in the app, the command line and the browser) |
 
@@ -135,69 +135,6 @@ print(a.outcome, a.values)
 # SOLVED {'limit': 3.0}
 ```
 
-## Command line: 15 examples
-
-Each command below was run with `calculus` of this release; the lines under it are the answer it printed (the full answer goes on with the method, every input in SI units and the conditions it assumes).
-
-```text
-$ calculus solve extrema_on_interval a=0 b=2 "f=x^3 - 3x"
-absolute_max = 2
-absolute_min = -2
-critical_points = [1.0]
-
-$ calculus solve fourier_coefficients L=3.141592654 f=x k=2
-a0 = 0
-a_k = 0
-b_k = -1
-
-$ calculus solve antiderivative "f=3x^2 + 2x"
-antiderivative = x^3 + x^2 + C
-
-$ calculus solve limit_at_point a=2 "f=(x^2 - 4)/(x - 2)"
-limit = 4
-
-$ calculus solve polar_double_integral al=0 be=6.283185307 "f=x^2 + y^2" r1=0 r2=1
-integral = 1.570796327
-region_area = 3.141592654
-
-$ calculus solve directional_derivative "f=x^2*y" "p=[1, 2]" "u=[3, 4]"
-directional_derivative = 3.2
-
-$ calculus solve numerical_derivative a=1 "f=x^2" h=0.1 method=central
-approximation = 2
-exact = 2
-error = 0
-
-$ calculus solve gauss_legendre a=0 b=2 "f=x^3 + x^2" n=2
-approximation = 6.666666667
-exact = 6.666666667
-error = 0
-
-$ calculus solve newton_method "f=x^2 - 2" n=3 x0=1
-x_n = 1.414215686
-f_x_n = 6.007304883e-06
-iterates = [1.5,1.4166666666666667,1.4142156862745099]
-
-$ calculus solve parametric_arc_length t0=0 t1=3.141592654 "xt=cos(t)" "yt=sin(t)"
-arc_length = 3.141592654
-
-$ calculus solve polar_area al=0 be=6.283185307 "r=1 + cos(theta)"
-area = 4.71238898
-
-$ calculus solve geometric_partial_sum a=2 n=4 r=3
-sum = 80
-
-$ calculus solve bessel_j n=0 x=1
-J = 0.7651976866
-
-$ calculus solve conservative_field "P=2x*y" "Q=x^2"
-conservative = yes
-potential = y*x^2 + C
-
-$ calculus solve space_curve_arc_length t0=0 t1=6.283185307 "xt=cos(t)" "yt=sin(t)" zt=t
-arc_length = 8.885765876
-```
-
 ## Guides
 
 - Desktop app guide: the window, every calculation, scenes and charts: [PDF](https://huggingface.co/AI999X/calculus-ai999x/blob/main/docs/calculus_ai999x_desktop_guide.pdf) · [HTML](https://huggingface.co/AI999X/calculus-ai999x/blob/main/docs/calculus_ai999x_desktop_guide.html) · [Markdown](https://huggingface.co/AI999X/calculus-ai999x/blob/main/docs/calculus_ai999x_desktop_guide.md)
@@ -206,13 +143,13 @@ arc_length = 8.885765876
 
 Every calculation, with its formula, a worked example and its figures: **[Calculus on ai999x.com](https://www.ai999x.com/models/calculus-ai999x/)**. Install guides for the app and the command line: [https://www.ai999x.com/desktop-cli/](https://www.ai999x.com/desktop-cli/).
 
-Version 1.6.6 · License: Apache-2.0 · Author: Ibnul Jaif Farabi · Organization: AI999X · Contact: support@ai999x.com · [Support the project](https://buymeacoffee.com/ibnuljaiffarabi)
+Version 1.6.7 · License: Apache-2.0 · Author: Ibnul Jaif Farabi · Organization: AI999X · Contact: support@ai999x.com · [Support the project](https://buymeacoffee.com/ibnuljaiffarabi)
 
 *The Future Is Self-Improving.*
 
 ## Source and releases
 
-This repository holds the installable source of each release, exactly as published on [PyPI](https://pypi.org/project/calculus-ai999x/) (`pip install .` builds it). Releases are tagged `v1.6.6`; the [GitHub release](https://github.com/AI999X/calculus-ai999x/releases/tag/v1.6.6) carries the wheel, the desktop app and the command-line program for Windows and Linux, and their checksums.
+This repository holds the installable source of each release, exactly as published on [PyPI](https://pypi.org/project/calculus-ai999x/) (`pip install .` builds it). Releases are tagged `v1.6.7`; the [GitHub release](https://github.com/AI999X/calculus-ai999x/releases/tag/v1.6.7) carries the wheel, the desktop app and the command-line program for Windows and Linux, and their checksums.
 
 ## Build the program from source
 
